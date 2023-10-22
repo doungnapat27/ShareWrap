@@ -5,5 +5,5 @@ ShareWrap is a website for bill management, empowering diners to share meals and
 Pleae follow -> https://scrimba.com/articles/react-project-structure/
 
 ## 🏃‍♂️How to run?
-`npm install`
+`npm install` </br>
 `npm start`
