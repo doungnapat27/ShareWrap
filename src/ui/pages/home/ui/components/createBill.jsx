@@ -3,7 +3,7 @@ import {
   Button, Typography
 } from '@mui/material'
 
-import LibraryAddTwoToneIcon from '@mui/icons-material/LibraryAddTwoTone';
+import NoteStackAdd from '../../../../assets/note-stack-add.svg'
 
 function CreateBill() {
   return (
@@ -13,13 +13,21 @@ function CreateBill() {
       sx={{
         justifyContent: 'space-between',
         padding: '33px 20px',
-        borderRadius: '10px'
+        borderRadius: '10px',
+        marginBottom: '30px',
+        backgroundColor: 'rgba(152, 30, 37, 0.80)',
         }}
       >
-      <Typography sx={{ fontWeight: 'bold' }}>
+      <Typography
+        sx={{
+          fontWeight: 'bold',
+          fontSize: '20px',
+          // fontFamily: 'inter'
+          }}
+        >
         Create bill
       </Typography>
-      <LibraryAddTwoToneIcon />
+      <img src={NoteStackAdd} alt='note-stack-add'/>
     </Button>
   )
 }
