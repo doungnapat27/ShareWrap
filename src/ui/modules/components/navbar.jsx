@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../../assets/logo.svg";
+import LogoHomepage from "../../assets/logoHomepage.svg"
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 
@@ -13,7 +13,7 @@ function Navbar() {
         elevation={0}
         sx={{ backgroundColor: "#fff", paddingTop: '8px' }}>
         <Toolbar>
-          <img src={Logo} alt="Logo" />
+          <img src={LogoHomepage} alt="Logo" />
           <Typography
             variant="h6"
             component="div"
