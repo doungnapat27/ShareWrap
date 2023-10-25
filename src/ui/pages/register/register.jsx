@@ -259,7 +259,7 @@ class Register extends Component {
                             variant="contained" 
                             type="submit"
                             sx={{
-                                mt: 4,
+                                mt: 6,
                                 width: '190px', 
                                 backgroundColor: '#981E25',    
                                 '&:hover': {
@@ -268,10 +268,41 @@ class Register extends Component {
                                 marginLeft: 'auto',  
                                 marginRight: 'auto',
                                 display: 'block',
+                                fontWeight: 'bold',
+                                borderRadius: '10px'
                             }}
                         >
                             Register
                         </Button>
+                        <Box 
+                        sx={{ 
+                            mt: 5, 
+                            display: 'flex', 
+                            justifyContent: 'center', 
+                            alignItems: 'center', 
+                            }}>
+                            <Typography variant="body1">
+                                Already have an account?
+                            </Typography>
+                            <Button 
+                                color="primary" 
+                                sx={{
+                                    textTransform: 'none', 
+                                    color: '#981E25',
+                                    textDecoration: 'underline',
+                                    fontWeight: 'bold',
+                                    '&:hover': {
+                                        textDecoration: 'underline',  
+                                        backgroundColor: 'transparent',
+                                    }
+                                }} 
+                                onClick={() => {
+                                    // Handle the sign-in action. Navigate to the sign-in page or show the sign-in modal.
+                                }}
+                            >
+                                Sign In
+                            </Button>
+                        </Box>
                     </form>
                 </Box>
             </Box>
