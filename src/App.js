@@ -3,6 +3,7 @@ import Loginpage from "../src/ui/pages/login";
 import Register from "../src/ui/pages/register/register.jsx";
 import Home from "../src/ui/pages/home";
 import "./global.css"
+
 function App() {
   return (
     <BrowserRouter>
