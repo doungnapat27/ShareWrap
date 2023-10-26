@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Tabs, Tab, TabList, Typography, Box } from "@mui/material";
-
-import CreateBill from "./createBill";
-import Bill from "./bill";
-
 import TabPanel from "../../../../../common/tabPanel";
+
+import {
+  Typography,
+  Box,
+  Grid,
+  Button,
+  Tabs,
+  Tab,
+  IconButton,
+} from "@mui/material";
 
 TabPanel.propTypes = {
   children: PropTypes.node,
@@ -20,12 +25,8 @@ function a11yProps(index) {
   };
 }
 
-function HomeTab() {
+function TabInCreateBill() {
   const [value, setValue] = useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
   return (
     <Box sx={{ width: "100%" }}>
       <Box
@@ -35,31 +36,25 @@ function HomeTab() {
           borderBottomLeftRadius: "15px",
           borderBottomRightRadius: "15px",
           backgroundColor: "#fff",
+            // display: 'flex'
         }}
       >
         <Tabs
           value={value}
-          onChange={handleChange}
           sx={{ padding: "0 30px" }}
           TabIndicatorProps={{
             sx: { background: "#FFB53B" },
           }}
         >
           <Tab
-            label="Homepage"
+            label="Create Bill"
             sx={{ flex: 1, width: "50%" }}
             {...a11yProps(0)}
-          />
-          <Tab
-            label="History"
-            sx={{ flex: 1, width: "50%" }}
-            {...a11yProps(1)}
           />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
         <Box>
-          <CreateBill />
           <Typography
             sx={{
               fontFamily: "Inter",
@@ -67,20 +62,13 @@ function HomeTab() {
               fontSize: "20px",
             }}
           >
-            Pending bills
+            Create bill TT
           </Typography>
-          <Box mt={2}>
-            <Bill />
-            <Bill />
-            <Bill />
-          </Box>
+          <Box mt={2}></Box>
         </Box>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        Item two
       </TabPanel>
     </Box>
   );
 }
 
-export default HomeTab;
+export default TabInCreateBill;
