@@ -43,6 +43,9 @@ class Loginpage extends Component {
       render() {
         const { email, password} = this.state;
         const { classes } = this.props;
+        const handleSignUpClick = () => {
+            window.location.href = "/register";
+        };
         return (
                 <Box className={classes.container}
                   elevation={3}
@@ -103,9 +106,7 @@ class Loginpage extends Component {
                               Don't have an account?
                           </Typography>
                           <Button className={classes.Buttontosignup}
-                              onClick={() => {
-                                  // Handle the sign-in action. Navigate to the sign-in page or show the sign-in modal.
-                              }}
+                              onClick={handleSignUpClick}
                           >
                               Sign Up
                           </Button>
