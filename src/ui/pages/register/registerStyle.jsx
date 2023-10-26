@@ -44,7 +44,6 @@ const styles = {
         width: '100%',
         marginBottom: '16px',   
         marginTop: '16px',  
-
         borderRadius: '10px',
     },
     TextBoxInput:addImportant({

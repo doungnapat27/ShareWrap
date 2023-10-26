@@ -81,6 +81,9 @@ class Register extends Component {
     render() {
         const { username,email, password, confirmPassword } = this.state;
         const { classes } = this.props;
+        const handleSignInClick = () => {
+            window.location.href = "/";
+        };
         return (
                 <Box className={classes.container}
                     elevation={3}
@@ -181,9 +184,7 @@ class Register extends Component {
                             </Typography>
                             <Button className={classes.signinButton}
                                 color="primary" 
-                                onClick={() => {
-                                    // Handle the sign-in action. Navigate to the sign-in page or show the sign-in modal.
-                                }}
+                                onClick={handleSignInClick}
                             >
                                 Sign In
                             </Button>
