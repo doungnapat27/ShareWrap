@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import TabPanel from "../../../../../common/tabPanel";
+import BillOption from "./billOption";
 
 import {
   Typography,
@@ -36,7 +37,6 @@ function TabInCreateBill() {
           borderBottomLeftRadius: "15px",
           borderBottomRightRadius: "15px",
           backgroundColor: "#fff",
-            // display: 'flex'
         }}
       >
         <Tabs
@@ -55,15 +55,7 @@ function TabInCreateBill() {
       </Box>
       <TabPanel value={value} index={0}>
         <Box>
-          <Typography
-            sx={{
-              fontFamily: "Inter",
-              fontWeight: "700",
-              fontSize: "20px",
-            }}
-          >
-            Create bill TT
-          </Typography>
+          <BillOption />
           <Box mt={2}></Box>
         </Box>
       </TabPanel>
