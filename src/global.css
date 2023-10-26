@@ -1,0 +1,12 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background-image: url('./ui/assets/BG.svg');
+  background-size: 600%;
+  background-position: center;
+}
