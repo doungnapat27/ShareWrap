@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import { Box, TextField, Button, Typography, InputAdornment, IconButton } from '@mui/material';
+import { Box, TextField, Button, Typography, InputAdornment} from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import PasswordIcon from '@mui/icons-material/Lock';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import backgroundImg from "..//../assets/BG.svg";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { darken } from '@mui/system';
-
+import withStyles from './registerStyle';
 
 class Register extends Component {
     // constructor(props) {
@@ -65,8 +62,7 @@ class Register extends Component {
     // }
 
     state = {
-        firstName: '',
-        lastName: '',
+        username: '',
         email: '',
         password: '',
         confirmPassword: ''
@@ -83,102 +79,33 @@ class Register extends Component {
         console.log(this.state);
     }
     render() {
-        const { firstName, lastName,email, password, confirmPassword } = this.state;
+        const { username,email, password, confirmPassword } = this.state;
+        const { classes } = this.props;
         return (
-                <Box
+                <Box className={classes.container}
                     elevation={3}
-                    sx={{
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',  
-                    backgroundImage: `url(${backgroundImg})`,     
-                    backgroundSize: '250%',
-                    backgroundPosition: 'center',
-                    borderRadius: 2,
-                    boxShadow: 3,
-                    position: 'absolute',      
-                    top: '50%',                
-                    left: '50%',               
-                    transform: 'translate(-50%, -50%)' 
-                    }}
                     noValidate
                     autoComplete="off"
                 >  
-                    <IconButton
-                        sx={{
-                            position: 'absolute',
-                            top: 30, 
-                            left: 18, 
-                            zIndex: 3, 
-                        }}
-                        onClick={() => {
-                            // Handle the back action. This could be history.goBack() if using react-router
-                            console.log("Going back...");
-                        }}
-                    >
-                        <ArrowBackIcon />
-                    </IconButton>
-                    <Box 
+                    <Box className={classes.boxform}
                         component="form"
                         onSubmit={this.handleSubmit}
-                        sx={{
-                            width: '100%',
-                            maxWidth: 300,
-                            padding: 3,  
-                        }}
                     >
                     <form onSubmit={this.handleSubmit}>
-                    <Box 
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'center',  
-                            alignItems: 'center',      
-                            height: '100%',  
-                            marginBottom: 5,   
-                            marginTop: 6,       
-                        }}
-                    >
-                        <Typography 
-                            sx={{
-                                color: 'black',
-                                fontSize: 32,
-                                fontWeight: 'bold',
-                                textAlign: 'center',
-                            }}  
-                        >
+                    <Box className={classes.TextBox}>
+                        <Typography className={classes.headerText} >
                             Register
                         </Typography>
                     </Box>
+                    <Box className={classes.inputTextField}>
                         <TextField 
-                            label="First Name" 
-                            id='first_name'
+                            className={classes.TextBoxInput}
+                            placeholder='Username'
+                            id='username'
                             fullWidth 
                             margin="normal"
-                            name="First Name"
-                            // value={firstName} 
-                            onChange={this.handleChange}
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="send">
-                                        <AccountBoxIcon />
-                                    </InputAdornment>
-                                ),
-                                style:{
-                                    borderRadius: '10px',
-                                    backgroundColor: 'rgba(255, 255, 255, 0.5)',
-                                },
-                            }}
-                        />
-                        <TextField 
-                            label="Last Name" 
-                            id='last_name'
-                            fullWidth 
-                            margin="normal"
-                            name="Last Name"
-                            // value={lastName}
+                            name="username"
+                            // value={username} 
                             onChange={this.handleChange}
                             InputProps={{
                                 startAdornment: (
@@ -186,14 +113,11 @@ class Register extends Component {
                                         <AccountBoxIcon />
                                     </InputAdornment>
                                 ),
-                                style:{
-                                    borderRadius: '10px',
-                                    backgroundColor: 'rgba(255, 255, 255, 0.5)',
-                                },
                             }}
                         />
                         <TextField 
-                            label="Email" 
+                            className={classes.TextBoxInput}
+                            placeholder='Email'
                             type="email"
                             id='email'
                             fullWidth 
@@ -207,14 +131,11 @@ class Register extends Component {
                                         <EmailIcon />
                                     </InputAdornment>
                                 ),
-                                style:{
-                                    borderRadius: '10px',
-                                    backgroundColor: 'rgba(255, 255, 255, 0.5)',
-                                },
                             }}
                         />
                         <TextField 
-                            label="Password" 
+                            className={classes.TextBoxInput}
+                            placeholder='Password' 
                             type='password'
                             id='password'
                             fullWidth 
@@ -228,14 +149,11 @@ class Register extends Component {
                                         <PasswordIcon />
                                     </InputAdornment>
                                 ),
-                                style:{
-                                    borderRadius: '10px',
-                                    backgroundColor: 'rgba(255, 255, 255, 0.5)',
-                                },
                             }}
                         />
                         <TextField 
-                            label="Confirm Password" 
+                            className={classes.TextBoxInput}
+                            placeholder='Confirm password'
                             type='password'
                             id='confirm_password'
                             fullWidth
@@ -249,53 +167,20 @@ class Register extends Component {
                                         <PasswordIcon />
                                     </InputAdornment>
                                 ),
-                                style:{
-                                    borderRadius: '10px',
-                                    backgroundColor: 'rgba(255, 255, 255, 0.5)',
-                                },
                             }}
                         />
-                        <Button 
+                    </Box>
+                        <Button className={classes.registerButton}
                             variant="contained" 
-                            type="submit"
-                            sx={{
-                                mt: 6,
-                                width: '190px', 
-                                backgroundColor: '#981E25',    
-                                '&:hover': {
-                                    backgroundColor: darken('#981E25', 0.15),  
-                                },
-                                marginLeft: 'auto',  
-                                marginRight: 'auto',
-                                display: 'block',
-                                fontWeight: 'bold',
-                                borderRadius: '10px'
-                            }}
-                        >
+                            type="submit" >
                             Register
                         </Button>
-                        <Box 
-                        sx={{ 
-                            mt: 5, 
-                            display: 'flex', 
-                            justifyContent: 'center', 
-                            alignItems: 'center', 
-                            }}>
+                        <Box  className={classes.AccountBox}>
                             <Typography variant="body1">
                                 Already have an account?
                             </Typography>
-                            <Button 
+                            <Button className={classes.signinButton}
                                 color="primary" 
-                                sx={{
-                                    textTransform: 'none', 
-                                    color: '#981E25',
-                                    textDecoration: 'underline',
-                                    fontWeight: 'bold',
-                                    '&:hover': {
-                                        textDecoration: 'underline',  
-                                        backgroundColor: 'transparent',
-                                    }
-                                }} 
                                 onClick={() => {
                                     // Handle the sign-in action. Navigate to the sign-in page or show the sign-in modal.
                                 }}
@@ -310,4 +195,4 @@ class Register extends Component {
     }
 }
 
-export default Register;
+export default withStyles(Register);
