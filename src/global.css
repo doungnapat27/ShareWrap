@@ -7,6 +7,10 @@
 
 body{
   background-image: url('./ui/assets/BG.svg');
-  background-size: 600%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
   background-position: center;
+  min-height: 100vh;
+  background-attachment: fixed;
 }

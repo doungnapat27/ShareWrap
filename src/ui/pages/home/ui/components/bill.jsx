@@ -23,7 +23,7 @@ function Bill() {
         }}
       >
         <Box>
-          <Typography>Bill name</Typography>
+          <Typography sx={{ fontFamily: 'Inter' }}>Bill name</Typography>
           <Typography sx={{ fontSize: "24px", fontWeight: "bold" }}>
             ฿ 200
           </Typography>
@@ -54,7 +54,7 @@ function Bill() {
                 },
               }}
             >
-              <ArrowForwardIosIcon sx={{ fontSize: "ภ0px", color: '#000' }} />
+              <ArrowForwardIosIcon sx={{ fontSize: "40px", color: '#000' }} />
             </Button>
           </Box>
         </Box>

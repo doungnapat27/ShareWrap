@@ -3,7 +3,13 @@ import LogoHomepage from "../../assets/logoHomepage.svg"
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 
-import { AppBar, Box, Toolbar, IconButton, Typography } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography
+} from "@mui/material";
 
 function Navbar() {
   return (
