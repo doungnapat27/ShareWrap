@@ -60,7 +60,7 @@ function TabInCreateBill() {
             <BillOption
               topic="Manual Bill splitting"
               helperText="Share different expense with friends"
-              logoUrl="../../../../assets/mdiPencilmanualBillSplitting.svg"
+              // logoUrl="../../../../assets/mdiPencilmanualBillSplitting.svg"
             />
             <BillOption
               topic="Equal Bill splitting"

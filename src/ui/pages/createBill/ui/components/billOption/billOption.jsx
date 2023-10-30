@@ -24,8 +24,9 @@ function BillOption(props) {
   return (
     <Card elevation={1} className={classes.cardContainer}>
       <Box className={classes.boxContent}>
-        <Box>
-          <Typography sx={{ fontWeight: "bold" }}>
+        <Box className={classes.nameContent}>
+          <Typography sx={{ 
+            fontWeight: "bold" }}>
             {topic}
           </Typography>
           <Typography mt={1} sx={{ fontSize: "12px", color: "#AA6A00" }}>
@@ -36,10 +37,13 @@ function BillOption(props) {
           <Box component="img" src={BillOutline} />
           <Box component="img" src={Pencil}/>
         </Box>
-      </Box>
-      <Button className={classes.nextButton}>
+        <Button className={classes.nextButton}>
         <ArrowForwardIosIcon />
       </Button>
+      </Box>
+      {/* <Button className={classes.nextButton}>
+        <ArrowForwardIosIcon />
+      </Button> */}
     </Card>
   );
 }

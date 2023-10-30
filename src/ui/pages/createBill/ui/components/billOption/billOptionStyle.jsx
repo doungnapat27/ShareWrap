@@ -1,13 +1,21 @@
 import { makeStyles } from '@mui/styles';
+function addImportant(styles) {
+  return Object.fromEntries(
+    Object.entries(styles).map(([key, value]) => [key, `${value} !important`])
+  );
+}
 
 const useStyles = makeStyles({
-  cardContainer: {
+  
+  cardContainer: addImportant({
     display: "flex",
-    borderRadius: "10px !important",
+    borderRadius: "10px",
     paddingRight: "12px",
     justifyContent: "space-between",
     marginBottom: '20px',
-   },
+    width: '100%',
+    backgroundColor: "#FFB53B",
+   }),
    boxContent: {
     display: "flex",
     padding: "16px 12px",
@@ -24,14 +32,14 @@ const useStyles = makeStyles({
     height: "30px",
     alignSelf: "center",
    },
-   nextButton: {
-    backgroundColor: "#FFB53B !important",
-    marginLeft: "12px !important",
-    paddingTop: "16px !important",
-    paddingBottom: "16px !important",
-    alignSelf: "center !important",
-    color: '#000 !important'
-   }
+   nextButton: addImportant({
+    backgroundColor: "#fc9b00",
+    marginLeft: "12px",
+    paddingTop: "16px",
+    paddingBottom: "16px",
+    alignSelf: "center",
+    color: '#000'
+   }),
 })
 
 export default useStyles
