@@ -12,16 +12,16 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'flex-start', 
+    justifyContent: 'flex-start',
   },
   container: {
-    width: '100%', 
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'stretch', 
-    
+    alignItems: 'stretch',
+
   },
-  tabContainer: { 
+  tabContainer: {
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
@@ -43,24 +43,19 @@ const useStyles = makeStyles({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'stretch', 
-    '@media (min-width: 601px) and (max-width: 1024px)': { 
+    alignItems: 'stretch',
+    '@media (min-width: 601px) and (max-width: 1024px)': {
       width: '70%',
     },
-    '@media (min-width: 1025px)': { 
+    '@media (min-width: 1025px)': {
       width: '60%',
     },
   },
   centerTab: addImportant({
     flex: 1,
     width: '50%',
-    color: 'black', 
+    color: 'black',
   }),
-  typoStyle: {
-    fontFamily: "Inter",
-    fontWeight: "700",
-    fontSize: "20px",
-  },
 })
 
 export default useStyles

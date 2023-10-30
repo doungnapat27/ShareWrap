@@ -85,7 +85,7 @@ function TabInCreateBill() {
             alignItems: 'center'
           }}
         >
-          <Typography>Redo history bill</Typography>
+          <Typography variant='h4'>Redo history bill</Typography>
           <Button
             onClick={handleShowAllBill}
             sx={{

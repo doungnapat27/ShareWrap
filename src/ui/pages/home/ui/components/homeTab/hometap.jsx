@@ -37,8 +37,8 @@ function HomeTab() {
             className={classes.tabsStyle}
             sx={{ padding: "0 30px" }}
             TabIndicatorProps={{
-              sx: { 
-                background: "#FFB53B" ,        
+              sx: {
+                background: "#FFB53B" ,
               },
             }}
           >
@@ -59,7 +59,7 @@ function HomeTab() {
             <TabPanel value={value} index={0}>
               <Box>
                 <CreateBill />
-                <Typography className={classes.typoStyle}>
+                <Typography variant='h4'>
                   Pending bills
                 </Typography>
                 <Box mt={2}>

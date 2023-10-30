@@ -10,11 +10,11 @@ const useStyles = makeStyles({
     backgroundColor: "#fff !important",
     paddingTop: '8px',
     '& .MuiToolbar-root' :{
-        '@media (min-width: 601px) and (max-width: 1024px)': { 
+        '@media (min-width: 601px) and (max-width: 1024px)': {
             paddingLeft: '15%',
             paddingRight: '15%',
         },
-        '@media (min-width: 1025px)': { 
+        '@media (min-width: 1025px)': {
             paddingLeft: '15%',
             paddingRight: '15%',
         },

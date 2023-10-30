@@ -23,8 +23,8 @@ function Bill() {
         }}
       >
         <Box>
-          <Typography sx={{ fontFamily: 'Inter' }}>Bill name</Typography>
-          <Typography sx={{ fontSize: "24px", fontWeight: "bold" }}>
+          <Typography variant='h5'>Bill name</Typography>
+          <Typography variant='h3'>
             ฿ 200
           </Typography>
         </Box>
@@ -36,7 +36,7 @@ function Bill() {
               marginRight: "16px",
             }}
           >
-            <Typography>Created by</Typography>
+            <Typography variant='h6'>Created by</Typography>
             <AccountCircle
               sx={{
                 fontSize: "36px",

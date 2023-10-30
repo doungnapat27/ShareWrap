@@ -20,7 +20,7 @@ function Navbar() {
       <AppBar position="static" elevation={0} className={classes.appBarStyle}>
         <Toolbar>
           <img src={LogoHomepage} alt="Logo" />
-          <Typography variant="h6" component="div" className={classes.title}>
+          <Typography variant="h5" component="div" className={classes.title}>
             ShareWrap
           </Typography>
           <NotificationsNoneIcon className={classes.notificationIcon} />
