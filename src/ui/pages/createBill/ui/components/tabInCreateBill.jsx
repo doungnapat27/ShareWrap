@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import TabPanel from "../../../../../common/tabPanel";
 import BillOption from "./billOption/billOption";
 import HistoryBill from "./historyBill/historyBill";
-
+import useStyles from "./tabInCreateBillStyle";
 import {
   Typography,
   Box,
@@ -36,79 +36,69 @@ function TabInCreateBill() {
   }
 
   const displaytBillHistory = showAllBills ? historyBillItems : historyBillItems.slice(0, 2)
-
+  const classes = useStyles()
   return (
-    <Box sx={{ width: "100%" }}>
-      <Box
-        sx={{
-          borderBottom: 1,
-          borderColor: "divider",
-          borderBottomLeftRadius: "15px",
-          borderBottomRightRadius: "15px",
-          backgroundColor: "#fff",
-        }}
-      >
-        <Tabs
-          value={value}
-          sx={{ padding: "0 30px" }}
-          TabIndicatorProps={{
-            sx: { background: "#FFB53B" },
-          }}
-        >
-          <Tab
-            label="Create Bill"
-            sx={{ flex: 1, width: "50%" }}
-            {...a11yProps(0)}
-          />
-        </Tabs>
-      </Box>
-      <TabPanel value={value} index={0}>
-        <Box>
-          <BillOption
-            topic="Manual Bill splitting"
-            helperText="Share different expense with friends"
-            logoUrl="../../../../assets/mdiPencilmanualBillSplitting.svg"
-          />
-          <BillOption
-            topic="Equal Bill splitting"
-            helperText="Share same amoung expense with friends"
-          />
-          <BillOption
-            topic="Bill splitting Camera"
-            helperText="Photoshoot bill with camera to the system"
-          />
+    <Box className={classes.cover}>
+      <Box className={classes.container}>
+        <Box className={classes.tabContainer}>
+          <Tabs
+            value={value}
+            sx={{ padding: "0 30px" }}
+            TabIndicatorProps={{
+              sx: { background: "#FFB53B" },
+            }}
+          >
+            <Tab
+              label="Create Bill"
+              className={classes.centerTab}
+              {...a11yProps(0)}
+            />
+          </Tabs>
         </Box>
-        <Box mt={4} mb={2}
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center'
-          }}
-        >
-          <Typography>Redo history bill</Typography>
-          <Button
-            onClick={handleShowAllBill}
+        <TabPanel value={value} index={0} className={classes.cover}>
+          <Box className={classes.containerInfo}>
+            <BillOption
+              topic="Manual Bill splitting"
+              helperText="Share different expense with friends"
+              logoUrl="../../../../assets/mdiPencilmanualBillSplitting.svg"
+            />
+            <BillOption
+              topic="Equal Bill splitting"
+              helperText="Share same amoung expense with friends"
+            />
+          </Box>
+          <Box mt={4} mb={2}
             sx={{
-              color: '#838383',
-              textTransform: 'none',
-              }}
-            >
-              {showAllBills ? 'See less' : 'See all' }
-          </Button>
-        </Box>
-        <Grid
-          container
-          sx={{
-            justifyContent: "space-between",
-          }}
-        >
-          {displaytBillHistory.map((_, index) => (
-            <Grid item key={`historyBill number ${index}`} xs={6} md={6}>
-              <HistoryBill />
-            </Grid>
-          ))}
-        </Grid>
-      </TabPanel>
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}
+          >
+            <Typography>Redo history bill</Typography>
+            <Button
+              onClick={handleShowAllBill}
+              sx={{
+                color: '#838383',
+                textTransform: 'none',
+                }}
+              >
+                {showAllBills ? 'See less' : 'See all' }
+            </Button>
+          </Box>
+          <Grid
+            container
+            sx={{
+              justifyContent: "space-between",
+            }}
+          >
+            {displaytBillHistory.map((_, index) => (
+              <Grid item key={`historyBill number ${index}`} xs={6} md={6}>
+                <HistoryBill />
+              </Grid>
+            ))}
+          </Grid>
+        </TabPanel>
+      </Box>
     </Box>
   );
 }
