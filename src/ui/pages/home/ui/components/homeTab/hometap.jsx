@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Tabs, Tab, TabList, Typography, Box } from "@mui/material";
+import { Tabs, Tab, TabList, Typography, Box, Button, Link } from "@mui/material";
 import useStyles from "./hometabStyle";
 
 import CreateBill from "../createBill";
@@ -24,6 +24,7 @@ function a11yProps(index) {
 function HomeTab() {
   const [value, setValue] = useState(0);
   const classes = useStyles()
+  const billItems = [] // mock up data
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -38,7 +39,7 @@ function HomeTab() {
             sx={{ padding: "0 30px" }}
             TabIndicatorProps={{
               sx: {
-                background: "#FFB53B" ,
+                background: "#FFB53B",
               },
             }}
           >
@@ -62,11 +63,26 @@ function HomeTab() {
                 <Typography variant='h4'>
                   Pending bills
                 </Typography>
-                <Box mt={2}>
-                  <Bill />
-                  <Bill />
-                  <Bill />
-                </Box>
+                {billItems.length > 0 ? (
+                  <Box mt={2}>
+                    {billItems.map((key, index) => (
+                      <Box key={`bill-${key}`}>
+                        <Bill />
+                      </Box>
+                    ))}
+                  </Box>
+                ) : (
+                  <Box sx={{ textAlign: 'center', marginTop: '22px' }}>
+                    <Box>
+                      <Typography variant="h5" sx={{ color: '#838383', marginBottom: '11px' }}>
+                        No pending bill.
+                      </Typography>
+                    </Box>
+                    <Link href="#" variant="h4" sx={{ color: '#981E25' }}>
+                      Create bill
+                    </Link>
+                  </Box>
+                )}
               </Box>
             </TabPanel>
             <TabPanel value={value} index={1}>
