@@ -29,7 +29,7 @@ function HistoryBill() {
           position: 'relative',
           }}
         >
-        <Typography sx={{ fontWeight: 'bold' }}>Bill name</Typography>
+        <Typography variant='h5'>Bill name</Typography>
         <Button
           sx={{
             backgroundColor: '#fff',
@@ -43,9 +43,9 @@ function HistoryBill() {
         </Button>
       </Box>
       <Box>
-        <Typography sx={{ fontSize: '20px', fontWeight: 'bold' }}>฿ 200</Typography>
+        <Typography variant='h3'>฿ 200</Typography>
       </Box>
-      <Typography sx={{ fontSize: '8px' }}>
+      <Typography variant='h6'>
         Created on 10 Feb 2022
       </Typography>
     </Card>

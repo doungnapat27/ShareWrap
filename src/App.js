@@ -5,18 +5,23 @@ import Home from "../src/ui/pages/home";
 import CreateBill from "./ui/pages/createBill";
 import PageNotFound from '../src/ui/pages/pageNotFound'
 import './global.css'
+import theme from "./theme.js";
+import './font.css'
+import { ThemeProvider } from "@mui/material";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/create-bill" element={<CreateBill />} />
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/create-bill" element={<CreateBill />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

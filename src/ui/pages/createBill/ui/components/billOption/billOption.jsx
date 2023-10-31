@@ -25,10 +25,10 @@ function BillOption(props) {
     <Card elevation={1} className={classes.cardContainer}>
       <Box className={classes.boxContent}>
         <Box>
-          <Typography sx={{ fontWeight: "bold" }}>
+          <Typography variant='h5'>
             {topic}
           </Typography>
-          <Typography mt={1} sx={{ fontSize: "12px", color: "#AA6A00" }}>
+          <Typography  variant='h6' sx={{ color: "#AA6A00" }}>
            {helperText}
           </Typography>
         </Box>

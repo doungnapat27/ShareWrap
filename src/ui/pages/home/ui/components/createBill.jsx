@@ -23,11 +23,7 @@ function CreateBill() {
       }}
     >
       <Typography
-        sx={{
-          fontWeight: "bold",
-          fontSize: "20px",
-          // fontFamily: 'inter'
-        }}
+        variant='h4'
       >
         Create bill
       </Typography>

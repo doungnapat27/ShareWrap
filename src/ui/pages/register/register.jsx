@@ -89,26 +89,26 @@ class Register extends Component {
                     elevation={3}
                     noValidate
                     autoComplete="off"
-                >  
+                >
                     <Box className={classes.boxform}
                         component="form"
                         onSubmit={this.handleSubmit}
                     >
                     <form onSubmit={this.handleSubmit}>
                     <Box className={classes.TextBox}>
-                        <Typography className={classes.headerText} >
+                        <Typography variant='h2'>
                             Register
                         </Typography>
                     </Box>
                     <Box className={classes.inputTextField}>
-                        <TextField 
+                        <TextField
                             className={classes.TextBoxInput}
                             placeholder='Username'
                             id='username'
-                            fullWidth 
+                            fullWidth
                             margin="normal"
                             name="username"
-                            // value={username} 
+                            // value={username}
                             onChange={this.handleChange}
                             InputProps={{
                                 startAdornment: (
@@ -118,12 +118,12 @@ class Register extends Component {
                                 ),
                             }}
                         />
-                        <TextField 
+                        <TextField
                             className={classes.TextBoxInput}
                             placeholder='Email'
                             type="email"
                             id='email'
-                            fullWidth 
+                            fullWidth
                             margin="normal"
                             name="email"
                             value={email}
@@ -136,12 +136,12 @@ class Register extends Component {
                                 ),
                             }}
                         />
-                        <TextField 
+                        <TextField
                             className={classes.TextBoxInput}
-                            placeholder='Password' 
+                            placeholder='Password'
                             type='password'
                             id='password'
-                            fullWidth 
+                            fullWidth
                             margin="normal"
                             name="password"
                             value={password}
@@ -154,7 +154,7 @@ class Register extends Component {
                                 ),
                             }}
                         />
-                        <TextField 
+                        <TextField
                             className={classes.TextBoxInput}
                             placeholder='Confirm password'
                             type='password'
@@ -174,7 +174,7 @@ class Register extends Component {
                         />
                     </Box>
                         <Button className={classes.registerButton}
-                            variant="contained" 
+                            variant="contained"
                             type="submit" >
                             Register
                         </Button>
@@ -183,7 +183,7 @@ class Register extends Component {
                                 Already have an account?
                             </Typography>
                             <Button className={classes.signinButton}
-                                color="primary" 
+                                color="primary"
                                 onClick={handleSignInClick}
                             >
                                 Sign In
