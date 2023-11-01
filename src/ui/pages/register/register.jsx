@@ -6,84 +6,63 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import backgroundImg from "..//../assets/BG.svg";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { darken } from '@mui/system';
+import axios from 'axios';
+
 
 
 class Register extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         first_name: "",
-    //         last_name: "",
-    //         email: "",
-    //         password: "",
-    //         confirm_password: ""
-    //     }
-    //     this.insert = this.register.bind(this);
-    //     this.handleChange = this.handleChange.bind(this);
-    //     this.handleSubmit = this.handleSubmit.bind(this);
-    // }
-    // register(e){
-    //     const link = "http://localhost:3000/register";
-    //     console.log(link);
-    //     fetch(link, {
-    //         method: "POST",
-    //         headers: {
-    //             "content-type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //             first_name: this.state.first_name,
-    //             last_name: this.state.last_name,
-    //             email: this.state.email,
-    //             password: this.state.password,
-    //             confirm_password: this.state.confirm_password
-    //         }),
-    //     })
-    //     .then(response => response.text())
-    //     .then(data =>{
-    //         console.log(data);
-    //         if(data === 'successfully registered!'){
-    //             alert(data);
-    //             window.location = '/login';
-    //         }
-    //         else{
-    //             alert(data);
-    //         }
-    //     })
-    //     .catch((err) => {
-    //         console.log(err);
-    //         alert(err);
-    //     });
-    // }
-    // handleChange(e){
-    //     this.setState({
-    //         [e.target.name]: e.target.value
-    //     })
-    // }
-    // handleSubmit(e){
-    //     e.preventDefault();
-    //     this.register(e);
-    // }
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: "",
+            email: "",
+            password: "",
+        }
+        this.insert = this.register.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    register(e){
+      // console.log("Registering...");
+      // console.log(this.state);
+      const link = "http://localhost:8080/api/auth/register";
+      axios.post(link, {
+          username: this.state.username,
+          email: this.state.email,
+          password: this.state.password
+      })
+      .then(response => {
+          if (response.status === 200) {
+            window.location = '/';
+            // alert("Registered successfully");
+          } 
+          else {
+              alert("Failed to register");
+          }
+      })
+      .catch(error => {
+          console.log(error);
+          alert(error);
+      });
+    }
+    handleChange(e){
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+    handleSubmit(e){
+        e.preventDefault();
+        this.register(e);
+    }
 
     state = {
-        firstName: '',
-        lastName: '',
+        username: '',
         email: '',
-        password: '',
-        confirmPassword: ''
+        password: ''
     };
 
-    handleChange = (e) => {
-        const { name, value } = e.target;
-        this.setState({ [name]: value });
-    }
-
-    handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle registration logic here.
-        console.log(this.state);
-    }
     render() {
-        const { firstName, lastName,email, password, confirmPassword } = this.state;
+        const { username, email, password} = this.state;
         return (
                 <Box
                     elevation={3}
@@ -115,6 +94,7 @@ class Register extends Component {
                         }}
                         onClick={() => {
                             // Handle the back action. This could be history.goBack() if using react-router
+                            window.location = '/';
                             console.log("Going back...");
                         }}
                     >
@@ -153,36 +133,16 @@ class Register extends Component {
                         </Typography>
                     </Box>
                         <TextField 
-                            label="First Name" 
-                            id='first_name'
+                            label="Username" 
+                            id='username'
                             fullWidth 
                             margin="normal"
-                            name="First Name"
-                            // value={firstName} 
+                            name="username"
+                            value={username} 
                             onChange={this.handleChange}
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="send">
-                                        <AccountBoxIcon />
-                                    </InputAdornment>
-                                ),
-                                style:{
-                                    borderRadius: '10px',
-                                    backgroundColor: 'rgba(255, 255, 255, 0.5)',
-                                },
-                            }}
-                        />
-                        <TextField 
-                            label="Last Name" 
-                            id='last_name'
-                            fullWidth 
-                            margin="normal"
-                            name="Last Name"
-                            // value={lastName}
-                            onChange={this.handleChange}
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
                                         <AccountBoxIcon />
                                     </InputAdornment>
                                 ),
@@ -234,27 +194,6 @@ class Register extends Component {
                                 },
                             }}
                         />
-                        <TextField 
-                            label="Confirm Password" 
-                            type='password'
-                            id='confirm_password'
-                            fullWidth
-                            margin="normal"
-                            name="confirmPassword"
-                            value={confirmPassword}
-                            onChange={this.handleChange}
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <PasswordIcon />
-                                    </InputAdornment>
-                                ),
-                                style:{
-                                    borderRadius: '10px',
-                                    backgroundColor: 'rgba(255, 255, 255, 0.5)',
-                                },
-                            }}
-                        />
                         <Button 
                             variant="contained" 
                             type="submit"
@@ -271,6 +210,7 @@ class Register extends Component {
                                 fontWeight: 'bold',
                                 borderRadius: '10px'
                             }}
+                            onClick={(e) => this.register(e)}
                         >
                             Register
                         </Button>
@@ -298,6 +238,7 @@ class Register extends Component {
                                 }} 
                                 onClick={() => {
                                     // Handle the sign-in action. Navigate to the sign-in page or show the sign-in modal.
+                                    window.location = '/';
                                 }}
                             >
                                 Sign In
