@@ -20,26 +20,56 @@ const useStyles = makeStyles({
     display: "flex",
     padding: "16px 12px",
     backgroundColor: "#FFB53B",
-    borderTopRightRadius: "20px",
-    borderBottomRightRadius: "20px",
-    borderTopLeftRadius: "10px",
-    borderBottomLeftRadius: "10px",
-    // maxWidth: '252px',
+    borderRadius: "10px",
+    width: '100%',
+    flexDirection: "row",
+   },
+   nameContent: {
+    // flexBasis: '70%',
+    // maxWidth: '70%',
+    display: "flex",
+    flexDirection: 'column',
    },
    imgBox: {
-    marginLeft: "20px",
-    display: "flex",
-    height: "30px",
+    // marginLeft: "40px",
+    // height: "30px",
     alignSelf: "center",
+    // flexBasis: '20%',
+    // maxWidth: '20%',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
+    '@media (min-width: 601px) and (max-width: 1024px)': { 
+      
+    },
+    '@media (min-width: 1025px)': { 
+      
+    },
    },
    nextButton: addImportant({
-    backgroundColor: "#fc9b00",
-    marginLeft: "12px",
+    // flexBasis: '20%',
+    // maxWidth: '20%',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#FFCE82",
+    marginLeft: "10px",
     paddingTop: "16px",
     paddingBottom: "16px",
     alignSelf: "center",
-    color: '#000'
+    color: '#000',
    }),
+   img1: { 
+    zIndex: 1, 
+  },
+
+  img2: {
+    position: 'absolute',
+    top: '8px', 
+    left: '20px',  
+    zIndex: 0, 
+  },
 })
 
 export default useStyles

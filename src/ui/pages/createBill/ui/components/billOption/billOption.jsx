@@ -34,16 +34,16 @@ function BillOption(props) {
           </Typography>
         </Box>
         <Box className={classes.imgBox}>
-          <Box component="img" src={BillOutline} />
-          <Box component="img" src={Pencil}/>
+          <Box component="img" src={BillOutline} className={classes.img1}/>
+          <Box component="img" src={Pencil} className={classes.img2}/>
         </Box>
-        <Button className={classes.nextButton}>
-        <ArrowForwardIosIcon />
-      </Button>
-      </Box>
-      {/* <Button className={classes.nextButton}>
+        {/* <Button className={classes.nextButton}>
         <ArrowForwardIosIcon />
       </Button> */}
+      </Box>
+      <Button className={classes.nextButton}>
+        <ArrowForwardIosIcon />
+      </Button>
     </Card>
   );
 }

@@ -58,13 +58,9 @@ function TabInCreateBill() {
         <TabPanel value={value} index={0} className={classes.cover}>
           <Box className={classes.containerInfo}>
             <BillOption
-              topic="Manual Bill splitting"
+              topic="Bill splitting"
               helperText="Share different expense with friends"
               // logoUrl="../../../../assets/mdiPencilmanualBillSplitting.svg"
-            />
-            <BillOption
-              topic="Equal Bill splitting"
-              helperText="Share same amoung expense with friends"
             />
           </Box>
           <Box mt={4} mb={2}
