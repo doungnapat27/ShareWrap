@@ -1,10 +1,10 @@
 import React from "react"
 
-import BillOutline from '../../../../../assets/solarBillOutlinemanualBillSplitting.svg'
-import Pencil from '../../../../../assets/mdiPencilmanualBillSplitting.svg'
+import BillOutline from '../../../assets/solarBillOutlinemanualBillSplitting.svg'
+import Pencil from '../../../assets/mdiPencilmanualBillSplitting.svg'
 
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos"
-import useStyles from "./billOptionStyle"
+import useStyles from "../style/billOptionStyle"
 
 import {
   Box,

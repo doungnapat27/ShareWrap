@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "../src/ui/pages/login/login.jsx";
 import Register from "../src/ui/pages/register/register.jsx";
-import Home from "../src/ui/pages/home";
-import CreateBill from "./ui/pages/createBill";
+import Home from "./ui/pages/home/home.jsx";
+import CreateBill from "./ui/pages/createBill/createBill.jsx";
 import PageNotFound from '../src/ui/pages/pageNotFound'
 import './global.css'
 import theme from "./theme.js";

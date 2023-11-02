@@ -3,7 +3,7 @@ import { Box, TextField, Button, Typography, InputAdornment} from '@mui/material
 import EmailIcon from '@mui/icons-material/Email';
 import PasswordIcon from '@mui/icons-material/Lock';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import withStyles from './registerStyle';
+import withStyles from './style/registerStyle';
 
 class Register extends Component {
     // constructor(props) {

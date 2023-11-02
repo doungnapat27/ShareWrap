@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Tabs, Tab, TabList, Typography, Box, Button, Link } from "@mui/material";
-import useStyles from "./hometabStyle";
+import useStyles from "../style/hometabStyle";
 
-import CreateBill from "../createBill";
-import Bill from "../bill";
+import CreateBill from "./createBillButton";
+import Bill from "./bill";
 
-import TabPanel from "../../../../../../common/tabPanel";
+import TabPanel from "../../../../common/tabPanel";
 
 TabPanel.propTypes = {
   children: PropTypes.node,

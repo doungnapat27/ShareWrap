@@ -3,7 +3,7 @@ import { Box, TextField, Button, Typography, InputAdornment, IconButton } from '
 import logo from "../../assets/logo.svg";
 import EmailIcon from '@mui/icons-material/Email';
 import PasswordIcon from '@mui/icons-material/Lock';
-import withStyles from './loginStyle';
+import withStyles from './style/loginStyle';
 
 class Loginpage extends Component {
   // const handleSubmit = (event) => {

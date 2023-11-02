@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Typography } from "@mui/material";
 
-import NoteStackAdd from "../../../../assets/note-stack-add.svg";
+import NoteStackAdd from "../../../assets/note-stack-add.svg";
 import { Link } from "react-router-dom";
 
 function CreateBill() {

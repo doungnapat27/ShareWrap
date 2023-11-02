@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import TabPanel from "../../../../../common/tabPanel";
-import BillOption from "./billOption/billOption";
-import HistoryBill from "./historyBill/historyBill";
+import TabPanel from "../../../../common/tabPanel";
+import BillOption from "../components/billOption";
+import HistoryBill from "../components/historyBill";
 
 import {
   Typography,
