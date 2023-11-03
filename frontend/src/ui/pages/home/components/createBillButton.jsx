@@ -8,7 +8,7 @@ function CreateBill() {
   return (
     <Button
       component={Link}
-      to={'/create-bill'}
+      to={'/spliting-bill'}
       variant="contained"
       fullWidth
       sx={{
