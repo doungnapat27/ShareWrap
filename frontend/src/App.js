@@ -8,6 +8,7 @@ import './global.css'
 import theme from "./theme.js";
 import './font.css'
 import { ThemeProvider } from "@mui/material";
+import UploadReceipt from "./ui/pages/uploadReceipt/uploadReceipt.jsx";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/create-bill" element={<CreateBill />} />
           <Route path="*" element={<PageNotFound />} />
+          <Route path="/upload-receipt" element={<UploadReceipt />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
