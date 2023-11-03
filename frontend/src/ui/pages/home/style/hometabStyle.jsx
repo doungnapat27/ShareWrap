@@ -1,4 +1,5 @@
 import { makeStyles } from '@mui/styles';
+
 function addImportant(styles) {
   return Object.fromEntries(
     Object.entries(styles).map(([key, value]) => [key, `${value} !important`])
