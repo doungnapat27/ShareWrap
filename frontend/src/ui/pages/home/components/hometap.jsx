@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Tabs, Tab, TabList, Typography, Box, Button, Link } from "@mui/material";
 import useStyles from "../style/hometabStyle";
+import BillStatus from "./billStatus";
 
 import CreateBill from "./createBillButton";
 import Bill from "./bill";
+import PendingBills from "./pendingBills";
 
 import TabPanel from "../../../../common/tabPanel";
 
@@ -24,7 +26,7 @@ function a11yProps(index) {
 function HomeTab() {
   const [value, setValue] = useState(0);
   const classes = useStyles()
-  const billItems = [] // mock up data
+  const billItems = [1] // mock up data
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -68,6 +70,7 @@ function HomeTab() {
                     {billItems.map((key, index) => (
                       <Box key={`bill-${key}`}>
                         <Bill />
+                        <PendingBills />
                       </Box>
                     ))}
                   </Box>

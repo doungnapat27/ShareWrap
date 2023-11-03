@@ -9,6 +9,7 @@ import Register from "../src/ui/pages/register/register.jsx";
 import Home from "./ui/pages/home/home.jsx";
 import CreateBill from "./ui/pages/createBill/createBill.jsx";
 import PageNotFound from '../src/ui/pages/pageNotFound'
+import UploadReceipt from "./ui/pages/uploadReceipt/uploadReceipt.jsx";
 import SplitingBill from "./ui/pages/splitingBill/splittingBill.jsx";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           {/* <Route path="/create-bill" element={<CreateBill />} /> No longer use */}
           <Route path="/spliting-bill" element={<SplitingBill />}/>
           <Route path="*" element={<PageNotFound />} />
+          <Route path="/upload-receipt" element={<UploadReceipt />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
