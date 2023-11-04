@@ -195,9 +195,9 @@ class Register extends Component {
                             variant="contained"
                             type="submit" 
                             onClick={this.handleSubmit}
-                            // disabled={!this.state.password ||
-                            //     !this.state.confirmPassword ||
-                            //     this.state.password !== this.state.confirmPassword}    
+                            disabled={!this.state.password ||
+                                !this.state.confirmPassword ||
+                                this.state.password !== this.state.confirmPassword}    
                         >
                             Register
                         </Button>
