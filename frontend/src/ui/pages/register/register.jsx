@@ -2,69 +2,22 @@ import React, { Component } from 'react';
 import { Box, Button, Typography} from '@mui/material';
 import InputText from './components/registerInputText';
 import withStyles from './style/registerStyle';
+import { request, setAuthHeader } from '../../../helpers/axios_helper';
+import { toast } from 'react-toastify';
 
 class Register extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         first_name: "",
-    //         last_name: "",
-    //         email: "",
-    //         password: "",
-    //         confirm_password: ""
-    //     }
-    //     this.insert = this.register.bind(this);
-    //     this.handleChange = this.handleChange.bind(this);
-    //     this.handleSubmit = this.handleSubmit.bind(this);
-    // }
-    // register(e){
-    //     const link = "http://localhost:3000/register";
-    //     console.log(link);
-    //     fetch(link, {
-    //         method: "POST",
-    //         headers: {
-    //             "content-type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //             first_name: this.state.first_name,
-    //             last_name: this.state.last_name,
-    //             email: this.state.email,
-    //             password: this.state.password,
-    //             confirm_password: this.state.confirm_password
-    //         }),
-    //     })
-    //     .then(response => response.text())
-    //     .then(data =>{
-    //         console.log(data);
-    //         if(data === 'successfully registered!'){
-    //             alert(data);
-    //             window.location = '/login';
-    //         }
-    //         else{
-    //             alert(data);
-    //         }
-    //     })
-    //     .catch((err) => {
-    //         console.log(err);
-    //         alert(err);
-    //     });
-    // }
-    // handleChange(e){
-    //     this.setState({
-    //         [e.target.name]: e.target.value
-    //     })
-    // }
-    // handleSubmit(e){
-    //     e.preventDefault();
-    //     this.register(e);
-    // }
-
-    state = {
-        username: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: "",
+            email: "",
+            password: "",
+            confirm_password: ""
+        }
+        // this.insert = this.register.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
 
     handleChange = (e) => {
         const { name, value } = e.target;
@@ -80,16 +33,39 @@ class Register extends Component {
     }
 
     handleSubmit = (e) => {
+      console.log('submit');
+        console.log(this.state);
         e.preventDefault();
         if (this.state.password !== this.state.confirmPassword) {
             this.setState({confirmPasswordError: "Passwords do not match."})
         } else {
             this.setState({confirmPasswordError: ""})
+            this.register(e)
         }
         console.log(this.state);
     }
+
+    register = (e) =>{
+      e.preventDefault();
+      request(
+        "POST",
+        "/register",
+        {
+            email: this.state.email,
+            username: this.state.username,
+            password: this.state.password
+        }).then(
+        (response) => {
+            setAuthHeader(response.data.token);
+            window.location.href = "/";
+        }).catch(
+        (error) => {
+            setAuthHeader(null);
+            toast.error(error.response.data.message);
+        }
+    );
+  }
     render() {
-        // const { username,email, password, confirmPassword } = this.state;
         const { classes } = this.props;
         const handleSignInClick = () => {
             window.location.href = "/";
@@ -129,8 +105,7 @@ class Register extends Component {
                             fullWidth={true}
                             margin='normal'
                             name='email'
-                            // value={email}
-                            onChanges={this.handleChange}
+                            onChange={this.handleChange}
                             icon='email'
                         />
                         <InputText
@@ -141,7 +116,6 @@ class Register extends Component {
                             fullWidth={true}
                             margin='normal'
                             name='password'
-                            // value={password}
                             onChange={this.handleChange}
                             icon='password'
                         />
@@ -153,7 +127,6 @@ class Register extends Component {
                             fullWidth={true}
                             margin='normal'
                             name='confirmPassword'
-                            // value={confirmPassword}
                             onChange={this.handleChange}
                             icon='password'
                             error={!!this.state.confirmPasswordError}
@@ -162,11 +135,12 @@ class Register extends Component {
                         
                     </Box>
                         <Button className={classes.registerButton}
+                            onClick={this.handleSubmit}
                             variant="contained"
                             type="submit" 
                             disabled={!this.state.password ||
                                 !this.state.confirmPassword ||
-                                this.state.password !== this.state.confirmPassword}    
+                                this.state.password !== this.state.confirmPassword}
                         >
                             Register
                         </Button>

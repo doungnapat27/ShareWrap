@@ -11,11 +11,14 @@ import CreateBill from "./ui/pages/createBill/createBill.jsx";
 import PageNotFound from '../src/ui/pages/pageNotFound'
 import UploadReceipt from "./ui/pages/uploadReceipt/uploadReceipt.jsx";
 import SplitingBill from "./ui/pages/splitingBill/splittingBill.jsx";
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
+      <ToastContainer/>
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />

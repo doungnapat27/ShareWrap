@@ -1,47 +1,34 @@
 package com.sharewrap.sharewrap_backend.controllers;
 
-import com.sharewrap.sharewrap_backend.models.User;
+import com.sharewrap.sharewrap_backend.config.UserAuthProvider;
+import com.sharewrap.sharewrap_backend.dtos.LoginDto;
+import com.sharewrap.sharewrap_backend.dtos.RegisterDto;
+import com.sharewrap.sharewrap_backend.dtos.UserDto;
 import com.sharewrap.sharewrap_backend.services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
+import java.net.URI;
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/auth")
 public class AuthController {
-    @Autowired
-    private UserService userService;
+
+    private final UserService userService;
+    private final UserAuthProvider userAuthProvider;
+
+    @PostMapping("/login")
+    public ResponseEntity<UserDto> login(@RequestBody @Valid LoginDto loginDto) {
+        UserDto userDto = userService.login(loginDto);
+        userDto.setToken(userAuthProvider.createToken(userDto.getEmail()));
+        return ResponseEntity.ok(userDto);
+    }
 
     @PostMapping("/register")
-    private ResponseEntity<?>  register(@Valid @RequestBody Map<String,Object> body, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            List<String> errors = bindingResult.getAllErrors()
-                    .stream()
-                    .map(err -> err.getDefaultMessage())
-                    .collect(Collectors.toList());
-            return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
-        }
-        User user = new User();
-        user.setEmail(body.get("email").toString());
-        user.setPassword(body.get("password").toString());
-        user.setUsername(body.get("username").toString());
-        userService.addUser(user);
-        return new ResponseEntity<>("Successfully registered", HttpStatus.OK);
+    public ResponseEntity<UserDto> register(@RequestBody @Valid RegisterDto user) {
+        UserDto createdUser = userService.register(user);
+        createdUser.setToken(userAuthProvider.createToken(user.getEmail()));
+        return ResponseEntity.created(URI.create("/users/" + createdUser.getId())).body(createdUser);
     }
-//    @PostMapping(path = "/login")
-//    public ResponseEntity<?> loginEmployee(@RequestBody LoginDTO loginDTO)
-//    {
-//        LoginMessage loginMessage = userService.loginUser(loginDTO);
-//        return ResponseEntity.ok(loginMessage);
-//    }
 }
