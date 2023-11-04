@@ -3,6 +3,8 @@ import { Box, Button, Typography,} from '@mui/material';
 import logo from "../../assets/logo.svg";
 import withStyles from './style/loginStyle';
 import InputText from './components/loginInputText';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 class Loginpage extends Component {
   // const handleSubmit = (event) => {
@@ -35,16 +37,45 @@ class Loginpage extends Component {
   //       console.log(err);
   //     });
   // };
-  state = {
-    email: '',
-    password: '',
-  };
+    state = {
+        email: '',
+        password: '',
+        snackbarOpen: false,
+        snackbarMessage: '',
+        snackbarSeverity: 'success',
+    };
+
+    handleCloseSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        this.setState({ snackbarOpen: false });
+    };
+    handleLogin = (e) => {
+        e.preventDefault();
+        const loginSuccess = true; 
+        if (loginSuccess) {
+            this.setState({
+                snackbarOpen: true,
+                snackbarMessage: 'Logged in successfully!',
+                snackbarSeverity: 'success'
+            });
+        } else {
+            this.setState({
+                snackbarOpen: true,
+                snackbarMessage: 'Login failed. Please try again.',
+                snackbarSeverity: 'error'
+            });
+        }
+    };
+    
       render() {
         // const { email, password} = this.state;
         const { classes } = this.props;
         const handleSignUpClick = () => {
             window.location.href = "/register";
         };
+
         return (
                 <Box className={classes.container}
                   elevation={3}
@@ -83,6 +114,7 @@ class Loginpage extends Component {
                         className={classes.loginButton}
                         variant="contained" 
                         type="submit"
+                        onClick={this.handleLogin}
                     >
                         Login
                     </Button>
@@ -95,7 +127,12 @@ class Loginpage extends Component {
                           >
                               Sign Up
                           </Button>
-                      </Box>
+                    </Box>
+                    <Snackbar anchorOrigin={{vertical: 'bottom', horizontal:'center',}} open={this.state.snackbarOpen} autoHideDuration={2000} onClose={this.handleCloseSnackbar}>
+                        <MuiAlert elevation={6} variant="filled" onClose={this.handleCloseSnackbar} severity={this.state.snackbarSeverity}>
+                            {this.state.snackbarMessage}
+                        </MuiAlert>
+                    </Snackbar>
                 </Box>
         )
       }

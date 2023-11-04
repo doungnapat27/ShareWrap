@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Box, Button, Typography} from '@mui/material';
 import InputText from './components/registerInputText';
 import withStyles from './style/registerStyle';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 import { request, setAuthHeader } from '../../../helpers/axios_helper';
 import { toast } from 'react-toastify';
 
@@ -12,12 +14,22 @@ class Register extends Component {
             username: "",
             email: "",
             password: "",
-            confirm_password: ""
+            confirm_password: "",
+            snackbarOpen: false,
+            snackbarMessage: '',
+            snackbarSeverity: 'success',
         }
         // this.insert = this.register.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+    handleCloseSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        this.setState({ snackbarOpen: false });
+    };
 
     handleChange = (e) => {
         const { name, value } = e.target;
@@ -38,9 +50,23 @@ class Register extends Component {
         e.preventDefault();
         if (this.state.password !== this.state.confirmPassword) {
             this.setState({confirmPasswordError: "Passwords do not match."})
+            this.setState({
+                snackbarOpen: true,
+                snackbarMessage: 'Register failed. Please try again.',
+                snackbarSeverity: 'error'
+            });
         } else {
             this.setState({confirmPasswordError: ""})
             this.register(e)
+            this.setState({
+                snackbarOpen: true,
+                snackbarMessage: 'Registration successful!',
+                snackbarSeverity: 'success',
+            }, () => { 
+                setTimeout(() => {
+                    window.location.href = "/";; 
+                }, 2000); 
+            })
         }
         console.log(this.state);
     }
@@ -65,6 +91,7 @@ class Register extends Component {
         }
     );
   }
+
     render() {
         const { classes } = this.props;
         const handleSignInClick = () => {
@@ -138,6 +165,7 @@ class Register extends Component {
                             onClick={this.handleSubmit}
                             variant="contained"
                             type="submit" 
+                            onClick={this.handleSubmit}
                             disabled={!this.state.password ||
                                 !this.state.confirmPassword ||
                                 this.state.password !== this.state.confirmPassword}
@@ -155,6 +183,11 @@ class Register extends Component {
                                 Sign In
                             </Button>
                         </Box>
+                        <Snackbar anchorOrigin={{vertical: 'bottom', horizontal:'center',}} open={this.state.snackbarOpen} autoHideDuration={2000} onClose={this.handleCloseSnackbar}>
+                            <MuiAlert elevation={6} variant="filled" onClose={this.handleCloseSnackbar} severity={this.state.snackbarSeverity}>
+                                {this.state.snackbarMessage}
+                            </MuiAlert>
+                        </Snackbar>
                     </form>
                 </Box>
             </Box>
