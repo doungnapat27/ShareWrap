@@ -30,6 +30,7 @@ const inputText = ({icon, error,helperText, ...props}) => {
             }}
             error={error}
             helperText={helperText}
+            required
         />
     );
 };
