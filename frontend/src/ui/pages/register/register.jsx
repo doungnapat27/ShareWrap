@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Box, Button, Typography} from '@mui/material';
 import InputText from './components/registerInputText';
 import withStyles from './style/registerStyle';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 class Register extends Component {
     // constructor(props) {
@@ -63,7 +65,18 @@ class Register extends Component {
         username: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        confirmPasswordError: '',
+        snackbarOpen: false,
+        snackbarMessage: '',
+        snackbarSeverity: 'success',
+    };
+
+    handleCloseSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        this.setState({ snackbarOpen: false });
     };
 
     handleChange = (e) => {
@@ -83,11 +96,28 @@ class Register extends Component {
         e.preventDefault();
         if (this.state.password !== this.state.confirmPassword) {
             this.setState({confirmPasswordError: "Passwords do not match."})
+            this.setState({
+                snackbarOpen: true,
+                snackbarMessage: 'Register failed. Please try again.',
+                snackbarSeverity: 'error'
+            });
         } else {
             this.setState({confirmPasswordError: ""})
+            this.setState({
+                snackbarOpen: true,
+                snackbarMessage: 'Registration successful!',
+                snackbarSeverity: 'success',
+            }, () => { 
+                setTimeout(() => {
+                    window.location.href = "/";; 
+                }, 2000); 
+            });
         }
         console.log(this.state);
     }
+
+
+
     render() {
         // const { username,email, password, confirmPassword } = this.state;
         const { classes } = this.props;
@@ -164,9 +194,10 @@ class Register extends Component {
                         <Button className={classes.registerButton}
                             variant="contained"
                             type="submit" 
-                            disabled={!this.state.password ||
-                                !this.state.confirmPassword ||
-                                this.state.password !== this.state.confirmPassword}    
+                            onClick={this.handleSubmit}
+                            // disabled={!this.state.password ||
+                            //     !this.state.confirmPassword ||
+                            //     this.state.password !== this.state.confirmPassword}    
                         >
                             Register
                         </Button>
@@ -181,6 +212,11 @@ class Register extends Component {
                                 Sign In
                             </Button>
                         </Box>
+                        <Snackbar anchorOrigin={{vertical: 'bottom', horizontal:'center',}} open={this.state.snackbarOpen} autoHideDuration={2000} onClose={this.handleCloseSnackbar}>
+                            <MuiAlert elevation={6} variant="filled" onClose={this.handleCloseSnackbar} severity={this.state.snackbarSeverity}>
+                                {this.state.snackbarMessage}
+                            </MuiAlert>
+                        </Snackbar>
                     </form>
                 </Box>
             </Box>
