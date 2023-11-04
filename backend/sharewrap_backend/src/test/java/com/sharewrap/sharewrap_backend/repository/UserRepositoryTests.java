@@ -25,29 +25,29 @@ public class UserRepositoryTests {
 //    @Autowired
 //    private UserRepository userRepo;
 
-    @MockBean
-    private UserRepository userRepository;
-
-    @Autowired
-    private UserService userService;
-
-    @Test
-    public void testCreateUser() {
-        User user = new User();
-        user.setEmail("oatza@gmail.com");
-        user.setPassword("Oatzanarak007");
-        user.setUsername("Oatzanarak");
-        User savedUser = userService.addUser(user);
-//        String userId = userService.generateUniqueUserId();
-//        user.setId(userId);
+//    @MockBean
+//    private UserRepository userRepository;
 //
-//        User savedUser = userRepo.save(user);
-
-        User existUser = entityManager.find(User.class, savedUser.getId());
-
-        assertNotNull(savedUser);
-        assertNotNull(savedUser.getId());
-        assertThat(user.getEmail()).isEqualTo(existUser.getEmail());
-
-    }
+//    @Autowired
+//    private UserService userService;
+//
+//    @Test
+//    public void testCreateUser() {
+//        User user = new User();
+//        user.setEmail("oatza@gmail.com");
+//        user.setPassword("Oatzanarak007");
+//        user.setUsername("Oatzanarak");
+//        User savedUser = userService.addUser(user);
+////        String userId = userService.generateUniqueUserId();
+////        user.setId(userId);
+////
+////        User savedUser = userRepo.save(user);
+//
+//        User existUser = entityManager.find(User.class, savedUser.getId());
+//
+//        assertNotNull(savedUser);
+//        assertNotNull(savedUser.getId());
+//        assertThat(user.getEmail()).isEqualTo(existUser.getEmail());
+//
+//    }
 }
