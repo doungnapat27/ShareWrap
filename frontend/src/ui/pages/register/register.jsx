@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Box, Button, Typography} from '@mui/material';
-import InputText from './components/inputText';
+import InputText from './components/registerInputText';
 import withStyles from './style/registerStyle';
 
 class Register extends Component {
@@ -89,7 +89,7 @@ class Register extends Component {
         console.log(this.state);
     }
     render() {
-        const { username,email, password, confirmPassword } = this.state;
+        // const { username,email, password, confirmPassword } = this.state;
         const { classes } = this.props;
         const handleSignInClick = () => {
             window.location.href = "/";
@@ -120,7 +120,6 @@ class Register extends Component {
                             name='username'
                             onChange={this.handleChange}
                             icon='username'
-                            required
                         />
                         <InputText
                             className={classes.TextBoxInput}
@@ -133,7 +132,6 @@ class Register extends Component {
                             // value={email}
                             onChanges={this.handleChange}
                             icon='email'
-                            required
                         />
                         <InputText
                             className={classes.TextBoxInput}
@@ -143,10 +141,9 @@ class Register extends Component {
                             fullWidth={true}
                             margin='normal'
                             name='password'
-                            value={password}
+                            // value={password}
                             onChange={this.handleChange}
                             icon='password'
-                            required
                         />
                         <InputText
                             className={classes.TextBoxInput}
@@ -156,10 +153,9 @@ class Register extends Component {
                             fullWidth={true}
                             margin='normal'
                             name='confirmPassword'
-                            value={confirmPassword}
+                            // value={confirmPassword}
                             onChange={this.handleChange}
                             icon='password'
-                            required
                             error={!!this.state.confirmPasswordError}
                             helperText={this.state.confirmPasswordError}
                         />

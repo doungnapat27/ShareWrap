@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Box, TextField, Button, Typography, InputAdornment, IconButton } from '@mui/material';
+import { Box, Button, Typography,} from '@mui/material';
 import logo from "../../assets/logo.svg";
-import EmailIcon from '@mui/icons-material/Email';
-import PasswordIcon from '@mui/icons-material/Lock';
 import withStyles from './style/loginStyle';
+import InputText from './components/loginInputText';
 
 class Loginpage extends Component {
   // const handleSubmit = (event) => {
@@ -41,7 +40,7 @@ class Loginpage extends Component {
     password: '',
   };
       render() {
-        const { email, password} = this.state;
+        // const { email, password} = this.state;
         const { classes } = this.props;
         const handleSignUpClick = () => {
             window.location.href = "/register";
@@ -56,42 +55,28 @@ class Loginpage extends Component {
                     <img src={logo} alt='logo' sx={{ width: '150%', height: 'auto' }}></img>
                   </Box>
                   <Box className={classes.inputTextField}>
-                    <TextField 
-                        className= {classes.TextBoxInput} 
+                    <InputText
+                        className={classes.TextBoxInput}
                         placeholder='Email'
                         type="email"
                         id='email'
-                        fullWidth 
-                        margin="normal"
-                        name="email"
-                        // value={email}
+                        fullWidth={true}
+                        margin='normal'
+                        name='email'
+                        icon='email'
                         onChange={this.handleChange}
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <EmailIcon />
-                                </InputAdornment>
-                            ),
-                        }}
                     />
-                    <TextField 
-                        className= {classes.TextBoxInput} 
+                    <InputText
+                        className={classes.TextBoxInput}
                         placeholder='Password'
                         type='password'
                         id='password'
-                        fullWidth 
-                        margin="normal"
-                        name="password"
-                        // value={password}
+                        fullWidth={true}
+                        margin='normal'
+                        name='password'
+                        icon='password'
                         onChange={this.handleChange}
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <PasswordIcon />
-                                </InputAdornment>
-                            ),
-                        }}
-                    /> 
+                    />
                   </Box>
 
                     <Button 
