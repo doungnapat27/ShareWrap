@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Box, TextField, Button, Typography, InputAdornment} from '@mui/material';
-import EmailIcon from '@mui/icons-material/Email';
-import PasswordIcon from '@mui/icons-material/Lock';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import { Box, Button, Typography} from '@mui/material';
+import InputText from './components/inputText';
 import withStyles from './style/registerStyle';
 
 class Register extends Component {
@@ -70,12 +68,24 @@ class Register extends Component {
 
     handleChange = (e) => {
         const { name, value } = e.target;
-        this.setState({ [name]: value });
+        this.setState({ [name]: value }, () => {
+            if (name === "password" || name === "confirmPassword") {
+                if (this.state.password && this.state.confirmPassword && this.state.password !== this.state.confirmPassword) {
+                    this.setState({ confirmPasswordError: "Passwords do not match" });
+                } else {
+                    this.setState({ confirmPasswordError: "" });
+                }
+            }
+        });
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        // Handle registration logic here.
+        if (this.state.password !== this.state.confirmPassword) {
+            this.setState({confirmPasswordError: "Passwords do not match."})
+        } else {
+            this.setState({confirmPasswordError: ""})
+        }
         console.log(this.state);
     }
     render() {
@@ -101,81 +111,67 @@ class Register extends Component {
                         </Typography>
                     </Box>
                     <Box className={classes.inputTextField}>
-                        <TextField
+                        <InputText
                             className={classes.TextBoxInput}
                             placeholder='Username'
                             id='username'
-                            fullWidth
-                            margin="normal"
-                            name="username"
-                            // value={username}
+                            fullWidth={true}
+                            margin='normal'
+                            name='username'
                             onChange={this.handleChange}
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <AccountBoxIcon />
-                                    </InputAdornment>
-                                ),
-                            }}
+                            icon='username'
+                            required
                         />
-                        <TextField
+                        <InputText
                             className={classes.TextBoxInput}
                             placeholder='Email'
-                            type="email"
+                            type='email'
                             id='email'
-                            fullWidth
-                            margin="normal"
-                            name="email"
-                            value={email}
-                            onChange={this.handleChange}
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <EmailIcon />
-                                    </InputAdornment>
-                                ),
-                            }}
+                            fullWidth={true}
+                            margin='normal'
+                            name='email'
+                            // value={email}
+                            onChanges={this.handleChange}
+                            icon='email'
+                            required
                         />
-                        <TextField
+                        <InputText
                             className={classes.TextBoxInput}
                             placeholder='Password'
                             type='password'
                             id='password'
-                            fullWidth
-                            margin="normal"
-                            name="password"
+                            fullWidth={true}
+                            margin='normal'
+                            name='password'
                             value={password}
                             onChange={this.handleChange}
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <PasswordIcon />
-                                    </InputAdornment>
-                                ),
-                            }}
+                            icon='password'
+                            required
                         />
-                        <TextField
+                        <InputText
                             className={classes.TextBoxInput}
                             placeholder='Confirm password'
                             type='password'
-                            id='confirm_password'
-                            fullWidth
-                            margin="normal"
-                            name="confirmPassword"
+                            id='confirmPassword'
+                            fullWidth={true}
+                            margin='normal'
+                            name='confirmPassword'
                             value={confirmPassword}
                             onChange={this.handleChange}
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <PasswordIcon />
-                                    </InputAdornment>
-                                ),
-                            }}
+                            icon='password'
+                            required
+                            error={!!this.state.confirmPasswordError}
+                            helperText={this.state.confirmPasswordError}
                         />
+                        
                     </Box>
                         <Button className={classes.registerButton}
                             variant="contained"
-                            type="submit" >
+                            type="submit" 
+                            disabled={!this.state.password ||
+                                !this.state.confirmPassword ||
+                                this.state.password !== this.state.confirmPassword}    
+                        >
                             Register
                         </Button>
                         <Box  className={classes.AccountBox}>
