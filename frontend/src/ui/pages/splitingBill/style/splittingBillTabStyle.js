@@ -7,22 +7,65 @@ function addImportant(styles) {
 }
 
 const useStyles = makeStyles({
+  cover:{
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
   container: {
-    display: "flex",
-    flexDirection: "column",
-    minHeight: "100vh",
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch',
   },
   tabContainer: {
-    borderBottom: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'stretch',
     borderColor: "divider",
-    backgroundColor: "#ffff",
-    padding: "0 30px",
+    borderBottomLeftRadius: "15px",
+    borderBottomRightRadius: "15px",
+    backgroundColor: "#ffffff",
+    '& .MuiTabs-flexContainer':{
+      display: 'flex',
+      justifyContent: 'space-evenly',
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    width: '100%',
   },
   paperContainer: addImportant({
     borderRadius: "10px",
-    padding: "24px 20px 40px",
+    padding: "36px 20px 40px 20px",
     backgroundColor: "rgba(255, 255, 255, 0.70)",
   }),
+  centerTab: addImportant({
+    flex: 1,
+    width: '50%',
+    color: 'black',
+  }),
+  containerInfo:{
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    '@media (min-width: 601px) and (max-width: 1024px)': {
+      width: '70%',
+    },
+    '@media (min-width: 1025px)': {
+      width: '60%',
+    },
+  },
+  bottomBar:{
+    position: 'fixed',
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
 });
 
 export default useStyles

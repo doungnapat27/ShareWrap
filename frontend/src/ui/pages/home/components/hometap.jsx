@@ -44,6 +44,7 @@ function HomeTab() {
                 background: "#FFB53B",
               },
             }}
+            centered={true}
           >
             <Tab
               label="Homepage"

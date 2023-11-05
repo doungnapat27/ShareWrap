@@ -19,10 +19,10 @@ function ItemList() {
       <TextField
         fullWidth
         className={classes.positoinTypo}
-        label="Item name"
+        placeholder="Item name"
         variant="standard"
       />
-      <TextField className={classes.setWidthTextField} label="Cost" variant="standard" />
+      <TextField className={classes.setWidthTextField} placeholder="Cost" variant="standard" />
     </Paper>
   );
 }

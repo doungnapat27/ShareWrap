@@ -2,10 +2,10 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
   paperContainer: {
-    borderRadius: "10px",
+    borderRadius: "10px !important" ,
     backgroundColor: "rgba(255, 255, 255, 0.70)",
     display: "flex",
-    padding: "8px 32px 17px",
+    padding: "16px 32px 17px",
     justifyContent: "space-evenly",
     marginTop: "20px",
     position: "relative",

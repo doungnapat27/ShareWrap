@@ -25,37 +25,44 @@ function SplitingBillTab() {
   const [value, setValue] = useState(0);
   const classes = useStyles()
   return (
-    <Box className={classes.container}>
-      <Box sx={{ flex: 1 }}>
-        <Box className={classes.tabContainer}>
-          <Tabs
-            value={value}
-            TabIndicatorProps={{
-              sx: { background: "#FFB53B" },
-            }}
-          >
-            <Tab
-              sx={{ flex: 1, color: "black" }}
-              label="Bill splitting"
-              {...a11yProps(0)}
-            />
-          </Tabs>
-        </Box>
-        <Box sx={{ padding: "24px 30px" }}>
-          <Box>
-            <Paper className={classes.paperContainer}>
-              <TextField
-                fullWidth
-                label="Pul your bill name here"
-                variant="standard"
+    <Box className={classes.cover}>
+      <Box className={classes.container}>
+          <Box className={classes.tabContainer}>
+            <Tabs
+              value={value}
+              TabIndicatorProps={{
+                sx: { background: "#FFB53B" },
+              }}
+              centered={true}
+            >
+              <Tab
+                className={classes.centerTab}
+                label="Bill splitting"
+                {...a11yProps(0)}
               />
-            </Paper>
+            </Tabs>
           </Box>
-          <ItemList />
-          <ButtonAddItem />
+          <Box className={classes.cover}>
+            <Box className={classes.containerInfo}>
+              <Box sx={{ padding: "16px 30px" }}>
+                <Box>
+                  <Paper className={classes.paperContainer}>
+                    <TextField
+                      fullWidth
+                      placeholder="Pull your bill name here"
+                      variant="standard"
+                    />
+                  </Paper>
+                </Box>
+                <ItemList />
+                <ButtonAddItem />
+              </Box>
+            </Box>
+          </Box>
+        <Box className={classes.bottomBar}>
+          <BottomBar/>
         </Box>
       </Box>
-      <BottomBar />
     </Box>
   );
 }
