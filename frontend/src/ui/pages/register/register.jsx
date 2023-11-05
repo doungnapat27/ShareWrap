@@ -5,21 +5,19 @@ import withStyles from './style/registerStyle';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import { request, setAuthHeader } from '../../../helpers/axios_helper';
-import { toast } from 'react-toastify';
 
 class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: "",
-            email: "",
-            password: "",
-            confirm_password: "",
+            username: '',
+            email: '',
+            password:  '',
+            confirm_password: '',
             snackbarOpen: false,
             snackbarMessage: '',
             snackbarSeverity: 'success',
         }
-        // this.insert = this.register.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -45,28 +43,14 @@ class Register extends Component {
     }
 
     handleSubmit = (e) => {
-      console.log('submit');
+        console.log('submit');
         console.log(this.state);
         e.preventDefault();
         if (this.state.password !== this.state.confirmPassword) {
             this.setState({confirmPasswordError: "Passwords do not match."})
-            this.setState({
-                snackbarOpen: true,
-                snackbarMessage: 'Register failed. Please try again.',
-                snackbarSeverity: 'error'
-            });
         } else {
             this.setState({confirmPasswordError: ""})
             this.register(e)
-            this.setState({
-                snackbarOpen: true,
-                snackbarMessage: 'Registration successful!',
-                snackbarSeverity: 'success',
-            }, () => { 
-                setTimeout(() => {
-                    window.location.href = "/";; 
-                }, 2000); 
-            })
         }
         console.log(this.state);
     }
@@ -83,11 +67,23 @@ class Register extends Component {
         }).then(
         (response) => {
             setAuthHeader(response.data.token);
-            window.location.href = "/";
+            this.setState({
+              snackbarOpen: true,
+              snackbarMessage: 'Registration successful!',
+              snackbarSeverity: 'success',
+              }, () => { 
+                setTimeout(() => {
+                    window.location.href = "/";; 
+                }, 1000); 
+            });
         }).catch(
         (error) => {
             setAuthHeader(null);
-            toast.error(error.response.data.message);
+            this.setState({
+              snackbarOpen: true,
+              snackbarMessage: error.response.data.message,
+              snackbarSeverity: 'error'
+            });
         }
     );
   }
@@ -162,7 +158,6 @@ class Register extends Component {
                         
                     </Box>
                         <Button className={classes.registerButton}
-                            onClick={this.handleSubmit}
                             variant="contained"
                             type="submit" 
                             onClick={this.handleSubmit}
