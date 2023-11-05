@@ -12,10 +12,12 @@ import Divider from '@mui/material/Divider';
 import Tooltip from '@mui/material/Tooltip';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
+import { setAuthHeader } from '../../../helpers/axios_helper';
 
 
 function Navbar() {
-  const handleSignInClick = () => {
+  const handleLogout = () => {
+    setAuthHeader(null);
     window.location.href = "/";
   };
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -95,7 +97,7 @@ function Navbar() {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem onClick={handleSignInClick}>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
