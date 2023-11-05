@@ -22,6 +22,43 @@ function a11yProps(index) {
 }
 
 function SplitingBillTab() {
+  const [itemList, setItemList] = useState({
+    title: '',
+    items: [
+      {
+        id: Date.now(),
+        name: '',
+        cost: 0
+      }
+    ]
+  })
+
+  const handleAddItem = () => {
+    const newItem = {
+      id: Date.now(),
+      name: '',
+      cost: 0,
+    }
+    setItemList((prevItem) => ({
+      ...prevItem,
+      items: [...prevItem.items, newItem]
+    }))
+  }
+
+  const handleDeleteItem = (itemId, itemList) => {
+    setItemList((prevItem) => {
+      if(itemList.length === 1) {
+        return prevItem
+      } else {
+        const updatedItems = prevItem.items.filter(item => item.id !== itemId);
+        return {
+          ...prevItem,
+          items: updatedItems,
+        };
+      }
+    });
+  }
+
   const [value, setValue] = useState(0);
   const classes = useStyles()
   return (
@@ -54,18 +91,8 @@ function SplitingBillTab() {
                     />
                   </Paper>
                 </Box>
-                <ItemList />
-                <ItemList />
-                <ItemList />
-                <ItemList />
-                <ItemList />
-                <ItemList />
-                <ItemList />
-                <ItemList />
-                <ItemList />
-                <ItemList />
-                <ItemList />
-                <ButtonAddItem />
+                <ItemList itemList={itemList} handleDeleteItem={handleDeleteItem}/>
+                <ButtonAddItem handleAddItem={handleAddItem}/>
               </Box>
             </Box>
           </Box>
