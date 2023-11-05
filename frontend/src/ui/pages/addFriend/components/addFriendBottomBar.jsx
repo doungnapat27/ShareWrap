@@ -1,9 +1,34 @@
 import React from "react"; 
 import useStyles from "../style/addFriendBottomBarStyle";
-import {Box, Button, Typography} from "@mui/material"
+import {Box, Button, Typography, Avatar} from "@mui/material"
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
-function AddFriendBottomBar() {
+function stringToColor(string) {
+    let hash = 0;
+    let i;
+    for (i = 0; i < string.length; i += 1) {
+      hash = string.charCodeAt(i) + ((hash << 5) - hash);
+    }
+  
+    let color = '#';
+  
+    for (i = 0; i < 3; i += 1) {
+      const value = (hash >> (i * 8)) & 0xff;
+      color += `00${value.toString(16)}`.slice(-2);
+    } 
+    return color;
+  }
+
+function stringAvatar(name) {
+    return {
+      sx: {
+        bgcolor: stringToColor(name),
+      },
+      children: `${name.split('')[0][0]}`,
+    };
+}
+
+function AddFriendBottomBar({selectedFriends}) {
     const classes = useStyles()
     return (
         <Box className={classes.cover}>
@@ -13,7 +38,9 @@ function AddFriendBottomBar() {
                         <Typography variant="h5">Selected Friends</Typography>
                     </Box>
                     <Box className={classes.boxFriend}>
-                
+                        {selectedFriends.map((friend) => (
+                        <Avatar key={friend} {...stringAvatar(friend)} /> // Use a unique key if friend is not unique
+                        ))}
                     </Box>
                     <Button
                     fullWidth={true}

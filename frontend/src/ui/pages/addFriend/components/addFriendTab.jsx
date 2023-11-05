@@ -14,6 +14,7 @@ function a11yProps(index) {
 
 function AddFriendTab() {
     const [value, setValue] = useState(0);
+    const [selectedFriends, setSelectedFriends] = useState([]);
     const classes = useStyles()
     return(
         <Box className={classes.cover}>
@@ -53,12 +54,42 @@ function AddFriendTab() {
                         <Typography variant="h5">Select Friends</Typography>
                     </Box>
                     <Box className={classes.friendList}>
-                        <FriendList/>
-                    </Box>
-                    
+                        <FriendList
+                            selectedFriends={selectedFriends}
+                            setSelectedFriends={setSelectedFriends}
+                        /> 
+                        <FriendList
+                            selectedFriends={selectedFriends}
+                            setSelectedFriends={setSelectedFriends}
+                        /> 
+                        <FriendList
+                            selectedFriends={selectedFriends}
+                            setSelectedFriends={setSelectedFriends}
+                        /> 
+                        <FriendList
+                            selectedFriends={selectedFriends}
+                            setSelectedFriends={setSelectedFriends}
+                        /> 
+                        <FriendList
+                            selectedFriends={selectedFriends}
+                            setSelectedFriends={setSelectedFriends}
+                        /> 
+                        <FriendList
+                            selectedFriends={selectedFriends}
+                            setSelectedFriends={setSelectedFriends}
+                        /> 
+                        <FriendList
+                            selectedFriends={selectedFriends}
+                            setSelectedFriends={setSelectedFriends}
+                        /> 
+                        <FriendList
+                            selectedFriends={selectedFriends}
+                            setSelectedFriends={setSelectedFriends}
+                        /> 
+                    </Box>          
                 </Box>
                 <Box className={classes.bottomBar}>
-                    <AddFriendBottomBar/>
+                    <AddFriendBottomBar selectedFriends={selectedFriends} />
                 </Box>
             </Box>
         </Box>

@@ -31,7 +31,21 @@ function stringAvatar(name) {
 
 const label = { inputProps: { 'aria-label': 'Checkbox Friend' } };
 
-function FriendList() {
+function FriendList({ selectedFriends, setSelectedFriends }) {
+
+    const handleToggle = (name) => {
+        const currentIndex = selectedFriends.indexOf(name);
+        const newChecked = [...selectedFriends];
+
+        if (currentIndex === -1) {
+            newChecked.push(name);
+        } else {
+            newChecked.splice(currentIndex, 1);
+        }
+
+        setSelectedFriends(newChecked);
+    };
+
     const classes = useStyles()
     return(
         <Box className={classes.cover}>
@@ -41,10 +55,12 @@ function FriendList() {
                         <Avatar {...stringAvatar('Oat Sarayut')} />
                         <Typography variant="h4" style={{marginLeft:'1rem'}}>Oat Sarayut</Typography>
                     </Box>
-                    <Box>
+                    <Box className={classes.checkBox}>
                         <Checkbox {...label} 
                         icon={<Uncheck/>} 
                         checkedIcon={<Check/>}
+                        onChange={() => handleToggle('Oat Sarayut')} 
+                        checked={selectedFriends.indexOf('Oat Sarayut') !== -1}
                         sx={{
                             color: '#D9D9D9',
                             '&.Mui-checked': {

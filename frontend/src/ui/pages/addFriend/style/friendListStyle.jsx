@@ -28,7 +28,26 @@ const useStyles = makeStyles({
     },
     friendContainer:{
         display: 'flex',
-        justifyContent:'space-between'
+        justifyContent:'space-around',
+        
+        margin: '8px 0px 8px 0px',
+        // marginTop: '20px',
+        // display: 'flex',
+        // alignItems: 'center',
+        // padding:'0px 30px 0px 30px',
+        // justifyContent:'space-around',
+        width: '100%',
+        '@media (min-width: 601px) ': {
+            padding: '0px 30px 0px 30px',
+        },
+    },
+    checkBox:{
+        // marginTop: '20px',
+        // display: 'flex',
+        // alignItems: 'center',
+        // textAlign: 'left',
+        // padding:'0px 30px 0px 30px',
+        // width: '100%',
     },
 })
 

@@ -85,19 +85,30 @@ const useStyles = makeStyles({
         },
     },
     friendList:{
-        marginTop: '20px',
         display: 'flex',
-        alignItems: 'center',
-        textAlign: 'left',
-        padding:'0px 30px 0px 30px',
+        flexDirection: 'column',
         width: '100%',
-        '@media (min-width: 601px) and (max-width: 1024px)': {
-        width: '70%',
+        alignItems: 'stretch',
+        overflowY: 'auto',
+        maxHeight: 'calc(100vh - 200px - 196px)',
+        '&::-webkit-scrollbar-track': {
+            backgroundColor: 'transparent',
+            borderRadius: '10px',
         },
-        '@media (min-width: 1025px)': {
-        width: '60%',
+        '&::-webkit-scrollbar': {
+            width: '10px',
+            backgroundColor: 'transparent',
+        },
+        '&::-webkit-scrollbar-thumb': {
+            backgroundColor: '#981E25',
+            borderRadius: '10px',
+            border: '2px solid #f0f0f0',
+        },
+        '&::-webkit-scrollbar-thumb:hover': {
+            backgroundColor: '#BE2830',
         },
     }
+
 });
 
 export default useStyles
