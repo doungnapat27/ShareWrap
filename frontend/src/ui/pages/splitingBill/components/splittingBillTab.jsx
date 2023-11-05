@@ -55,6 +55,16 @@ function SplitingBillTab() {
                   </Paper>
                 </Box>
                 <ItemList />
+                <ItemList />
+                <ItemList />
+                <ItemList />
+                <ItemList />
+                <ItemList />
+                <ItemList />
+                <ItemList />
+                <ItemList />
+                <ItemList />
+                <ItemList />
                 <ButtonAddItem />
               </Box>
             </Box>
