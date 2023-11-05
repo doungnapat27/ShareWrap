@@ -29,11 +29,12 @@ function Navbar() {
     setAnchorEl(null);
   };
   const classes = useStyles();
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" elevation={0} className={classes.appBarStyle}>
         <Toolbar>
-          <img src={LogoHomepage} alt="Logo" />
+          <img src={LogoHomepage} alt="Logo"/>
           <Typography variant="h5" component="div" className={classes.title}>
             ShareWrap
           </Typography>

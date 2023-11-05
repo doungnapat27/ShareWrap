@@ -11,6 +11,7 @@ import CreateBill from "./ui/pages/createBill/createBill.jsx";
 import PageNotFound from '../src/ui/pages/pageNotFound'
 import UploadReceipt from "./ui/pages/uploadReceipt/uploadReceipt.jsx";
 import SplitingBill from "./ui/pages/splitingBill/splittingBill.jsx";
+import AddFriend from "./ui/pages/addFriend/addFriend.jsx";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/spliting-bill" element={<SplitingBill />}/>
           <Route path="*" element={<PageNotFound />} />
           <Route path="/upload-receipt" element={<UploadReceipt />} />
+          <Route path="/add-Friend" element={<AddFriend/>} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
