@@ -5,72 +5,70 @@ import withStyles from './style/loginStyle';
 import InputText from './components/loginInputText';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import { request, setAuthHeader } from '../../../helpers/axios_helper';
 
 class Loginpage extends Component {
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   const jsondata = {
-  //     email: data.get('email'),
-  //     password: data.get('password'),
-  //   };
-
-  //   fetch("http://localhost:3000/login", {
-  //     method: "POST",
-  //     headers: {
-  //       "content-type": "application/json",
-  //     },
-  //     body: JSON.stringify(jsondata),
-  //   })
-  //     .then((response) => response.text())
-  //     .then((data) => {
-  //       if (data === 'successfully logged in') {
-  //         alert('Login successefully!');
-  //         localStorage.setItem('token', data.token);
-  //         window.location = '/home';
-  //       }
-  //       else {
-  //         alert(data);
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
-    state = {
+  constructor(props) {
+    super(props);
+    this.state = {
         email: '',
         password: '',
         snackbarOpen: false,
         snackbarMessage: '',
         snackbarSeverity: 'success',
-    };
-
+    }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
     handleCloseSnackbar = (event, reason) => {
         if (reason === 'clickaway') {
             return;
         }
         this.setState({ snackbarOpen: false });
     };
-    handleLogin = (e) => {
+    handleSubmit = (e) => {
         e.preventDefault();
-        const loginSuccess = true; 
-        if (loginSuccess) {
-            this.setState({
-                snackbarOpen: true,
-                snackbarMessage: 'Logged in successfully!',
-                snackbarSeverity: 'success'
-            });
-        } else {
-            this.setState({
-                snackbarOpen: true,
-                snackbarMessage: 'Login failed. Please try again.',
-                snackbarSeverity: 'error'
-            });
-        }
+        this.login(e);
     };
     
+    login = (e) =>{
+      console.log('login');
+      console.log(this.state);
+      e.preventDefault();
+      request(
+        "POST",
+        "/login",
+        {
+            email: this.state.email,
+            password: this.state.password
+        }).then(
+        (response) => {
+            setAuthHeader(response.data.token);
+            this.setState({
+              snackbarOpen: true,
+              snackbarMessage: 'Logged in successfully!!',
+              snackbarSeverity: 'success',
+              }, () => { 
+                setTimeout(() => {
+                    window.location.href = "/home";; 
+                }, 1000); 
+            });
+        }).catch(
+        (error) => {
+            setAuthHeader(null);
+            this.setState({
+              snackbarOpen: true,
+              snackbarMessage: error.response.data.message,
+              snackbarSeverity: 'error'
+          });
+        }
+      );
+    }
+    handleChange = (e) => {
+      this.setState({ [e.target.name]: e.target.value });
+    }
+    
       render() {
-        // const { email, password} = this.state;
         const { classes } = this.props;
         const handleSignUpClick = () => {
             window.location.href = "/register";
@@ -114,7 +112,7 @@ class Loginpage extends Component {
                         className={classes.loginButton}
                         variant="contained" 
                         type="submit"
-                        onClick={this.handleLogin}
+                        onClick={this.handleSubmit}
                     >
                         Login
                     </Button>
