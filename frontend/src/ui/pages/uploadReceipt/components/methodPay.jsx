@@ -43,7 +43,7 @@ function MethodPay() {
       <Typography sx={{marginBottom: '11px'}}>
         3. Upload your receipt
       </Typography>
-        <Button 
+        <Button href='/receipt-uploaded'
           sx={{width: '100%', 
           backgroundColor: '#FFB53B', 
           color: 'black', 
