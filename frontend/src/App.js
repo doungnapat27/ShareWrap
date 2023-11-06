@@ -10,7 +10,10 @@ import Home from "./ui/pages/home/home.jsx";
 import CreateBill from "./ui/pages/createBill/createBill.jsx";
 import PageNotFound from '../src/ui/pages/pageNotFound'
 import UploadReceipt from "./ui/pages/uploadReceipt/uploadReceipt.jsx";
+import ReceiptBillUpload from "./ui/pages/receiptBillUpload/receiptBillUpload.jsx"
 import SplitingBill from "./ui/pages/splitingBill/splittingBill.jsx";
+import AddFriend from "./ui/pages/addFriend/addFriend.jsx";
+import ProtectedRoute from "./ui/modules/components/protectedRoute.jsx";
 
 function App() {
   return (
@@ -19,11 +22,15 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/home" element={<Home />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/home/:id" element={<Home />} />
+            <Route path="/splitting-bill" element={<SplitingBill />}/>
+            <Route path="/upload-receipt" element={<UploadReceipt />} />
+            <Route path="/receipt-uploaded" element={<ReceiptBillUpload />} />
+            <Route path="/add-Friend" element={<AddFriend/>} />
+          </Route>
           {/* <Route path="/create-bill" element={<CreateBill />} /> No longer use */}
-          <Route path="/spliting-bill" element={<SplitingBill />}/>
           <Route path="*" element={<PageNotFound />} />
-          <Route path="/upload-receipt" element={<UploadReceipt />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
