@@ -1,16 +1,19 @@
 import { Box, Button, Paper, Typography } from '@mui/material'
 import React from 'react'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import useStyles from '../style/paymentSuccessfulStyle';
 
 function PaymentSuccessful() {
+  const classes = useStyles()
+
   return (
     <Box sx={{padding: '30px 30px'}}>
-      <Paper sx={{padding: '30px ', borderRadius: '30px'}}>
+      <Paper className={classes.cover}>
         <Box sx={{textAlign: 'center'}}>
-        <CheckCircleIcon sx={{fontSize: '60px', color: '#34C759'}}>
+        <CheckCircleIcon className={classes.icon}>
         </CheckCircleIcon>
-          <Typography variant='h4' sx={{color: ' rgba(0, 94, 9, 0.80)'}}>
-            Payment Successful
+          <Typography variant='h4' sx={{color: ' #FFB53B'}}>
+            Waiting for approval
           </Typography>
         </Box>
         <Box sx={{ display: 'flex', justifyContent: 'space-between'}}>
@@ -44,7 +47,7 @@ function PaymentSuccessful() {
           </Box>
         </Box>
         <Box sx={{borderBottom: 1, color: '#DEDEDE', padding: '12px 0px'}}/>
-        <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+        <Box className={classes.amount}>
           <Typography variant='h4'  sx={{paddingTop: '16px'}}>
             Amount
           </Typography>
@@ -55,13 +58,7 @@ function PaymentSuccessful() {
           </Box>
         </Box>
       </Paper>
-      <Button sx={{width: '100%', 
-          backgroundColor: '#FFB53B', 
-          color: 'black', 
-          borderRadius: '10px', 
-          paddingTop: '15px', 
-          paddingBottom: '15px',
-          marginTop: '20px'}}>
+      <Button className={classes.goHomeButton}>
         <Typography>
           Go to Home Page
         </Typography>

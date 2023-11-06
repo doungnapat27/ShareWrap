@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from '../../modules/components/navbar'
-import PaymentSuccessful from './componetns/paymentSuccessful'
+import PaymentSuccessful from './components/paymentSuccessful'
 
 function ReceiptBillUpload() {
   return (

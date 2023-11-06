@@ -10,7 +10,7 @@ import Home from "./ui/pages/home/home.jsx";
 import CreateBill from "./ui/pages/createBill/createBill.jsx";
 import PageNotFound from '../src/ui/pages/pageNotFound'
 import UploadReceipt from "./ui/pages/uploadReceipt/uploadReceipt.jsx";
-import ReceiptBillUpload from "./ui/pages/receiptBillUpload/receiptBillUpload.jsx";
+import ReceiptBillUpload from "./ui/pages/receiptBillUpload/receiptBillUpload.jsx"
 import SplitingBill from "./ui/pages/splitingBill/splittingBill.jsx";
 
 function App() {
