@@ -16,6 +16,21 @@ function AddFriendTab() {
     const [value, setValue] = useState(0);
     const [selectedFriends, setSelectedFriends] = useState([]);
     const classes = useStyles()
+    const friends = [
+        {name: 'Oat Sarayut'},
+        {name: 'Aom Doungnapat'},
+        {name: 'Oil Bunradar'},
+        {name: 'Ming Rujiphart'},
+        {name: 'Mark Wasapon'},
+        {name: 'Eff Thitirat'},
+        {name: 'Chat GPT'},
+        {name: 'Oily Haha'},
+        {name: 'Effy Haha'},
+        {name: 'Mingy Haha'},
+        {name: 'Oaty Haha'},
+        {name: 'Aomy Haha'},
+        {name: 'Marky Haha'},
+    ];
     return(
         <Box className={classes.cover}>
             <Box className={classes.container}>
@@ -55,34 +70,7 @@ function AddFriendTab() {
                     </Box>
                     <Box className={classes.friendList}>
                         <FriendList
-                            selectedFriends={selectedFriends}
-                            setSelectedFriends={setSelectedFriends}
-                        /> 
-                        <FriendList
-                            selectedFriends={selectedFriends}
-                            setSelectedFriends={setSelectedFriends}
-                        /> 
-                        <FriendList
-                            selectedFriends={selectedFriends}
-                            setSelectedFriends={setSelectedFriends}
-                        /> 
-                        <FriendList
-                            selectedFriends={selectedFriends}
-                            setSelectedFriends={setSelectedFriends}
-                        /> 
-                        <FriendList
-                            selectedFriends={selectedFriends}
-                            setSelectedFriends={setSelectedFriends}
-                        /> 
-                        <FriendList
-                            selectedFriends={selectedFriends}
-                            setSelectedFriends={setSelectedFriends}
-                        /> 
-                        <FriendList
-                            selectedFriends={selectedFriends}
-                            setSelectedFriends={setSelectedFriends}
-                        /> 
-                        <FriendList
+                            friends={friends}
                             selectedFriends={selectedFriends}
                             setSelectedFriends={setSelectedFriends}
                         /> 

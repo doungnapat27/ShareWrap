@@ -31,14 +31,14 @@ function stringAvatar(name) {
 
 const label = { inputProps: { 'aria-label': 'Checkbox Friend' } };
 
-function FriendList({ selectedFriends, setSelectedFriends }) {
+function FriendList({ friends, selectedFriends, setSelectedFriends }) {
 
-    const handleToggle = (name) => {
-        const currentIndex = selectedFriends.indexOf(name);
+    const handleToggle = (friend) => {
+        const currentIndex = selectedFriends.indexOf(friend.name);
         const newChecked = [...selectedFriends];
 
         if (currentIndex === -1) {
-            newChecked.push(name);
+            newChecked.push(friend.name);
         } else {
             newChecked.splice(currentIndex, 1);
         }
@@ -49,28 +49,32 @@ function FriendList({ selectedFriends, setSelectedFriends }) {
     const classes = useStyles()
     return(
         <Box className={classes.cover}>
-            <Box className={classes.container}>
-                <Box className={classes.friendContainer}>
-                    <Box className={classes.nameContainer}>
-                        <Avatar {...stringAvatar('Oat Sarayut')} />
-                        <Typography variant="h4" style={{marginLeft:'1rem'}}>Oat Sarayut</Typography>
-                    </Box>
-                    <Box className={classes.checkBox}>
-                        <Checkbox {...label} 
-                        icon={<Uncheck/>} 
-                        checkedIcon={<Check/>}
-                        onChange={() => handleToggle('Oat Sarayut')} 
-                        checked={selectedFriends.indexOf('Oat Sarayut') !== -1}
-                        sx={{
-                            color: '#D9D9D9',
-                            '&.Mui-checked': {
-                              color: '#FFB53B',
-                            },
-                        }}
-                        />
+            {friends.map((friend) =>(
+                <Box className={classes.container}>
+                    <Box className={classes.friendContainer}>
+                        <Box className={classes.nameContainer}>
+                            <Avatar {...stringAvatar(friend.name)} />
+                            <Typography variant="h4" style={{marginLeft:'1rem'}}>
+                                {friend.name}
+                            </Typography>
+                        </Box>
+                        <Box className={classes.checkBox}>
+                            <Checkbox {...label} 
+                            icon={<Uncheck/>} 
+                            checkedIcon={<Check/>}
+                            onChange={() => handleToggle(friend)} 
+                            checked={selectedFriends.indexOf(friend.name) !== -1}
+                            sx={{
+                                color: '#D9D9D9',
+                                '&.Mui-checked': {
+                                color: '#FFB53B',
+                                },
+                            }}
+                            />
+                        </Box>
                     </Box>
                 </Box>
-            </Box>
+            ))}
         </Box>
     )
 }

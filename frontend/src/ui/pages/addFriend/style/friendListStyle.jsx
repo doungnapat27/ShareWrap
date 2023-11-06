@@ -14,12 +14,31 @@ const useStyles = makeStyles({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'flex-start',
+        overflowY: 'auto',
+        maxHeight: 'calc(100vh - 220px - 196px)',
+        '&::-webkit-scrollbar-track': {
+            backgroundColor: 'transparent',
+            borderRadius: '10px',
+        },
+        '&::-webkit-scrollbar': {
+            width: '10px',
+            backgroundColor: 'transparent',
+        },
+        '&::-webkit-scrollbar-thumb': {
+            backgroundColor: '#981E25',
+            borderRadius: '10px',
+            border: '2px solid #f0f0f0',
+        },
+        '&::-webkit-scrollbar-thumb:hover': {
+            backgroundColor: '#BE2830',
+        },
     },
     container: {
         width: '100%',
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'row',
         alignItems: 'stretch',
+        justifyContent: 'center',
     },
     nameContainer:{
         display: 'flex',
@@ -28,26 +47,16 @@ const useStyles = makeStyles({
     },
     friendContainer:{
         display: 'flex',
-        justifyContent:'space-around',
-        
+        justifyContent:'space-between',
         margin: '8px 0px 8px 0px',
-        // marginTop: '20px',
-        // display: 'flex',
-        // alignItems: 'center',
-        // padding:'0px 30px 0px 30px',
-        // justifyContent:'space-around',
         width: '100%',
-        '@media (min-width: 601px) ': {
-            padding: '0px 30px 0px 30px',
+        padding:'0px 30px 0px 30px',
+        '@media (min-width: 601px) and (max-width: 1024px)': {
+            width: '70%',
         },
-    },
-    checkBox:{
-        // marginTop: '20px',
-        // display: 'flex',
-        // alignItems: 'center',
-        // textAlign: 'left',
-        // padding:'0px 30px 0px 30px',
-        // width: '100%',
+        '@media (min-width: 1025px)': {
+            width: '60%',
+        },
     },
 })
 
