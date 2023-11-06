@@ -8,15 +8,15 @@ import useStyles from '../style/bottomBarStyle'
 
 import { Box, Typography, Button } from "@mui/material";
 
-function BottomBar() {
+function BottomBar({ itemList }) {
   const classes = useStyles()
   return (
     <Box className={classes.cover}>
-      <Box className={classes.container}> 
+      <Box className={classes.container}>
         <Box className={classes.boxContainer}>
           <Box className={classes.boxHeader}>
             <Typography variant="h4">Total</Typography>
-            <Typography variant="h4">100.00 ฿</Typography>
+            <Typography variant="h4">{itemList?.totalCost} ฿</Typography>
           </Box>
           <Box className={classes.boxAccount}>
             <Box sx={{ display: "flex" }}>

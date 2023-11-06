@@ -10,11 +10,11 @@ import {
   Box,
 } from "@mui/material";
 
-function ItemList({ itemList, handleDeleteItem }) {
+function ItemList({ itemList, handleDeleteItem, handleTotalCostChange, handleItemChange }) {
   const classes = UseStyles()
   return (
     <Box>
-      {itemList?.items.map((item, index) => (
+      {itemList.items.map((item, index) => (
         <Paper
           key={`item:${item.id}`}
           className={classes.paperContainer}
@@ -30,8 +30,18 @@ function ItemList({ itemList, handleDeleteItem }) {
             className={classes.positoinTypo}
             placeholder="Item name"
             variant="standard"
+            name='itemName'
+            value={itemList.items.name}
+            onChange={(e) => handleItemChange(e.target.value, item.id)}
           />
-          <TextField className={classes.setWidthTextField} placeholder="Cost" variant="standard" />
+          <TextField
+            className={classes.setWidthTextField} placeholder="Cost"
+            variant="standard"
+            name='cost'
+            type='number'
+            value={item?.cost}
+            onChange={(e) => handleTotalCostChange(item.id, e.target.value)}
+          />
         </Paper>
       ))}
     </Box>

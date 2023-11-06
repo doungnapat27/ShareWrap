@@ -24,11 +24,12 @@ function a11yProps(index) {
 function SplitingBillTab() {
   const [itemList, setItemList] = useState({
     title: '',
+    totalCost: 0,
     items: [
       {
         id: Date.now(),
         name: '',
-        cost: 0
+        cost: ''
       }
     ]
   })
@@ -37,26 +38,79 @@ function SplitingBillTab() {
     const newItem = {
       id: Date.now(),
       name: '',
-      cost: 0,
+      cost: '',
     }
     setItemList((prevItem) => ({
       ...prevItem,
-      items: [...prevItem.items, newItem]
+      items: [...prevItem?.items, newItem]
     }))
   }
 
   const handleDeleteItem = (itemId, itemList) => {
     setItemList((prevItem) => {
-      if(itemList.length === 1) {
+      if(itemList?.length === 1) {
         return prevItem
       } else {
-        const updatedItems = prevItem.items.filter(item => item.id !== itemId);
+        const updatedItems = prevItem?.items?.filter(item => item?.id !== itemId);
+        const totalCost = updatedItems?.reduce((accumulator ,itemCost) => accumulator + parseFloat(itemCost.cost || 0), 0)
+
         return {
           ...prevItem,
           items: updatedItems,
+          totalCost,
         };
       }
     });
+  }
+
+  const handleTitleChange = (newTitle) => {
+    setItemList((prev) => {
+      return {
+        ...prev,
+        title: newTitle
+      }
+    })
+  }
+
+  const handleItemChange = (itemName, itemId) => {
+    setItemList((prev) => {
+      const newItemName = prev.items.map(item => {
+        if(item.id === itemId) {
+          return {
+            ...item,
+            name: itemName
+          }
+        }
+        return item
+      })
+      return {
+        ...prev,
+        items: newItemName
+      }
+    })
+  }
+
+  const handleTotalCostChange = (itemId, newCost) => {
+    setItemList((prevItem) => {
+      const updatedItem = prevItem?.items?.map((item) => {
+        if(itemId === item?.id) {
+          const cost = newCost === '' ? '' : parseFloat(newCost)
+          return {
+            ...item,
+            cost: cost
+          }
+        }
+        return item
+      })
+
+      const totalCost = updatedItem?.reduce((accumulator ,itemCost) => accumulator + parseFloat(itemCost.cost || 0), 0)
+
+      return {
+        ...prevItem,
+        items: updatedItem,
+        totalCost,
+      }
+    })
   }
 
   const [value, setValue] = useState(0);
@@ -88,16 +142,28 @@ function SplitingBillTab() {
                       fullWidth
                       placeholder="Pull your bill name here"
                       variant="standard"
+                      type="text"
+                      name='title'
+                      value={itemList.title}
+                      onChange={(e) => handleTitleChange(e.target.value)}
                     />
                   </Paper>
                 </Box>
-                <ItemList itemList={itemList} handleDeleteItem={handleDeleteItem}/>
-                <ButtonAddItem handleAddItem={handleAddItem}/>
+                <ItemList
+                  itemList={itemList}
+                  handleDeleteItem={handleDeleteItem}
+                  handleTotalCostChange={handleTotalCostChange}
+                  handleItemChange={handleItemChange}
+                />
+                <ButtonAddItem
+                  itemList={itemList}
+                  handleAddItem={handleAddItem}
+                />
               </Box>
             </Box>
           </Box>
         <Box className={classes.bottomBar}>
-          <BottomBar/>
+          <BottomBar itemList={itemList}/>
         </Box>
       </Box>
     </Box>
