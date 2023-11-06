@@ -4,22 +4,16 @@ import logoKasikorn from '../../../assets/kasikorn.png'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import Navbar from '../../../modules/components/navbar';
+import useStyles from '../style/uploadReceiptStyle';
 
 function MethodPay() {
+  const classes = useStyles()
   return (
     <Box p={4}>
       <Typography sx={{marginBottom: '11px'}}>
         1. Copy the account number
       </Typography>
-      <Paper 
-        sx={{ 
-          display: 'flex', 
-          alignItems: 'center', 
-          justifyContent: 'space-between', 
-          padding: '20px 16px',
-          marginBottom: '39px',
-          borderRadius: '10px'
-        }}>
+      <Paper className={classes.cover}>
         <Box sx={{ display: 'flex'}}>
           <Box>
             <img src={logoKasikorn} width='50px' height='50px' />
@@ -43,14 +37,8 @@ function MethodPay() {
       <Typography sx={{marginBottom: '11px'}}>
         3. Upload your receipt
       </Typography>
-        <Button 
-          sx={{width: '100%', 
-          backgroundColor: '#FFB53B', 
-          color: 'black', 
-          borderRadius: '10px', 
-          paddingTop: '15px', 
-          paddingBottom: '15px'
-        }}>
+        <Button href='/receipt-uploaded'
+          className={classes.uploadReceiptButton}>
         <FileUploadOutlinedIcon sx={{marginRight: '12px'}}/>
         Upload receipt
       </Button>
