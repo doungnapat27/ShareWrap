@@ -5,16 +5,19 @@ import com.sharewrap.sharewrap_backend.dtos.RegisterDto;
 import com.sharewrap.sharewrap_backend.dtos.UserDto;
 import com.sharewrap.sharewrap_backend.exceptions.AppException;
 import com.sharewrap.sharewrap_backend.mappers.UserMapper;
+import com.sharewrap.sharewrap_backend.models.Bill;
 import com.sharewrap.sharewrap_backend.models.User;
+import com.sharewrap.sharewrap_backend.repositories.BillRepository;
 import com.sharewrap.sharewrap_backend.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.nio.CharBuffer;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -23,6 +26,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
+    private final BillRepository billRepository;
 
 
     public UserDto login(LoginDto loginDto) {
@@ -61,7 +65,7 @@ public class UserService {
     public String generateUserId(String username) {
         String wordPart = username;
         String numberPart = RandomStringUtils.randomNumeric(5);
-        return wordPart + "#" + numberPart;
+        return wordPart + "-" + numberPart;
     }
 
     public UserDto findByUsername(String username) {
@@ -74,6 +78,50 @@ public class UserService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
         return userMapper.toUserDto(user);
+    }
+
+    public void removeBill(String userId, Bill bill) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
+        user.getBills().remove(bill);
+        billRepository.delete(bill);
+    }
+
+    public void addBill(String userId, Bill bill) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
+        bill.setUser(user);
+        user.getBills().add(bill);
+    }
+
+    public void addBills(String userId, List<Bill> billList) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
+        for (Bill bill : billList){
+            user.addBill(bill);
+        }
+    }
+
+    @Transactional
+    public void addFriend(String userId, String friendId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException("User not found", HttpStatus.NOT_FOUND));
+        User friend = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException("Friend not found", HttpStatus.NOT_FOUND));
+
+        user.getFriends().add(friend);
+        friend.getFriends().add(user); // Since friendship is bidirectional
+    }
+
+    @Transactional
+    public void deleteFriend(String userId, String friendId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException("User not found", HttpStatus.NOT_FOUND));
+        User friend = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException("Friend not found", HttpStatus.NOT_FOUND));
+
+        user.getFriends().remove(friend);
+        friend.getFriends().remove(user); // Since friendship is bidirectional
     }
 
 }
