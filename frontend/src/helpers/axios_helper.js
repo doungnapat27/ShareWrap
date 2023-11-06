@@ -8,6 +8,9 @@ export const getAuthToken = () => {
 export const setAuthHeader = (token) => {
     window.localStorage.setItem('auth_token', token);
 };
+export const setUser = (user) => {
+  window.localStorage.setItem('auth_user', user);
+};
 
 axios.defaults.baseURL = 'http://localhost:8080';
 axios.defaults.headers.post['Content-Type'] = 'application/json';

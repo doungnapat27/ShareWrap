@@ -5,7 +5,7 @@ import withStyles from './style/loginStyle';
 import InputText from './components/loginInputText';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-import { request, setAuthHeader } from '../../../helpers/axios_helper';
+import { request, setAuthHeader, setUser } from '../../../helpers/axios_helper';
 
 class Loginpage extends Component {
   constructor(props) {
@@ -44,13 +44,15 @@ class Loginpage extends Component {
         }).then(
         (response) => {
             setAuthHeader(response.data.token);
+            setUser(JSON.stringify(response.data))
+            const uid = response.data.id;
             this.setState({
               snackbarOpen: true,
               snackbarMessage: 'Logged in successfully!!',
               snackbarSeverity: 'success',
               }, () => { 
                 setTimeout(() => {
-                    window.location.href = "/home";; 
+                    window.location.href = "/home/"+uid; 
                 }, 1000); 
             });
         }).catch(
