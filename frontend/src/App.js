@@ -14,6 +14,8 @@ import ReceiptBillUpload from "./ui/pages/receiptBillUpload/receiptBillUpload.js
 import SplitingBill from "./ui/pages/splitingBill/splittingBill.jsx";
 import AddFriend from "./ui/pages/addFriend/addFriend.jsx";
 import ProtectedRoute from "./ui/modules/components/protectedRoute.jsx";
+import PaymentDetails from './ui/pages/paymentDetails/paymentDetails.jsx'
+
 
 function App() {
   return (
@@ -22,13 +24,14 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route element={<ProtectedRoute />}>
+          {/* <Route element={<ProtectedRoute />}> */}
             <Route path="/home/:id" element={<Home />} />
             <Route path="/splitting-bill" element={<SplitingBill />}/>
+            <Route path="payment-details" element={<PaymentDetails />} />
             <Route path="/upload-receipt" element={<UploadReceipt />} />
             <Route path="/receipt-uploaded" element={<ReceiptBillUpload />} />
             <Route path="/add-Friend" element={<AddFriend/>} />
-          </Route>
+          {/* </Route> */}
           {/* <Route path="/create-bill" element={<CreateBill />} /> No longer use */}
           <Route path="*" element={<PageNotFound />} />
         </Routes>
