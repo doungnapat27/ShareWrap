@@ -34,6 +34,9 @@ function SplitingBillTab() {
     ]
   })
 
+  const [value, setValue] = useState(0);
+  const classes = useStyles()
+
   const handleAddItem = () => {
     const newItem = {
       id: Date.now(),
@@ -113,8 +116,6 @@ function SplitingBillTab() {
     })
   }
 
-  const [value, setValue] = useState(0);
-  const classes = useStyles()
   return (
     <Box className={classes.cover}>
       <Box className={classes.container}>
