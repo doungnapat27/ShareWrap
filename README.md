@@ -371,6 +371,7 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
   
 </details>
 
+---
 
 <details>
   <summary><h2> 💚 BONUS: CI Integration 💚 </h1></summary>
