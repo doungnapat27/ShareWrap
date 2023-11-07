@@ -2,7 +2,7 @@ import React from "react";
 import LogoHomepage from "../../assets/logoHomepage.svg"
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import useStyles  from './navbarStyle.jsx';
+import useStyles  from '../style/navbarStyle';
 import {AppBar,Box,Toolbar,IconButton,Typography,} from "@mui/material";
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';

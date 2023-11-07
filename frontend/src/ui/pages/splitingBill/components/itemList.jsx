@@ -7,23 +7,44 @@ import {
   TextField,
   Paper,
   IconButton,
+  Box,
 } from "@mui/material";
 
-function ItemList() {
+function ItemList({ itemList, handleDeleteItem, handleTotalCostChange, handleItemChange }) {
   const classes = UseStyles()
   return (
-    <Paper className={classes.paperContainer}>
-      <IconButton className={classes.positionButton}>
-        <CancelIcon />
-      </IconButton>
-      <TextField
-        fullWidth
-        className={classes.positoinTypo}
-        placeholder="Item name"
-        variant="standard"
-      />
-      <TextField className={classes.setWidthTextField} placeholder="Cost" variant="standard" />
-    </Paper>
+    <Box>
+      {itemList.items.map((item, index) => (
+        <Paper
+          key={`item:${item.id}`}
+          className={classes.paperContainer}
+        >
+          <IconButton
+            className={classes.positionButton}
+            onClick={() => handleDeleteItem(item.id, itemList.items)}
+          >
+            <CancelIcon />
+          </IconButton>
+          <TextField
+            fullWidth
+            className={classes.positoinTypo}
+            placeholder="Item name"
+            variant="standard"
+            name='itemName'
+            value={itemList.items.name}
+            onChange={(e) => handleItemChange(e.target.value, item.id)}
+          />
+          <TextField
+            className={classes.setWidthTextField} placeholder="Cost"
+            variant="standard"
+            name='cost'
+            type='number'
+            value={item?.cost}
+            onChange={(e) => handleTotalCostChange(item.id, e.target.value)}
+          />
+        </Paper>
+      ))}
+    </Box>
   );
 }
 
