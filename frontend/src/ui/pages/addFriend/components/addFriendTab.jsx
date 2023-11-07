@@ -15,7 +15,7 @@ function a11yProps(index) {
 function AddFriendTab() {
     const [value, setValue] = useState(0);
     const [selectedFriends, setSelectedFriends] = useState([]);
-    const classes = useStyles()
+    const classes = useStyles();
     const friends = [
         {name: 'Oat Sarayut'},
         {name: 'Aom Doungnapat'},

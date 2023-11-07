@@ -5,7 +5,7 @@ function addImportant(styles) {
     );
 }
 
-const useStyles = makeStyles({
+const useStyle = makeStyles({
     cover:{
         width: '100%',
         height: '100%',
@@ -36,40 +36,35 @@ const useStyles = makeStyles({
             alignItems: 'center',
         },
         width: '100%',
+        
     },
     centerTab: addImportant({
         flex: 1,
         width: '50%',
         color: 'black',
     }),
-    paperSearchBox:{
-        padding: '2px 4px',
-        display: 'flex',
-        alignItems: 'center',
-        width: '80%',
-        marginTop:'10px',
-        borderRadius: '10px !important',
-    },
-    searchBoxContainer:{
+    menuContainer: {
         width: '100%',
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'stretch',
-        justifyContent: 'center',
         '@media (min-width: 601px) and (max-width: 1024px)': {
-          width: '70%',
+            width: '70%',
         },
         '@media (min-width: 1025px)': {
-          width: '60%',
+            width: '60%',
         },
+        
     },
-    bottomBar:{
-        position: 'fixed',
-        left: 0,
-        right: 0,
-        bottom: 0,
-        zIndex: 1000,
-    },
+    topicContainer:addImportant({
+        width: '100%',
+        height: '90px',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        backgroundColor: 'rgba(255, 181, 59, 0.5)',
+        padding: '0 30px 0 30px',
+        borderBottomLeftRadius: "15px",
+        borderBottomRightRadius: "15px",
+    }),
     selectFriend:{
         marginTop: '20px',
         display: 'flex',
@@ -84,14 +79,22 @@ const useStyles = makeStyles({
         width: '60%',
         },
     },
-    friendList:{
+    bottomBar:{
+        position: 'fixed',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 1000,
+    },
+    equalContainer:{
+        marginTop: '14px',
         display: 'flex',
-        flexDirection: 'column',
-        width: '100%',
-        justifyContent:'center',
         alignItems: 'center',
+        textAlign: 'left',
+        paddingLeft:'30px',
+        width: '100%',
+        justifyContent: 'space-between',
     }
-
 });
 
-export default useStyles;
+export default useStyle;
