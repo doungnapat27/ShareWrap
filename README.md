@@ -10,7 +10,7 @@
 <details>
 <summary><h2>Software QA: Project 2 (ShareWrap)</h2></summary>
 
-> ❗️NOTES❗️
+> ### ❗️NOTES❗️
 > ### This is QA Section, Ming will put the content below in the separated repo (After finishing all tasks in Practical SE)
 > You can click [here](https://studentmahidolac-my.sharepoint.com/:w:/g/personal/chaiyong_rag_mahidol_ac_th/EdwEp36CaWVFkTFe6Md2LuUBcb3R8Pn6hO6NyNJ59IQdgw?rtime=v6KTkIPf20g) to see the QA project#2 description
 
@@ -344,6 +344,17 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
 
 <details>
   <summary><h2> 👩🏻‍💻 System test (Manual test) 👨🏻‍💻 </h2></summary>
+
+  ### Description
+  - ### Three of manual tests with traceability matrix is in folder 📁 ```manual test case``` ➡️ [URL TO FOLDER manual test case in GITHUB](www.google.com)
+  - **You must create at least 3 test cases for system testing.**
+  - **Test case template and resources**
+    - [DOC](https://www.softwaretestinghelp.com/wp-content/qa/uploads/2012/12/Test-case-example-doc.doc)
+    - [Excel](https://www.softwaretestinghelp.com/wp-content/qa/uploads/2012/12/Test-case-template-xls.xls)
+    - [Test case example](https://www.softwaretestinghelp.com/wp-content/qa/uploads/2018/05/Test-Case-Format-with-Example.docx)
+    - [180+ Web Application Testing Example Test Cases](https://www.softwaretestinghelp.com/sample-test-cases-testing-web-desktop-applications/)
+    - [traceability matrix](https://www.guru99.com/traceability-matrix.html)
+
   
 </details>
 
@@ -352,9 +363,14 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
 <details>
   <summary><h2> 🤖 Automated UI Testing 🤖 </h2></summary>
   
+  ### Description
+  - ### Three of automated UI tests with code using Selenium Web Driver is in folder 📁 ```automated test case``` ➡️ [URL TO FOLDER automated test case in GITHUB](www.google.com)
+  - create at least **3 automated UI test cases.** Based on the 3 manual system test cases that you created, convert them into automated UI test cases using **Selenium Web Driver or Robot framework.**
+  - **[Automated UI Testing](https://studentmahidolac-my.sharepoint.com/:w:/g/personal/chaiyong_rag_mahidol_ac_th/EYxyoC1ZGkZPiKMl-9HXypsB9Xirs5iE6Bl3cCcb7plW1w?e=XdeDpo)**
+
+  
 </details>
 
----
 
 <details>
   <summary><h2> 💚 BONUS: CI Integration 💚 </h1></summary>
