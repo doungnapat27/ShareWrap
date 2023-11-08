@@ -44,6 +44,13 @@ const useStyles = makeStyles({
         alignItems: 'center',
         padding: '0 30px 20px 30px',
     },
+    avatarBox:{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        paddingLeft: '4px'
+    }
 });
 
 export default useStyles;
