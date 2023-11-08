@@ -91,10 +91,43 @@ const useStyle = makeStyles({
         display: 'flex',
         alignItems: 'center',
         textAlign: 'left',
-        paddingLeft:'30px',
+        padding:'0 30px 0 30px',
         width: '100%',
         justifyContent: 'space-between',
-    }
+    },
+    foodContainer:{
+        width: '100%',
+        display: 'flex',
+        marginTop: '14px',
+        padding: '16px 30px 0 30px',
+        backgroundColor: 'rgba(255, 255, 255, 0.7)',
+        borderRadius: '10px',
+    },
+    foodInfo:{
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'space-between',
+    },
+    splittingBillContainer:{
+        overflowY: 'auto',
+        maxHeight: 'calc(100vh - 220px - 265px)',
+        '&::-webkit-scrollbar-track': {
+            backgroundColor: 'transparent',
+            borderRadius: '10px',
+        },
+        '&::-webkit-scrollbar': {
+            width: '10px',
+            backgroundColor: 'transparent',
+        },
+        '&::-webkit-scrollbar-thumb': {
+            backgroundColor: '#981E25',
+            borderRadius: '10px',
+            border: '2px solid #f0f0f0',
+        },
+        '&::-webkit-scrollbar-thumb:hover': {
+            backgroundColor: '#BE2830',
+        },
+    },
 });
 
 export default useStyle;

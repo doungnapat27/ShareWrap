@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Box, Tabs, Tab, Typography, Paper, TextField, Switch } from "@mui/material";
 import useStyles from '../style/summaryBillTabStyle';
 import SummaryBillBottom from "../compoments/summaryBillBottom";
+import SummaryBillAddFriend from "../compoments/summeryBillAddFriend";
+import EqualSpitting from "./billSplitting";
 
 function a11yProps(index) {
     return {
@@ -49,6 +51,10 @@ function SummaryBillTab() {
                         <Box className={classes.equalContainer}>
                             <Typography variant="h5">Equal Splitting</Typography>
                             <Switch {...label}/>
+                        </Box>
+                        <Box className={classes.splittingBillContainer}>
+                            {/* <SummaryBillAddFriend/> */}
+                            <EqualSpitting/>
                         </Box>
                     </Box>
                 </Box>
