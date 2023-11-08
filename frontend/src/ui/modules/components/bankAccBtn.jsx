@@ -6,6 +6,7 @@ function BankAccBtn({ isBankAcc, handleChangeBackAss }) {
   const classes = useStyles({ isBankAcc });
   return (
     <Button
+      fullWidth
       variant="contained"
       className={classes.positionBankAccButton}
       onClick={handleChangeBackAss}

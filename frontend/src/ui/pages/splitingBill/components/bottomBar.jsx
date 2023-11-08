@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 
-import CircleIcon from "@mui/icons-material/Circle";
-import CreateIcon from "@mui/icons-material/Create";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import BankAccBtn from "../../../modules/components/bankAccBtn"
@@ -15,6 +13,8 @@ function BottomBar({ itemList }) {
   const [isBankAcc, setIsBankAcc] = useState(true);
   const [isPromptPay, setIsPromptPay] = useState(false);
 
+  const classes = useStyles({ isBankAcc, isPromptPay });
+
   const handleChangeIsProptPay = (e) => {
     setIsPromptPay(true);
     setIsBankAcc(false);
@@ -25,7 +25,6 @@ function BottomBar({ itemList }) {
     setIsPromptPay(false);
   };
 
-  const classes = useStyles({ isBankAcc, isPromptPay });
   return (
     <Box className={classes.cover}>
       <Box className={classes.container}>
@@ -39,9 +38,10 @@ function BottomBar({ itemList }) {
               isBankAcc={isBankAcc}
               handleChangeBackAss={handleChangeBackAss}
             />
+            <Box mr={1} />
             <PromptPayBtn
-              isPromptPay={isPromptPay}
-              handleChangeIsProptPay={handleChangeIsProptPay}/>
+              isPromptPay={isPromptPay} handleChangeIsProptPay={handleChangeIsProptPay}
+            />
           </Box>
           {isBankAcc ? (
             <Button

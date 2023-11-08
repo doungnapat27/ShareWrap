@@ -6,6 +6,7 @@ function PromptPayBtn({ isPromptPay, handleChangeIsProptPay }) {
   const classes = useStyles({ isPromptPay });
   return (
     <Button
+      fullWidth
       variant="contained"
       className={classes.positionProptPayButton}
       onClick={handleChangeIsProptPay}

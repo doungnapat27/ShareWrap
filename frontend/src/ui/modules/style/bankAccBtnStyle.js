@@ -9,7 +9,6 @@ function addImportant(styles) {
 const useStyles = makeStyles({
   positionBankAccButton: ({ isBankAcc }) =>
   addImportant({
-    minWidth: "170px",
     color: "black",
     backgroundColor: isBankAcc ? "#FFB53B" : "rgba(131, 131, 131, 0.50)",
     "&:hover": {

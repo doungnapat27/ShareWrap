@@ -60,6 +60,22 @@ const useStyles = makeStyles({
     marginTop: "20px",
     justifyContent: "space-between",
   },
+  positionBankAccButton: ({ isBankAcc }) =>
+    addImportant({
+      backgroundColor: isBankAcc ? "#FFB53B" : "rgba(131, 131, 131, 0.50)",
+      color: "black",
+      "&:hover": {
+        backgroundColor: isBankAcc ? "#FFB53B" : "rgba(131, 131, 131, 0.50)",
+      },
+    }),
+  positionProptPayButton: ({ isPromptPay }) =>
+    addImportant({
+      backgroundColor: isPromptPay ? "#FFB53B" : "rgba(131, 131, 131, 0.50)",
+      color: "black",
+      "&:hover": {
+        backgroundColor: isPromptPay ? "#FFB53B" : "rgba(131, 131, 131, 0.50)",
+      },
+    }),
   addBacnkAccButton: addImportant({
     backgroundColor: "rgba(255, 181, 59, 0.50)",
     padding: "20px 12px",
