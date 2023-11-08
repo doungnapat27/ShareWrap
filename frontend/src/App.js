@@ -22,13 +22,13 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route element={<ProtectedRoute />}>
-            <Route path="/home/:id" element={<Home />} />
+          {/* <Route element={<ProtectedRoute />}> */}
+            <Route path="/home" element={<Home />} />
             <Route path="/splitting-bill" element={<SplitingBill />}/>
             <Route path="/upload-receipt" element={<UploadReceipt />} />
             <Route path="/receipt-uploaded" element={<ReceiptBillUpload />} />
             <Route path="/add-Friend" element={<AddFriend/>} />
-          </Route>
+          {/* </Route> */}
           {/* <Route path="/create-bill" element={<CreateBill />} /> No longer use */}
           <Route path="*" element={<PageNotFound />} />
         </Routes>
