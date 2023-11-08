@@ -33,8 +33,10 @@ const useStyles = makeStyles({
         padding: '20px 30px 10px 30px',
     },
     friendContainer:{
+        width: '100%',
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'space-between',
         // padding: '20px 30px 10px 30px',
     },
     rowOne:{
@@ -51,6 +53,10 @@ const useStyles = makeStyles({
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: ' 10px 0 0 50px',
+    },
+    nameUser:{
+        display: 'flex',
+        alignItems: 'center',
     },
 });
 export default useStyles;

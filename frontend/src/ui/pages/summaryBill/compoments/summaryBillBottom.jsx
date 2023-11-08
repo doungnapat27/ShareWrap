@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import useStyle from "../style/summaryBillBottomStyle";
 import {Box, Button, Typography, Avatar, AvatarGroup} from "@mui/material"
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -30,7 +30,19 @@ function stringAvatar(name) {
 
 
 function SummaryBillBottom() {
+    const [selectedFriends, setSelectedFriends] = useState([]);
     const classes = useStyle();
+
+    useEffect(() => {
+      const savedSelectedFriends = localStorage.getItem('selectedFriends');
+      if (savedSelectedFriends) {
+          setSelectedFriends(JSON.parse(savedSelectedFriends));
+      }
+    }, []);
+
+    const getFirstName = (fullName) => {
+      return fullName.split(' ')[0]; 
+    }
     return (
         <Box className={classes.cover}>
             <Box className={classes.container}>
@@ -39,11 +51,17 @@ function SummaryBillBottom() {
                         <Typography variant="h5">Non-selected Friends</Typography>
                     </Box>
                     <Box className={classes.boxFriend}>
-                      {/* <AvatarGroup max={9}>
-                        {selectedFriends.map((friend) => (
-                        <Avatar key={friend} {...stringAvatar(friend)} />
-                        ))}
-                      </AvatarGroup> */}
+                      <AvatarGroup max={9}>
+                            {selectedFriends.map((friend, index) => (
+                                // <Avatar key={index} {...stringAvatar(friend)} /> 
+                                <Box key={index} className={classes.avatarBox}>
+                                <Avatar {...stringAvatar(friend)} />
+                                <Typography variant="h6" className={classes.avatarName}>
+                                    {getFirstName(friend)}
+                                </Typography>
+                              </Box>
+                            ))}
+                      </AvatarGroup>
                     </Box>
                     <Button
                     fullWidth={true}

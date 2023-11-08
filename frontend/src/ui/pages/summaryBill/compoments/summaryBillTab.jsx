@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Tabs, Tab, Typography, Paper, TextField, Switch } from "@mui/material";
 import useStyles from '../style/summaryBillTabStyle';
 import SummaryBillBottom from "../compoments/summaryBillBottom";
 import SummaryBillAddFriend from "../compoments/summeryBillAddFriend";
-import EqualSpitting from "./billSplitting";
+import BillSpitting from "./billSplitting";
 
 function a11yProps(index) {
     return {
@@ -16,7 +16,27 @@ const label = { inputProps: { 'aria-label': 'Switch Equal Splitting' } };
 
 function SummaryBillTab() {
     const [value, setValue] = useState(0);
+    const [billTitle, setBillTitle] = useState('');
+    const [totalCost, setTotalCost] = useState(0);
+    const [isEqualSplitting, setIsEqualSplitting] = useState(false);
     const classes = useStyles()
+
+    const handleSwitchChange = (event) => {
+        setIsEqualSplitting(event.target.checked); 
+    }
+
+    useEffect(() => {
+        const billDetails = JSON.parse(localStorage.getItem('billDetails'));
+        if (billDetails) {
+            if (billDetails.title) {
+              setBillTitle(billDetails.title);
+            }
+            if (billDetails.totalCost) {
+              setTotalCost(billDetails.totalCost); 
+            }
+          }
+      }, []);
+
     return (
         <Box className={classes.cover}>
             <Box className={classes.container}>
@@ -39,10 +59,10 @@ function SummaryBillTab() {
                     <Box className={classes.menuContainer}>
                         <Paper className={classes.topicContainer}>
                             <Typography variant="h4">
-                                หิวก็กินข้าว
+                                {billTitle || "Default Bill Name"}
                             </Typography>
                             <Typography variant="h4">
-                                ฿ 1350
+                                ฿ {totalCost.toLocaleString()} 
                             </Typography>
                         </Paper>
                         <Box className={classes.selectFriend}>
@@ -50,11 +70,19 @@ function SummaryBillTab() {
                         </Box>
                         <Box className={classes.equalContainer}>
                             <Typography variant="h5">Equal Splitting</Typography>
-                            <Switch {...label}/>
+                            <Switch 
+                            {...label}
+                            checked={isEqualSplitting}
+                            onChange={handleSwitchChange}
+                            />
                         </Box>
                         <Box className={classes.splittingBillContainer}>
-                            {/* <SummaryBillAddFriend/> */}
-                            <EqualSpitting/>
+                        {isEqualSplitting ? (
+                            <BillSpitting />  
+                            ) : (
+                            <SummaryBillAddFriend /> 
+                            // <BillSpitting /> 
+                        )}
                         </Box>
                     </Box>
                 </Box>

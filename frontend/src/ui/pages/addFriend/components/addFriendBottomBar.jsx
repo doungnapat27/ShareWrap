@@ -30,6 +30,16 @@ function stringAvatar(name) {
 
 function AddFriendBottomBar({selectedFriends}) {
     const classes = useStyles()
+    const handleSaveSelectedFriends = () => {
+      localStorage.setItem('selectedFriends', JSON.stringify(selectedFriends));
+
+      alert('Selected friends saved successfully!');
+      setTimeout(() => {
+        window.location.href = "/summary-bill";; 
+      }, 1000);
+    };
+
+
     return (
         <Box className={classes.cover}>
             <Box className={classes.container}>
@@ -48,6 +58,7 @@ function AddFriendBottomBar({selectedFriends}) {
                     fullWidth={true}
                     className={classes.positionButton}
                     endIcon={<ArrowForwardIcon/>}
+                    onClick={handleSaveSelectedFriends}
                     >
                         Next
                     </Button>

@@ -54,7 +54,14 @@ const useStyle = makeStyles({
         backgroundColor: "#FFB53B",
         marginTop: "10px",
         color: "#000",
-    })
+    }),
+    avatarBox:{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        paddingLeft: '4px'
+    }
 });
 
 export default useStyle;

@@ -17,6 +17,7 @@ import SummaryBill from ".//ui/pages/summaryBill/summaryBill.jsx"
 import ProtectedRoute from "./ui/modules/components/protectedRoute.jsx";
 
 function App() {
+
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>

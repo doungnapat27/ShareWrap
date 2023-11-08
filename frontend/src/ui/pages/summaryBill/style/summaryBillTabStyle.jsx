@@ -110,7 +110,7 @@ const useStyle = makeStyles({
     },
     splittingBillContainer:{
         overflowY: 'auto',
-        maxHeight: 'calc(100vh - 220px - 265px)',
+        maxHeight: 'calc(100vh - 220px - 270px)',
         '&::-webkit-scrollbar-track': {
             backgroundColor: 'transparent',
             borderRadius: '10px',
