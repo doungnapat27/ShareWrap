@@ -1,29 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import BankAccBtn from "../../../modules/components/bankAccBtn"
 import PromptPayBtn from "../../../modules/components/promptpayBtn";
 
+import { ShareContext } from "./shareContext";
+
 import useStyles from "../style/bottomBarStyle";
 
 import { Box, Typography, Button } from "@mui/material";
 
 function BottomBar({ itemList }) {
-  const [isBankAcc, setIsBankAcc] = useState(true);
-  const [isPromptPay, setIsPromptPay] = useState(false);
+  const {
+    isBankAcc,
+    isPromptPay,
+    handleChangeBankAcc,
+    handleChangeIsProptPay
+  } = useContext(ShareContext)
 
   const classes = useStyles({ isBankAcc, isPromptPay });
-
-  const handleChangeIsProptPay = (e) => {
-    setIsPromptPay(true);
-    setIsBankAcc(false);
-  };
-
-  const handleChangeBackAss = (e) => {
-    setIsBankAcc(true);
-    setIsPromptPay(false);
-  };
 
   return (
     <Box className={classes.cover}>
@@ -36,11 +32,12 @@ function BottomBar({ itemList }) {
           <Box className={classes.positionTwoPaymentButton}>
             <BankAccBtn
               isBankAcc={isBankAcc}
-              handleChangeBackAss={handleChangeBackAss}
+              handleChangeBankAcc={handleChangeBankAcc}
             />
             <Box mr={1} />
             <PromptPayBtn
-              isPromptPay={isPromptPay} handleChangeIsProptPay={handleChangeIsProptPay}
+              isPromptPay={isPromptPay}
+              handleChangeIsProptPay={handleChangeIsProptPay}
             />
           </Box>
           {isBankAcc ? (

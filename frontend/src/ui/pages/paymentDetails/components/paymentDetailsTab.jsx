@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import BankAccBtn from "../../../modules/components/bankAccBtn";
 import PromptPayBtn from "../../../modules/components/promptpayBtn";
+
+import { ShareContext } from "../../splitingBill/components/shareContext";
 
 import {
   Tabs,
@@ -13,6 +15,12 @@ import {
 
 function PaymentDetailsTab() {
   const [value, setValue] = useState(0);
+  const {
+    isBankAcc,
+    isPromptPay,
+    handleChangeBankAcc,
+    handleChangeIsProptPay,
+  } = useContext(ShareContext)
   return (
     <Box
       sx={{
@@ -75,8 +83,15 @@ function PaymentDetailsTab() {
           <Box>
             <Box sx={{ padding: '30px 24px' }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                <BankAccBtn />
-                <PromptPayBtn />
+                <BankAccBtn
+                  isBankAcc={isBankAcc}
+                  handleChangeBankAcc={handleChangeBankAcc}
+                />
+                <Box ml={1}/>
+                <PromptPayBtn
+                  isPromptPay={isPromptPay}
+                  handleChangeIsProptPay={handleChangeIsProptPay}
+                />
               </Box>
               <Box>
 
