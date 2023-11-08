@@ -63,7 +63,6 @@ const useStyles = makeStyles({
   positionBankAccButton: ({ isBankAcc }) =>
     addImportant({
       backgroundColor: isBankAcc ? "#FFB53B" : "rgba(131, 131, 131, 0.50)",
-      minWidth: "165px",
       color: "black",
       "&:hover": {
         backgroundColor: isBankAcc ? "#FFB53B" : "rgba(131, 131, 131, 0.50)",
@@ -72,7 +71,6 @@ const useStyles = makeStyles({
   positionProptPayButton: ({ isPromptPay }) =>
     addImportant({
       backgroundColor: isPromptPay ? "#FFB53B" : "rgba(131, 131, 131, 0.50)",
-      minWidth: "165px",
       color: "black",
       "&:hover": {
         backgroundColor: isPromptPay ? "#FFB53B" : "rgba(131, 131, 131, 0.50)",
