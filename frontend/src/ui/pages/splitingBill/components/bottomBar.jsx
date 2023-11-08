@@ -36,13 +36,16 @@ function BottomBar({ itemList }) {
           </Box>
           <Box className={classes.positionTwoPaymentButton}>
             <Button
+              fullWidth
               variant="contained"
               onClick={handleChangeBackAss}
               className={classes.positionBankAccButton}
             >
               Banck account
             </Button>
+            <Box mr={1} />
             <Button
+              fullWidth
               variant="contained"
               onClick={handleChangeIsProptPay}
               className={classes.positionProptPayButton}
