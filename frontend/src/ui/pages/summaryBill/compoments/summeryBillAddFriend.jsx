@@ -37,33 +37,39 @@ function SummaryBillAddFriend() {
     const [friendsToAdd, setFriendsToAdd] = useState([]);
 
     useEffect(() => {
-        const billDetails = JSON.parse(localStorage.getItem('billDetails'));
-        const fetchedFriends = JSON.parse(localStorage.getItem('selectedFriends')) || [];
-        if (billDetails && billDetails.items) {
-            const itemsWithFriends = billDetails.items.map(item => ({
-              ...item,
-              selectedFriends: [],
-            }));
-            setItems(itemsWithFriends);
-        }
-        setAllFriends(fetchedFriends);
-    }, []);
+      const billDetails = JSON.parse(localStorage.getItem('billDetails')) || { items: [] };
+      const fetchedFriends = JSON.parse(localStorage.getItem('selectedFriends')) || [];
+      
+      // Assigning friends from local storage if they exist
+      const itemsWithFriends = billDetails.items.map(item => ({
+          ...item,
+          friends: item.friends || [],
+      }));
+  
+      setItems(itemsWithFriends);
+      setAllFriends(fetchedFriends);
+  }, []);
+  
     const handleSelectFriend = (friendName) => {
-        setItems(prevItems =>
-            prevItems.map(item => {
-                if (item.id === currentItemId) {
-                    
-                    const itemFriends = item.friends || [];
-                    const isSelected = itemFriends.includes(friendName);
-                    const newFriends = isSelected
-                        ? itemFriends.filter(name => name !== friendName) 
-                        : [...itemFriends, friendName]; 
-                    return { ...item, friends: newFriends };
-                }
-                return item;
-            })
-        );
-    };
+      const newItems = items.map(item => {
+          if (item.id === currentItemId) {
+              const itemFriends = item.friends || [];
+              const isSelected = itemFriends.includes(friendName);
+              const newFriends = isSelected
+                  ? itemFriends.filter(name => name !== friendName)
+                  : [...itemFriends, friendName];
+              return { ...item, friends: newFriends };
+          }
+          return item;
+      });
+  
+      setItems(newItems); // Update state
+  
+      // Update local storage
+      const billDetails = JSON.parse(localStorage.getItem('billDetails')) || {};
+      billDetails.items = newItems; // Update the items with new friends list
+      localStorage.setItem('billDetails', JSON.stringify(billDetails)); // Save back to local storage
+  };
 
     const handleOpenDialog = (itemId) => {
         setCurrentItemId(itemId);

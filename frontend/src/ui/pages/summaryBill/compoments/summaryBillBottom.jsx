@@ -40,8 +40,26 @@ function SummaryBillBottom() {
       }
     }, []);
 
-    
+    // const handleSaveToLocalStorage = () => {
+    //   const itemList = JSON.parse(localStorage.getItem('itemList'));
+    //   const updatedItemList = {
+    //     items: itemList.items.map(item => ({
+    //       ...item,
+    //       people: ["Person A", "Person B"] // Add an array of people associated with the item
+    //     })),
+    //     totalCost: itemList.totalCost
+    //   };
+      
+    //   localStorage.setItem('updatedItemlist', JSON.stringify(updatedItemList));
 
+    //   setTimeout(() => {
+    //     // window.location.href = "/add-Friend";; 
+    //   }, 1000);
+    //   // or
+    //   alert('Bill details saved successfully!');
+    // }
+
+  
     const getFirstName = (fullName) => {
       return fullName.split(' ')[0]; 
     }
@@ -53,6 +71,7 @@ function SummaryBillBottom() {
                     fullWidth={true}
                     className={classes.positionButton}
                     endIcon={<ArrowForwardIcon/>}
+                    // onClick={this.handleSaveToLocalStorage}
                     >
                         Next
                     </Button>
