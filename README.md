@@ -4,17 +4,17 @@
   ## Description
 - ShareWrap is a website for bill management, empowering diners to share meals and memories, not billing disputes. Simplifying the dining experience, one bill at a time.
 </details>
-
-  ## How to run this project?(in local)
+<details>
+<summary><h2>How to run this project?(in local)</h2></summary>
   ### Frontend Part
   - Open the terminal
   - Cd to /frontend folder
-  - type and enter command `npm i`
-  - type and enter command `npm start`
+  - Type and enter command `npm i`
+  - Type and enter command `npm start`
   ### Backend part
   - If you ahve IntelliJ, please open it in the IntelliJ
   - Run file `SharewrapBackendApplication.java`
-  
+</details>
 ---
 
 <details>
