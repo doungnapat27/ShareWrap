@@ -33,7 +33,7 @@ class Loginpage extends Component {
     
     login = (e) =>{
       console.log('login');
-      console.log(this.state);
+      console.log('before:'+this.state);
       e.preventDefault();
       request(
         "POST",
@@ -43,9 +43,11 @@ class Loginpage extends Component {
             password: this.state.password
         }).then(
         (response) => {
+            console.log(response.data.token)
             setAuthHeader(response.data.token);
             setUser(JSON.stringify(response.data))
             const uid = response.data.id;
+            console.log(uid);
             this.setState({
               snackbarOpen: true,
               snackbarMessage: 'Logged in successfully!!',
@@ -57,6 +59,7 @@ class Loginpage extends Component {
             });
         }).catch(
         (error) => {
+            console.log(error.response.data.message)
             setAuthHeader(null);
             this.setState({
               snackbarOpen: true,

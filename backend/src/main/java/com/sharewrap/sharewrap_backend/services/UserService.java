@@ -38,6 +38,8 @@ public class UserService {
         }
         throw new AppException("Invalid password", HttpStatus.BAD_REQUEST);
     }
+
+    @Transactional
     public UserDto register(RegisterDto userDto) {
         System.out.println("userDto: " + userDto);
         Optional<User> optionalUser = userRepository.findByEmail(userDto.getEmail());
@@ -48,7 +50,11 @@ public class UserService {
 
         User user = userMapper.registerToUser(userDto);
         user.setId(generateUniqueUserId(userDto.getUsername()));
+        user.setEmail(userDto.getEmail());
+        user.setUsername(userDto.getUsername());
         user.setPassword(passwordEncoder.encode(CharBuffer.wrap(userDto.getPassword())));
+        System.out.println("user: email:" + user.getEmail() + " ,password:" + user.getPassword()+
+                " ,username:" + user.getUsername()+ " ,id:" + user.getId());
         User savedUser = userRepository.save(user);
 
         return userMapper.toUserDto(savedUser);
