@@ -14,7 +14,7 @@
   - If you ahve IntelliJ, please open it in the IntelliJ
   - Create your database in MySql, please name it `sharewrap`
   - Go to the Server tab in MySql workbench -> Users and Privillages, then add the account as specified in file `application.properties`
-  - Don't forget to select the schema as `sharewrap` and set the set the privillages.
+  - Don't forget to select the schema as `sharewrap` and set the privillages.
   - Run file `SharewrapBackendApplication.java`
 ---
 
