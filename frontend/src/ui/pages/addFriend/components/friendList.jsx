@@ -20,12 +20,12 @@ function stringToColor(string) {
     return color;
   }
 
-function stringAvatar(name) {
+function stringAvatar(username) {
     return {
       sx: {
-        bgcolor: stringToColor(name),
+        bgcolor: stringToColor(username),
       },
-      children: `${name.split('')[0][0]}`,
+      children: `${username.split('')[0][0]}`,
     };
 }
 
@@ -34,11 +34,11 @@ const label = { inputProps: { 'aria-label': 'Checkbox Friend' } };
 function FriendList({ friends, selectedFriends, setSelectedFriends }) {
 
     const handleToggle = (friend) => {
-        const currentIndex = selectedFriends.indexOf(friend.name);
+        const currentIndex = selectedFriends.indexOf(friend.username);
         const newChecked = [...selectedFriends];
 
         if (currentIndex === -1) {
-            newChecked.push(friend.name);
+            newChecked.push(friend.username);
         } else {
             newChecked.splice(currentIndex, 1);
         }
@@ -53,9 +53,9 @@ function FriendList({ friends, selectedFriends, setSelectedFriends }) {
                 <Box className={classes.container}>
                     <Box className={classes.friendContainer}>
                         <Box className={classes.nameContainer}>
-                            <Avatar {...stringAvatar(friend.name)} />
+                            <Avatar {...stringAvatar(friend.username)} />
                             <Typography variant="h4" style={{marginLeft:'1rem'}}>
-                                {friend.name}
+                                {friend.username}
                             </Typography>
                         </Box>
                         <Box className={classes.checkBox}>
@@ -63,7 +63,7 @@ function FriendList({ friends, selectedFriends, setSelectedFriends }) {
                             icon={<Uncheck/>} 
                             checkedIcon={<Check/>}
                             onChange={() => handleToggle(friend)} 
-                            checked={selectedFriends.indexOf(friend.name) !== -1}
+                            checked={selectedFriends.indexOf(friend.username) !== -1}
                             sx={{
                                 color: '#D9D9D9',
                                 '&.Mui-checked': {

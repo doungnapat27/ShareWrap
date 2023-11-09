@@ -94,4 +94,4 @@ const useStyles = makeStyles({
 
 });
 
-export default useStyles
+export default useStyles;

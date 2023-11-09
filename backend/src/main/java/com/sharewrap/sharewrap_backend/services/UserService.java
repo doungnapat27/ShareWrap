@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 import java.nio.CharBuffer;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -128,6 +130,22 @@ public class UserService {
 
         user.getFriends().remove(friend);
         friend.getFriends().remove(user); // Since friendship is bidirectional
+    }
+
+    @Transactional
+    public Set<UserDto> getFriends(String userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException("User not found", HttpStatus.NOT_FOUND));
+        return user.getFriends().stream()
+                .map(userMapper::toUserDto)
+                .collect(Collectors.toSet());
+    }
+
+
+    public UserDto getUser(String userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException("User not found", HttpStatus.NOT_FOUND));
+        return userMapper.toUserDto(user);
     }
 
 }
