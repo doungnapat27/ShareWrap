@@ -30,6 +30,11 @@ function HomeTab() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const handleCreateBill = () => {
+    setTimeout(() => {
+      window.location.href = "/splitting-bill";; 
+    }, 1000);
+  };
   return (
     <Box className={classes.cover}>
       <Box className={classes.container}>
@@ -62,7 +67,9 @@ function HomeTab() {
           <Box className={classes.containerInfo}>
             <TabPanel value={value} index={0}>
               <Box>
-                <CreateBill />
+                <CreateBill 
+                  onClick = {handleCreateBill}
+                />
                 <Typography variant='h4'>
                   Pending bills
                 </Typography>

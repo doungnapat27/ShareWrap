@@ -30,6 +30,14 @@ function stringAvatar(name) {
 
 function BillSummaryBottom() {
     const classes = useStyle();
+    const handToCreateBill =() =>{
+      localStorage.removeItem('billDetails');
+      localStorage.removeItem('selectedFriends');
+      setTimeout(() => {
+          window.location.href = "/home";; 
+      }, 1000);
+  };
+
     return (
         <Box className={classes.cover}>
             <Box className={classes.container}>
@@ -38,6 +46,7 @@ function BillSummaryBottom() {
                     fullWidth={true}
                     className={classes.positionButton}
                     endIcon={<ArrowForwardIcon/>}
+                    onClick={handToCreateBill}
                     >
                         Create Bill
                     </Button>
