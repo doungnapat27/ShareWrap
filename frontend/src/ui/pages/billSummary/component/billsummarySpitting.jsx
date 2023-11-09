@@ -33,30 +33,6 @@ function BillSummarySpitting() {
   const [selectedFriends, setSelectedFriends] = useState([]);
   const classes = useStyle();
   
-  // const calculateShare = (items, selectedFriends) => {
-  //   const friendShares = selectedFriends.map(friend => ({
-  //     name: friend,
-  //     totalShare: 0,
-  //     items: []
-  //   }));
-    
-  //   items.forEach(item => {
-  //     const sharePerFriend = item.cost / selectedFriends.length;
-  //     friendShares.forEach(friendShare => {
-  //       const isFriendSelectedForItem = item.friends.some(f => f.name === friendShare.name);
-  //       if (isFriendSelectedForItem) {
-  //         friendShare.items.push({
-  //           name: item.name,
-  //           share: sharePerFriend
-  //         });
-  //         friendShare.totalShare += sharePerFriend;
-  //       }
-  //     });
-  //   });
-    
-  //   return friendShares;
-  // };
-
   const calculateShare = (items, selectedFriends) => {
     const friendShares = selectedFriends.map(friend => ({
       name: friend,
@@ -75,11 +51,10 @@ function BillSummarySpitting() {
             
           });
           friendShare.totalShare += sharePerFriend;
-        //  console.log(`${friendShare.name} is included for item ${item.name}, share: ${sharePerFriend}`);
         }
       });
     });
-  
+    localStorage.setItem('billsummary', JSON.stringify(friendShares));
     return friendShares;
   };
   
@@ -96,7 +71,7 @@ function BillSummarySpitting() {
   }, []);
 
   const friendShares = calculateShare(items, selectedFriends);
-  // console.log(friendShares);
+  
 
   return (
       <Box className={classes.cover}>
