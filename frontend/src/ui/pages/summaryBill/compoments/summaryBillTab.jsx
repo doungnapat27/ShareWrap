@@ -3,7 +3,7 @@ import { Box, Tabs, Tab, Typography, Paper, TextField, Switch } from "@mui/mater
 import useStyles from '../style/summaryBillTabStyle';
 import SummaryBillBottom from "../compoments/summaryBillBottom";
 import SummaryBillAddFriend from "../compoments/summeryBillAddFriend";
-import BillSpitting from "./billSplitting";
+import BillSpitting from "./equalBillSplitting";
 
 function a11yProps(index) {
     return {
@@ -19,11 +19,17 @@ function SummaryBillTab() {
     const [billTitle, setBillTitle] = useState('');
     const [totalCost, setTotalCost] = useState(0);
     const [isEqualSplitting, setIsEqualSplitting] = useState(false);
+    const [originalItems, setOriginalItems] = useState([]);
     const classes = useStyles()
 
     const handleSwitchChange = (event) => {
-        setIsEqualSplitting(event.target.checked); 
-    }
+        setIsEqualSplitting(event.target.checked);
+        if (event.target.checked) {
+            applyEqualSplitting();
+        }else {
+            revertToNormalSplitting();
+        }
+    };
 
     useEffect(() => {
         const billDetails = JSON.parse(localStorage.getItem('billDetails'));
@@ -35,7 +41,44 @@ function SummaryBillTab() {
               setTotalCost(billDetails.totalCost); 
             }
           }
-      }, []);
+        if (billDetails && billDetails.items) {
+            setOriginalItems(billDetails.items); // Store the original items when component mounts
+            // ... other initializations
+        }
+    }, []);
+
+    const applyEqualSplitting = () => {
+        const billDetails = JSON.parse(localStorage.getItem('billDetails')) || { items: [] };
+        const selectedFriends = JSON.parse(localStorage.getItem('selectedFriends')) || [];
+      
+        if (selectedFriends.length === 0) return;
+      
+        const equalSplitItems = billDetails.items.map(item => {
+          const friendsSplit = selectedFriends.map(friend => friend); 
+      
+          return {
+            ...item,
+            friends: friendsSplit, 
+          };
+        });
+      
+        const updatedBillDetails = {
+          ...billDetails,
+          items: equalSplitItems
+        };
+      
+        localStorage.setItem('billDetails', JSON.stringify(updatedBillDetails));
+      };
+
+    const revertToNormalSplitting = () => {
+        
+        const billDetails = JSON.parse(localStorage.getItem('billDetails')) || {};
+        billDetails.items = originalItems; 
+        localStorage.setItem('billDetails', JSON.stringify(billDetails));
+        
+    };
+
+    
 
     return (
         <Box className={classes.cover}>
@@ -81,7 +124,6 @@ function SummaryBillTab() {
                             <BillSpitting />  
                             ) : (
                             <SummaryBillAddFriend /> 
-                            // <BillSpitting /> 
                         )}
                         </Box>
                     </Box>

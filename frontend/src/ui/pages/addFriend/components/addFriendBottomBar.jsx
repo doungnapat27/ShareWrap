@@ -33,7 +33,7 @@ function AddFriendBottomBar({selectedFriends}) {
     const handleSaveSelectedFriends = () => {
       localStorage.setItem('selectedFriends', JSON.stringify(selectedFriends));
 
-      alert('Selected friends saved successfully!');
+      // alert('Selected friends saved successfully!');
       setTimeout(() => {
         window.location.href = "/summary-bill";; 
       }, 1000);
