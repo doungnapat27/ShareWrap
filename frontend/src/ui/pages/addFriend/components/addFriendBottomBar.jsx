@@ -19,12 +19,12 @@ function stringToColor(string) {
     return color;
   }
 
-function stringAvatar(name) {
+function stringAvatar(username) {
     return {
       sx: {
-        bgcolor: stringToColor(name),
+        bgcolor: stringToColor(username),
       },
-      children: `${name.split('')[0][0]}`,
+      children: `${username.split('')[0][0]}`,
     };
 }
 
