@@ -17,19 +17,19 @@ function AddFriendTab() {
     const [selectedFriends, setSelectedFriends] = useState([]);
     const classes = useStyles();
     const friends = [
-        {name: 'Oat Sarayut'},
-        {name: 'Aom Doungnapat'},
-        {name: 'Oil Bunradar'},
-        {name: 'Ming Rujiphart'},
-        {name: 'Mark Wasapon'},
-        {name: 'Eff Thitirat'},
-        {name: 'Chat GPT'},
-        {name: 'Oily Haha'},
-        {name: 'Effy Haha'},
-        {name: 'Mingy Haha'},
-        {name: 'Oaty Haha'},
-        {name: 'Aomy Haha'},
-        {name: 'Marky Haha'},
+        {name: 'Oat'},
+        {name: 'Aom'},
+        {name: 'Oil'},
+        {name: 'Ming'},
+        {name: 'Mark'},
+        {name: 'Eff'},
+        {name: 'Chat'},
+        {name: 'Oily'},
+        {name: 'Effy'},
+        {name: 'Mingy'},
+        {name: 'Oaty'},
+        {name: 'Aomy'},
+        {name: 'Marky'},
     ];
     return(
         <Box className={classes.cover}>

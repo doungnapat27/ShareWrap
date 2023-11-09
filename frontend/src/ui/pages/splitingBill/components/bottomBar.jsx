@@ -26,8 +26,6 @@ function BottomBar({ itemList, onSaveBill }) {
     setTimeout(() => {
       window.location.href = "/add-Friend";; 
     }, 1000);
-    // or
-    alert('Bill details saved successfully!');
   };
 
   const handleChangeIsProptPay = (e) => {
@@ -49,7 +47,7 @@ function BottomBar({ itemList, onSaveBill }) {
         <Box className={classes.boxContainer}>
           <Box className={classes.boxHeader}>
             <Typography variant="h4">Total</Typography>
-            <Typography variant="h4">{itemList?.totalCost} ฿</Typography>
+            <Typography variant="h4">{itemList?.totalCost.toLocaleString()} ฿</Typography>
           </Box>
           <Box className={classes.positionTwoPaymentButton}>
             <Button

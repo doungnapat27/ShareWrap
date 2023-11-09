@@ -15,6 +15,7 @@ import SplitingBill from "./ui/pages/splitingBill/splittingBill.jsx";
 import AddFriend from "./ui/pages/addFriend/addFriend.jsx";
 import SummaryBill from ".//ui/pages/summaryBill/summaryBill.jsx"
 import ProtectedRoute from "./ui/modules/components/protectedRoute.jsx";
+import BillSummary from "./ui/pages/billSummary/billSummary"
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
             <Route path="/receipt-uploaded" element={<ReceiptBillUpload />} />
             <Route path="/add-Friend" element={<AddFriend/>} />
             <Route path="/summary-bill" element={<SummaryBill/>} />
+            <Route path="/bill-summary" element={<BillSummary/>} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>

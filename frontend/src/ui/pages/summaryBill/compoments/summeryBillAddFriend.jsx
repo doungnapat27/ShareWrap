@@ -24,7 +24,7 @@ function stringAvatar(name) {
       sx: {
         bgcolor: stringToColor(name),
       },
-      children: `${name.split('')[0][0]}`,
+      children: `${name}`,
     };
 }
 
@@ -63,13 +63,12 @@ function SummaryBillAddFriend() {
           return item;
       });
   
-      setItems(newItems); // Update state
+      setItems(newItems); 
   
-      // Update local storage
       const billDetails = JSON.parse(localStorage.getItem('billDetails')) || {};
-      billDetails.items = newItems; // Update the items with new friends list
-      localStorage.setItem('billDetails', JSON.stringify(billDetails)); // Save back to local storage
-  };
+      billDetails.items = newItems; 
+      localStorage.setItem('billDetails', JSON.stringify(billDetails)); 
+    };
 
     const handleOpenDialog = (itemId) => {
         setCurrentItemId(itemId);
@@ -78,9 +77,7 @@ function SummaryBillAddFriend() {
     const handleCloseDialog = () => {
         setDialogOpen(false);
     };
-    const getFirstName = (fullName) => {
-        return fullName.split(' ')[0]; 
-      }
+
 
     return (
         <Box className={classes.cover}>
@@ -101,7 +98,7 @@ function SummaryBillAddFriend() {
                                 <Box key={index} className={classes.avatarBox}>
                                     <Avatar {...stringAvatar(friend)} />
                                     <Typography variant="h6" className={classes.avatarName}>
-                                        {getFirstName(friend)}
+                                        {(friend)}
                                     </Typography>
                                 </Box>
                             ))}

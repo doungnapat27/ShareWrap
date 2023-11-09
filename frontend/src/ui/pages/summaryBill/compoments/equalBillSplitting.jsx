@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import useStyle from '../style/billSplittingStyle'
+import useStyle from '../style/equalBillSplittingStyle'
 import { Avatar, Box, Typography } from "@mui/material";
 
 function stringToColor(string) {
