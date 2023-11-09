@@ -1,11 +1,10 @@
-<details>
-<summary><h2>Practical Software Engineering: What is ShareWrap?</h2></summary>
+## Practical Software Engineering: What is ShareWrap?
 
-  ## Description
+  ### Description
 - ShareWrap is a website for bill management, empowering diners to share meals and memories, not billing disputes. Simplifying the dining experience, one bill at a time.
-</details>
-<details>
-<summary><h2>How to run this project?(in local)</h2></summary>
+
+
+## How to run this project?(in local)
   ### Frontend Part
   - Open the terminal
   - Cd to /frontend folder
@@ -14,7 +13,6 @@
   ### Backend part
   - If you ahve IntelliJ, please open it in the IntelliJ
   - Run file `SharewrapBackendApplication.java`
-</details>
 ---
 
 <details>
