@@ -40,16 +40,6 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "space-between",
   },
-  boxAccount: {
-    backgroundColor: "rgba(255, 181, 59, 0.50)",
-    display: "flex",
-    justifyContent: "space-between",
-    padding: "16px 20px",
-    textAlign: "start",
-    borderRadius: "10px",
-    alignItems: "center",
-    marginTop: "10px",
-  },
   positionBotton: addImportant({
     backgroundColor: "#FFB53B",
     marginTop: "10px",
