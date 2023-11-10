@@ -56,12 +56,8 @@ const useStyles = makeStyles({
         flexDirection: 'row',
         alignItems: 'stretch',
         justifyContent: 'center',
-        '@media (min-width: 601px) and (max-width: 1024px)': {
-          width: '70%',
-        },
-        '@media (min-width: 1025px)': {
-          width: '60%',
-        },
+        marginBottom: '4px',
+        position: 'relative',
     },
     bottomBar:{
         position: 'fixed',
@@ -90,8 +86,44 @@ const useStyles = makeStyles({
         width: '100%',
         justifyContent:'center',
         alignItems: 'center',
-    }
+    },
+    searchResults:addImportant({
+        width: '80%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        backgroundColor: 'white',
+        borderRadius: '10px',
+        position: 'absolute',
+        top: '22%',
+        boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+        maxHeight: '200px',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        zIndex: 1000, 
+    }),
 
+    
+    searchQuery:{
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column',
+        width: '100%',
+        '@media (min-width: 601px) and (max-width: 1024px)': {
+          width: '70%',
+        },
+        '@media (min-width: 1025px)': {
+          width: '60%',
+        },
+    },
+    addButton:addImportant({
+        outline: '1px solid',
+        color: '#981E25',
+        width: '10%',
+        height: '30px',
+        marginRight: '30px'
+    })
+    
 });
 
 export default useStyles;
