@@ -15,6 +15,7 @@ import SplitingBill from "./ui/pages/splitingBill/splittingBill.jsx";
 import AddFriend from "./ui/pages/addFriend/addFriend.jsx";
 import ProtectedRoute from "./ui/modules/components/protectedRoute.jsx";
 import PromptPayDetails from "./ui/pages/promptpayDetails/promptpayDetails.jsx";
+import BankAccDetails from "./ui/pages/bankAccountDetails/bankAccountDetails.jsx";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/home/:id" element={<Home />} />
             <Route path="/splitting-bill" element={<SplitingBill />}/>
             <Route path="promptpay-details" element={<PromptPayDetails />} />
+            <Route path="bank-account-details" element={<BankAccDetails />} />
             <Route path="/upload-receipt" element={<UploadReceipt />} />
             <Route path="/receipt-uploaded" element={<ReceiptBillUpload />} />
             <Route path="/add-Friend" element={<AddFriend/>} />

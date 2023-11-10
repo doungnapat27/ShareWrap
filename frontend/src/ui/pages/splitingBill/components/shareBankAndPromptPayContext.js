@@ -20,7 +20,7 @@ export const ShareContextProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem('userPayment', JSON.stringify(userPayment));
-    localStorage.removeItem('userPayment');
+    // localStorage.removeItem('userPayment');
   }, [userPayment]);
 
   const handleChangeIsProptPay = () => {
