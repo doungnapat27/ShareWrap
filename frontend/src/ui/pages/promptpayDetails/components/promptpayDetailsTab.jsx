@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 import BankAccBtn from "../../../modules/components/bankAccBtn";
 import PromptPayBtn from "../../../modules/components/promptpayBtn";
@@ -13,12 +13,23 @@ function PromptPayDetailsTab() {
   const {
     isBankAcc,
     isPromptPay,
+    setIsBankAcc,
+    setIsPromptPay,
     handleChangeBankAcc,
     handleChangeIsProptPay,
     userPayment,
     handlePromptpayChange,
     handleChangeSelectedPromptpay,
   } = useContext(ShareContext);
+
+  useEffect(() => {
+    if(isBankAcc) {
+      setIsBankAcc(false)
+      setIsPromptPay(true)
+    } else {
+      setIsPromptPay(true)
+    }
+  })
 
   const isButtonDisabled = !(userPayment.promptpayName && userPayment.promptpayNumber);
   const buttonColor = isButtonDisabled ? '#838383' : '#FFB53B';

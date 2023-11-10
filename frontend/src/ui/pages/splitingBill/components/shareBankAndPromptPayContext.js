@@ -20,7 +20,7 @@ export const ShareContextProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem('userPayment', JSON.stringify(userPayment));
-    // localStorage.removeItem('userPayment');
+    localStorage.removeItem('userPayment');
   }, [userPayment]);
 
   const handleChangeIsProptPay = () => {
@@ -53,16 +53,6 @@ export const ShareContextProvider = ({ children }) => {
     setIsBankAcc(true);
     setIsPromptPay(false);
   };
-
-  useEffect(() => {
-    if (localStorage.getItem('isBankAcc') === null) {
-      localStorage.setItem('isBankAcc', JSON.stringify(isBankAcc));
-    }
-    if (localStorage.getItem('isPromptPay') === null) {
-      localStorage.setItem('isPromptPay', JSON.stringify(isPromptPay));
-    }
-    console.log('isBankAcc:', isBankAcc, 'isPromptPay:', isPromptPay);
-  }, [isBankAcc, isPromptPay]);
 
   return (
     <ShareContext.Provider

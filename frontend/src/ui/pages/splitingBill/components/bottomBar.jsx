@@ -23,7 +23,7 @@ function BottomBar({ itemList }) {
   } = useContext(ShareContext)
 
   const classes = useStyles({ isBankAcc, isPromptPay });
-  
+
   console.log(userPayment)
   console.log('selectedPromptpay', userPayment.selectedPromptPay)
 
