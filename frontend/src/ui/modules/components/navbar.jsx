@@ -2,7 +2,7 @@ import React from "react";
 import LogoHomepage from "../../assets/logoHomepage.svg"
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import useStyles  from './navbarStyle.jsx';
+import useStyles  from '../style/navbarStyle';
 import {AppBar,Box,Toolbar,IconButton,Typography,} from "@mui/material";
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
@@ -12,12 +12,13 @@ import Divider from '@mui/material/Divider';
 import Tooltip from '@mui/material/Tooltip';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-import { setAuthHeader } from '../../../helpers/axios_helper';
+import { setAuthHeader, setUser } from '../../../helpers/axios_helper';
 
 
 function Navbar() {
   const handleLogout = () => {
     setAuthHeader(null);
+    setUser(null);
     window.location.href = "/";
   };
   const [anchorEl, setAnchorEl] = React.useState(null);

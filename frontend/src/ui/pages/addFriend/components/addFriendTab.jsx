@@ -1,9 +1,11 @@
-import React, { useState }  from "react";
+import React, { useState, useEffect }  from "react";
 import useStyles from '../style/addFriendTabStyle';
 import { Box, Tabs, Tab, Paper, IconButton, InputBase, Typography, List, ListItem, Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import AddIcon from '@mui/icons-material/Add';
 import AddFriendBottomBar from "./addFriendBottomBar";
 import FriendList from "./friendList";
+import { request} from '../../../../helpers/axios_helper';
 
 function a11yProps(index) {
     return {
@@ -55,6 +57,7 @@ function AddFriendTab() {
     // }
   };
 
+
     return(
         <Box className={classes.cover}>
             <Box className={classes.container}>
@@ -74,6 +77,7 @@ function AddFriendTab() {
                     </Tabs>
                 </Box>
                 <Box className={classes.cover}>
+
                     <Box className={classes.searchQuery}>
                       <Box className={classes.searchBoxContainer}>
                           <Paper component="form" className={classes.paperSearchBox}>
@@ -89,6 +93,7 @@ function AddFriendTab() {
                             />
                           </Paper>
                       </Box>
+// this is new version of search box but did not conncet back_end and database
                       {filteredResults.length > 0 && (
                             <List className={classes.searchResults}>
                             {filteredResults.map((result, index) => (
@@ -105,6 +110,43 @@ function AddFriendTab() {
                             ))}
                           </List>
                       )}
+//  this is your code aom. Why I did not use you code?
+//  Because I think I have problem in database. 
+//  I can not connext it for now so I create a new version of search bar that you want. 
+//  I hope you will like it. If you do not like told me.
+//                 <Box className={classes.searchBoxContainer}>
+//                   <Paper
+//                     component="form"
+//                     className={classes.paperSearchBox}
+//                     // onSubmit={handleSearch} // You can remove this if you're not using a submit button
+//                   >
+//                     <IconButton sx={{ p: '10px' }} aria-label="search">
+//                       <SearchIcon />
+//                     </IconButton>
+//                     <InputBase
+//                       sx={{ ml: 1, flex: 1 }}
+//                       placeholder="Search"
+//                       inputProps={{ 'aria-label': 'search users' }}
+//                       value={searchInput}
+//                       onChange={handleSearchInputChange}
+//                     />
+
+//                     {/* Please help me fix the CSS of the searchbar's frop down here TT */}
+//                     {searchResult && searchResult.username && ( 
+//                         <Box className={classes.dropdown}>
+//                           <Box className={classes.dropdownItem}>
+//                             {searchResult.username}
+//                             {/* Optionally, display the 'Add Friend' button conditionally */}
+//                             {!searchResult.isFriend && (
+//                               <IconButton onClick={() => handleAddFriend(searchResult.id)}>
+//                                 <AddIcon /> Add Friend
+//                               </IconButton>
+//                             )}
+//                           </Box>
+//                         </Box>
+//                       )}
+//                       </Paper>
+
                     </Box>
                     <Box className={classes.selectFriend}>
                         <Typography variant="h5">Select Friends</Typography>
