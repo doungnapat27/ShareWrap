@@ -100,18 +100,6 @@ function EditPromptpayTab() {
         <Box>
           <Box>
             <Box sx={{ padding: "30px 24px" }}>
-              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                <BankAccBtn
-                  isBankAcc={isBankAcc}
-                  handleChangeBankAcc={handleChangeBankAcc}
-                  hrefValue='true'
-                />
-                <Box ml={1} />
-                <PromptPayBtn
-                  isPromptPay={isPromptPay}
-                  handleChangeIsProptPay={handleChangeIsProptPay}
-                />
-              </Box>
               <Box mt={3}>
                 <Typography>PromptPay name</Typography>
                 <Box mt={1}>

@@ -109,18 +109,6 @@ function EditBankTab() {
         <Box>
           <Box>
             <Box sx={{ padding: "30px 24px" }}>
-              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                <BankAccBtn
-                  isBankAcc={isBankAcc}
-                  handleChangeBankAcc={handleChangeBankAcc}
-                />
-                <Box ml={1} />
-                <PromptPayBtn
-                  isPromptPay={isPromptPay}
-                  handleChangeIsProptPay={handleChangeIsProptPay}
-                  hrefValue='true'
-                />
-              </Box>
               <Box>
                 <DropDown bankList={bankList} />
                 <Box>
