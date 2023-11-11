@@ -19,6 +19,7 @@ import ProtectedRoute from "./ui/modules/components/protectedRoute.jsx";
 import PromptPayDetails from "./ui/pages/promptpayDetails/promptpayDetails.jsx";
 import BankAccDetails from "./ui/pages/bankAccountDetails/bankAccountDetails.jsx";
 import EditBankAccount from "./ui/pages/editBankAccount/editBankAccount.jsx";
+import EditPromptpay from "./ui/pages/editPromptpay/editPromptpay.jsx";
 
 import BillSummary from "./ui/pages/billSummary/billSummary"
 
@@ -35,6 +36,7 @@ function App() {
             <Route path="/home/:id" element={<Home />} />
             <Route path="/splitting-bill" element={<SplitingBill />}/>
             <Route path="promptpay-details" element={<PromptPayDetails />} />
+            <Route path="edit-promptpay" element={<EditPromptpay />} />
             <Route path="bank-account-details" element={<BankAccDetails />} />
             <Route path="edit-bank-account" element={<EditBankAccount />} />
             <Route path="/upload-receipt" element={<UploadReceipt />} />

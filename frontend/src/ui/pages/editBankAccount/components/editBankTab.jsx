@@ -161,7 +161,7 @@ function EditBankTab() {
                     }}
                     onClick={handleChangeSelectedBankAccount}
                   >
-                    <Typography>Create bank account</Typography>
+                    <Typography>Confirm edit</Typography>
                   </Button>
                 </Box>
               </Box>
