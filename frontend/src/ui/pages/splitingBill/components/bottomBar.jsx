@@ -1,19 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 
 
 import CircleIcon from "@mui/icons-material/Circle";
 import CreateIcon from "@mui/icons-material/Create";
+
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import BankAccBtn from "../../../modules/components/bankAccBtn";
+import PromptPayBtn from "../../../modules/components/promptpayBtn";
+import SelectedBank from "./selectedBank";
+import SelectedPromptpay from "./selectedPromptpay";
+
+import { ShareContext } from "./shareBankAndPromptPayContext";
 
 import useStyles from "../style/bottomBarStyle";
 
 import { Box, Typography, Button } from "@mui/material";
 
 function BottomBar({ itemList, onSaveBill }) {
-  const [isBankAcc, setIsBankAcc] = useState(true);
-  const [isPromptPay, setIsPromptPay] = useState(false);
+  const {
+    isBankAcc,
+    isPromptPay,
+    handleChangeBankAcc,
+    handleChangeIsProptPay,
+    userPayment,
+  } = useContext(ShareContext);
 
+  const classes = useStyles({ isBankAcc, isPromptPay });
   const handleSaveToLocalStorage = () => {
     const billDetails = {
       title: itemList.title,
@@ -34,13 +47,11 @@ function BottomBar({ itemList, onSaveBill }) {
     setIsBankAcc(false);
   };
 
-  const handleChangeBackAss = (e) => {
-    e.preventDefault();
-    setIsBankAcc(true);
-    setIsPromptPay(false);
-  };
 
-  const classes = useStyles({ isBankAcc, isPromptPay });
+  console.log("Bottombar", userPayment);
+  console.log("Bottombar isBankAcc", isBankAcc);
+  console.log("Bottombar isPromptpay", isPromptPay);
+
   return (
     <Box className={classes.cover}>
       <Box className={classes.container}>
@@ -50,39 +61,43 @@ function BottomBar({ itemList, onSaveBill }) {
             <Typography variant="h4">{itemList?.totalCost.toLocaleString()} ฿</Typography>
           </Box>
           <Box className={classes.positionTwoPaymentButton}>
-            <Button
-              fullWidth
-              variant="contained"
-              onClick={handleChangeBackAss}
-              className={classes.positionBankAccButton}
-            >
-              Banck account
-            </Button>
+            <BankAccBtn
+              isBankAcc={isBankAcc}
+              handleChangeBankAcc={handleChangeBankAcc}
+            />
             <Box mr={1} />
-            <Button
-              fullWidth
-              variant="contained"
-              onClick={handleChangeIsProptPay}
-              className={classes.positionProptPayButton}
-            >
-              PromtPay
-            </Button>
+            <PromptPayBtn
+              isPromptPay={isPromptPay}
+              handleChangeIsProptPay={handleChangeIsProptPay}
+            />
           </Box>
-          {isBankAcc ? (
-            <Button className={classes.addBacnkAccButton}>
+          {isBankAcc && !isPromptPay && userPayment.selectedBankAccount ? (
+            <SelectedBank />
+          ) : isBankAcc ? (
+            <Button
+              className={classes.addBacnkAccButton}
+              href="/bank-account-details"
+            >
               <Typography color="#000" variant="h5">
                 Add bank account details
               </Typography>
               <AddCircleIcon sx={{ color: "#545454" }} />
             </Button>
-          ) : (
-            <Button className={classes.addPromptPayButton}>
+          ) : null}
+
+          {!isBankAcc && isPromptPay && userPayment.selectedPromptPay ? (
+            <SelectedPromptpay />
+          ) : isPromptPay ? (
+            <Button
+              className={classes.addPromptPayButton}
+              href="/promptpay-details"
+            >
               <Typography color="#000" variant="h5">
                 Add PromptPay details
               </Typography>
               <AddCircleIcon sx={{ color: "#545454" }} />
             </Button>
-          )}
+          ) : null}
           <Button
             fullWidth
             className={classes.positionBotton}

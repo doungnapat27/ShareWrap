@@ -15,7 +15,12 @@ import SplitingBill from "./ui/pages/splitingBill/splittingBill.jsx";
 import AddFriend from "./ui/pages/addFriend/addFriend.jsx";
 import SummaryBill from ".//ui/pages/summaryBill/summaryBill.jsx"
 import ProtectedRoute from "./ui/modules/components/protectedRoute.jsx";
+
+import PromptPayDetails from "./ui/pages/promptpayDetails/promptpayDetails.jsx";
+import BankAccDetails from "./ui/pages/bankAccountDetails/bankAccountDetails.jsx";
+
 import BillSummary from "./ui/pages/billSummary/billSummary"
+
 
 function App() {
 
@@ -25,13 +30,15 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route element={<ProtectedRoute />}>
+          {/* <Route element={<ProtectedRoute />}> */}
             <Route path="/home/:id" element={<Home />} />
             <Route path="/splitting-bill" element={<SplitingBill />}/>
+            <Route path="promptpay-details" element={<PromptPayDetails />} />
+            <Route path="bank-account-details" element={<BankAccDetails />} />
             <Route path="/upload-receipt" element={<UploadReceipt />} />
             <Route path="/receipt-uploaded" element={<ReceiptBillUpload />} />
             <Route path="/add-Friend" element={<AddFriend/>} />
-          </Route>
+          {/* </Route> */}
           {/* <Route path="/create-bill" element={<CreateBill />} /> No longer use */}
           <Route path="/home/" element={<Home />} />
             <Route path="/splitting-bill" element={<SplitingBill />}/>
