@@ -40,6 +40,7 @@ function BottomBar({ itemList, onSaveBill }) {
     }, 1000);
   };
 
+
   console.log("Bottombar", userPayment);
   console.log("Bottombar isBankAcc", isBankAcc);
   console.log("Bottombar isPromptpay", isPromptPay);
