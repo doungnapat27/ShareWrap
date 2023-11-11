@@ -121,7 +121,7 @@ const useStyles = makeStyles({
         color: '#981E25',
         width: '10%',
         height: '30px',
-        marginRight: '30px'
+        marginLeft: '30px'
     })
     
 });

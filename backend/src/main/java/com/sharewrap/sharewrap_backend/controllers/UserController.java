@@ -4,6 +4,7 @@ import com.sharewrap.sharewrap_backend.config.UserAuthProvider;
 import com.sharewrap.sharewrap_backend.dtos.UserDto;
 import com.sharewrap.sharewrap_backend.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +23,14 @@ public class UserController {
         return ResponseEntity.ok(userService.getFriends(userId));
     }
 
-    @GetMapping("/search/users/{userId}")
-    public ResponseEntity<UserDto> getUser(@PathVariable String userId) {
+    @GetMapping("/search/users/{friendId}")
+    public ResponseEntity <UserDto> getUser(@PathVariable String friendId) {
         System.out.println("Try to searching...");
-        return ResponseEntity.ok(userService.getUser(userId));
+        return ResponseEntity.ok(userService.getUser(friendId));
+    }
+
+    @GetMapping("/search/{userId}/users/{friendId}")
+    public ResponseEntity <Boolean> getUser(@PathVariable String userId, @PathVariable String friendId) {
+        return ResponseEntity.ok(userService.areFriends(userId, friendId));
     }
 }

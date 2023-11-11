@@ -41,12 +41,6 @@ function BottomBar({ itemList, onSaveBill }) {
     }, 1000);
   };
 
-  const handleChangeIsProptPay = (e) => {
-    e.preventDefault();
-    setIsPromptPay(true);
-    setIsBankAcc(false);
-  };
-
 
   console.log("Bottombar", userPayment);
   console.log("Bottombar isBankAcc", isBankAcc);

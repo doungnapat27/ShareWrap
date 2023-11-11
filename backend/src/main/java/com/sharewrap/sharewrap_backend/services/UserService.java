@@ -148,4 +148,15 @@ public class UserService {
         return userMapper.toUserDto(user);
     }
 
+    public boolean areFriends(String userId, String friendId) {
+        User user = userRepository.findById(userId).orElse(null);
+        User friend = userRepository.findById(friendId).orElse(null);
+
+        if (user != null && friend != null) {
+            return user.getFriends().contains(friend);
+        }
+
+        return false;
+    }
+
 }
