@@ -4,6 +4,7 @@ import CreateIcon from '@mui/icons-material/Create';
 import CircleIcon from '@mui/icons-material/Circle';
 import useStyles from '../style/selectedPaymentStyle'
 import { ShareContext } from "./shareBankAndPromptPayContext";
+import { Link } from 'react-router-dom'
 
 import { Box, Typography } from "@mui/material";
 
@@ -25,7 +26,9 @@ function SelectedBank() {
           </Box>
         </Box>
       </Box>
-      <CreateIcon />
+      <Link to='/edit-bank-account'>
+        <CreateIcon />
+      </Link>
     </Box>
   );
 }
