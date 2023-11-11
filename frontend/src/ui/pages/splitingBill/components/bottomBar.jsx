@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 
-
 import CircleIcon from "@mui/icons-material/Circle";
 import CreateIcon from "@mui/icons-material/Create";
 
@@ -37,7 +36,7 @@ function BottomBar({ itemList, onSaveBill }) {
     localStorage.setItem('billDetails', JSON.stringify(billDetails));
 
     setTimeout(() => {
-      window.location.href = "/add-Friend";; 
+      window.location.href = "/add-Friend";;
     }, 1000);
   };
 

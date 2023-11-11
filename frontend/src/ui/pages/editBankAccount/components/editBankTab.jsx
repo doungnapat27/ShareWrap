@@ -20,9 +20,9 @@ import BankAccBtn from "../../../modules/components/bankAccBtn";
 import PromptPayBtn from "../../../modules/components/promptpayBtn";
 import logoKrungthai from "../../../assets/krungthai.png";
 import logoKasikorn from "../../../assets/kasikorn.png";
-import DropDown from "./dropDown";
+import DropDown from "../../bankAccountDetails/components/dropDown";
 
-function BankAccDetailsTab() {
+function EditBankTab() {
   const [value, setValue] = useState(0);
 
   const {
@@ -97,7 +97,7 @@ function BankAccDetailsTab() {
             centered={true}
           >
             <Tab
-              label="Create Bank Account"
+              label="Edit Bank Account"
               sx={{
                 flex: 1,
                 width: "50%",
@@ -109,18 +109,6 @@ function BankAccDetailsTab() {
         <Box>
           <Box>
             <Box sx={{ padding: "30px 24px" }}>
-              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                <BankAccBtn
-                  isBankAcc={isBankAcc}
-                  handleChangeBankAcc={handleChangeBankAcc}
-                />
-                <Box ml={1} />
-                <PromptPayBtn
-                  isPromptPay={isPromptPay}
-                  handleChangeIsProptPay={handleChangeIsProptPay}
-                  hrefValue='true'
-                />
-              </Box>
               <Box>
                 <DropDown bankList={bankList} />
                 <Box>
@@ -161,7 +149,7 @@ function BankAccDetailsTab() {
                     }}
                     onClick={handleChangeSelectedBankAccount}
                   >
-                    <Typography>Create bank account</Typography>
+                    <Typography>Confirm edit</Typography>
                   </Button>
                 </Box>
               </Box>
@@ -173,4 +161,4 @@ function BankAccDetailsTab() {
   );
 }
 
-export default BankAccDetailsTab;
+export default EditBankTab;
