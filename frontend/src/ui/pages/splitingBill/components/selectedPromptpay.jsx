@@ -6,6 +6,7 @@ import useStyles from '../style/selectedPaymentStyle'
 import { ShareContext } from "./shareBankAndPromptPayContext";
 
 import { Box, Typography } from "@mui/material";
+import { Link } from 'react-router-dom'
 
 function SelectedPromptpay() {
   const {
@@ -22,7 +23,9 @@ function SelectedPromptpay() {
           <Typography variant="h6">{userPayment.promptpayNumber}</Typography>
         </Box>
       </Box>
-      <CreateIcon />
+      <Link to='/edit-promptpay'>
+        <CreateIcon />
+      </Link>
     </Box>
   );
 }
