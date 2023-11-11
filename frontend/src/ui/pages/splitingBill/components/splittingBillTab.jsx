@@ -141,7 +141,7 @@ function SplitingBillTab() {
                   <Paper className={classes.paperContainer}>
                     <TextField
                       fullWidth
-                      placeholder="Pull your bill name here"
+                      placeholder="Put your bill name here"
                       variant="standard"
                       type="text"
                       name='title'

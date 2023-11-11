@@ -16,22 +16,6 @@ const useStyles = makeStyles({
         justifyContent: 'flex-start',
         overflowY: 'auto',
         maxHeight: 'calc(100vh - 220px - 196px)',
-        '&::-webkit-scrollbar-track': {
-            backgroundColor: 'transparent',
-            borderRadius: '10px',
-        },
-        '&::-webkit-scrollbar': {
-            width: '10px',
-            backgroundColor: 'transparent',
-        },
-        '&::-webkit-scrollbar-thumb': {
-            backgroundColor: '#981E25',
-            borderRadius: '10px',
-            border: '2px solid #f0f0f0',
-        },
-        '&::-webkit-scrollbar-thumb:hover': {
-            backgroundColor: '#BE2830',
-        },
     },
     container: {
         width: '100%',

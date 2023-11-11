@@ -12,12 +12,13 @@ import Divider from '@mui/material/Divider';
 import Tooltip from '@mui/material/Tooltip';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-import { setAuthHeader } from '../../../helpers/axios_helper';
+import { setAuthHeader, setUser } from '../../../helpers/axios_helper';
 
 
 function Navbar() {
   const handleLogout = () => {
     setAuthHeader(null);
+    setUser(null);
     window.location.href = "/";
   };
   const [anchorEl, setAnchorEl] = React.useState(null);

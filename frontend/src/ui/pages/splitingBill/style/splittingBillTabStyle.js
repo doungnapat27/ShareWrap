@@ -62,23 +62,6 @@ const useStyles = makeStyles({
     overflowY: 'auto',
     // maxHeight: '50vh',
     maxHeight: 'calc(100vh - 200px - 112px)',
-
-    '&::-webkit-scrollbar-track': {
-      backgroundColor: 'transparent',
-      borderRadius: '10px',
-    },
-    '&::-webkit-scrollbar': {
-      width: '10px',
-      backgroundColor: 'transparent',
-    },
-    '&::-webkit-scrollbar-thumb': {
-      backgroundColor: '#981E25',
-      borderRadius: '10px',
-      border: '2px solid #f0f0f0',
-    },
-    '&::-webkit-scrollbar-thumb:hover': {
-      backgroundColor: '#BE2830',
-    },
   },
   bottomBar:{
     position: 'fixed',
