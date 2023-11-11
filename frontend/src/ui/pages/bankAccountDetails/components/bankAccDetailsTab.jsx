@@ -1,14 +1,30 @@
 import React, { useState, useContext } from "react";
 
-import { Tabs, Tab, Typography, Box, Button, TextField } from "@mui/material";
+import {
+  Tabs,
+  Tab,
+  Typography,
+  Box,
+  Button,
+  TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+} from "@mui/material";
+
 import { ShareContext } from "../../splitingBill/components/shareBankAndPromptPayContext";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import BankAccBtn from "../../../modules/components/bankAccBtn";
 import PromptPayBtn from "../../../modules/components/promptpayBtn";
+import logoKrungthai from "../../../assets/krungthai.png";
+import logoKasikorn from "../../../assets/kasikorn.png";
+import DropDown from "./dropDown";
 
 function BankAccDetailsTab() {
   const [value, setValue] = useState(0);
+
   const {
     isBankAcc,
     isPromptPay,
@@ -18,13 +34,21 @@ function BankAccDetailsTab() {
     handleChangeIsProptPay,
     userPayment,
     handlePromptpayChange,
-    handleChangeSelectedPromptpay,
+    handleChangeSelectedBankAccount
   } = useContext(ShareContext);
 
-  const isButtonDisabled = !(userPayment.promptpayName && userPayment.promptpayNumber);
-  const buttonColor = isButtonDisabled ? '#838383' : '#FFB53B';
-  const textColor = isButtonDisabled ? '#fff' : '#000';
-  
+  const bankList = [
+    { name: "ธนาคารกรุงไทย", logoUrl: logoKrungthai },
+    { name: "ธนาคารกสิกรไทย", logoUrl: logoKasikorn },
+  ];
+
+  const isButtonDisabled = !(
+    userPayment.bankAccount && userPayment.bankAccNumber && userPayment.bankName
+  );
+  const buttonColor = isButtonDisabled ? "#838383" : "#FFB53B";
+  const textColor = isButtonDisabled ? "#fff" : "#000";
+
+  console.log("userPayment in bank page: ", userPayment);
 
   return (
     <Box
@@ -96,10 +120,52 @@ function BankAccDetailsTab() {
                 <PromptPayBtn
                   isPromptPay={isPromptPay}
                   handleChangeIsProptPay={handleChangeIsProptPay}
+                  hrefValue='true'
                 />
               </Box>
               <Box>
-
+                <DropDown bankList={bankList} />
+                <Box>
+                  <Typography>Bank account name</Typography>
+                  <TextField
+                    fullWidth
+                    placeholder="Ex) Srisamorn Sanuksud"
+                    onChange={(e) =>
+                      handlePromptpayChange("bankAccount", e.target.value)
+                    }
+                    value={userPayment.bankAccount}
+                    sx={{ backgroundColor: "#fff", borderRadius: "10px" }}
+                    type="text"
+                  />
+                  <Typography>Bank account number</Typography>
+                  <TextField
+                    fullWidth
+                    placeholder="Ex) 01234567890"
+                    onChange={(e) =>
+                      handlePromptpayChange("bankAccNumber", e.target.value)
+                    }
+                    value={userPayment.bankAccNumber}
+                    sx={{ backgroundColor: "#fff", borderRadius: "10px" }}
+                    type="number"
+                  />
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    endIcon={<ArrowForwardIcon />}
+                    disabled={isButtonDisabled}
+                    href="/splitting-bill"
+                    sx={{
+                      padding: "12px 20px",
+                      marginTop: "40px",
+                      backgroundColor: buttonColor,
+                      color: textColor,
+                      borderRadius: "10px",
+                    }}
+                    onClick={handleChangeSelectedBankAccount}
+                  >
+                    <Typography>Create bank account</Typography>
+                  </Button>
+                </Box>
               </Box>
             </Box>
           </Box>

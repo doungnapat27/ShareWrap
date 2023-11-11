@@ -7,7 +7,7 @@ import { ShareContext } from "./shareBankAndPromptPayContext";
 
 import { Box, Typography } from "@mui/material";
 
-function SelectedPayment() {
+function SelectedPromptpay() {
   const {
     userPayment,
   } = useContext(ShareContext);
@@ -27,4 +27,4 @@ function SelectedPayment() {
   );
 }
 
-export default SelectedPayment;
+export default SelectedPromptpay;

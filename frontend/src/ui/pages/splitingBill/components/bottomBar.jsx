@@ -2,9 +2,10 @@ import React, { useContext } from "react";
 
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import BankAccBtn from "../../../modules/components/bankAccBtn"
+import BankAccBtn from "../../../modules/components/bankAccBtn";
 import PromptPayBtn from "../../../modules/components/promptpayBtn";
-import SelectedPayment from "./selectedPayment";
+import SelectedBank from "./selectedBank";
+import SelectedPromptpay from "./selectedPromptpay";
 
 import { ShareContext } from "./shareBankAndPromptPayContext";
 
@@ -13,19 +14,19 @@ import useStyles from "../style/bottomBarStyle";
 import { Box, Typography, Button } from "@mui/material";
 
 function BottomBar({ itemList }) {
-
   const {
     isBankAcc,
     isPromptPay,
     handleChangeBankAcc,
     handleChangeIsProptPay,
     userPayment,
-  } = useContext(ShareContext)
+  } = useContext(ShareContext);
 
   const classes = useStyles({ isBankAcc, isPromptPay });
 
-  console.log(userPayment)
-  console.log('selectedPromptpay', userPayment.selectedPromptPay)
+  console.log("Bottombar", userPayment);
+  console.log("Bottombar isBankAcc", isBankAcc);
+  console.log("Bottombar isPromptpay", isPromptPay);
 
   return (
     <Box className={classes.cover}>
@@ -46,19 +47,23 @@ function BottomBar({ itemList }) {
               handleChangeIsProptPay={handleChangeIsProptPay}
             />
           </Box>
-          {isBankAcc ? (
+          {isBankAcc && !isPromptPay && userPayment.selectedBankAccount ? (
+            <SelectedBank />
+          ) : isBankAcc ? (
             <Button
               className={classes.addBacnkAccButton}
-              href="/payment-details"
+              href="/bank-account-details"
             >
               <Typography color="#000" variant="h5">
                 Add bank account details
               </Typography>
               <AddCircleIcon sx={{ color: "#545454" }} />
             </Button>
-          ) : userPayment.selectedPromptPay ? (
-            <SelectedPayment />
-          ) : (
+          ) : null}
+
+          {!isBankAcc && isPromptPay && userPayment.selectedPromptPay ? (
+            <SelectedPromptpay />
+          ) : isPromptPay ? (
             <Button
               className={classes.addPromptPayButton}
               href="/promptpay-details"
@@ -68,7 +73,7 @@ function BottomBar({ itemList }) {
               </Typography>
               <AddCircleIcon sx={{ color: "#545454" }} />
             </Button>
-          )}
+          ) : null}
           <Button
             fullWidth
             className={classes.positionBotton}

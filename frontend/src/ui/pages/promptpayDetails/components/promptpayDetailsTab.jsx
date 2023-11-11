@@ -37,7 +37,6 @@ function PromptPayDetailsTab() {
 
   console.log(userPayment)
   console.log('isBank and isPrompt'  ,isBankAcc, isPromptPay)
-  console.log('handleChangeSelectedPromptpay', userPayment.selectedPromptPay)
   console.log('PromptpayName', userPayment.promptpayName)
 
   return (
@@ -105,6 +104,7 @@ function PromptPayDetailsTab() {
                 <BankAccBtn
                   isBankAcc={isBankAcc}
                   handleChangeBankAcc={handleChangeBankAcc}
+                  hrefValue='true'
                 />
                 <Box ml={1} />
                 <PromptPayBtn
