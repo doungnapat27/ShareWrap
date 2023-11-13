@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Set;
@@ -29,8 +30,11 @@ public class UserController {
         return ResponseEntity.ok(userService.getUser(friendId));
     }
 
-    @GetMapping("/search/{userId}/users/{friendId}")
-    public ResponseEntity <Boolean> getUser(@PathVariable String userId, @PathVariable String friendId) {
-        return ResponseEntity.ok(userService.areFriends(userId, friendId));
+    @PostMapping("/{userId}/add/friend/{friendId}")
+    public ResponseEntity<String> addFriend(@PathVariable String userId, @PathVariable String friendId) {
+        System.out.println("Try to add friend...");
+        return ResponseEntity.ok(userService.addFriend(userId, friendId));
     }
+
+
 }

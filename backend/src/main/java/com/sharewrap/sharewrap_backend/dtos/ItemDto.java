@@ -1,5 +1,6 @@
 package com.sharewrap.sharewrap_backend.dtos;
 
+import com.sharewrap.sharewrap_backend.models.UserBill;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -12,15 +13,10 @@ import lombok.*;
 public class ItemDto {
 
         private Long id;
-
         @NotNull
         private String name;
 
         @NotNull
         private Double price;
-
-        private Boolean isShared;
-
-        private Boolean isPaid;
 
 }

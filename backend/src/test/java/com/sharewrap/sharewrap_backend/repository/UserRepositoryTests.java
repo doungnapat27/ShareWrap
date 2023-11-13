@@ -1,26 +1,26 @@
 package com.sharewrap.sharewrap_backend.repository;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import com.sharewrap.sharewrap_backend.models.User;
-import com.sharewrap.sharewrap_backend.repositories.UserRepository;
-import com.sharewrap.sharewrap_backend.services.UserService;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.test.annotation.Rollback;
-
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Rollback(false)
-public class UserRepositoryTests {
-    @Autowired
-    private TestEntityManager entityManager;
+//import static org.assertj.core.api.Assertions.assertThat;
+//import static org.junit.jupiter.api.Assertions.assertNotNull;
+//
+//import com.sharewrap.sharewrap_backend.models.User;
+//import com.sharewrap.sharewrap_backend.repositories.UserRepository;
+//import com.sharewrap.sharewrap_backend.services.UserService;
+//import org.junit.jupiter.api.Test;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+//import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+//import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+//import org.springframework.boot.test.mock.mockito.MockBean;
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.test.annotation.Rollback;
+//
+//@DataJpaTest
+//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+//@Rollback(false)
+//public class UserRepositoryTests {
+//    @Autowired
+//    private TestEntityManager entityManager;
 
 //    @Autowired
 //    private UserRepository userRepo;
@@ -50,4 +50,4 @@ public class UserRepositoryTests {
 //        assertThat(user.getEmail()).isEqualTo(existUser.getEmail());
 //
 //    }
-}
+//}

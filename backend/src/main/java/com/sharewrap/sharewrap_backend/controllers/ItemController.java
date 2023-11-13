@@ -20,20 +20,20 @@ public class ItemController {
         return ResponseEntity.ok(itemService.allItems());
     }
 
-    @GetMapping("/{billId}/items")
-    public ResponseEntity<List<ItemDto>> allItems(@PathVariable Long billId) {
-        return ResponseEntity.ok(itemService.allItemsBill(billId));
-    }
+//    @GetMapping("/{billId}/items")
+//    public ResponseEntity<List<ItemDto>> allItems(@PathVariable Long billId) {
+//        return ResponseEntity.ok(itemService.allItemsBill(billId));
+//    }
 
     @GetMapping("/items/{id}")
     public ResponseEntity<ItemDto> getItem(@PathVariable Long id) {
         return ResponseEntity.ok(itemService.getItem(id));
     }
 
-    @GetMapping("/{billId}/items/{id}")
-    public ResponseEntity<ItemDto> getItem( @PathVariable Long billId, @PathVariable Long id) {
-        return ResponseEntity.ok(itemService.getItemBill(billId,id));
-    }
+//    @GetMapping("/{billId}/items/{id}")
+//    public ResponseEntity<ItemDto> getItem( @PathVariable Long billId, @PathVariable Long id) {
+//        return ResponseEntity.ok(itemService.getItemBill(billId,id));
+//    }
 
     @PostMapping("/items")
     public ResponseEntity<ItemDto> createItem(@Valid @RequestBody ItemDto itemDto) {
@@ -42,13 +42,13 @@ public class ItemController {
     }
 
 
-    @PutMapping("/items/{id}")
-    public ResponseEntity<ItemDto> updateItem(@PathVariable Long id, @Valid @RequestBody ItemDto itemDto) {
-        return ResponseEntity.ok(itemService.updateItem(id, itemDto));
-    }
+//    @PutMapping("/items/{id}")
+//    public ResponseEntity<ItemDto> updateItem(@PathVariable Long id, @Valid @RequestBody ItemDto itemDto) {
+//        return ResponseEntity.ok(itemService.updateItem(id, itemDto));
+//    }
 
-    @DeleteMapping("/items/{id}")
-    public ResponseEntity<ItemDto> deleteItem(@PathVariable Long id) {
-        return ResponseEntity.ok(itemService.deleteItem(id));
-    }
+//    @DeleteMapping("/items/{id}")
+//    public ResponseEntity<ItemDto> deleteItem(@PathVariable Long id) {
+//        return ResponseEntity.ok(itemService.deleteItem(id));
+//    }
 }
