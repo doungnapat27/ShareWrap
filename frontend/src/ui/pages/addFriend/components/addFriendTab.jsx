@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react'
 import useStyles from '../style/addFriendTabStyle'
 import {
@@ -23,6 +24,8 @@ import SearchIcon from '@mui/icons-material/Search'
 import AddFriendBottomBar from './addFriendBottomBar'
 import FriendList from './friendList'
 import { request } from '../../../../helpers/axios_helper'
+import SearchIcon from "@mui/icons-material/Search";
+import AddIcon from "@mui/icons-material/Add";
 
 function a11yProps(index) {
   return {
@@ -111,14 +114,14 @@ function AddFriendTab() {
       }
       const response = await request(
         'POST',
-        '/' + uid + '/add/friend/' + dialogValue.id
-      )
+      '/' + uid + '/add/friend/' + dialogValue.id
+    )
 
-      setSnackbarOpen(true)
-      setSnackbarMessage('Friend added successfully!')
-      setSnackbarSeverity('success')
+    setSnackbarOpen(true)
+    setSnackbarMessage('Friend added successfully!')
+    setSnackbarSeverity('success')
 
-      handleClose()
+    handleClose()
       fetchFriends()
     } catch (error) {
       setSnackbarOpen(true)
@@ -159,11 +162,12 @@ function AddFriendTab() {
           >
             <Tab
               className={classes.centerTab}
-              label='Bill splitting'
+              label="Bill splitting"
               {...a11yProps(0)}
             />
           </Tabs>
         </Box>
+
       </Box>
       <Box className={classes.cover}>
         <Box className={classes.searchQuery}>
@@ -313,7 +317,7 @@ function AddFriendTab() {
         </MuiAlert>
       </Snackbar>
     </Box>
-  )
+  );
 }
 
 export default AddFriendTab
