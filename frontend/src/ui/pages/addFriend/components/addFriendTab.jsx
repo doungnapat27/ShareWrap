@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect } from 'react'
 import useStyles from '../style/addFriendTabStyle'
 import {
@@ -113,15 +114,12 @@ function AddFriendTab() {
         return
       }
       const response = await request(
-        'POST',
-      '/' + uid + '/add/friend/' + dialogValue.id
-    )
+        'GET',
+        '/search/users/' + event.target.value
+      )
+      console.log(response.data)
+      setSearchResult(response.data)
 
-    setSnackbarOpen(true)
-    setSnackbarMessage('Friend added successfully!')
-    setSnackbarSeverity('success')
-
-    handleClose()
       fetchFriends()
     } catch (error) {
       setSnackbarOpen(true)
