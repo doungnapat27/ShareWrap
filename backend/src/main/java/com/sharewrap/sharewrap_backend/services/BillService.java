@@ -1,6 +1,7 @@
 package com.sharewrap.sharewrap_backend.services;
 
 import com.sharewrap.sharewrap_backend.dtos.BillDto;
+import com.sharewrap.sharewrap_backend.dtos.UserBillDto;
 import com.sharewrap.sharewrap_backend.exceptions.AppException;
 import com.sharewrap.sharewrap_backend.mappers.BillMapper;
 import com.sharewrap.sharewrap_backend.models.Bill;
@@ -21,6 +22,7 @@ public class BillService {
     private final BillRepository billRepository;
     private final BillMapper billMapper;
     private final UserRepository userRepository;
+    private final UserBillService userBillService;
 
     public List<BillDto> allBills() {
         return billMapper.toBillDtos(billRepository.findAll());
@@ -28,13 +30,19 @@ public class BillService {
     public List<BillDto> allBillsUser(String userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
-        List<Bill> bills = new ArrayList<>();
-        bills.addAll(user.getBills());
+        List<Bill> bills = new ArrayList<>(user.getBills());
         return billMapper.toBillDtos(bills);
     }
 
+    @Transactional
     public BillDto createBill(BillDto billDto) {
         Bill bill = billMapper.toBill(billDto);
+//        User owner = userRepository.findById(billDto.getUserId())
+//                .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
+//        bill.setUser(owner);
+//        for(UserBillDto userBillDto: billDto.getUserBills()){
+//            bill.getUserBills().add(userBillService.createUserBill(userBillDto, bill));
+//        }
 
         Bill savedBill = billRepository.save(bill);
 
@@ -81,16 +89,16 @@ public class BillService {
         return billDto;
     }
 
-    public Double getBillTotal(Long id) {
-        Bill bill = billRepository.findById(id)
-                .orElseThrow(() -> new AppException("Bill not found", HttpStatus.NOT_FOUND));
-        return bill.getTotal();
-    }
-
-    public Double EqualShare(Long id) {
-        Bill bill = billRepository.findById(id)
-                .orElseThrow(() -> new AppException("Bill not found", HttpStatus.NOT_FOUND));
-        return bill.getEqualShare();
-    }
+//    public Double getBillTotal(Long id) {
+//        Bill bill = billRepository.findById(id)
+//                .orElseThrow(() -> new AppException("Bill not found", HttpStatus.NOT_FOUND));
+//        return bill.getTotal();
+//    }
+//
+//    public Double EqualShare(Long id) {
+//        Bill bill = billRepository.findById(id)
+//                .orElseThrow(() -> new AppException("Bill not found", HttpStatus.NOT_FOUND));
+//        return bill.getEqualShare();
+//    }
 
 }

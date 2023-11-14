@@ -30,12 +30,12 @@ public class UserService {
     private final UserMapper userMapper;
     private final BillRepository billRepository;
 
-
     public UserDto login(LoginDto loginDto) {
         User user = userRepository.findByEmail(loginDto.getEmail())
                 .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
 
         if (passwordEncoder.matches(CharBuffer.wrap(loginDto.getPassword()),user.getPassword())) {
+            System.out.println("logging  in...");
             return userMapper.toUserDto(user);
         }
         throw new AppException("Invalid password", HttpStatus.BAD_REQUEST);
@@ -52,8 +52,6 @@ public class UserService {
 
         User user = userMapper.registerToUser(userDto);
         user.setId(generateUniqueUserId(userDto.getUsername()));
-        user.setEmail(userDto.getEmail());
-        user.setUsername(userDto.getUsername());
         user.setPassword(passwordEncoder.encode(CharBuffer.wrap(userDto.getPassword())));
         System.out.println("user: email:" + user.getEmail() + " ,password:" + user.getPassword()+
                 " ,username:" + user.getUsername()+ " ,id:" + user.getId());
@@ -111,14 +109,14 @@ public class UserService {
     }
 
     @Transactional
-    public void addFriend(String userId, String friendId) {
+    public String addFriend(String userId, String friendId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new AppException("User not found", HttpStatus.NOT_FOUND));
-        User friend = userRepository.findById(userId)
+        User friend = userRepository.findById(friendId)
                 .orElseThrow(() -> new AppException("Friend not found", HttpStatus.NOT_FOUND));
-
         user.getFriends().add(friend);
-        friend.getFriends().add(user); // Since friendship is bidirectional
+        friend.getFriends().add(user);// Since friendship is bidirectional
+        return "Friend added";
     }
 
     @Transactional
@@ -148,15 +146,5 @@ public class UserService {
         return userMapper.toUserDto(user);
     }
 
-    public boolean areFriends(String userId, String friendId) {
-        User user = userRepository.findById(userId).orElse(null);
-        User friend = userRepository.findById(friendId).orElse(null);
-
-        if (user != null && friend != null) {
-            return user.getFriends().contains(friend);
-        }
-
-        return false;
-    }
 
 }

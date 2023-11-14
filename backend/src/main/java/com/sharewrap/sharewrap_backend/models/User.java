@@ -2,6 +2,7 @@ package com.sharewrap.sharewrap_backend.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import lombok.Getter;
 
 import java.util.List;
 import java.util.Set;
@@ -9,29 +10,28 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User {
+    @Getter
     @Id
     private String id;
 
+    @Getter
     @Column(nullable = false, unique = true, length = 45)
     @Email(message = "Please provide a valid email")
     private String email;
 
+    @Getter
     @Column(nullable = false, length = 64)
     private String password;
 
+    @Getter
     @Column(name = "username", nullable = false, length = 20)
     private String username;
 
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Bill> bills;
+    private List<Bill> ownedBills;
 
-    @ManyToMany
-    @JoinTable(
-            name = "item_share",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "item_id"))
-    List<Item> sharedItems;
-
+    @Getter
     @ManyToMany
     @JoinTable(
             name = "friendships",
@@ -40,43 +40,43 @@ public class User {
     )
     private Set<User> friends;
 
-    public User() {
+//    @ManyToMany
+//    @JoinTable(
+//            name = "bill_participants",
+//            joinColumns = @JoinColumn(name = "bill_id"),
+//            inverseJoinColumns = @JoinColumn(name = "user_id")
+//    )
+//    private List<Bill> bills;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserBill> userBills;
+
+    public User(String email, String username) {
+        this.email = email;
+        this.username = username;
+    }
+    public User() {
     }
     public void setId(String id) {
         this.id = id;
     }
 
-    public String getId() {
-        return this.id;
-    }
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public String getEmail() {
-        return this.email;
-    }
-
     public void setUsername(String username) {
         this.username = username;
-    }
-    public String getUsername() {
-        return this.username;
     }
 
     public void setPassword(String encode) {
         this.password = encode;
     }
 
-    public String getPassword() {
-        return this.password;
-    }
-
 
     public void addBill(Bill bill) {
         bill.setUser(this);
-        bills.add(bill);
+        ownedBills.add(bill);
     }
 
     public void addBills(List<Bill> billList) {
@@ -87,11 +87,7 @@ public class User {
 
 
     public List<Bill> getBills() {
-        return bills;
-    }
-
-    public Set<User> getFriends() {
-        return friends;
+        return ownedBills;
     }
 
 }

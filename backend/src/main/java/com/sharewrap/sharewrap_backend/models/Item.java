@@ -17,22 +17,18 @@ public class Item {
     @Column(nullable = false)
     private Double price;
 
-    @Column
-    private Double equalShare;
-
-    @Column(nullable = false)
-    private Boolean isShared;
-
-    @Column(nullable = false)
-    private Boolean isPaid;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "bill_id")
-    private Bill bill;
+    @JoinColumn(name = "userBill_id")
+    private UserBill userBill;
 
 
-    @ManyToMany(mappedBy = "sharedItems")
-    List<User> sharedUsers;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "bill_id")
+//    private Bill bill;
+
+
+//    @ManyToMany(mappedBy = "sharedItems")
+//    List<User> sharedUsers;
 
     public Item() {
         this.name = "My Item";
@@ -42,25 +38,34 @@ public class Item {
     public Item(String name, Double price) {
         this.name = name;
         this.price = price;
-        this.isShared = false;
-        this.isPaid = false;
+//        this.isShared = false;
+//        this.isPaid = false;
     }
 
-    public void setBill(Bill bill) {
-        this.bill = bill;
-    }
+//    public void setBill(Bill bill) {
+//        this.bill = bill;
+//    }
 
     public Double getPrice() {
         return price;
     }
-
-    public List getSharedUsers() {
-        return sharedUsers;
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+    public Long getId() {
+        return id;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String itemName) {
+        this.name = itemName;
+    }
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Double getEqualShare() {
-        Double share = price / (sharedUsers.size());
-        this.equalShare = (double) Math.round(share * 100) / 100;
-        return equalShare;
+    public void setUserBill(UserBill userBill) {
+        this.userBill = userBill;
     }
 }

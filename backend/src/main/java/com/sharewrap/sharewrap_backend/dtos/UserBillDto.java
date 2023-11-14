@@ -11,21 +11,20 @@ import java.util.List;
 @Data
 @Getter
 @Setter
-public class BillDto {
+public class UserBillDto {
 
     private Long id;
-
-    @NotNull
-    private String name;
-
-
-    private boolean isPaid;
-
     @NotNull
     private String userId;
 
     @NotNull
-    private List<UserBillDto> userBills;
+    private Long billId;
 
+    @NotNull
+    private Double shareTotal;
 
+    private boolean isPaid;
+
+    @NotNull
+    private List<ItemDto> items;
 }
