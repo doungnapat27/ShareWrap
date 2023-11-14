@@ -36,11 +36,6 @@ public class UserService {
 
         if (passwordEncoder.matches(CharBuffer.wrap(loginDto.getPassword()),user.getPassword())) {
             System.out.println("logging  in...");
-//            UserDto userDto = new UserDto();
-//            userDto.setEmail(user.getEmail());
-//            userDto.setUsername(user.getUsername());
-//            userDto.setId(user.getId());
-//            return userDto;
             return userMapper.toUserDto(user);
         }
         throw new AppException("Invalid password", HttpStatus.BAD_REQUEST);

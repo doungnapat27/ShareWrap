@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react'
 import useStyles from '../style/addFriendTabStyle'
 import {
@@ -25,38 +23,12 @@ import SearchIcon from '@mui/icons-material/Search'
 import AddFriendBottomBar from './addFriendBottomBar'
 import FriendList from './friendList'
 import { request } from '../../../../helpers/axios_helper'
-import SearchIcon from "@mui/icons-material/Search";
-import AddIcon from "@mui/icons-material/Add";
+import { stringAvatar } from '../../../../helpers/avatar_helper'
 
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
     'aria-controls': `simple-tabpanel-${index}`,
-  }
-}
-
-function stringToColor(string) {
-  let hash = 0
-  let i
-  for (i = 0; i < string.length; i += 1) {
-    hash = string.charCodeAt(i) + ((hash << 5) - hash)
-  }
-
-  let color = '#'
-
-  for (i = 0; i < 3; i += 1) {
-    const value = (hash >> (i * 8)) & 0xff
-    color += `00${value.toString(16)}`.slice(-2)
-  }
-  return color
-}
-
-function stringAvatar(username) {
-  return {
-    sx: {
-      bgcolor: stringToColor(username),
-    },
-    children: `${username.split('')[0][0]}`,
   }
 }
 
@@ -117,8 +89,6 @@ function AddFriendTab() {
         'GET',
         '/search/users/' + event.target.value
       )
-      console.log(response.data)
-      setSearchResult(response.data)
 
       fetchFriends()
     } catch (error) {
@@ -143,7 +113,6 @@ function AddFriendTab() {
 
   // useEffect to call the fetch function when the component mounts
   useEffect(() => {
-    console.log(uid)
     fetchFriends()
   }, [])
 

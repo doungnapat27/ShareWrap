@@ -4,6 +4,7 @@ import com.sharewrap.sharewrap_backend.dtos.ItemDto;
 import com.sharewrap.sharewrap_backend.exceptions.AppException;
 import com.sharewrap.sharewrap_backend.mappers.ItemMapper;
 import com.sharewrap.sharewrap_backend.models.Item;
+import com.sharewrap.sharewrap_backend.models.UserBill;
 import com.sharewrap.sharewrap_backend.repositories.ItemRepository;
 import com.sharewrap.sharewrap_backend.repositories.UserBillRepository;
 import jakarta.transaction.Transactional;
@@ -11,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -19,7 +19,6 @@ import java.util.List;
 public class ItemService {
     private final ItemRepository itemRepository;
     private final ItemMapper itemMapper;
-    private final UserBillRepository userBillRepository;
 
     public List<ItemDto> allItems() {
         return itemMapper.toItemDtos(itemRepository.findAll());
@@ -39,13 +38,14 @@ public class ItemService {
 //        return itemMapper.toItemDtos(items);
 //    }
 
-    public ItemDto createItem(ItemDto itemDto) {
-        Item item = itemMapper.toItem(itemDto);
-
-        Item savedItem = itemRepository.save(item);
-
-        return itemMapper.toItemDto(savedItem);
-    }
+//    @Transactional
+//    public Item createItem(ItemDto itemDto, UserBill userBill) {
+//
+//        Item item = itemMapper.toItem(itemDto);
+//        item.setUserBill(userBill);
+//
+//        return itemRepository.save(item);
+//    }
 
 //    public ItemDto updateItem(Long id, ItemDto itemDto) {
 //        Item item = itemRepository.findById(id)
