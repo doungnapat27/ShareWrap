@@ -25,6 +25,7 @@ import FriendList from './friendList'
 import { request } from '../../../../helpers/axios_helper'
 import { stringAvatar } from '../../../../helpers/avatar_helper'
 
+
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
