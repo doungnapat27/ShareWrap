@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import ItemList from "./itemList";
 import ButtonAddItem from "./buttonAddItem";
@@ -13,6 +13,7 @@ import {
   TextField,
   Paper,
 } from "@mui/material";
+import { Form } from "react-router-dom";
 
 function a11yProps(index) {
   return {
@@ -22,21 +23,9 @@ function a11yProps(index) {
 }
 
 function SplitingBillTab() {
-  const [itemList, setItemList] = useState({
-    title: '',
-    totalCost: 0,
-    items: [
-      {
-        id: Date.now(),
-        name: '',
-        cost: ''
-      }
-    ]
-  })
-
   const [value, setValue] = useState(0);
   const classes = useStyles()
-
+  
   const handleAddItem = () => {
     const newItem = {
       id: Date.now(),
@@ -48,6 +37,18 @@ function SplitingBillTab() {
       items: [...prevItem?.items, newItem]
     }))
   }
+  
+  const [itemList, setItemList] = useState({
+    title: '',
+    totalCost: 0,
+    items: [
+      {
+        id: Date.now(),
+        name: '',
+        cost: ''
+      }
+    ]
+  })
 
   const handleDeleteItem = (itemId, itemList) => {
     setItemList((prevItem) => {
@@ -73,7 +74,7 @@ function SplitingBillTab() {
         title: newTitle
       }
     })
-  }
+  }  
 
   const handleItemChange = (itemName, itemId) => {
     setItemList((prev) => {
@@ -116,6 +117,20 @@ function SplitingBillTab() {
     })
   }
 
+
+  useEffect(() => {
+    const savedBillDetails = localStorage.getItem('billDetails');
+    if (savedBillDetails) {
+      const billDetails = JSON.parse(savedBillDetails);
+      setItemList(billDetails);
+      
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('billDetails', JSON.stringify(itemList));
+  }, [itemList]);
+
   return (
     <Box className={classes.cover}>
       <Box className={classes.container}>
@@ -137,7 +152,8 @@ function SplitingBillTab() {
           <Box className={classes.cover}>
             <Box className={classes.containerInfo}>
               <Box sx={{ padding: "16px 30px" }}>
-                <Box>
+
+                  <Box>
                   <Paper className={classes.paperContainer}>
                     <TextField
                       fullWidth
@@ -149,17 +165,18 @@ function SplitingBillTab() {
                       onChange={(e) => handleTitleChange(e.target.value)}
                     />
                   </Paper>
-                </Box>
-                <ItemList
-                  itemList={itemList}
-                  handleDeleteItem={handleDeleteItem}
-                  handleTotalCostChange={handleTotalCostChange}
-                  handleItemChange={handleItemChange}
-                />
+                  </Box>
+                  <ItemList
+                    itemList={itemList}
+                    handleDeleteItem={handleDeleteItem}
+                    handleTotalCostChange={handleTotalCostChange}
+                    handleItemChange={handleItemChange}
+                  />
                 <ButtonAddItem
                   itemList={itemList}
                   handleAddItem={handleAddItem}
                 />
+
               </Box>
             </Box>
           </Box>

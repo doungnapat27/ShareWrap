@@ -1,7 +1,6 @@
 import React from "react";
 import LogoHomepage from "../../assets/logoHomepage.svg"
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import useStyles  from '../style/navbarStyle';
 import {AppBar,Box,Toolbar,IconButton,Typography,} from "@mui/material";
 import Avatar from '@mui/material/Avatar';
@@ -13,12 +12,15 @@ import Tooltip from '@mui/material/Tooltip';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { setAuthHeader, setUser } from '../../../helpers/axios_helper';
+import { stringAvatar } from '../../../helpers/avatar_helper'
 
 
 function Navbar() {
   const handleLogout = () => {
     setAuthHeader(null);
     setUser(null);
+    localStorage.clear();
+
     window.location.href = "/";
   };
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -30,6 +32,8 @@ function Navbar() {
     setAnchorEl(null);
   };
   const classes = useStyles();
+  const userData = JSON.parse(localStorage.getItem('auth_user'));
+  const username = userData ? userData.username : 'User';
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -41,16 +45,14 @@ function Navbar() {
           </Typography>
           <NotificationsNoneIcon className={classes.notificationIcon} />
           <Tooltip title="Account settings">
-          <IconButton
+          <Avatar 
             onClick={handleClick}
-            size="small"
-            sx={{ ml: 2 }}
+            {...stringAvatar(username)}
+            sx={{ ml: 2 ,width: 24, height: 24, ...stringAvatar(username).sx}}
             aria-controls={open ? 'account-menu' : undefined}
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
-          >
-            <AccountCircle className={classes.accountCircle}/>
-          </IconButton>
+          />
         </Tooltip>
         </Toolbar>
       </AppBar>
@@ -90,7 +92,7 @@ function Navbar() {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={handleClose}>
-          <Avatar /> Profile
+          <Avatar {...stringAvatar(username)} /> {username}
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleClose}>
