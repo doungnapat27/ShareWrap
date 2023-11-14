@@ -51,6 +51,7 @@ public class UserService {
         }
 
         User user = userMapper.registerToUser(userDto);
+        user.setId(generateUniqueUserId(userDto.getUsername()));
         user.setPassword(passwordEncoder.encode(CharBuffer.wrap(userDto.getPassword())));
         System.out.println("user: email:" + user.getEmail() + " ,password:" + user.getPassword()+
                 " ,username:" + user.getUsername()+ " ,id:" + user.getId());
