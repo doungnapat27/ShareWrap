@@ -54,7 +54,7 @@ function PendingBills() {
         <Typography sx={{ fontSize: '12px', color: '#838383', marginBottom: '10px' }}>
           Transaction ID: 12345
         </Typography>
-        <Button href="/upload-receipt" fullWidth className={classes.payButton}>
+        <Button href="/view-receipt" fullWidth className={classes.payButton}>
           <Typography variant='h5'>
             See payment details 
           </Typography>
