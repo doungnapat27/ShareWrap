@@ -1,40 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Avatar, AvatarGroup, Box, Typography, Dialog, DialogTitle,List,ListItem,ListItemAvatar,ListItemText } from "@mui/material";
+import { Avatar, AvatarGroup, Box, Typography,Button, Dialog, DialogTitle,List,ListItem,ListItemAvatar,ListItemText, Drawer, Checkbox,ListItemIcon  } from "@mui/material";
 import useStyle from "../style/summeryBillAddFriendstyle"
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
-
-function stringToColor(string) {
-    let hash = 0;
-    let i;
-    for (i = 0; i < string.length; i += 1) {
-      hash = string.charCodeAt(i) + ((hash << 5) - hash);
-    }
-  
-    let color = '#';
-  
-    for (i = 0; i < 3; i += 1) {
-      const value = (hash >> (i * 8)) & 0xff;
-      color += `00${value.toString(16)}`.slice(-2);
-    } 
-    return color;
-  }
-
-function stringAvatar(name) {
-    return {
-      sx: {
-        bgcolor: stringToColor(name),
-      },
-      children: `${name.split('')[0][0]}`,
-    };
-}
+import Uncheck from '@mui/icons-material/Circle';
+import Check from '@mui/icons-material/CheckCircle';
+import { stringAvatar } from '../../../../helpers/avatar_helper'
 
 function SummaryBillAddFriend() {
     const [items, setItems] = useState([]);
     const classes = useStyle();
     const [currentItemId, setCurrentItemId] = useState(null);
-    const [dialogOpen, setDialogOpen] = useState(false);
     const [allFriends, setAllFriends] = useState([]);
     const [friendsToAdd, setFriendsToAdd] = useState([]);
+    const [drawerOpen, setDrawerOpen] = useState(false);
+    const [selectAll, setSelectAll] = useState(false);
 
     useEffect(() => {
       const billDetails = JSON.parse(localStorage.getItem('billDetails')) || { items: [] };
@@ -49,35 +28,62 @@ function SummaryBillAddFriend() {
       setItems(itemsWithFriends);
       setAllFriends(fetchedFriends);
   }, []);
-  
-    const handleSelectFriend = (friendName) => {
-      const newItems = items.map(item => {
-          if (item.id === currentItemId) {
-              const itemFriends = item.friends || [];
-              const isSelected = itemFriends.includes(friendName);
-              const newFriends = isSelected
-                  ? itemFriends.filter(name => name !== friendName)
-                  : [...itemFriends, friendName];
-              return { ...item, friends: newFriends };
-          }
-          return item;
-      });
-  
-      setItems(newItems); 
-  
-      const billDetails = JSON.parse(localStorage.getItem('billDetails')) || {};
-      billDetails.items = newItems; 
-      localStorage.setItem('billDetails', JSON.stringify(billDetails)); 
-    };
 
-    const handleOpenDialog = (itemId) => {
+    const handleToggleSelectAll = () => {
+        if (selectAll) {
+            setFriendsToAdd([]);
+        } else {
+            setFriendsToAdd(allFriends.map(friend => friend));
+        }
+        setSelectAll(!selectAll);
+    };
+  
+    const handleOpenDrawer = (itemId) => {
         setCurrentItemId(itemId);
-        setDialogOpen(true);
-    };
-    const handleCloseDialog = () => {
-        setDialogOpen(false);
+        const currentItem = items.find(item => item.id === itemId);
+        if (currentItem && currentItem.friends) {
+            setFriendsToAdd(currentItem.friends);
+            setSelectAll(currentItem.friends.length === allFriends.length);
+        } else {
+            setFriendsToAdd([]);
+            setSelectAll(false);
+        }
+        setDrawerOpen(true);
     };
 
+    const handleSelectFriend = (event, friendName) => {
+        event.stopPropagation(); // Prevents the drawer from closing
+        setFriendsToAdd(prev => {
+            const isFriendSelected = prev.includes(friendName);
+            let newFriends;
+            if (isFriendSelected) {
+                newFriends = prev.filter(name => name !== friendName);
+            } else {
+                newFriends = [...prev, friendName];
+            }
+            if (newFriends.length === allFriends.length) {
+                setSelectAll(true);
+            } else {
+                setSelectAll(false);
+            }
+    
+            return newFriends;
+        });
+    };
+
+    const handleCloseDrawer = () => {
+        const newItems = items.map(item => {
+            if (item.id === currentItemId) {
+                return { ...item, friends: friendsToAdd };
+            }
+            return item;
+        });
+        setItems(newItems);
+        setDrawerOpen(false);
+        const billDetails = JSON.parse(localStorage.getItem('billDetails')) || {};
+        billDetails.items = newItems;
+        localStorage.setItem('billDetails', JSON.stringify(billDetails));
+    };
 
     return (
         <Box className={classes.cover}>
@@ -103,26 +109,97 @@ function SummaryBillAddFriend() {
                                 </Box>
                             ))}
                         </AvatarGroup>
-                            <Box className={classes.iconAddFriend} onClick={() => handleOpenDialog(item.id)}>
+                            <Box className={classes.iconAddFriend} 
+                            onClick={() => handleOpenDrawer(item.id)}
+                            >
                                 <PersonAddAlt1Icon />
                             </Box>
-                            <Dialog onClose={handleCloseDialog} open={dialogOpen}>
-                            <DialogTitle variant="h4">Add friends to this item</DialogTitle>
-                            <List>
-                                {allFriends.map((friend, index) => (
-                                    <ListItem 
-                                        key={index} 
-                                        button 
-                                        onClick={() => handleSelectFriend(friend)}
-                                    >
+                         <Drawer
+                            anchor="bottom"
+                            open={drawerOpen}
+                            sx={{
+                                '& .MuiDrawer-paper': {
+                                  borderTopLeftRadius: '16px',
+                                  borderTopRightRadius: '16px'
+                                }
+                              }}
+                        >
+                            <Box
+                                sx={{ width: 'auto' }}
+                                role="presentation"
+                                onClick={(event) => event.stopPropagation()}
+                                onKeyDown={handleCloseDrawer}
+                            >
+                            <Box className={classes.cover}>
+                                <Box className={classes.container}>
+                                    <Box className={classes.boxContainer}>
+                                    <Typography  variant='h4'sx={{ p: 2}}>Add friends to this item</Typography>
+                                    <List className={classes.listuser}>
+                                    <ListItem button onClick={handleToggleSelectAll} >
                                         <ListItemAvatar>
-                                            <Avatar {...stringAvatar(friend)} />
+                                            <Avatar sx={{ backgroundColor:'#FFB53B'}}>All</Avatar>
                                         </ListItemAvatar>
-                                        <ListItemText primary={friend} />
+                                        <ListItemText primary={`Select All (${allFriends.length})`}/>
+                                            <Checkbox
+                                                edge="end"
+                                                checked={selectAll}
+                                                tabIndex={-1}
+                                                disableRipple
+                                                icon={<Uncheck/>} 
+                                                checkedIcon={<Check/>}
+                                                sx={{
+                                                    color: '#D9D9D9',
+                                                    '&.Mui-checked': {
+                                                        color: '#FFB53B',
+                                                    },
+                                                }} 
+                                            />
                                     </ListItem>
-                                ))}
-                            </List>
-                        </Dialog>
+                                    {allFriends.map((friend, index) => (
+                                        <ListItem 
+                                            key={index} 
+                                            button 
+                                            onClick={(event) => handleSelectFriend(event, friend)}
+                                        >
+                                            <ListItemAvatar>
+                                                <Avatar {...stringAvatar(friend)} />
+                                            </ListItemAvatar>
+                                            <ListItemText primary={friend} />
+                                            <Checkbox
+                                                edge="end"
+                                                checked={friendsToAdd.includes(friend)}
+                                                tabIndex={-1}
+                                                disableRipple
+                                                icon={<Uncheck/>} 
+                                                checkedIcon={<Check/>}
+                                                sx={{
+                                                    color: '#D9D9D9',
+                                                    '&.Mui-checked': {
+                                                        color: '#FFB53B',
+                                                    },
+                                                }} 
+                                            />
+                                        </ListItem>
+                                    ))}
+                                </List>
+                                    </Box>
+                                </Box>
+                            </Box>
+                                <Box className={classes.cover}>
+                                <Box className={classes.container}>
+                                    <Box className={classes.boxContainer}>
+                                        <Button
+                                        fullWidth={true}
+                                        className={classes.positionButton}
+                                        onClick={handleCloseDrawer}
+                                        >
+                                            SELECT FRIENDS
+                                        </Button>
+                                    </Box>
+                                </Box>
+                            </Box>
+                            </Box>
+                        </Drawer>
                         </Box>
                     </Box>
                 </Box>
