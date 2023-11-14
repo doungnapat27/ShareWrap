@@ -20,7 +20,6 @@ import SearchIcon from '@mui/icons-material/Search'
 import AddFriendBottomBar from './addFriendBottomBar'
 import FriendList from './friendList'
 import { request } from '../../../../helpers/axios_helper'
-import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 
 function a11yProps(index) {

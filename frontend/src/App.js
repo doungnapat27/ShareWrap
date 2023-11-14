@@ -34,6 +34,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           {/* <Route element={<ProtectedRoute />}> */}
             <Route path="/home/:id" element={<Home />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/splitting-bill" element={<SplitingBill />}/>
             <Route path="promptpay-details" element={<PromptPayDetails />} />
             <Route path="edit-promptpay" element={<EditPromptpay />} />
@@ -51,6 +52,8 @@ function App() {
             <Route path="/add-Friend" element={<AddFriend/>} />
             <Route path="/summary-bill" element={<SummaryBill/>} />
             <Route path="/bill-summary" element={<BillSummary/>} />
+          {/* </Route> */}
+          {/* <Route path="/create-bill" element={<CreateBill />} /> No longer use */}
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
