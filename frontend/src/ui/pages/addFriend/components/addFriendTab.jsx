@@ -25,8 +25,6 @@ import SearchIcon from '@mui/icons-material/Search'
 import AddFriendBottomBar from './addFriendBottomBar'
 import FriendList from './friendList'
 import { request } from '../../../../helpers/axios_helper'
-import SearchIcon from "@mui/icons-material/Search";
-import AddIcon from "@mui/icons-material/Add";
 
 function a11yProps(index) {
   return {
@@ -117,8 +115,7 @@ function AddFriendTab() {
         'GET',
         '/search/users/' + event.target.value
       )
-      console.log(response.data)
-      setSearchResult(response.data)
+      
 
       fetchFriends()
     } catch (error) {
