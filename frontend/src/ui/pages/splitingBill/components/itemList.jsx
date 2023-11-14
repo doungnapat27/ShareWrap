@@ -31,8 +31,9 @@ function ItemList({ itemList, handleDeleteItem, handleTotalCostChange, handleIte
             placeholder="Item name"
             variant="standard"
             name='itemName'
-            value={itemList.items.name}
+            value={item?.name}
             onChange={(e) => handleItemChange(e.target.value, item.id)}
+
           />
           <TextField
             className={classes.setWidthTextField} placeholder="Cost"
@@ -41,6 +42,7 @@ function ItemList({ itemList, handleDeleteItem, handleTotalCostChange, handleIte
             type='number'
             value={item?.cost}
             onChange={(e) => handleTotalCostChange(item.id, e.target.value)}
+
           />
         </Paper>
       ))}

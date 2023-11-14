@@ -61,7 +61,7 @@ const useStyles = makeStyles({
     },
     overflowY: 'auto',
     // maxHeight: '50vh',
-    maxHeight: 'calc(100vh - 200px - 112px)',
+    maxHeight: 'calc(100vh - 250px - 112px)',
   },
   bottomBar:{
     position: 'fixed',
