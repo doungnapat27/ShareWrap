@@ -30,11 +30,18 @@ public class UserBill {
     private Boolean isPaid;
 
     @OneToMany(mappedBy = "userBill", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Item> item;
+    private List<Item> items;
 
     public UserBill() {
         this.isPaid = false;
         this.shareTotal = 0.0;
+    }
+
+    public UserBill(User user, Bill bill, Double shareTotal) {
+        this.user = user;
+        this.bill = bill;
+        this.shareTotal = shareTotal;
+        this.isPaid = false;
     }
 
 }

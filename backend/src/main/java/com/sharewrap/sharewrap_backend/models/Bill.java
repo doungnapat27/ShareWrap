@@ -1,6 +1,7 @@
 package com.sharewrap.sharewrap_backend.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -40,6 +41,7 @@ public class Bill {
 //    )
 //    private List<User> participants;
 
+    @Getter
     @OneToMany(mappedBy = "bill", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserBill> userBills;
 
@@ -50,10 +52,11 @@ public class Bill {
         this.createdDate = new Date(System.currentTimeMillis());
     }
 
-    public Bill(String name, Boolean isPaid, User user) {
+    public Bill(String name, User user) {
         this.name = name;
-        this.isPaid = isPaid;
+        this.isPaid = false;
         this.user = user;
+        this.createdDate = new Date(System.currentTimeMillis());
     }
 
     public void setUser(User user) {

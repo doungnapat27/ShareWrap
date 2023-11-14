@@ -65,4 +65,7 @@ public class Item {
         this.id = id;
     }
 
+    public void setUserBill(UserBill userBill) {
+        this.userBill = userBill;
+    }
 }
