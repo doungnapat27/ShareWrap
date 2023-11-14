@@ -1,5 +1,5 @@
 import { Box, Button, Paper, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect }from 'react'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import useStyles from '../style/paymentSuccessfulStyle';
 
@@ -58,7 +58,7 @@ function PaymentSuccessful() {
           </Box>
         </Box>
       </Paper>
-      <Button className={classes.goHomeButton}>
+      <Button className={classes.goHomeButton} href='/home'>
         <Typography>
           Go to Home Page
         </Typography>
