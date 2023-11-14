@@ -18,6 +18,7 @@ export const ShareContextProvider = ({ children }) => {
     promptpayNumber: '',
   })
 
+
   useEffect(() => {
     localStorage.setItem('userPayment', JSON.stringify(userPayment));
     // localStorage.removeItem('userPayment');
@@ -28,12 +29,16 @@ export const ShareContextProvider = ({ children }) => {
     setIsPromptPay(true);
   };
 
+
   const handleChangeSelectedPromptpay = () => {
     setUserPayment((prevState) => ({
       ...prevState,
       selectedPromptPay: true,
     }))
   }
+
+
+
 
   const handleChangeSelectedBankAccount = () => {
     setUserPayment((prevState) => ({

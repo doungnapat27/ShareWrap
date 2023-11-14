@@ -87,11 +87,16 @@ function AddFriendTab() {
         return
       }
       const response = await request(
-        'GET',
-        '/search/users/' + event.target.value
+        'POST',
+        '/'+uid+'/add/friend/' + dialogValue.id
       )
 
       fetchFriends()
+      setSnackbarOpen(true)
+      setSnackbarMessage('Friend added successfully!')
+      setSnackbarSeverity('success')
+      handleClose()
+      
     } catch (error) {
       setSnackbarOpen(true)
       setSnackbarSeverity('error')

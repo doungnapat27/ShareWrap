@@ -1,9 +1,11 @@
 package com.sharewrap.sharewrap_backend.models;
 
+import com.sharewrap.sharewrap_backend.dtos.PaymentDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.Getter;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -40,16 +42,13 @@ public class User {
     )
     private Set<User> friends;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "bill_participants",
-//            joinColumns = @JoinColumn(name = "bill_id"),
-//            inverseJoinColumns = @JoinColumn(name = "user_id")
-//    )
-//    private List<Bill> bills;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserBill> userBills;
+
+    @Getter
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Payment> payments;
 
     public User(String email, String username) {
         this.email = email;
@@ -77,12 +76,6 @@ public class User {
     public void addBill(Bill bill) {
         bill.setUser(this);
         ownedBills.add(bill);
-    }
-
-    public void addBills(List<Bill> billList) {
-        for (Bill bill : billList){
-            this.addBill(bill);
-        }
     }
 
 

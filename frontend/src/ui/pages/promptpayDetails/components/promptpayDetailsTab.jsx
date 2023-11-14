@@ -22,6 +22,7 @@ function PromptPayDetailsTab() {
     handleChangeSelectedPromptpay,
   } = useContext(ShareContext);
 
+
   useEffect(() => {
     if(isBankAcc) {
       setIsBankAcc(false)
@@ -30,6 +31,7 @@ function PromptPayDetailsTab() {
       setIsPromptPay(true)
     }
   })
+
 
   const isButtonDisabled = !(userPayment.promptpayName && userPayment.promptpayNumber);
   const buttonColor = isButtonDisabled ? '#838383' : '#FFB53B';
@@ -139,7 +141,6 @@ function PromptPayDetailsTab() {
                 variant="contained"
                 endIcon={<ArrowForwardIcon />}
                 disabled={isButtonDisabled}
-                href='/splitting-bill'
                 sx={{
                   padding: "12px 20px",
                   marginTop: "40px",
