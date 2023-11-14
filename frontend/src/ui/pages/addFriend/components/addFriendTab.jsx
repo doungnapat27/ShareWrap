@@ -36,10 +36,8 @@ function a11yProps(index) {
 const filter = createFilterOptions()
 
 function AddFriendTab() {
-  const userData = JSON.parse(localStorage.getItem('auth_user'));
-  const username = userData ? userData.username : 'User';
   const [value, setValue] = useState(0)
-  const [selectedFriends, setSelectedFriends] = useState([username])
+  const [selectedFriends, setSelectedFriends] = useState([])
   const [friends, setFriends] = useState([])
   const [snackbarOpen, setSnackbarOpen] = useState(false)
   const [snackbarMessage, setSnackbarMessage] = useState('')
@@ -47,8 +45,6 @@ function AddFriendTab() {
 
   const [autoValue, setAutoValue] = useState(null)
   const [open, toggleOpen] = useState(false)
-
-  
 
   const handleClose = () => {
     setDialogValue({
@@ -91,11 +87,15 @@ function AddFriendTab() {
         return
       }
       const response = await request(
-        'GET',
-        '/search/users/' + event.target.value
+        'POST',
+        '/'+uid+'/add/friend/' + dialogValue.id
       )
 
       fetchFriends()
+      setSnackbarOpen(true)
+      setSnackbarMessage('Friend added successfully!')
+      setSnackbarSeverity('success')
+      handleClose()
     } catch (error) {
       setSnackbarOpen(true)
       setSnackbarSeverity('error')
