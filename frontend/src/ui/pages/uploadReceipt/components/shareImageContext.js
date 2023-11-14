@@ -10,7 +10,8 @@ export const ShareImageProvider = ({ children }) => {
   });
   const [showImage, setShowImage] = useState(false);
 
-  const handleUploadFile = (file) => {
+  const handleUploadFile = (e) => {
+    const file = e.target.files[0]
     const reader = new FileReader();
 
     reader.onloadend = () => {
@@ -33,9 +34,9 @@ export const ShareImageProvider = ({ children }) => {
   const handleChange = () => {
     if (uploadImage !== null) {
       setShowImage(true);
-      localStorage.setItem('showImage', showImage)
+      localStorage.setItem('showImage', JSON.stringify(true));
     }
-  };
+  };  
 
   return (
     <ShareImageContext.Provider
