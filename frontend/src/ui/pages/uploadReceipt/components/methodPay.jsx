@@ -9,9 +9,9 @@ import {
 
 import logoKasikorn from '../../../assets/kasikorn.png'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
-import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import GeneratePromptPayQR from '../../../modules/components/QRCode';
+import UploadImage from './uploadImage';
 
 import useStyles from '../style/uploadReceiptStyle';
 
@@ -82,11 +82,7 @@ function MethodPay() {
         <Typography sx={{ marginBottom: '11px' }}>
           3. Upload your receipt
         </Typography>
-        <Button href='/receipt-uploaded'
-          className={classes.uploadReceiptButton}>
-          <FileUploadOutlinedIcon sx={{ marginRight: '12px' }} />
-          Upload receipt
-        </Button>
+        <UploadImage />
       </Box>
     </Box>
   )
