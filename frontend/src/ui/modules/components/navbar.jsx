@@ -17,8 +17,6 @@ import { stringAvatar } from '../../../helpers/avatar_helper'
 
 function Navbar() {
   const handleLogout = () => {
-    setAuthHeader(null);
-    setUser(null);
     localStorage.clear();
 
     window.location.href = "/";
