@@ -1,21 +1,26 @@
 
+
 import React, { useState, useEffect } from 'react'
 import useStyles from '../style/addFriendTabStyle'
 import {
   Box,
   Tabs,
   Tab,
-  Paper,
-  IconButton,
-  InputBase,
   Typography,
   Button,
-  Autocomplete,
   Stack,
   TextField,
   InputAdornment,
   Avatar,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Snackbar,
 } from '@mui/material'
+import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete'
+import MuiAlert from '@mui/material/Alert';
 import SearchIcon from '@mui/icons-material/Search'
 import AddFriendBottomBar from './addFriendBottomBar'
 import FriendList from './friendList'
@@ -31,19 +36,19 @@ function a11yProps(index) {
 }
 
 function stringToColor(string) {
-  let hash = 0;
-  let i;
+  let hash = 0
+  let i
   for (i = 0; i < string.length; i += 1) {
-    hash = string.charCodeAt(i) + ((hash << 5) - hash);
+    hash = string.charCodeAt(i) + ((hash << 5) - hash)
   }
 
-  let color = '#';
+  let color = '#'
 
   for (i = 0; i < 3; i += 1) {
-    const value = (hash >> (i * 8)) & 0xff;
-    color += `00${value.toString(16)}`.slice(-2);
-  } 
-  return color;
+    const value = (hash >> (i * 8)) & 0xff
+    color += `00${value.toString(16)}`.slice(-2)
+  }
+  return color
 }
 
 function stringAvatar(username) {
@@ -52,85 +57,95 @@ function stringAvatar(username) {
       bgcolor: stringToColor(username),
     },
     children: `${username.split('')[0][0]}`,
-  };
+  }
 }
+
+const filter = createFilterOptions()
 
 function AddFriendTab() {
   const [value, setValue] = useState(0)
   const [selectedFriends, setSelectedFriends] = useState([])
   const [friends, setFriends] = useState([])
-  const [searchInput, setSearchInput] = useState('')
-  const [searchResult, setSearchResult] = useState(null)
+  const [snackbarOpen, setSnackbarOpen] = useState(false)
+  const [snackbarMessage, setSnackbarMessage] = useState('')
+  const [snackbarSeverity, setSnackbarSeverity] = useState('success')
+
+  const [autoValue, setAutoValue] = useState(null)
+  const [open, toggleOpen] = useState(false)
+
+  const handleClose = () => {
+    setDialogValue({
+      id: '',
+    })
+    toggleOpen(false)
+  }
+
+  const [dialogValue, setDialogValue] = React.useState({
+    id: '',
+  })
+
   const uid = JSON.parse(localStorage.getItem('auth_user')).id
   const classes = useStyles()
-
-  const [searchOptionList, setSearchOptionList] = useState([]);
 
   const fetchFriends = async () => {
     try {
       console.log('fetching friends...')
       const response = await request('GET', '/' + uid + '/friends')
-      setFriends(response.data) // Assume the response has the friends array
-      const friendsData = response.data;
-      
-      if(searchResult !== null){
-        const combined =[...friendsData, searchResult];
-        const combinedData = combined.map((friend) => {
-          const isFriend = searchResult && friend.id !== searchResult.id;
-          return { ...friend, areFriends: isFriend };
-        });
-
-        setSearchOptionList(combinedData);
-
-      }
-      else{
-        const optionData = friendsData.map((friend) => {
-          return { ...friend, areFriends: true };
-        });
-
-        setSearchOptionList(optionData);
-      }
-
+      setFriends(response.data)
     } catch (error) {
       console.error('Error fetching friends:', error)
     }
   }
 
-  // Function to handle the search input change
-  const handleSearchInputChange = async event => {
-    setSearchInput(event.target.value)
+  const handleAddFriend = async event => {
+    event.preventDefault()
+    console.log('adding friend...')
     try {
-      console.log('finding user...')
+      setAutoValue({ id: dialogValue.id })
+      if (uid === dialogValue.id) {
+        setSnackbarOpen(true)
+        setSnackbarMessage('You cannot add yourself!')
+        setSnackbarSeverity('error')
+        return
+      } else if (friends.find(friend => friend.id === dialogValue.id)) {
+        setSnackbarOpen(true)
+        setSnackbarMessage('This user is already your friend!')
+        setSnackbarSeverity('error')
+        return
+      }
       const response = await request(
         'GET',
         '/search/users/' + event.target.value
       )
       console.log(response.data)
       setSearchResult(response.data)
-      
-      fetchFriends()
 
+      fetchFriends()
     } catch (error) {
-      console.error(error)
+      setSnackbarOpen(true)
+      setSnackbarSeverity('error')
+      console.log(error.status)
+      if (error.response.status === 404) {
+        setSnackbarMessage('Friend not found!')
+      }
+      else{
+        setSnackbarMessage('Error adding friend!:', error.response.message)
+      }
     }
   }
 
-  // Function to handle the add friend action
-  const handleAddFriend = async userId => {
-    // try {
-    //   // await request.post('/addFriend', { userId }); // Replace with your actual API endpoint
-    //   // Re-fetch the friends list to update the UI
-    //   fetchFriends()
-    // } catch (error) {
-    //   console.error('Error adding friend:', error)
-    // }
-  }
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+        return;
+    }
+    setSnackbarOpen(false);
+};
 
   // useEffect to call the fetch function when the component mounts
   useEffect(() => {
     console.log(uid)
     fetchFriends()
-  }, []) 
+  }, [])
 
   return (
     <Box className={classes.cover}>
@@ -154,52 +169,120 @@ function AddFriendTab() {
       </Box>
       <Box className={classes.cover}>
         <Box className={classes.searchQuery}>
-          <Stack spacing={2} sx={{ width: 300, marginTop: '30px'}}>
-            <Autocomplete sx={{backgroundColor: '#fff', borderRadius: '5px'}}
-              disableClearable
-              options={searchOptionList}
-              autoHighlight
-              getOptionLabel={(option) => option.id}
+          <Stack spacing={2} sx={{ width: 300, marginTop: '30px' }}>
+            <Autocomplete
+              value={autoValue}
+              filterOptions={(options, params) => {
+                const filtered = filter(options, params)
+
+                if (params.inputValue !== '') {
+                  filtered.push({
+                    inputValue: params.inputValue,
+                    username: `Add "${params.inputValue}"`,
+                  })
+                }
+
+                return filtered
+              }}
+              onChange={(event, newValue) => {
+                if (typeof newValue === 'string') {
+                  // timeout to avoid instant validation of the dialog's form.
+                  setTimeout(() => {
+                    toggleOpen(true)
+                    setDialogValue({
+                      id: newValue,
+                    })
+                  })
+                } else if (newValue && newValue.inputValue) {
+                  toggleOpen(true)
+                  setDialogValue({
+                    id: newValue.inputValue,
+                  })
+                } else {
+                  setAutoValue(newValue)
+                }
+              }}
+              id='free-solo-dialog-demo'
+              options={friends}
+              getOptionLabel={option => {
+                // e.g. value selected with enter, right from the input
+                if (typeof option === 'string') {
+                  return option
+                }
+                if (option && option.inputValue) {
+                  return option.inputValue
+                }
+                return option && option.username ? option.username : ''
+              }}
+              selectOnFocus
+              clearOnBlur
+              handleHomeEndKeys
               renderOption={(props, option) => (
                 <li {...props}>
                   <Box
-                      sx={{
+                    sx={{
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center',
                     }}
                   >
                     <Avatar {...stringAvatar(option.username)} />
-                    <span style={{ marginLeft: '10px'}}>{option.id}</span>
-                    {!option.areFriends && (
-                      <Button
-                        className={classes.addButton}
-                        onClick={() => handleAddFriend(option.id)}
-                      >
-                        Add
-                      </Button>
-    
-                    )}
+                    <span style={{ marginLeft: '10px' }}>
+                      {option.username}
+                    </span>
                   </Box>
                 </li>
               )}
-              renderInput={ (params) => (
-                  <TextField 
+              sx={{ width: 300 }}
+              freeSolo
+              renderInput={params => (
+                <TextField
                   {...params}
-                  label='Search friend'
+                  placeholder='Search for friend'
                   InputProps={{
                     ...params.InputProps,
                     startAdornment: (
-                      <InputAdornment position='start' sx={{ p: '10px' }} aria-label='Search'>
+                      <InputAdornment
+                        position='start'
+                        sx={{ p: '10px' }}
+                        aria-label='Search'
+                      >
                         <SearchIcon />
                       </InputAdornment>
                     ),
-                    type: 'search',
                   }}
                 />
               )}
-              onInputChange={handleSearchInputChange}
             />
+            <Dialog open={open} onClose={handleClose}>
+              <form onSubmit={handleAddFriend}>
+                <DialogTitle variant='h4'>Add a new friend</DialogTitle>
+                <DialogContent>
+                  <DialogContentText>
+                    Did you miss any freind in our list? Please, add them!
+                  </DialogContentText>
+                  <TextField
+                    autoFocus
+                    margin='dense'
+                    id='name'
+                    value={dialogValue.id}
+                    onChange={event =>
+                      setDialogValue({
+                        ...dialogValue,
+                        id: event.target.value,
+                      })
+                    }
+                    label='id'
+                    type='text'
+                    variant='standard'
+                  />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose}>Cancel</Button>
+                  <Button type='submit'>Add</Button>
+                </DialogActions>
+              </form>
+            </Dialog>
           </Stack>
           <Box className={classes.selectFriend}>
             <Typography variant='h5'>Select Friends</Typography>
@@ -216,6 +299,21 @@ function AddFriendTab() {
           <AddFriendBottomBar selectedFriends={selectedFriends} />
         </Box>
       </Box>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        open={snackbarOpen}
+        autoHideDuration={2000}
+        onClose={handleCloseSnackbar}
+      >
+        <MuiAlert
+          elevation={6}
+          variant='filled'
+          onClose={handleCloseSnackbar}
+          severity={snackbarSeverity}
+        >
+          {snackbarMessage}
+        </MuiAlert>
+      </Snackbar>
     </Box>
   );
 }

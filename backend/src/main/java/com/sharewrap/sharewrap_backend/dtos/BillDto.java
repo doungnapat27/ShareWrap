@@ -19,14 +19,6 @@ public class BillDto {
     private String name;
 
     @NotNull
-    private Double amount;
-
-    private Date dueDate;
-
-    @NotNull
-    private Date createdDate;
-
-    @NotNull
     private boolean isPaid;
 
 

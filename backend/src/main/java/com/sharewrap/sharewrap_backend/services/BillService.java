@@ -81,16 +81,16 @@ public class BillService {
         return billDto;
     }
 
-    public Double getBillTotal(Long id) {
-        Bill bill = billRepository.findById(id)
-                .orElseThrow(() -> new AppException("Bill not found", HttpStatus.NOT_FOUND));
-        return bill.getTotal();
-    }
-
-    public Double EqualShare(Long id) {
-        Bill bill = billRepository.findById(id)
-                .orElseThrow(() -> new AppException("Bill not found", HttpStatus.NOT_FOUND));
-        return bill.getEqualShare();
-    }
+//    public Double getBillTotal(Long id) {
+//        Bill bill = billRepository.findById(id)
+//                .orElseThrow(() -> new AppException("Bill not found", HttpStatus.NOT_FOUND));
+//        return bill.getTotal();
+//    }
+//
+//    public Double EqualShare(Long id) {
+//        Bill bill = billRepository.findById(id)
+//                .orElseThrow(() -> new AppException("Bill not found", HttpStatus.NOT_FOUND));
+//        return bill.getEqualShare();
+//    }
 
 }
