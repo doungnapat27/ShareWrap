@@ -35,21 +35,6 @@ const useStyle = makeStyles({
           width: '60%',
         },
     },
-    boxHeader: {
-        display: "flex",
-        justifyContent: "space-between"
-    },
-    boxFriend: {
-        backgroundColor: "rgba(255, 255, 255, 0.5)",
-        display: "flex",
-        justifyContent: "flex-start",
-        padding: "16px 0px 16px 0px",
-        textAlign: "start",
-        borderRadius: "10px",
-        alignItems: "center",
-        marginTop: "10px",
-        height: "76px",
-    },
     positionButton: addImportant({
         backgroundColor: "#FFB53B",
         marginTop: "10px",

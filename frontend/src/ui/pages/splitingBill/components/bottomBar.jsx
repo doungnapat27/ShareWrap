@@ -24,7 +24,7 @@ function BottomBar({ itemList, onSaveBill }) {
     handleChangeIsProptPay,
     userPayment,
   } = useContext(ShareContext);
-
+  
   const classes = useStyles({ isBankAcc, isPromptPay });
   const handleSaveToLocalStorage = () => {
     const billDetails = {
@@ -32,13 +32,13 @@ function BottomBar({ itemList, onSaveBill }) {
       items: itemList.items,
       totalCost: itemList.totalCost,
     };
-
     localStorage.setItem('billDetails', JSON.stringify(billDetails));
 
     setTimeout(() => {
       window.location.href = "/add-Friend";;
     }, 1000);
   };
+
 
 
   console.log("Bottombar", userPayment);

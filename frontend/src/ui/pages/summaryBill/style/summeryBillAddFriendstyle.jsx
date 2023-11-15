@@ -50,6 +50,29 @@ const useStyles = makeStyles({
         justifyContent: 'center',
         alignItems: 'flex-start',
         paddingLeft: '4px'
+    },
+    positionButton: addImportant({
+        backgroundColor: "#FFB53B",
+        color: "#000",
+        marginBottom: "20px",
+    }),
+    boxContainer: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'stretch',
+        '@media (min-width: 601px) and (max-width: 1024px)': {
+          width: '70%',
+        },
+        '@media (min-width: 1025px)': {
+          width: '60%',
+        },
+    },
+    listuser:{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: '100%'
     }
 });
 

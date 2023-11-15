@@ -1,6 +1,7 @@
 import React from 'react'
 import HomeTab from './components/hometap'
 import Navbar from '../../modules/components/navbar.jsx'
+import { ShareImageProvider } from '../uploadReceipt/components/shareImageContext.js'
 
 class Home extends React.Component {
 
@@ -16,10 +17,10 @@ class Home extends React.Component {
 
   render() {
     return (
-      <>
+      <ShareImageProvider>
         <Navbar />
         <HomeTab />
-      </>
+      </ShareImageProvider>
     )
   }
 }
