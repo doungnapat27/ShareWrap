@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 import CircleIcon from "@mui/icons-material/Circle";
 import CreateIcon from "@mui/icons-material/Create";
@@ -23,6 +23,8 @@ function BottomBar({ itemList, onSaveBill }) {
     handleChangeBankAcc,
     handleChangeIsProptPay,
     userPayment,
+    fetchPromptpay,
+    fetchBankAccount,
   } = useContext(ShareContext);
   
   const classes = useStyles({ isBankAcc, isPromptPay });
@@ -43,11 +45,17 @@ function BottomBar({ itemList, onSaveBill }) {
     }, 1000);
   };
 
+  useEffect(() => {
+    fetchPromptpay()
+    fetchBankAccount()
+  }, [])
 
 
-  console.log("Bottombar", userPayment);
-  console.log("Bottombar isBankAcc", isBankAcc);
-  console.log("Bottombar isPromptpay", isPromptPay);
+  // console.log("Bottombar", userPayment);
+  // console.log("Bottombar isBankAcc", isBankAcc);
+  // console.log("Bottombar isPromptpay", isPromptPay);
+  // console.log("Bottombar selectedBankAccount", userPayment.selectedBankAccount);
+  // console.log("Bottombar selectedPromptPay", userPayment.selectedPromptPay);
 
   return (
     <Box className={classes.cover}>

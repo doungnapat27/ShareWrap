@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext} from "react";
 
 import CreateIcon from '@mui/icons-material/Create';
 import CircleIcon from '@mui/icons-material/Circle';
@@ -12,6 +12,9 @@ function SelectedPromptpay() {
   const {
     userPayment,
   } = useContext(ShareContext);
+
+
+  console.log('userPayment in selected promptpay: ', userPayment)
 
   const classes = useStyles()
   return (

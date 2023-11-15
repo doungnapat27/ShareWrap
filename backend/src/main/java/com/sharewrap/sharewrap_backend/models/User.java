@@ -78,7 +78,6 @@ public class User {
         ownedBills.add(bill);
     }
 
-
     public List<Bill> getBills() {
         return ownedBills;
     }

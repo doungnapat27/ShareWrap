@@ -31,4 +31,23 @@ public class BankAccountService {
         BankAccount savedBankAccount = bankAccountRepository.save(bankAccount);
         return bankAccountMapper.toBankAccountDto(savedBankAccount);
     }
+
+    public BankAccountDto getBankAccount(String userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
+        BankAccount bankAccount = bankAccountRepository.findByUser(user)
+                .orElseThrow(() -> new AppException("BankAccount not found", HttpStatus.NOT_FOUND));
+        return bankAccountMapper.toBankAccountDto(bankAccount);
+    }
+
+    public BankAccountDto updateBankAccount(BankAccountDto bankAccountDto) {
+        User user = userRepository.findById(bankAccountDto.getUserId())
+                .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
+        BankAccount bankAccount = bankAccountRepository.findById(bankAccountDto.getId())
+                .orElseThrow(() -> new AppException("BankAccount not found", HttpStatus.NOT_FOUND));
+        bankAccountMapper.updateBankAccount(bankAccount, bankAccountMapper.toBankAccount(bankAccountDto));
+        bankAccount.setUser(user);
+        BankAccount savedBankAccount = bankAccountRepository.save(bankAccount);
+        return bankAccountMapper.toBankAccountDto(savedBankAccount);
+    }
 }

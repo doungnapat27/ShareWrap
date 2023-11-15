@@ -23,6 +23,8 @@ export const ShareContextProvider = ({ children }) => {
     selectedPromptPay: false,
     promptpayName: '',
     promptpayNumber: '',
+    promptpayId: '',
+    bankAccId: '',
   })
 
 
@@ -111,6 +113,43 @@ export const ShareContextProvider = ({ children }) => {
 
   }
 
+  const fetchPromptpay = async () => {
+    try {
+      const response = await request(
+        'GET',
+        '/'+uid+'/promptpay',
+      )
+      setUserPayment((prevState) => ({
+        ...prevState,
+        promptpayName: response.data.name,
+        promptpayNumber: response.data.phoneNumber,
+        promptpayId: response.data.id,
+        selectedPromptPay: true,
+      }))
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const fetchBankAccount = async () => {
+    try {
+      const response = await request(
+        'GET',
+        '/'+uid+'/bank-account',
+      )
+      setUserPayment((prevState) => ({
+        ...prevState,
+        bankName: response.data.bankName,
+        bankAccount: response.data.name,
+        bankAccNumber: response.data.accountNumber,
+        bankAccId: response.data.id,
+        selectedBankAccount: true,
+      }))
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const handlePromptpayChange = (type, value) => {
     setUserPayment((prevState) => ({
       ...prevState,
@@ -122,6 +161,80 @@ export const ShareContextProvider = ({ children }) => {
     setIsBankAcc(true);
     setIsPromptPay(false);
   };
+
+  const handleUpdatePromptpay = async event => {
+    event.preventDefault();
+    console.log('Updating promptpay...');
+    setUserPayment((prevState) => ({
+      ...prevState,
+      selectedPromptPay: true,
+    }))
+    try{
+      const response = await request(
+        'PUT',
+        '/update/promptpay',
+        {
+          name: userPayment.promptpayName,
+          userId: uid,
+          phoneNumber: userPayment.promptpayNumber,
+          id: userPayment.promptpayId,
+        }
+      )
+      
+      setSnackbarOpen(true)
+      setSnackbarMessage('Promptpay updated successfully!')
+      setSnackbarSeverity('success')
+
+      setTimeout(() => {
+        fetchPromptpay();
+        window.location.href = '/splitting-bill'; 
+      }, 2000); 
+
+    } catch (error) {
+      setSnackbarOpen(true)
+      setSnackbarSeverity('error')
+      setSnackbarMessage('Error updating Promptpay!:', error.response.message)
+      console.log(error);
+    }
+
+  }
+
+  const handleUpdateBankAccount = async event => {
+    event.preventDefault();
+    console.log('Updating bank account...');
+    setUserPayment((prevState) => ({
+      ...prevState,
+      selectedBankAccount: true,
+    }))
+    try{
+      const response = await request(
+        'PUT',
+        '/update/bank-account',
+        {
+          name: userPayment.bankAccount,
+          userId: uid,
+          accountNumber: userPayment.bankAccNumber,
+          bankName: userPayment.bankName,
+          id: userPayment.bankAccId,
+        }
+      )
+      
+      setSnackbarOpen(true)
+      setSnackbarMessage('Bank account updated successfully!')
+      setSnackbarSeverity('success')
+
+      setTimeout(() => {
+        fetchBankAccount();
+        window.location.href = '/splitting-bill'; 
+      }, 2000); 
+
+    } catch (error) {
+      setSnackbarOpen(true)
+      setSnackbarSeverity('error')
+      setSnackbarMessage('Error updating Bank Account!:', error.response.message)
+      console.log(error);
+    }
+  }
 
   return (
     <ShareContext.Provider
@@ -141,6 +254,10 @@ export const ShareContextProvider = ({ children }) => {
         snackbarMessage,
         snackbarSeverity,
         setSnackbarOpen,
+        fetchPromptpay,
+        fetchBankAccount,
+        handleUpdatePromptpay,
+        handleUpdateBankAccount,
       }}
     >
       {children}

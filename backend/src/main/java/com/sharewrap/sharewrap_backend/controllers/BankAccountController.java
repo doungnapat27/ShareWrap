@@ -6,9 +6,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
@@ -22,5 +20,19 @@ public class BankAccountController {
     public ResponseEntity<BankAccountDto> addBankAccount(@RequestBody @Valid BankAccountDto bankAccountDto) {
         BankAccountDto createdBankAccount = bankAccountService.createBankAccount(bankAccountDto);
         return ResponseEntity.created(URI.create("/bank-account/" + bankAccountDto.getId())).body(createdBankAccount);
+    }
+
+    @GetMapping("/{userId}/bank-account")
+    public ResponseEntity<BankAccountDto> getBankAccount(@PathVariable String userId) {
+        System.out.println("Getting bank account...");
+        BankAccountDto createdBankAccount = bankAccountService.getBankAccount(userId);
+        return ResponseEntity.ok(createdBankAccount);
+    }
+
+    @PutMapping("/update/bank-account")
+    public ResponseEntity<BankAccountDto> updateBankAccount(@RequestBody @Valid BankAccountDto bankAccountDto) {
+        System.out.println("Updating bank account...");
+        BankAccountDto updatedBankAccount = bankAccountService.updateBankAccount(bankAccountDto);
+        return ResponseEntity.ok(updatedBankAccount);
     }
 }

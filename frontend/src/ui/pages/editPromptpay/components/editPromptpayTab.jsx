@@ -1,29 +1,30 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from 'react'
 
-import BankAccBtn from "../../../modules/components/bankAccBtn";
-import PromptPayBtn from "../../../modules/components/promptpayBtn";
+import { ShareContext } from '../../splitingBill/components/shareBankAndPromptPayContext'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import MuiAlert from '@mui/material/Alert'
+import Snackbar from '@mui/material/Snackbar'
 
-import { ShareContext } from "../../splitingBill/components/shareBankAndPromptPayContext";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-
-import { Tabs, Tab, Typography, Box, Button, TextField } from "@mui/material";
+import { Tabs, Tab, Typography, Box, Button, TextField } from '@mui/material'
 
 function EditPromptpayTab() {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(0)
   const {
     isBankAcc,
     isPromptPay,
     setIsBankAcc,
     setIsPromptPay,
-    handleChangeBankAcc,
-    handleChangeIsProptPay,
     userPayment,
     handlePromptpayChange,
-    handleChangeSelectedPromptpay,
-  } = useContext(ShareContext);
+    handleUpdatePromptpay,
+    snackbarOpen,
+    snackbarMessage,
+    snackbarSeverity,
+    setSnackbarOpen,
+  } = useContext(ShareContext)
 
   useEffect(() => {
-    if(isBankAcc) {
+    if (isBankAcc) {
       setIsBankAcc(false)
       setIsPromptPay(true)
     } else {
@@ -31,82 +32,95 @@ function EditPromptpayTab() {
     }
   })
 
-  const isButtonDisabled = !(userPayment.promptpayName && userPayment.promptpayNumber);
-  const buttonColor = isButtonDisabled ? '#838383' : '#FFB53B';
-  const textColor = isButtonDisabled ? '#fff' : '#000';
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+        return;
+    }
+    setSnackbarOpen(false);
+};
+
+
+  const isButtonDisabled = !(
+    userPayment.promptpayName && userPayment.promptpayNumber
+  )
+  const buttonColor = isButtonDisabled ? '#838383' : '#FFB53B'
+  const textColor = isButtonDisabled ? '#fff' : '#000'
 
   console.log(userPayment)
-  console.log('isBank and isPrompt'  ,isBankAcc, isPromptPay)
+  console.log('isBank and isPrompt', isBankAcc, isPromptPay)
   console.log('PromptpayName', userPayment.promptpayName)
+  console.log('PromptPayId', userPayment.promptpayId)
 
   return (
     <Box
       sx={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "flex-start",
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
       }}
     >
       <Box
         sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "stretch",
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'stretch',
         }}
       >
         <Box
           sx={{
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
-            alignItems: "stretch",
-            borderColor: "divider",
-            borderBottomLeftRadius: "15px",
-            borderBottomRightRadius: "15px",
-            backgroundColor: "#ffffff",
-            "& .MuiTabs-flexContainer": {
-              display: "flex",
-              justifyContent: "space-evenly",
-              flexDirection: "row",
-              alignItems: "center",
+            display: 'flex',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            alignItems: 'stretch',
+            borderColor: 'divider',
+            borderBottomLeftRadius: '15px',
+            borderBottomRightRadius: '15px',
+            backgroundColor: '#ffffff',
+            '& .MuiTabs-flexContainer': {
+              display: 'flex',
+              justifyContent: 'space-evenly',
+              flexDirection: 'row',
+              alignItems: 'center',
             },
-            width: "100%",
+            width: '100%',
           }}
         >
           <Tabs
             value={value}
-            sx={{ padding: "0 30px" }}
+            sx={{ padding: '0 30px' }}
             TabIndicatorProps={{
               sx: {
-                background: "#FFB53B",
+                background: '#FFB53B',
               },
             }}
             centered={true}
           >
             <Tab
-              label="Edit PromptPay"
+              label='Edit PromptPay'
               sx={{
                 flex: 1,
-                width: "50%",
-                color: "#000 !important",
+                width: '50%',
+                color: '#000 !important',
               }}
             />
           </Tabs>
         </Box>
         <Box>
           <Box>
-            <Box sx={{ padding: "30px 24px" }}>
+            <Box sx={{ padding: '30px 24px' }}>
               <Box mt={3}>
                 <Typography>PromptPay name</Typography>
                 <Box mt={1}>
                   <TextField
                     fullWidth
-                    placeholder="Ex) Srisamorn Sanuksud"
-                    onChange={(e) => handlePromptpayChange('promptpayName', e.target.value)}
+                    placeholder='Ex) Srisamorn Sanuksud'
+                    onChange={e =>
+                      handlePromptpayChange('promptpayName', e.target.value)
+                    }
                     sx={{ backgroundColor: '#fff', borderRadius: '10px' }}
                     type='text'
                     value={userPayment.promptpayName}
@@ -116,8 +130,10 @@ function EditPromptpayTab() {
                 <Box mt={1}>
                   <TextField
                     fullWidth
-                    placeholder="Ex) 0123456789"
-                    onChange={(e) => handlePromptpayChange('promptpayNumber', e.target.value)}
+                    placeholder='Ex) 0123456789'
+                    onChange={e =>
+                      handlePromptpayChange('promptpayNumber', e.target.value)
+                    }
                     sx={{ backgroundColor: '#fff', borderRadius: '10px' }}
                     type='number'
                     value={userPayment.promptpayNumber}
@@ -126,18 +142,18 @@ function EditPromptpayTab() {
               </Box>
               <Button
                 fullWidth
-                variant="contained"
+                variant='contained'
                 endIcon={<ArrowForwardIcon />}
                 disabled={isButtonDisabled}
                 href='/splitting-bill'
                 sx={{
-                  padding: "12px 20px",
-                  marginTop: "40px",
+                  padding: '12px 20px',
+                  marginTop: '40px',
                   backgroundColor: buttonColor,
                   color: textColor,
-                  borderRadius: '10px'
+                  borderRadius: '10px',
                 }}
-                onClick={handleChangeSelectedPromptpay}
+                onClick={handleUpdatePromptpay}
               >
                 <Typography>Confirm edit</Typography>
               </Button>
@@ -145,8 +161,23 @@ function EditPromptpayTab() {
           </Box>
         </Box>
       </Box>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        open={snackbarOpen}
+        autoHideDuration={2000}
+        onClose={handleCloseSnackbar}
+      >
+        <MuiAlert
+          elevation={6}
+          variant='filled'
+          onClose={handleCloseSnackbar}
+          severity={snackbarSeverity}
+        >
+          {snackbarMessage}
+        </MuiAlert>
+      </Snackbar>
     </Box>
-  );
+  )
 }
 
-export default EditPromptpayTab;
+export default EditPromptpayTab

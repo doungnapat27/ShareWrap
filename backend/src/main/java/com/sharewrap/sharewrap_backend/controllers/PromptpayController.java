@@ -7,10 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
@@ -28,10 +25,17 @@ public class PromptpayController {
         return ResponseEntity.created(URI.create("/promptpays/" + createdPromptpay.getId())).body(createdPromptpay);
     }
 
-    @PostMapping("/pay")
-    public String testPromptpay(@RequestBody @Valid PromptpayDto promptpayDto){
-        System.out.println("Test promptpay...");
-        System.out.println("PromptpayDto: " + promptpayDto);
-        return promptpayDto.getPhoneNumber();
+    @GetMapping("/{userId}/promptpay")
+    public ResponseEntity<PromptpayDto> getPromptpay(@PathVariable String userId) {
+        System.out.println("Getting promptpay...");
+        PromptpayDto promptpayDto = promptpayService.getPromptpay(userId);
+        return ResponseEntity.ok(promptpayDto);
+    }
+
+    @PutMapping("/update/promptpay")
+    public ResponseEntity<PromptpayDto> updatePromptpay(@RequestBody @Valid PromptpayDto promptpayDto) {
+        System.out.println("Updating promptpay...");
+        PromptpayDto updatedPromptpay = promptpayService.updatePromptpay(promptpayDto);
+        return ResponseEntity.ok(updatedPromptpay);
     }
 }
