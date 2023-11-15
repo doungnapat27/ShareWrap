@@ -1,12 +1,19 @@
 package com.sharewrap.sharewrap_backend.dtos;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-public class BankAccountDto extends PaymentDto{
+@Builder
+@AllArgsConstructor
+@Data
+@NoArgsConstructor
+public class BankAccountDto {
+    Long id;
+    String name;
+    String userId;
     private String bankName;
     private String accountNumber;
+
 }

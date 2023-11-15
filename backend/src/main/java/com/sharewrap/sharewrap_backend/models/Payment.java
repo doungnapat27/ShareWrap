@@ -40,4 +40,11 @@ public class Payment {
         this.user = user;
     }
 
+    protected Long getId() {
+        return id;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }

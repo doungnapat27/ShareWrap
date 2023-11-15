@@ -7,6 +7,8 @@ import { ShareContext } from "../../splitingBill/components/shareBankAndPromptPa
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import { Tabs, Tab, Typography, Box, Button, TextField } from "@mui/material";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 function PromptPayDetailsTab() {
   const [value, setValue] = useState(0);
@@ -19,8 +21,19 @@ function PromptPayDetailsTab() {
     handleChangeIsProptPay,
     userPayment,
     handlePromptpayChange,
-    handleChangeSelectedPromptpay,
+    handleAddSelectedPromptpay,
+    snackbarOpen,
+    snackbarMessage,
+    snackbarSeverity,
+    setSnackbarOpen,
   } = useContext(ShareContext);
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+        return;
+    }
+    setSnackbarOpen(false);
+};
 
 
   useEffect(() => {
@@ -148,7 +161,7 @@ function PromptPayDetailsTab() {
                   color: textColor,
                   borderRadius: '10px'
                 }}
-                onClick={handleChangeSelectedPromptpay}
+                onClick={handleAddSelectedPromptpay}
               >
                 <Typography>Create PromptPay</Typography>
               </Button>
@@ -156,6 +169,21 @@ function PromptPayDetailsTab() {
           </Box>
         </Box>
       </Box>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        open={snackbarOpen}
+        autoHideDuration={2000}
+        onClose={handleCloseSnackbar}
+      >
+        <MuiAlert
+          elevation={6}
+          variant='filled'
+          onClose={handleCloseSnackbar}
+          severity={snackbarSeverity}
+        >
+          {snackbarMessage}
+        </MuiAlert>
+      </Snackbar>
     </Box>
   );
 }
