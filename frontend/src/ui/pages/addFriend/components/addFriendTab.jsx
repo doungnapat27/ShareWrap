@@ -100,6 +100,7 @@ function AddFriendTab() {
       setSnackbarMessage('Friend added successfully!')
       setSnackbarSeverity('success')
       handleClose()
+
     } catch (error) {
       setSnackbarOpen(true)
       setSnackbarSeverity('error')

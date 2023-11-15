@@ -15,6 +15,8 @@ public class Bill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+    @Getter
     @Column(nullable = false)
     private String name;
 
@@ -52,16 +54,28 @@ public class Bill {
         this.createdDate = new Date(System.currentTimeMillis());
     }
 
-    public Bill(String name, User user) {
+    public Bill(String name) {
         this.name = name;
         this.isPaid = false;
-        this.user = user;
         this.createdDate = new Date(System.currentTimeMillis());
     }
 
     public void setUser(User user) {
         this.user = user;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setIsPaid(Boolean isPaid) {
+        this.isPaid = isPaid;
+    }
+    public Boolean getIsPaid(Boolean isPaid) {
+        return isPaid;
+    }
+
+
+
 
     // Add utility methods to add and remove items
 //    public void addItem(Item item) {
