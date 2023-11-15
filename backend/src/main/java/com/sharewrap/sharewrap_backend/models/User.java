@@ -43,6 +43,7 @@ public class User {
     private Set<User> friends;
 
 
+    @Getter
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserBill> userBills;
 

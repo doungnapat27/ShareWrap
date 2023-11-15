@@ -29,11 +29,15 @@ public class UserBill {
     @Column(nullable = false)
     private Boolean isPaid;
 
+    @Column
+    private Boolean isApprove;
+
     @OneToMany(mappedBy = "userBill", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> items;
 
     public UserBill() {
         this.isPaid = false;
+        this.isApprove = false;
         this.shareTotal = 0.0;
     }
 
@@ -42,6 +46,7 @@ public class UserBill {
         this.bill = bill;
         this.shareTotal = shareTotal;
         this.isPaid = false;
+        this.isApprove = false;
     }
 
 }

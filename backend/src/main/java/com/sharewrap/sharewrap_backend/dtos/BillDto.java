@@ -18,7 +18,6 @@ public class BillDto {
     @NotNull
     private String name;
 
-
     private boolean isPaid;
 
     @NotNull
@@ -28,6 +27,7 @@ public class BillDto {
     private List<UserBillDto> userBills;
 
     private char paymentType;
+
 
 
 }

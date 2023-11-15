@@ -17,6 +17,7 @@ const useStyles = makeStyles({
     padding: '5px 17px',
     borderRadius: '5px'
   }),
+
   smallTextFrist: addImportant({
     fontSize: '12px', 
     color: '#838383', 
