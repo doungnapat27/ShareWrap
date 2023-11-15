@@ -49,7 +49,7 @@ function SummaryBillTab() {
 
     const applyEqualSplitting = () => {
         const billDetails = JSON.parse(localStorage.getItem('billDetails')) || { items: [] };
-        const selectedFriends = JSON.parse(localStorage.getItem('selectedFriends')) || [];
+        const selectedFriends = JSON.parse(localStorage.getItem('selectedFriendsId')) || [];
       
         if (selectedFriends.length === 0) return;
       

@@ -19,6 +19,6 @@ export function stringAvatar(username) {
     sx: {
       bgcolor: stringToColor(username),
     },
-    children: `${username.split('')[0][0]}`,
+    children: `${username.split('-')[0][0]}`,
   };
 }

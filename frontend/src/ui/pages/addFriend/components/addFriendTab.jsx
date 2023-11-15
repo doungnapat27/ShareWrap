@@ -38,12 +38,14 @@ const filter = createFilterOptions()
 function AddFriendTab() {
   const userData = JSON.parse(localStorage.getItem('auth_user'));
   const username = userData ? userData.username : 'User';
+  const id = userData ? userData.id : '';
   const [value, setValue] = useState(0)
   const [selectedFriends, setSelectedFriends] = useState([username])
   const [friends, setFriends] = useState([])
   const [snackbarOpen, setSnackbarOpen] = useState(false)
   const [snackbarMessage, setSnackbarMessage] = useState('')
   const [snackbarSeverity, setSnackbarSeverity] = useState('success')
+  const [selectedFriendsId, setSelectedFriendsId] = useState([id])
 
   const [autoValue, setAutoValue] = useState(null)
   const [open, toggleOpen] = useState(false)
@@ -271,11 +273,13 @@ function AddFriendTab() {
               friends={friends}
               selectedFriends={selectedFriends}
               setSelectedFriends={setSelectedFriends}
+              setSelectedFriendsId={setSelectedFriendsId}
+              selectedFriendsId={selectedFriendsId}
             />
           </Box>
         </Box>
         <Box className={classes.bottomBar}>
-          <AddFriendBottomBar selectedFriends={selectedFriends} />
+          <AddFriendBottomBar selectedFriends={selectedFriends} selectedFriendsId={selectedFriendsId}/>
         </Box>
       </Box>
       <Snackbar

@@ -31,17 +31,8 @@ public class Bill {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
+    private char paymentType;
 
-//    @OneToMany(mappedBy = "bill", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Item> items;
-
-//    @ManyToMany
-//    @JoinTable(
-//            name = "bill_participants",
-//            joinColumns = @JoinColumn(name = "bill_id"),
-//            inverseJoinColumns = @JoinColumn(name = "user_id")
-//    )
-//    private List<User> participants;
 
     @Getter
     @OneToMany(mappedBy = "bill", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -74,7 +65,9 @@ public class Bill {
         return isPaid;
     }
 
-
+    public void setPaymentType(char paymentType) {
+        this.paymentType = paymentType;
+    }
 
 
     // Add utility methods to add and remove items

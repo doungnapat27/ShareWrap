@@ -11,7 +11,7 @@ function EqualSpitting() {
 
     useEffect(() => {
       const billDetails = JSON.parse(localStorage.getItem('billDetails'));
-      const savedSelectedFriends = localStorage.getItem('selectedFriends');
+      const savedSelectedFriends = localStorage.getItem('selectedFriendsId');
       if (billDetails) {
           setItems(billDetails.items);
           setTotalCost(billDetails.totalCost);
@@ -50,5 +50,3 @@ function EqualSpitting() {
 }
 
 export default EqualSpitting;
-
-

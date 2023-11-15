@@ -38,6 +38,7 @@ public class BillController {
 
     @PostMapping("/bills")
     public ResponseEntity<BillDto> createBill(@Valid @RequestBody BillDto billDto) {
+        System.out.println("BillDto: " + billDto);
         BillDto createdBill = billService.createBill(billDto);
         return ResponseEntity.created(URI.create("/bills/" + billDto.getId())).body(createdBill);
     }

@@ -27,5 +27,7 @@ public class BillDto {
     @NotNull
     private List<UserBillDto> userBills;
 
+    private char paymentType;
+
 
 }

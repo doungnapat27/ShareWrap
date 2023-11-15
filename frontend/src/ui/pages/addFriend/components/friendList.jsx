@@ -7,19 +7,24 @@ import { stringAvatar } from "../../../../helpers/avatar_helper";
 
 const label = { inputProps: { 'aria-label': 'Checkbox Friend' } };
 
-function FriendList({ friends, selectedFriends, setSelectedFriends }) {
+function FriendList({ friends, selectedFriends, setSelectedFriends, setSelectedFriendsId, selectedFriendsId}) {
 
     const handleToggle = (friend) => {
         const currentIndex = selectedFriends.indexOf(friend.username);
+        const currentIndexId = selectedFriendsId.indexOf(friend.id);
         const newChecked = [...selectedFriends];
+        const newCheckedId = [...selectedFriendsId];
 
         if (currentIndex === -1) {
             newChecked.push(friend.username);
+            newCheckedId.push(friend.id);
         } else {
             newChecked.splice(currentIndex, 1);
+            newCheckedId.splice(currentIndexId, 1);
         }
 
         setSelectedFriends(newChecked);
+        setSelectedFriendsId(newCheckedId);
     };
 
     const classes = useStyles()

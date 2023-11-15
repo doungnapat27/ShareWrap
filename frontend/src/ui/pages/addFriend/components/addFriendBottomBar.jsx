@@ -4,10 +4,11 @@ import {Box, Button, Typography, Avatar, AvatarGroup} from "@mui/material"
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { stringAvatar } from '../../../../helpers/avatar_helper'
 
-function AddFriendBottomBar({selectedFriends}) {
+function AddFriendBottomBar({selectedFriends, selectedFriendsId}) {
     const classes = useStyles()
     const handleSaveSelectedFriends = () => {
-      localStorage.setItem('selectedFriends', JSON.stringify(selectedFriends));
+      // localStorage.setItem('selectedFriends', JSON.stringify(selectedFriends));
+      localStorage.setItem('selectedFriendsId', JSON.stringify(selectedFriendsId));
 
       // alert('Selected friends saved successfully!');
       setTimeout(() => {
