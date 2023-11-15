@@ -17,7 +17,7 @@ function SummaryBillAddFriend() {
 
     useEffect(() => {
       const billDetails = JSON.parse(localStorage.getItem('billDetails')) || { items: [] };
-      const fetchedFriends = JSON.parse(localStorage.getItem('selectedFriends')) || [];
+      const fetchedFriends = JSON.parse(localStorage.getItem('selectedFriendsId')) || [];
       
       // Assigning friends from local storage if they exist
       const itemsWithFriends = billDetails.items.map(item => ({
@@ -58,6 +58,7 @@ function SummaryBillAddFriend() {
             let newFriends;
             if (isFriendSelected) {
                 newFriends = prev.filter(name => name !== friendName);
+
             } else {
                 newFriends = [...prev, friendName];
             }
@@ -74,7 +75,7 @@ function SummaryBillAddFriend() {
     const handleCloseDrawer = () => {
         const newItems = items.map(item => {
             if (item.id === currentItemId) {
-                return { ...item, friends: friendsToAdd };
+                return { ...item, friends: friendsToAdd};
             }
             return item;
         });
@@ -102,9 +103,9 @@ function SummaryBillAddFriend() {
                         <AvatarGroup max={6}>
                             {item.friends && item.friends.map((friend, index) => (
                                 <Box key={index} className={classes.avatarBox}>
-                                    <Avatar {...stringAvatar(friend)} />
+                                    <Avatar {...stringAvatar(friend.split('-')[0])} />
                                     <Typography variant="h6" className={classes.avatarName}>
-                                        {(friend)}
+                                        {(friend.split('-')[0])}
                                     </Typography>
                                 </Box>
                             ))}
@@ -162,12 +163,12 @@ function SummaryBillAddFriend() {
                                             onClick={(event) => handleSelectFriend(event, friend)}
                                         >
                                             <ListItemAvatar>
-                                                <Avatar {...stringAvatar(friend)} />
+                                                <Avatar {...stringAvatar(friend.split('-')[0])} />
                                             </ListItemAvatar>
-                                            <ListItemText primary={friend} />
+                                            <ListItemText primary={friend.split('-')[0]} /> 
                                             <Checkbox
                                                 edge="end"
-                                                checked={friendsToAdd.includes(friend)}
+                                                checked={friendsToAdd.includes(friend)}  
                                                 tabIndex={-1}
                                                 disableRipple
                                                 icon={<Uncheck/>} 

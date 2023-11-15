@@ -26,11 +26,15 @@ function BottomBar({ itemList, onSaveBill }) {
   } = useContext(ShareContext);
   
   const classes = useStyles({ isBankAcc, isPromptPay });
+
+  const paymentType = isBankAcc ? 'B' : 'P';
+
   const handleSaveToLocalStorage = () => {
     const billDetails = {
       title: itemList.title,
       items: itemList.items,
       totalCost: itemList.totalCost,
+      paymentType: paymentType,
     };
     localStorage.setItem('billDetails', JSON.stringify(billDetails));
 
