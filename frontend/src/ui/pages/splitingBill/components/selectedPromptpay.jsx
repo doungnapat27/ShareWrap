@@ -12,10 +12,6 @@ function SelectedPromptpay() {
   const {
     userPayment,
   } = useContext(ShareContext);
-
-
-  console.log('userPayment in selected promptpay: ', userPayment)
-
   const classes = useStyles()
   return (
     <Box className={classes.boxAccount}>
