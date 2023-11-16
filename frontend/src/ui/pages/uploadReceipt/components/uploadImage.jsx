@@ -4,10 +4,12 @@ import {
   Box,
   Typography,
   Button,
+  Snackbar,
 } from '@mui/material'
 
 import { ShareImageContext } from './shareImageContext';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
+import MuiAlert from '@mui/material/Alert';
 
 function UploadImage() {
   const {
@@ -15,9 +17,21 @@ function UploadImage() {
     handleUploadFile,
     handleChange,
     showImage,
+    snackbarOpen,
+    snackbarMessage,
+    snackbarSeverity,
+    setSnackbarOpen,
   } = useContext(ShareImageContext)
 
   const navigate = useNavigate();
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return
+    }
+    setSnackbarOpen(false)
+  }
+
 
   return (
     <Box mt={4}>
@@ -33,7 +47,6 @@ function UploadImage() {
       <Button
         onClick={handleChange}
         disabled={uploadImage === null}
-        href='/receipt-uploaded'
         sx={{
           width: '100%',
           backgroundColor: uploadImage === null ? '#838383' : '#FFB53B',
@@ -48,6 +61,21 @@ function UploadImage() {
         <FileUploadOutlinedIcon />
         Upload image
       </Button>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        open={snackbarOpen}
+        autoHideDuration={2000}
+        onClose={handleCloseSnackbar}
+      >
+        <MuiAlert
+          elevation={6}
+          variant='filled'
+          onClose={handleCloseSnackbar}
+          severity={snackbarSeverity}
+        >
+          {snackbarMessage}
+        </MuiAlert>
+      </Snackbar>
     </Box>
   )
 }

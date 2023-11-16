@@ -19,7 +19,8 @@ public class UserBill {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @Getter
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "bill_id")
     private Bill bill;
 
@@ -48,5 +49,10 @@ public class UserBill {
         this.isPaid = false;
         this.isApprove = false;
     }
+
+    public void setBill(Bill bill) {
+        this.bill = bill;
+    }
+
 
 }

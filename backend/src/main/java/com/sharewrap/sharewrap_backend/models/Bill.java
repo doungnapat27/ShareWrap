@@ -11,6 +11,7 @@ import java.util.*;
 @Entity
 @Table(name = "bills")
 public class Bill {
+
     @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,6 +71,9 @@ public class Bill {
 
     public void setPaymentType(char paymentType) {
         this.paymentType = paymentType;
+    }
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }

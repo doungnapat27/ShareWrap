@@ -10,7 +10,8 @@ const useStyles = makeStyles({
   cover: addImportant({
     padding: '12px 20px', 
     backgroundColor: 'rgba(255, 181, 59, 0.50)', 
-    borderRadius: '10px'
+    borderRadius: '10px',
+    marginBottom: '20px'
   }),
   pendingText: addImportant({
     backgroundColor: 'white', 

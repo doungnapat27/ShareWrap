@@ -54,4 +54,9 @@ public class BillController {
         return ResponseEntity.ok(billService.deleteBill(id));
     }
 
+    @PutMapping("/isPaid/bill/{id}")
+    public ResponseEntity<String> updateIsPaidBill(@PathVariable Long id) {
+        return ResponseEntity.ok(billService.updateIsPaid(id));
+    }
+
 }

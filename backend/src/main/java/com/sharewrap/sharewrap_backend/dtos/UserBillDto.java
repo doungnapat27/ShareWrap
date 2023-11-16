@@ -1,5 +1,6 @@
 package com.sharewrap.sharewrap_backend.dtos;
 
+import com.sharewrap.sharewrap_backend.models.Bill;
 import com.sharewrap.sharewrap_backend.models.Item;
 import com.sharewrap.sharewrap_backend.models.Promptpay;
 import jakarta.validation.constraints.NotNull;

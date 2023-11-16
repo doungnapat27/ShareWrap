@@ -1,25 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'
 import QRCode from 'react-qr-code'
-import { 
-  Box,
-} from '@mui/material'
+import { Box } from '@mui/material'
 
-const generatePayload = require('promptpay-qr');
+const generatePayload = require('promptpay-qr')
 
-function GeneratePromptPayQR() {
-  const [ phoneNumber, setPhoneNumber ] = useState("0630911313");
-  const [ amount, setAmount ] = useState(10000);         
-  const [ qrCode ,setqrCode ] = useState("");
+function GeneratePromptPayQR({phoneNumber, amount}) {
 
-  function handleQR() {
-    setqrCode(generatePayload(phoneNumber, { amount }));
-  }
-  return(
+  const [qrCode, setQrCode] = useState('')
+
+  useEffect(() => {
+    if (phoneNumber && amount) {
+      setQrCode(generatePayload(phoneNumber, { amount }));
+    }
+  },[phoneNumber, amount])
+
+  return (
     <Box>
-      {/* <Button onClick={handleQR}>Generate Promptpay QR</Button> */}
-      <QRCode value={qrCode}/>
+      <QRCode value={qrCode} />
     </Box>
-   );
+  )
 }
 
 export default GeneratePromptPayQR
