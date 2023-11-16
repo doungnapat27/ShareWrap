@@ -29,6 +29,10 @@ function Navbar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleLogoClick = () => {
+    window.location.href = "/home"; 
+  };
   const classes = useStyles();
   const userData = JSON.parse(localStorage.getItem('auth_user'));
   const username = userData ? userData.id : 'User';
@@ -37,7 +41,7 @@ function Navbar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" elevation={0} className={classes.appBarStyle}>
         <Toolbar>
-          <img src={LogoHomepage} alt="Logo"/>
+          <img src={LogoHomepage} alt="Logo" onClick={handleLogoClick} style={{ cursor: 'pointer' }}/>
           <Typography variant="h5" component="div" className={classes.title}>
             ShareWrap
           </Typography>
