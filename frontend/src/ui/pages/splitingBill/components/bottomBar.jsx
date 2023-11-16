@@ -26,36 +26,42 @@ function BottomBar({ itemList, onSaveBill }) {
     fetchPromptpay,
     fetchBankAccount,
   } = useContext(ShareContext);
-  
+
+
   const classes = useStyles({ isBankAcc, isPromptPay });
 
-  const paymentType = isBankAcc ? 'B' : 'P';
+  const paymentType = isBankAcc ? "B" : "P";
 
   const handleSaveToLocalStorage = () => {
+    const userData = JSON.parse(localStorage.getItem("auth_user"));
+    const id = userData ? userData.id : "";
     const billDetails = {
       title: itemList.title,
       items: itemList.items,
       totalCost: itemList.totalCost,
       paymentType: paymentType,
     };
-    localStorage.setItem('billDetails', JSON.stringify(billDetails));
-
+    localStorage.setItem("billDetails", JSON.stringify(billDetails));
+    localStorage.setItem("selectedFriendsId", JSON.stringify([id]));
     setTimeout(() => {
-      window.location.href = "/add-Friend";;
+      window.location.href = "/add-Friend";
     }, 1000);
   };
 
   useEffect(() => {
-    fetchPromptpay()
-    fetchBankAccount()
-  }, [])
+    fetchPromptpay();
+    fetchBankAccount();
 
-
-  // console.log("Bottombar", userPayment);
-  // console.log("Bottombar isBankAcc", isBankAcc);
-  // console.log("Bottombar isPromptpay", isPromptPay);
-  // console.log("Bottombar selectedBankAccount", userPayment.selectedBankAccount);
-  // console.log("Bottombar selectedPromptPay", userPayment.selectedPromptPay);
+    const storedPayment = JSON.parse(localStorage.getItem('userPayment'));
+    
+    if (storedPayment && storedPayment.selectedPaymentMethod === 'bank') {
+      handleChangeBankAcc();
+      console.log('Payment Method:', storedPayment.selectedPaymentMethod);
+    } else if (storedPayment && storedPayment.selectedPaymentMethod === 'promptpay') {
+      handleChangeIsProptPay();
+      console.log('Payment Method:', storedPayment.selectedPaymentMethod);
+    }
+  }, []);
 
   return (
     <Box className={classes.cover}>
@@ -63,7 +69,9 @@ function BottomBar({ itemList, onSaveBill }) {
         <Box className={classes.boxContainer}>
           <Box className={classes.boxHeader}>
             <Typography variant="h4">Total</Typography>
-            <Typography variant="h4">{itemList?.totalCost.toLocaleString()} ฿</Typography>
+            <Typography variant="h4">
+              {itemList?.totalCost.toLocaleString()} ฿
+            </Typography>
           </Box>
           <Box className={classes.positionTwoPaymentButton}>
             <BankAccBtn

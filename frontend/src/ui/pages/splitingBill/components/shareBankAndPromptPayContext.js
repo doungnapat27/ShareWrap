@@ -31,13 +31,21 @@ export const ShareContextProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem('userPayment', JSON.stringify(userPayment));
-    // localStorage.removeItem('userPayment');
   }, [userPayment]);
 
   const handleChangeIsProptPay = () => {
     setIsBankAcc(false);
     setIsPromptPay(true);
-  };
+    setUserPayment(prevState => ({
+      ...prevState,
+      selectedPaymentMethod: 'promptpay',
+    }));
+    // Update local storage immediately
+    localStorage.setItem('userPayment', JSON.stringify({
+      ...userPayment,
+      selectedPaymentMethod: 'promptpay'
+    }));
+    };
 
   const uid = JSON.parse(localStorage.getItem('auth_user')).id;
 
@@ -160,6 +168,15 @@ export const ShareContextProvider = ({ children }) => {
   const handleChangeBankAcc = () => {
     setIsBankAcc(true);
     setIsPromptPay(false);
+    setUserPayment(prevState => ({
+      ...prevState,
+      selectedPaymentMethod: 'bank',
+    }));
+    
+    localStorage.setItem('userPayment', JSON.stringify({
+      ...userPayment,
+      selectedPaymentMethod: 'bank'
+    }));
   };
 
   const handleUpdatePromptpay = async event => {
