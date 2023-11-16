@@ -15,7 +15,7 @@ const useStyles = makeStyles({
         alignItems: 'center',
         justifyContent: 'flex-start',
         overflowY: 'auto',
-        maxHeight: 'calc(100vh - 220px - 196px)',
+        maxHeight: 'calc(100vh - 235px - 196px)',
     },
     container: {
         width: '100%',

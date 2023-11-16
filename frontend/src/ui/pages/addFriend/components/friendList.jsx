@@ -1,30 +1,42 @@
+import React, {useEffect} from "react";
 import { Avatar, Box, Checkbox, Icon, Typography } from "@mui/material";
-import React from "react";
 import useStyles from "../style/friendListStyle";
 import Uncheck from '@mui/icons-material/Circle';
 import Check from '@mui/icons-material/CheckCircle';
 import { stringAvatar } from "../../../../helpers/avatar_helper";
 
+
 const label = { inputProps: { 'aria-label': 'Checkbox Friend' } };
+
+
 
 function FriendList({ friends, selectedFriends, setSelectedFriends, setSelectedFriendsId, selectedFriendsId}) {
 
+    
+    useEffect(() => {
+        const storedSelectedFriends = JSON.parse(localStorage.getItem('selectedFriends')) || [];
+        const storedSelectedFriendsId = new Set(JSON.parse(localStorage.getItem('selectedFriendsId')) || []);
+        setSelectedFriends(storedSelectedFriends);
+        setSelectedFriendsId([...storedSelectedFriendsId]);
+    }, [setSelectedFriends, setSelectedFriendsId]);
+
+
     const handleToggle = (friend) => {
         const currentIndex = selectedFriends.indexOf(friend.username);
-        const currentIndexId = selectedFriendsId.indexOf(friend.id);
-        const newChecked = [...selectedFriends];
-        const newCheckedId = [...selectedFriendsId];
-
+        let newChecked = [...selectedFriends];
+        let newCheckedId = new Set([...selectedFriendsId]);
+    
         if (currentIndex === -1) {
             newChecked.push(friend.username);
-            newCheckedId.push(friend.id);
+            newCheckedId.add(friend.id);
         } else {
             newChecked.splice(currentIndex, 1);
-            newCheckedId.splice(currentIndexId, 1);
+            newCheckedId.delete(friend.id);
         }
-
+    
         setSelectedFriends(newChecked);
-        setSelectedFriendsId(newCheckedId);
+        setSelectedFriendsId([...newCheckedId]);
+        localStorage.setItem('selectedFriendsId', JSON.stringify([...newCheckedId]));
     };
 
     const classes = useStyles()
@@ -44,7 +56,7 @@ function FriendList({ friends, selectedFriends, setSelectedFriends, setSelectedF
                             icon={<Uncheck/>} 
                             checkedIcon={<Check/>}
                             onChange={() => handleToggle(friend)} 
-                            checked={selectedFriends.indexOf(friend.username) !== -1}
+                            checked={selectedFriendsId.includes(friend.id)}
                             sx={{
                                 color: '#D9D9D9',
                                 '&.Mui-checked': {

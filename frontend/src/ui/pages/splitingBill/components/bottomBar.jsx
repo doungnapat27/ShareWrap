@@ -32,6 +32,8 @@ function BottomBar({ itemList, onSaveBill }) {
   const paymentType = isBankAcc ? 'B' : 'P';
 
   const handleSaveToLocalStorage = () => {
+    const userData = JSON.parse(localStorage.getItem('auth_user'));
+    const id = userData ? userData.id : '';
     const billDetails = {
       title: itemList.title,
       items: itemList.items,
@@ -39,7 +41,7 @@ function BottomBar({ itemList, onSaveBill }) {
       paymentType: paymentType,
     };
     localStorage.setItem('billDetails', JSON.stringify(billDetails));
-
+    localStorage.setItem('selectedFriendsId', JSON.stringify([id]));
     setTimeout(() => {
       window.location.href = "/add-Friend";;
     }, 1000);
