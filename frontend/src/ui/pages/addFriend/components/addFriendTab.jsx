@@ -236,7 +236,6 @@ function AddFriendTab() {
                       {!isAlreadyFriend && (
                         <Button
                           className={classes.addFriendButton}
-                          onClick={() => handleAddToSelected(option.id)}
                         >
                           <PersonAddIcon />
                         </Button>
