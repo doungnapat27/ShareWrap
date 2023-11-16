@@ -27,6 +27,7 @@ import AddFriendBottomBar from "./addFriendBottomBar";
 import FriendList from "./friendList";
 import { request } from "../../../../helpers/axios_helper";
 import { stringAvatar } from "../../../../helpers/avatar_helper";
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 function a11yProps(index) {
   return {
@@ -208,22 +209,42 @@ function AddFriendTab() {
               selectOnFocus
               clearOnBlur
               handleHomeEndKeys
-              renderOption={(props, option) => (
-                <li {...props} className={classes.searchResults}>
-                  <Box className={classes.listFriend}>
-                    <Box className={classes.listName}>
-                      <Avatar {...stringAvatar(option.id)} />
-                      <span style={{ marginLeft: "10px" }}>{option.id}</span>
+              renderOption={(props, option) => {
+                const isAlreadyFriend = friends.some(friend => friend.id === option.id);
+                return (
+                  <li {...props} className={classes.searchResults}>
+                    <Box className={classes.listFriend}>
+                      {isAlreadyFriend && (
+                          <Box className={classes.listName}>
+                            <Avatar {...stringAvatar(option.id)} />
+                            <span style={{ marginLeft: "10px" }}>{option.id}</span>
+                          </Box>
+                      )}
+                      {isAlreadyFriend && (
+                        <Button
+                          className={classes.addButton}
+                          onClick={() => handleAddToSelected(option.id)}
+                        >
+                          {selectedFriendsId.includes(option.id) ? "Remove" : "Add"}
+                        </Button>
+                      )}
+                      {!isAlreadyFriend && (
+                          <Box className={classes.listName}>
+                          <span style={{ marginLeft: "10px" }}>{option.id}</span>
+                          </Box>
+                      )}
+                      {!isAlreadyFriend && (
+                        <Button
+                          className={classes.addFriendButton}
+                          onClick={() => handleAddToSelected(option.id)}
+                        >
+                          <PersonAddIcon />
+                        </Button>
+                      )}
                     </Box>
-                    <Button
-                      className={classes.addButton}
-                      onClick={() => handleAddToSelected(option.id)}
-                    >
-                      {selectedFriendsId.includes(option.id) ? "Remove" : "Add"}
-                    </Button>
-                  </Box>
-                </li>
-              )}
+                  </li>
+                );
+              }}
               freeSolo
               className={classes.searchBoxContainer}
               renderInput={(params) => (
@@ -251,27 +272,31 @@ function AddFriendTab() {
                 <DialogTitle variant="h4">Add a new friend</DialogTitle>
                 <DialogContent>
                   <DialogContentText>
-                    Did you miss any freind in our list? Please, add them!
+                    This is your friend ?
                   </DialogContentText>
                   <TextField
-                    autoFocus
+                  className={classes.dialogTextfield}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                    // autoFocus
                     margin="dense"
                     id="name"
                     value={dialogValue.id}
                     onChange={(event) =>
                       setDialogValue({
                         ...dialogValue,
-                        id: event.target.value,
+                        placeholder: event.target.value,
                       })
                     }
-                    label="id"
+                    placeholder="Friend ID"
                     type="text"
-                    variant="standard"
+                    variant="outlined"
                   />
                 </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleClose}>Cancel</Button>
-                  <Button type="submit">Add</Button>
+                <DialogActions className={classes.dialogAction}>
+                  <Button className={classes.buttonAdd}type="submit">Yes</Button>
+                  <Button className={classes.buttonCancel} onClick={handleClose}>No</Button>
                 </DialogActions>
               </form>
             </Dialog>

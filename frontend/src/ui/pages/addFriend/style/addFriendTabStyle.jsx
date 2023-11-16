@@ -121,7 +121,11 @@ const useStyles = makeStyles({
   addButton: addImportant({
     outline: "1px solid",
     color: "#981E25",
-    // width: '10%',
+    height: "30px",
+    marginLeft: "30px",
+  }),
+  addFriendButton: addImportant({
+    color: "#981E25",
     height: "30px",
     marginLeft: "30px",
   }),
@@ -130,6 +134,23 @@ const useStyles = makeStyles({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  dialogTextfield:{
+    width: "100%",
+  },
+  dialogAction:addImportant({
+    display: "flex",
+    width: "100%",
+  }),
+  buttonCancel:addImportant({
+    width: "100%",
+    backgroundColor: "#981E25",
+    color: "white",
+  }),
+  buttonAdd:addImportant({
+    width: "100%",
+    backgroundColor: "green",
+    color: "white",
+  }),
 });
 
 export default useStyles;
