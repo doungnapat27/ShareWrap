@@ -31,7 +31,7 @@ function Navbar() {
   };
   const classes = useStyles();
   const userData = JSON.parse(localStorage.getItem('auth_user'));
-  const username = userData ? userData.username : 'User';
+  const username = userData ? userData.id : 'User';
 
   return (
     <Box sx={{ flexGrow: 1 }}>

@@ -26,7 +26,7 @@ function AddFriendBottomBar({selectedFriends, selectedFriendsId}) {
                     </Box>
                     <Box className={classes.boxFriend}>
                       <AvatarGroup max={9}>
-                        {selectedFriends.map((friend) => (
+                        {selectedFriendsId.map((friend) => (
                         <Avatar key={friend} {...stringAvatar(friend)} />
                         ))}
                       </AvatarGroup>

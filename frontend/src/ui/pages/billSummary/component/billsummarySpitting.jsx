@@ -57,7 +57,7 @@ function BillSummarySpitting() {
             <Box className={classes.rowOne}>
               <Box className={classes.friendContainer}>
                 <Box key={index} className={classes.nameUser}>
-                  <Avatar {...stringAvatar(friendShare.name.split('-')[0])} />
+                  <Avatar {...stringAvatar(friendShare.name)} />
                   <Typography variant='h5' style={{ marginLeft: '8px' }}>
                     {friendShare.name.split('-')[0]}
                   </Typography>

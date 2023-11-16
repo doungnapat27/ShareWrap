@@ -16,6 +16,9 @@ import {
   DialogContentText,
   DialogActions,
   Snackbar,
+  Paper,
+  IconButton, 
+  InputBase
 } from '@mui/material'
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete'
 import MuiAlert from '@mui/material/Alert';
@@ -147,21 +150,21 @@ function AddFriendTab() {
         </Box>
 
       </Box>
+{/* search box  */}
       <Box className={classes.cover}>
         <Box className={classes.searchQuery}>
-          <Stack spacing={2} sx={{ width: 300, marginTop: '30px' }}>
+          <Stack spacing={2} sx={{marginTop: '30px' }}>
             <Autocomplete
               value={autoValue}
               filterOptions={(options, params) => {
                 const filtered = filter(options, params)
-
                 if (params.inputValue !== '') {
                   filtered.push({
                     inputValue: params.inputValue,
                     username: `Add "${params.inputValue}"`,
+                    id: `Add "${params.inputValue}"`
                   })
                 }
-
                 return filtered
               }}
               onChange={(event, newValue) => {
@@ -198,25 +201,21 @@ function AddFriendTab() {
               clearOnBlur
               handleHomeEndKeys
               renderOption={(props, option) => (
-                <li {...props}>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <Avatar {...stringAvatar(option.username)} />
+                <li {...props} className={classes.searchResults}>
+                  <Box className={classes.listName}
+                    >
+                    <Avatar {...stringAvatar(option.id)} />
                     <span style={{ marginLeft: '10px' }}>
-                      {option.username}
+                      {option.id}
                     </span>
                   </Box>
                 </li>
               )}
-              sx={{ width: 300 }}
               freeSolo
+              className={classes.searchBoxContainer}
               renderInput={params => (
-                <TextField
+                <TextField 
+                  className={classes.paperSearchBox}
                   {...params}
                   placeholder='Search for friend'
                   InputProps={{
@@ -264,6 +263,7 @@ function AddFriendTab() {
               </form>
             </Dialog>
           </Stack>
+{/* search box */}
           <Box className={classes.selectFriend}>
             <Typography variant='h5'>Select Friends</Typography>
           </Box>

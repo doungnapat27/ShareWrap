@@ -42,22 +42,35 @@ const useStyles = makeStyles({
         width: '50%',
         color: 'black',
     }),
-    paperSearchBox:{
+    paperSearchBox: {
         padding: '2px 4px',
         display: 'flex',
         alignItems: 'center',
         width: '80%',
         marginTop:'10px',
-        borderRadius: '10px !important',
+        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+        borderRadius: '10px',
     },
     searchBoxContainer:{
-        width: '100%',
+        width: '80vw',
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'stretch',
         justifyContent: 'center',
         marginBottom: '4px',
         position: 'relative',
+        "& .MuiOutlinedInput-root": {
+            // border: "1px solid yellow",
+            borderRadius: "10px",
+            padding: "0"
+        },
+        "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+            border: "black"
+        },
+        '@media (min-width: 601px) ': {
+            width: '60vw',
+        },
+        
     },
     bottomBar:{
         position: 'fixed',
@@ -87,34 +100,40 @@ const useStyles = makeStyles({
         justifyContent:'center',
         alignItems: 'center',
     },
-    searchResults:addImportant({
-        width: '80%',
+    searchResults:{
+        padding: '10px 10px 4px 10px',
+        width: '100%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'flex-start',
         backgroundColor: 'white',
-        borderRadius: '10px',
-        position: 'absolute',
-        top: '22%',
-        boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
-        maxHeight: '200px',
-        overflowY: 'auto',
-        overflowX: 'hidden',
-        zIndex: 1000, 
-    }),
-
-    
+        // borderRadius: '20px',
+        // position: 'absolute',
+        // top: '22%',
+        // boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+        // maxHeight: '60px',
+        // overflowY: 'auto',
+        // overflowX: 'hidden',
+        // zIndex: 1000, 
+    },
+    listName:{
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        
+    },
     searchQuery:{
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'column',
         width: '100%',
-        '@media (min-width: 601px) and (max-width: 1024px)': {
-          width: '70%',
-        },
-        '@media (min-width: 1025px)': {
-          width: '60%',
-        },
+        // '@media (min-width: 601px) and (max-width: 1024px)': {
+        //   width: '70%',
+        // },
+        // '@media (min-width: 1025px)': {
+        //   width: '60%',
+        // },
+        
     },
     addButton:addImportant({
         outline: '1px solid',
@@ -122,8 +141,8 @@ const useStyles = makeStyles({
         width: '10%',
         height: '30px',
         marginLeft: '30px'
-    })
-    
+    }),
+
 });
 
 export default useStyles;

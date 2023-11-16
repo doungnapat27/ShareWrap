@@ -34,9 +34,9 @@ function FriendList({ friends, selectedFriends, setSelectedFriends, setSelectedF
                 <Box className={classes.container}>
                     <Box className={classes.friendContainer}>
                         <Box className={classes.nameContainer}>
-                            <Avatar {...stringAvatar(friend.username)} />
+                            <Avatar {...stringAvatar(friend.id)} />
                             <Typography variant="h4" style={{marginLeft:'1rem'}}>
-                                {friend.username}
+                                {friend.id}
                             </Typography>
                         </Box>
                         <Box className={classes.checkBox}>

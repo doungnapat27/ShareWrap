@@ -103,7 +103,7 @@ function SummaryBillAddFriend() {
                         <AvatarGroup max={6}>
                             {item.friends && item.friends.map((friend, index) => (
                                 <Box key={index} className={classes.avatarBox}>
-                                    <Avatar {...stringAvatar(friend.split('-')[0])} />
+                                    <Avatar {...stringAvatar(friend)} />
                                     <Typography variant="h6" className={classes.avatarName}>
                                         {(friend.split('-')[0])}
                                     </Typography>
@@ -163,7 +163,7 @@ function SummaryBillAddFriend() {
                                             onClick={(event) => handleSelectFriend(event, friend)}
                                         >
                                             <ListItemAvatar>
-                                                <Avatar {...stringAvatar(friend.split('-')[0])} />
+                                                <Avatar {...stringAvatar(friend)} />
                                             </ListItemAvatar>
                                             <ListItemText primary={friend.split('-')[0]} /> 
                                             <Checkbox
