@@ -48,8 +48,8 @@ function App() {
           {/* <Route path="/create-bill" element={<CreateBill />} /> No longer use */}
           <Route path="/home/" element={<Home />} />
             <Route path="/splitting-bill" element={<SplitingBill />}/>
-            <Route path="/upload-receipt" element={<UploadReceipt />} />
-            <Route path="/receipt-uploaded" element={<ReceiptBillUpload />} />
+            <Route path="/:id/upload-receipt/:id" element={<UploadReceipt />} />
+            <Route path="/receipt-uploaded/:id" element={<ReceiptBillUpload />} />
             <Route path="/add-Friend" element={<AddFriend/>} />
             <Route path="/summary-bill" element={<SummaryBill/>} />
             <Route path="/bill-summary" element={<BillSummary/>} />

@@ -41,7 +41,25 @@ public class BillService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
         List<Bill> bills = user.getBills();
-        return billMapper.toBillDtos(bills);
+        List<BillDto> billDtos = billMapper.toBillDtos(bills);
+        for(BillDto billDto: billDtos){
+            Bill billMapped = billMapper.toBill(billDto);
+            Bill bill = billRepository.findById(billMapped.getId())
+                    .orElseThrow(() -> new AppException("Unknown bill", HttpStatus.NOT_FOUND));
+            Double total = 0.0;
+            for(UserBill userBill: bill.getUserBills()){
+                if(!userBill.getIsPaid() && !userBill.getIsApprove()
+                        && !userBill.getUser().equals(user)){
+                    total+=userBill.getShareTotal();
+                }
+            }
+            if(total<=0){
+                bill.setIsPaid(true);
+            }
+            billDto.setTotal(total);
+        }
+
+        return billDtos;
     }
 
     @Transactional
@@ -107,16 +125,10 @@ public class BillService {
         return billDto;
     }
 
-//    public Double getBillTotal(Long id) {
-//        Bill bill = billRepository.findById(id)
-//                .orElseThrow(() -> new AppException("Bill not found", HttpStatus.NOT_FOUND));
-//        return bill.getTotal();
-//    }
-//
-//    public Double EqualShare(Long id) {
-//        Bill bill = billRepository.findById(id)
-//                .orElseThrow(() -> new AppException("Bill not found", HttpStatus.NOT_FOUND));
-//        return bill.getEqualShare();
-//    }
-
+    public String updateIsPaid(Long id) {
+        Bill bill = billRepository.findById(id)
+                .orElseThrow(() -> new AppException("Bill not found", HttpStatus.NOT_FOUND));
+        bill.setIsPaid(true);
+        return "Congratulations! for receiving your money back";
+    }
 }

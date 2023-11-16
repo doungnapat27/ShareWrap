@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Tabs, Tab, TabList, Typography, Box, Button, Link } from "@mui/material";
 import useStyles from "../style/hometabStyle";
-import BillStatus from "./billStatus";
 
 import CreateBill from "./createBillButton";
 import Bill from "./bill";
@@ -27,6 +26,9 @@ function HomeTab() {
   const [value, setValue] = useState(0);
   const classes = useStyles()
   const billItems = [1] // mock up data
+  // const [billItems, setBillItems] = useState([])
+  const uid = JSON.parse(localStorage.getItem('auth_user')).id
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

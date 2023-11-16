@@ -11,6 +11,8 @@ import java.util.*;
 @Entity
 @Table(name = "bills")
 public class Bill {
+
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,21 +25,23 @@ public class Bill {
     @Column(nullable = false)
     private Boolean isPaid;
 
+    @Getter
     @Column
     private Date createdDate;
 
+    @Getter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
+    @Getter
+    @Column
     private char paymentType;
-
 
     @Getter
     @OneToMany(mappedBy = "bill", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserBill> userBills;
-
 
     public Bill() {
         this.name = "My Bill";
@@ -68,32 +72,8 @@ public class Bill {
     public void setPaymentType(char paymentType) {
         this.paymentType = paymentType;
     }
-
-
-    // Add utility methods to add and remove items
-//    public void addItem(Item item) {
-//        item.setBill(this);
-//        items.add(item);
-//    }
-
-//    public void addItems(List<Item> itemList) {
-//        for (Item item : itemList){
-//            this.addItem(item);
-//        }
-//    }
-
-//    public void removeItem(Item item) {
-//        items.remove(item);
-//        item.setBill(null);
-//    }
-
-//    public List<Item> getItems() {
-//        return items;
-//    }
-
-//    public Double getAmount() {
-//        return amount;
-//    }
-
+    public void setId(Long id) {
+        this.id = id;
+    }
 
 }

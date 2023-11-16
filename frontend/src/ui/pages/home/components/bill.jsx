@@ -1,66 +1,78 @@
-import React from "react";
+import React from 'react'
 
-import { Box, Typography, Paper, Button, Card, Grid } from "@mui/material";
+import { Box, Typography, Paper, Button, Card, Grid } from '@mui/material'
 
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import AccountCircle from '@mui/icons-material/AccountCircle'
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
+import { useState, useEffect } from 'react'
+import { request } from '../../../../helpers/axios_helper'
+import useStyles from '../../../pages/home/style/penddingBillsStyle'
 
 function Bill() {
+  const classes = useStyles()
+  const [bills, setBills] = useState([])
+  const uid = JSON.parse(localStorage.getItem('auth_user')).id
+
+  const fetchBills = async () => {
+    try {
+      const response = await request('GET', '/' + uid + '/bills')
+      const formattedBills = response.data.map(bill => {
+        // Assuming the date in millis is stored in a field like billDate
+        const date = new Date(bill.createdDate);
+
+        // Formatting the date
+        const day = date.getUTCDate();
+        const month = date.toLocaleString('en-US', { month: 'short' });
+        const year = date.getUTCFullYear();
+
+        // Construct the formatted date string
+        bill.createdDate = `${day} ${month} ${year}`;
+        return bill;
+      })
+      setBills(formattedBills)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchBills()
+  }, [])
+
   return (
-    <Card
-      elevation={0}
-      sx={{
-        borderRadius: "10px",
-        marginBottom: "16px",
-        backgroundColor: 'rgba(255, 181, 59, 0.50)'
-        }}
-      >
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          padding: "10px 20px",
-        }}
-      >
-        <Box>
-          <Typography variant='h5'>Bill name</Typography>
-          <Typography variant='h3'>
-            ฿ 200
+    <Box>
+      {bills.map(bill => (
+        <Paper className={classes.cover}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Typography variant='h4'>{bill.name}</Typography>
+            <Box sx={{ padding: '6px' }}>
+              {!bill.isPaid &&(
+                <Typography variant='h5' className={classes.pendingText}>
+                  Not Recieved
+                </Typography>
+              )}
+            </Box>
+          </Box>
+          <Typography variant='h3'>฿ {(bill.total).toFixed(2)}</Typography>
+          <Typography className={classes.smallTextFrist}>
+            Created on {bill.createdDate}
           </Typography>
-        </Box>
-        <Box sx={{ display: "flex" }}>
-          <Box
-            sx={{
-              alignItems: "center",
-              textAlign: "center",
-              marginRight: "16px",
-            }}
+          <Typography
+            sx={{ fontSize: '12px', color: '#838383', marginBottom: '10px' }}
           >
-            <Typography variant='h6'>Created by</Typography>
-            <AccountCircle
-              sx={{
-                fontSize: "36px",
-              }}
-            />
-          </Box>
-          <Box sx={{ alignSelf: "center" }}>
-            <Button
-              variant="contained"
-              sx={{
-                height: "48px",
-                backgroundColor: '#FFB53B',
-                "&:hover": {
-                  backgroundColor: "#FFB53B",
-                },
-              }}
-            >
-              <ArrowForwardIosIcon sx={{ fontSize: "40px", color: '#000' }} />
-            </Button>
-          </Box>
-        </Box>
-      </Box>
-    </Card>
-  );
+            Transaction ID: {bill.id}
+          </Typography>
+          <Button
+            // href='/upload-receipt'
+            fullWidth
+            className={classes.payButton}
+          >
+            <Typography variant='h5'>See payment details</Typography>
+          </Button>
+        </Paper>
+      ))}
+    </Box>
+  )
 }
 
-export default Bill;
+export default Bill

@@ -1,8 +1,12 @@
 package com.sharewrap.sharewrap_backend.dtos;
 
+import com.sharewrap.sharewrap_backend.models.Bill;
+import com.sharewrap.sharewrap_backend.models.Item;
+import com.sharewrap.sharewrap_backend.models.Promptpay;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -25,6 +29,21 @@ public class UserBillDto {
 
     private boolean isPaid;
 
+    private boolean isApprove;
+
     @NotNull
     private List<ItemDto> items;
+
+    private char paymentType;
+
+    private String billName;
+
+    private String billOwnerName;
+
+    private Date billCreatedDate;
+
+    private PromptpayDto promptpayDto;
+
+    private BankAccountDto bankAccountDto;
+
 }

@@ -3,6 +3,7 @@ package com.sharewrap.sharewrap_backend.dtos;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -18,7 +19,6 @@ public class BillDto {
     @NotNull
     private String name;
 
-
     private boolean isPaid;
 
     @NotNull
@@ -29,5 +29,8 @@ public class BillDto {
 
     private char paymentType;
 
+    private Date createdDate;
+
+    private Double total;
 
 }
