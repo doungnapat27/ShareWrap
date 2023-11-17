@@ -5,7 +5,9 @@ import lombok.Getter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.sql.Blob;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.*;
 
 @Entity
@@ -43,6 +45,15 @@ public class Bill {
     @OneToMany(mappedBy = "bill", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserBill> userBills;
 
+    @Getter
+    @Lob
+    @Column(name = "receipt", columnDefinition="LONGBLOB")
+    private byte[] receipt;
+
+    @Getter
+    @Column
+    private Date uploadedDate;
+
     public Bill() {
         this.name = "My Bill";
         this.isPaid = false;
@@ -74,6 +85,15 @@ public class Bill {
     }
     public void setId(Long id) {
         this.id = id;
+    }
+
+
+    public void setReceipt(byte[] receipt) {
+        this.receipt = receipt;
+    }
+
+    public void setUploadedDate(Date uploadedDate) {
+        this.uploadedDate = uploadedDate;
     }
 
 }

@@ -33,4 +33,8 @@ public class BillDto {
 
     private Double total;
 
+    private String receipt;
+
+    private Date uploadedDate;
+
 }

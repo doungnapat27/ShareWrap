@@ -1,15 +1,15 @@
 // ShareImageContext.js
-import React, { createContext, useState, useContext } from 'react';
-import { request } from '../../../../helpers/axios_helper';
+import React, { createContext, useState, useContext } from 'react'
+import { request } from '../../../../helpers/axios_helper'
 
-export const ShareImageContext = createContext();
+export const ShareImageContext = createContext()
 
 export const ShareImageProvider = ({ children }) => {
   const [uploadImage, setUploadImage] = useState(() => {
-    const storedImage = localStorage.getItem('uploadImage');
-    return storedImage ? storedImage : null;
-  });
-  const [showImage, setShowImage] = useState(false);
+    const storedImage = localStorage.getItem('uploadImage')
+    return storedImage ? storedImage : null
+  })
+  const [showImage, setShowImage] = useState(false)
 
   const [snackbarOpen, setSnackbarOpen] = useState(false)
   const [snackbarMessage, setSnackbarMessage] = useState('')
@@ -17,72 +17,58 @@ export const ShareImageProvider = ({ children }) => {
 
   const handleUploadFile = (e) => {
     const file = e.target.files[0]
-    const reader = new FileReader();
+    const reader = new FileReader()
 
     reader.onloadend = () => {
-      const base64data = reader.result;
-      setUploadImage(base64data);
-
+      const base64data = reader.result
+      setUploadImage(base64data)
       try {
-        localStorage.setItem('uploadImage', base64data);
-        console.log('The image saved into localStorage');
+        localStorage.setItem('uploadImage', base64data)
+        console.log('The image saved into localStorage')
       } catch (error) {
-        console.error('Error saving to local storage:', error);
+        console.log(error)
       }
-    };
+    }
 
     if (file) {
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(file)
     }
-  };
+  }
 
   const handleChange = async event => {
-
-    event.preventDefault();
+    event.preventDefault()
 
     if (uploadImage !== null) {
-      setShowImage(true);
-      localStorage.setItem('showImage', JSON.stringify(true));
-      const now = new Date();
-      const formattedTimestamp = [
-        padTo2Digits(now.getDate()),
-        padTo2Digits(now.getMonth() + 1),
-        now.getFullYear().toString().substring(2),
-      ].join('/') + ' ' + [
-        padTo2Digits(now.getHours()),
-        padTo2Digits(now.getMinutes())
-      ].join(':');
+      setShowImage(true)
+      localStorage.setItem('showImage', JSON.stringify(true))
 
-      try{
+      try {
         const response = await request(
           'PUT',
-          '/isPaid/userBill/'+localStorage.getItem('userBillId'),
-        );
+          '/receipt/userBill/' + localStorage.getItem('userBillId'),
+          uploadImage
+        )
         if (response.status === 200) {
-          console.log('Bill is paid');
+          console.log('Bill is paid')
         }
-  
+
         setSnackbarOpen(true)
         setSnackbarMessage(response.data)
         setSnackbarSeverity('success')
-  
+
         setTimeout(() => {
-          window.location.href = '/receipt-uploaded/'+localStorage.getItem('userBillId')
-        }, 4000); 
-      }catch(error){
+          window.location.href =
+            '/receipt-uploaded/' + localStorage.getItem('userBillId')
+        }, 4000)
+      } catch (error) {
         setSnackbarOpen(true)
         setSnackbarSeverity('error')
-        setSnackbarMessage('Error update payment status')
-        console.log(error);
+        setSnackbarMessage(error.message)
+        console.log(error)
       }
-      localStorage.setItem('imageUploadTimestamp', formattedTimestamp);
     }
-  };
-
-
-  function padTo2Digits(num) {
-    return num.toString().padStart(2, '0');
   }
+
 
   return (
     <ShareImageContext.Provider
@@ -99,5 +85,5 @@ export const ShareImageProvider = ({ children }) => {
     >
       {children}
     </ShareImageContext.Provider>
-  );
-};
+  )
+}

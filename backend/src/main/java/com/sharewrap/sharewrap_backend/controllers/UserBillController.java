@@ -35,4 +35,9 @@ public class UserBillController {
         return ResponseEntity.ok(userBillService.updateIsApprove(id));
     }
 
+    @PutMapping("/receipt/userBill/{id}")
+    public ResponseEntity<String> updateReceiptUserBill(@PathVariable Long id, @RequestBody String receipt) {
+        return ResponseEntity.ok(userBillService.updateReceipt(id, receipt));
+    }
+
 }

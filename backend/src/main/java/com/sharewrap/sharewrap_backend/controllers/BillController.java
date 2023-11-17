@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.sql.SQLException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -22,7 +23,7 @@ public class BillController {
     }
 
     @GetMapping("/{userId}/bills")
-    public ResponseEntity<List<BillDto>> allBills(@PathVariable String userId) {
+    public ResponseEntity<List<BillDto>> allBills(@PathVariable String userId) throws SQLException {
         return ResponseEntity.ok(billService.allBillsUser(userId));
     }
 
@@ -57,6 +58,11 @@ public class BillController {
     @PutMapping("/isPaid/bill/{id}")
     public ResponseEntity<String> updateIsPaidBill(@PathVariable Long id) {
         return ResponseEntity.ok(billService.updateIsPaid(id));
+    }
+
+    @PutMapping("/receipt/bill/{id}")
+    public ResponseEntity<String> updateReceiptBill(@PathVariable Long id, @Valid @RequestBody String receipt) {
+        return ResponseEntity.ok(billService.updateReceipt(id, receipt));
     }
 
 }

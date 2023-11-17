@@ -20,8 +20,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import static com.sharewrap.sharewrap_backend.services.BlobService.convertBase64ToBlob;
+import static com.sharewrap.sharewrap_backend.services.BlobService.convertToBase64;
 
 @RequiredArgsConstructor
 @Service
@@ -37,7 +43,7 @@ public class BillService {
     public List<BillDto> allBills() {
         return billMapper.toBillDtos(billRepository.findAll());
     }
-    public List<BillDto> allBillsUser(String userId) {
+    public List<BillDto> allBillsUser(String userId) throws SQLException {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
         List<Bill> bills = user.getBills();
@@ -46,6 +52,12 @@ public class BillService {
             Bill billMapped = billMapper.toBill(billDto);
             Bill bill = billRepository.findById(billMapped.getId())
                     .orElseThrow(() -> new AppException("Unknown bill", HttpStatus.NOT_FOUND));
+
+//            if(bill.getReceipt() != null){
+                System.out.println("Receipt of: "+bill.getId()+":" + Arrays.toString(bill.getReceipt()));
+                billDto.setReceipt(convertToBase64(bill.getReceipt()));
+                System.out.println(billDto.getReceipt());
+//            }
             Double total = 0.0;
             for(UserBill userBill: bill.getUserBills()){
                 if(!userBill.getIsPaid() && !userBill.getIsApprove()
@@ -129,6 +141,21 @@ public class BillService {
         Bill bill = billRepository.findById(id)
                 .orElseThrow(() -> new AppException("Bill not found", HttpStatus.NOT_FOUND));
         bill.setIsPaid(true);
+        billRepository.save(bill);
         return "Congratulations! for receiving your money back";
+    }
+
+    public String updateReceipt(Long id, String receipt) {
+        Bill bill = billRepository.findById(id)
+                .orElseThrow(() -> new AppException("Bill not found", HttpStatus.NOT_FOUND));
+
+        bill.setReceipt(convertBase64ToBlob(receipt));
+        System.out.println("Receipt: " + Arrays.toString(bill.getReceipt()));
+        if(bill.getReceipt() == null){
+            throw new AppException("Receipt is not uploaded", HttpStatus.NOT_FOUND);
+        }
+        bill.setUploadedDate(new Date(System.currentTimeMillis()));
+        billRepository.save(bill);
+        return "Receipt uploaded successfully";
     }
 }

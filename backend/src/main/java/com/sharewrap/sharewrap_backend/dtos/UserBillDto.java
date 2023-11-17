@@ -46,4 +46,8 @@ public class UserBillDto {
 
     private BankAccountDto bankAccountDto;
 
+    private String receipt;
+
+    private Date uploadedDate;
+
 }

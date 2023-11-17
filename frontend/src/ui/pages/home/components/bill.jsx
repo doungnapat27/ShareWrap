@@ -63,7 +63,6 @@ function Bill() {
             Transaction ID: {bill.id}
           </Typography>
           <Button
-            // href='/upload-receipt'
             fullWidth
             className={classes.payButton}
           >
