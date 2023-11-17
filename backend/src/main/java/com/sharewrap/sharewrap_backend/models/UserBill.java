@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Blob;
+import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -36,6 +38,14 @@ public class UserBill {
     @OneToMany(mappedBy = "userBill", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> items;
 
+    @Lob
+    @Column(name = "receipt", columnDefinition="LONGBLOB")
+    private byte[] receipt;
+
+    @Getter
+    @Column
+    private Date uploadedDate;
+
     public UserBill() {
         this.isPaid = false;
         this.isApprove = false;
@@ -54,5 +64,8 @@ public class UserBill {
         this.bill = bill;
     }
 
+    public void setUploadedDate(Date uploadedDate) {
+        this.uploadedDate = uploadedDate;
+    }
 
 }

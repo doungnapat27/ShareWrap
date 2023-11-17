@@ -10,9 +10,6 @@ function PaymentSuccessful() {
 
   const uid = JSON.parse(localStorage.getItem('auth_user')).id
   const [userBill, setUserBill] = useState()
-  const [paidTime, setPaidTime] = useState()
-
-  const time = localStorage.getItem('imageUploadTimestamp')
 
   const fetchUserBill = async () => {
     try {
@@ -20,9 +17,17 @@ function PaymentSuccessful() {
         'GET',
         '/' + uid + '/userBills/' + window.location.pathname.split('/')[2]
       )
-      setUserBill(response.data)
-      console.log('userBill', userBill)
-      setPaidTime(time)
+        // Assuming the date in millis is stored in a field like billDate
+        const date = new Date(response.data.uploadedDate);
+
+        // Formatting the date
+        const day = date.getUTCDate();
+        const month = date.toLocaleString('en-US', { month: 'short' });
+        const year = date.getUTCFullYear();
+
+        // Construct the formatted date string
+        response.data.uploadedDate = `${day} ${month} ${year}`;
+        setUserBill(response.data)
     } catch (error) {
       alert(error.message)
     }
@@ -31,7 +36,6 @@ function PaymentSuccessful() {
   useEffect(() => {
     setTimeout(() => {
       fetchUserBill()
-      console.log('time',time)
     }, 2000)
   }, [])
 
@@ -63,7 +67,7 @@ function PaymentSuccessful() {
                 <Typography sx={{ padding: '16px 0px' }}>
                   {userBill.billOwnerName}
                 </Typography>
-                <Typography>{paidTime}</Typography>
+                <Typography>{userBill.uploadedDate}</Typography>
               </Box>
             </Box>
             <Box

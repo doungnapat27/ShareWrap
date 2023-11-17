@@ -45,10 +45,11 @@ function PendingBills() {
   console.log('showImage in pendingBills compo', showImage)
   const storedShowImage = JSON.parse(localStorage.getItem('showImage'))
   console.log(storedShowImage)
-  return storedShowImage ? (
+  return (
     <Box>
       {userBills.map(userBill => (
-        <Paper className={classes.cover}>
+        userBill.isPaid ?(
+          <Paper className={classes.cover}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Typography variant='h4'>{userBill.billName}</Typography>
             <Box sx={{ padding: '6px' }}>
@@ -66,16 +67,12 @@ function PendingBills() {
           >
             Transaction ID: {userBill.id}
           </Typography>
-          <Button href='/view-receipt' fullWidth className={classes.payButton}>
+          <Button href={'/view-receipt/'+userBill.id} fullWidth className={classes.payButton}>
             <Typography variant='h5'>See payment details</Typography>
           </Button>
         </Paper>
-      ))}
-    </Box>
-  ) : (
-    <Box>
-      {userBills.map(userBill => (
-        <Paper className={classes.cover}>
+        ):(
+          <Paper className={classes.cover}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Typography variant='h4'>{userBill.billName}</Typography>
             <Box sx={{ padding: '6px' }}>
@@ -111,9 +108,10 @@ function PendingBills() {
             <Typography variant='h5'>Pay</Typography>
           </Button>
         </Paper>
+        )
       ))}
     </Box>
-  )
+  ) 
 }
 
 export default PendingBills

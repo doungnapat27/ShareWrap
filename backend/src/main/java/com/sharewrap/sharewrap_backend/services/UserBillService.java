@@ -2,12 +2,10 @@ package com.sharewrap.sharewrap_backend.services;
 
 
 import com.sharewrap.sharewrap_backend.dtos.BankAccountDto;
-import com.sharewrap.sharewrap_backend.dtos.BillDto;
 import com.sharewrap.sharewrap_backend.dtos.PromptpayDto;
 import com.sharewrap.sharewrap_backend.dtos.UserBillDto;
 import com.sharewrap.sharewrap_backend.exceptions.AppException;
 import com.sharewrap.sharewrap_backend.mappers.BankAccountMapper;
-import com.sharewrap.sharewrap_backend.mappers.BillMapper;
 import com.sharewrap.sharewrap_backend.mappers.PromptpayMapper;
 import com.sharewrap.sharewrap_backend.mappers.UserBillMapper;
 import com.sharewrap.sharewrap_backend.models.*;
@@ -17,9 +15,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+import static com.sharewrap.sharewrap_backend.services.BlobService.convertBase64ToBlob;
+import static com.sharewrap.sharewrap_backend.services.BlobService.convertToBase64;
 
 
 @RequiredArgsConstructor
@@ -51,11 +53,12 @@ public class UserBillService {
             UserBill userBill = userBillRepository.findById(userBillMapped.getId())
                     .orElseThrow(() -> new AppException("Unknown user bill", HttpStatus.NOT_FOUND));
 
+
             Bill bill = userBill.getBill();
             User billOwner = bill.getUser();
 
             if(!billOwner.getId().equals(userId)) {
-                userBillDto = addDetails(bill, userBillDto);
+                userBillDto = addDetails(bill, userBillDto, userBill);
                 onlyDebt.add(userBillDto);
             }
         }
@@ -73,15 +76,16 @@ public class UserBillService {
 
         UserBillDto userBillDto = userBillMapper.toUserBillDto(userBill);
 
-        return addDetails(userBill.getBill(), userBillDto);
+        return addDetails(userBill.getBill(), userBillDto, userBill);
     }
 
-    public UserBillDto addDetails(Bill bill, UserBillDto userBillDto){
+    public UserBillDto addDetails(Bill bill, UserBillDto userBillDto, UserBill userBill) {
         User billOwner = bill.getUser();
 
         userBillDto.setBillId(bill.getId());
         userBillDto.setBillName(bill.getName());
         userBillDto.setPaymentType(bill.getPaymentType());
+        userBillDto.setReceipt(convertToBase64(userBill.getReceipt()));
 
         userBillDto.setBillOwnerName(billOwner.getUsername());
         userBillDto.setBillCreatedDate(bill.getCreatedDate());
@@ -116,5 +120,19 @@ public class UserBillService {
         userBill.setIsApprove(true);
         userBillRepository.save(userBill);
         return "Bill approved";
+    }
+
+    public String updateReceipt(Long id, String receipt) {
+        UserBill userBill = userBillRepository.findById(id)
+                .orElseThrow(() -> new AppException("UserBill not found", HttpStatus.NOT_FOUND));
+
+        userBill.setReceipt(convertBase64ToBlob(receipt));
+        if(userBill.getReceipt() == null){
+            throw new AppException("Receipt is not uploaded", HttpStatus.NOT_FOUND);
+        }
+        userBill.setUploadedDate(new Date(System.currentTimeMillis()));
+        userBill.setIsPaid(true);
+        userBillRepository.save(userBill);
+        return "Receipt uploaded successfully. You paid for what you eat, Thank you na HAFFU~~!";
     }
 }
