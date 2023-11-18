@@ -16,6 +16,7 @@
 	<properties>
 		<java.version>17</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<start-class>com.sharewrap.sharewrap_backend.SharewrapBackendApplication</start-class>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -131,11 +132,17 @@
         			<groupId>org.springframework.boot</groupId>
         			<artifactId>spring-boot-maven-plugin</artifactId>
         			<configuration>
-            			<mainClass>com.sharewrap.sharewrap_backend.SharewrapBackendApplication</mainClass>
-            			<layout>JAR</layout>
+            				<mainClass>com.sharewrap.sharewrap_backend.SharewrapBackendApplication</mainClass>
+            				<layout>JAR</layout>
+				</configuration>
+				<executions>
+   					<execution>
+        					<goals>
+            						<goal>repackage</goal>
+       						</goals>
+    					</execution>
+				</executions>
 			</plugin>
-        </configuration>
-    </plugin>
 		</plugins>
 	</build>
 
