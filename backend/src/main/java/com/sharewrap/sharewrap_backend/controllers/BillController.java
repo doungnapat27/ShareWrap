@@ -17,19 +17,10 @@ public class BillController {
 
     private final BillService billService;
 
-    @GetMapping("/bills")
-    public ResponseEntity<List<BillDto>> allBills() {
-        return ResponseEntity.ok(billService.allBills());
-    }
 
     @GetMapping("/{userId}/bills")
     public ResponseEntity<List<BillDto>> allBills(@PathVariable String userId) throws SQLException {
         return ResponseEntity.ok(billService.allBillsUser(userId));
-    }
-
-    @GetMapping("/bills/{id}")
-    public ResponseEntity<BillDto> getBill(@PathVariable Long id) {
-        return ResponseEntity.ok(billService.getBill(id));
     }
 
     @GetMapping("/{userId}/bills/{id}")
@@ -51,7 +42,7 @@ public class BillController {
     }
 
     @DeleteMapping("/bills/{id}")
-    public ResponseEntity<BillDto> deleteBill(@PathVariable Long id) {
+    public ResponseEntity<String> deleteBill(@PathVariable Long id) {
         return ResponseEntity.ok(billService.deleteBill(id));
     }
 
