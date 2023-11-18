@@ -134,8 +134,8 @@ function BankAccDetailsTab() {
               </Box>
               <Box>
                 <DropDown bankList={bankList} />
-                <Box>
-                  <Typography>Bank account name</Typography>
+                <Box mt={3}>
+                  <Typography mb={1}>Bank account name</Typography>
                   <TextField
                     fullWidth
                     placeholder='Ex) Srisamorn Sanuksud'
@@ -146,17 +146,19 @@ function BankAccDetailsTab() {
                     sx={{ backgroundColor: '#fff', borderRadius: '10px' }}
                     type='text'
                   />
-                  <Typography>Bank account number</Typography>
-                  <TextField
-                    fullWidth
-                    placeholder='Ex) 01234567890'
-                    onChange={e =>
-                      handlePromptpayChange('bankAccNumber', e.target.value)
-                    }
-                    value={userPayment.bankAccNumber}
-                    sx={{ backgroundColor: '#fff', borderRadius: '10px' }}
-                    type='number'
-                  />
+                  <Box mt={3}>
+                    <Typography mb={1}>Bank account number</Typography>
+                    <TextField
+                      fullWidth
+                      placeholder='Ex) 01234567890'
+                      onChange={e =>
+                        handlePromptpayChange('bankAccNumber', e.target.value)
+                      }
+                      value={userPayment.bankAccNumber}
+                      sx={{ backgroundColor: '#fff', borderRadius: '10px' }}
+                      type='number'
+                    />
+                    </Box>
                   <Button
                     fullWidth
                     variant='contained'
