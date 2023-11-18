@@ -134,19 +134,19 @@ const useStyles = makeStyles({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  dialogTextfield:{
+  dialogTextfield: {
     width: "100%",
   },
-  dialogAction:addImportant({
+  dialogAction: addImportant({
     display: "flex",
     width: "100%",
   }),
-  buttonCancel:addImportant({
+  buttonCancel: addImportant({
     width: "100%",
     backgroundColor: "#981E25",
     color: "white",
   }),
-  buttonAdd:addImportant({
+  buttonAdd: addImportant({
     width: "100%",
     backgroundColor: "green",
     color: "white",

@@ -12,14 +12,14 @@ const useStyles = makeStyles({
     padding: "15px 20px",
     marginTop: "20px",
     borderRadius: "10px",
-    '&: hover': {
+    "&: hover": {
       backgroundColor: "rgba(255, 255, 255, 0.70)",
-    }
+    },
   }),
   styleAddCIrcleIcon: {
     color: "#000",
-    marginRight: "8px"
-  }
-})
+    marginRight: "8px",
+  },
+});
 
-export default useStyles
+export default useStyles;

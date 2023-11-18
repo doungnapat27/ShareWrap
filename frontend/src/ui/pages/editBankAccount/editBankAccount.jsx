@@ -1,7 +1,7 @@
-import React from 'react'
-import { ShareContextProvider } from '../splitingBill/components/shareBankAndPromptPayContext'
-import EditBankTab from './components/editBankTab'
-import Navbar from '../../modules/components/navbar'
+import React from "react";
+import { ShareContextProvider } from "../splitingBill/components/shareBankAndPromptPayContext";
+import EditBankTab from "./components/editBankTab";
+import Navbar from "../../modules/components/navbar";
 
 function EditBankAccount() {
   return (
@@ -9,7 +9,7 @@ function EditBankAccount() {
       <Navbar />
       <EditBankTab />
     </ShareContextProvider>
-  )
+  );
 }
 
-export default EditBankAccount
+export default EditBankAccount;

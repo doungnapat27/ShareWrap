@@ -1,6 +1,6 @@
-import React from 'react'
-import Navbar from '../../modules/components/navbar'
-import PaymentSuccessful from './components/paymentSuccessful'
+import React from "react";
+import Navbar from "../../modules/components/navbar";
+import PaymentSuccessful from "./components/paymentSuccessful";
 
 function ReceiptBillUpload() {
   return (
@@ -8,7 +8,7 @@ function ReceiptBillUpload() {
       <Navbar />
       <PaymentSuccessful />
     </>
-  )
+  );
 }
 
-export default ReceiptBillUpload
+export default ReceiptBillUpload;

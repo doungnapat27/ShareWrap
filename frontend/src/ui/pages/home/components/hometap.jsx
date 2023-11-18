@@ -1,20 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
-import {
-  Tabs,
-  Tab,
-  Typography,
-  Box,
-  Link,
-} from "@mui/material";
+import { Tabs, Tab, Typography, Box, Link } from "@mui/material";
 import useStyles from "../style/hometabStyle";
-
 import CreateBill from "./createBillButton";
 import Bill from "./bill";
 import PendingBills from "./pendingBills";
-
 import TabPanel from "../../../../common/tabPanel";
 import { request } from "../../../../helpers/axios_helper";
+import CircularProgress from "@mui/material/CircularProgress";
 
 TabPanel.propTypes = {
   children: PropTypes.node,
@@ -33,11 +26,28 @@ function HomeTab() {
   const [value, setValue] = useState(0);
   const classes = useStyles();
   const uid = JSON.parse(localStorage.getItem("auth_user")).id;
-
   const [userBills, setUserBills] = useState([]);
   const [bills, setBills] = useState([]);
+  const [showTopShadow, setShowTopShadow] = useState(false);
+  const [showBottomShadow, setShowBottomShadow] = useState(false);
+  const billContainerRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleScroll = () => {
+    const container = billContainerRef.current;
+    if (!container) return;
+
+    const showTop = container.scrollTop > 10;
+    const showBottom =
+      container.scrollHeight - container.scrollTop >
+      container.clientHeight + 10;
+
+    setShowTopShadow(showTop);
+    setShowBottomShadow(showBottom);
+  };
 
   const fetchUserBills = async () => {
+    setIsLoading(true);
     try {
       const response = await request("GET", "/" + uid + "/userBills");
       const formattedBills = response.data.map((bill) => {
@@ -51,15 +61,19 @@ function HomeTab() {
 
         // Construct the formatted date string
         bill.billCreatedDate = `${day} ${month} ${year}`;
+        setIsLoading(false);
         return bill;
       });
+      setIsLoading(false);
       setUserBills(formattedBills);
     } catch (error) {
+      setIsLoading(false);
       console.log(error);
     }
   };
 
   const fetchBills = async () => {
+    setIsLoading(true);
     try {
       const response = await request("GET", "/" + uid + "/bills");
       const formattedBills = response.data.map((bill) => {
@@ -73,10 +87,13 @@ function HomeTab() {
 
         // Construct the formatted date string
         bill.createdDate = `${day} ${month} ${year}`;
+        setIsLoading(false);
         return bill;
       });
+      setIsLoading(false);
       setBills(formattedBills);
     } catch (error) {
+      setIsLoading(false);
       console.log(error);
     }
   };
@@ -84,15 +101,25 @@ function HomeTab() {
   useEffect(() => {
     fetchUserBills();
     fetchBills();
+
+    const container = billContainerRef.current;
+    if (container) {
+      container.addEventListener("scroll", handleScroll);
+      handleScroll(); // initial check
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener("scroll", handleScroll);
+      }
+    };
   }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   const handleCreateBill = () => {
-    setTimeout(() => {
-      window.location.href = "/splitting-bill";
-    }, 1000);
+    window.location.href = "/splitting-bill";
   };
   return (
     <Box className={classes.cover}>
@@ -115,11 +142,6 @@ function HomeTab() {
               className={classes.centerTab}
               {...a11yProps(0)}
             />
-            <Tab
-              label="History"
-              className={classes.centerTab}
-              {...a11yProps(1)}
-            />
           </Tabs>
         </Box>
         <Box className={classes.cover}>
@@ -127,33 +149,56 @@ function HomeTab() {
             <TabPanel value={value} index={0}>
               <Box>
                 <CreateBill onClick={handleCreateBill} />
-                <Typography variant="h4">Pending bills</Typography>
-                {userBills.length > 0 ||  bills.length > 0 ? (
-                  <Box mt={2}>
-                    <Box>
-                      <Bill bills={bills} />
-                      <PendingBills userBills={userBills}/>
-                    </Box>
+                <Typography variant="h4">History bills</Typography>
+                {isLoading ? (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      height: "100%",
+                      marginTop: "24px",
+                    }}
+                  >
+                    <CircularProgress size={48} style={{ color: "#FFB53B" }} />
                   </Box>
                 ) : (
-                  <Box sx={{ textAlign: "center", marginTop: "22px" }}>
-                    <Box>
-                      <Typography
-                        variant="h5"
-                        sx={{ color: "#838383", marginBottom: "11px" }}
+                  <Box>
+                    {userBills.length > 0 || bills.length > 0 ? (
+                      <Box
+                        mt={2}
+                        className={`${classes.billContainer} ${
+                          showTopShadow ? "showTopShadow" : ""
+                        } ${showBottomShadow ? "showBottomShadow" : ""}`}
+                        ref={billContainerRef}
                       >
-                        No pending bill.
-                      </Typography>
-                    </Box>
-                    <Link href="/splitting-bill" variant="h4" sx={{ color: "#981E25" }}>
-                      Create bill
-                    </Link>
+                        <Box>
+                          <Bill bills={bills} />
+                          <PendingBills userBills={userBills} />
+                        </Box>
+                      </Box>
+                    ) : (
+                      <Box sx={{ textAlign: "center", marginTop: "22px" }}>
+                        <Box>
+                          <Typography
+                            variant="h5"
+                            sx={{ color: "#838383", marginBottom: "11px" }}
+                          >
+                            No bill.
+                          </Typography>
+                        </Box>
+                        <Link
+                          href="/splitting-bill"
+                          variant="h4"
+                          sx={{ color: "#981E25" }}
+                        >
+                          Create bill
+                        </Link>
+                      </Box>
+                    )}
                   </Box>
                 )}
               </Box>
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-              Item two
             </TabPanel>
           </Box>
         </Box>

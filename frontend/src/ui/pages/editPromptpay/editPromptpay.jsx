@@ -1,7 +1,7 @@
-import React from 'react'
-import { ShareContextProvider } from '../splitingBill/components/shareBankAndPromptPayContext'
-import EditPromptpayTab from './components/editPromptpayTab'
-import Navbar from '../../modules/components/navbar'
+import React from "react";
+import { ShareContextProvider } from "../splitingBill/components/shareBankAndPromptPayContext";
+import EditPromptpayTab from "./components/editPromptpayTab";
+import Navbar from "../../modules/components/navbar";
 
 function EditPromptpay() {
   return (
@@ -9,7 +9,7 @@ function EditPromptpay() {
       <Navbar />
       <EditPromptpayTab />
     </ShareContextProvider>
-  )
+  );
 }
 
-export default EditPromptpay
+export default EditPromptpay;

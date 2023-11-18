@@ -1,13 +1,10 @@
 import React from "react";
-
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import useStyles from '../style/buttonAddItemStyle'
-
+import useStyles from "../style/buttonAddItemStyle";
 import { Button, Typography } from "@mui/material";
 
-
 function ButtonAddItem({ handleAddItem }) {
-  const classes = useStyles()
+  const classes = useStyles();
   return (
     <Button
       fullWidth

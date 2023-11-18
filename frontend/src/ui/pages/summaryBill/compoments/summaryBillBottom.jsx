@@ -6,9 +6,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 function SummaryBillBottom() {
   const classes = useStyle();
   const handToBillSummary = () => {
-    setTimeout(() => {
-      window.location.href = "/bill-summary";
-    }, 1000);
+    window.location.href = "/bill-summary";
   };
 
   return (
