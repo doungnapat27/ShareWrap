@@ -1,392 +1,70 @@
-## Practical Software Engineering: What is ShareWrap?
+# Getting Started with Create React App
 
-  ### Description
-- ShareWrap is a website for bill management, empowering diners to share meals and memories, not billing disputes. Simplifying the dining experience, one bill at a time.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Available Scripts
 
-## How to run this project?(in local)
-  ### Frontend Part
-  - Open the terminal
-  - Cd to /frontend folder
-  - Type and enter command `npm i`
-  - Type and enter command `npm start`
-  ### Backend part
-  - If you have IntelliJ, please open it in the IntelliJ
-  - Create your database in MySql, please name it `sharewrap`
-  - Go to the Server tab in MySql workbench -> Users and Privillages, then add the account as specified in file `application.properties`
-  - Don't forget to select the schema as `sharewrap` and set the privillages.
-  - Run file `SharewrapBackendApplication.java`
----
+In the project directory, you can run:
 
-<details>
-<summary><h2>Software QA: Project 2 (ShareWrap)</h2></summary>
+### `npm start`
 
-> ### ❗️NOTES❗️
-> ### This is QA Section, Ming will put the content below in the separated repo (After finishing all tasks in Practical SE)
-> You can click [here](https://studentmahidolac-my.sharepoint.com/:w:/g/personal/chaiyong_rag_mahidol_ac_th/EdwEp36CaWVFkTFe6Md2LuUBcb3R8Pn6hO6NyNJ59IQdgw?rtime=v6KTkIPf20g) to see the QA project#2 description
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-### This is repository which 
-This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Software Quality Assuarance and Testing.
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-## :dancers:Tester Team:
-| #   | Name        | LastName         | Student ID | GitHub                              |
-| --- | ----------- | ---------------- | ---------- | ----------------------------------- |
-| 1   | Rujiphart   | Charatvaraphan   | 6388012    | https://github.com/MingRuji6388012  |
-| 2   | Doungnapat  | Thiansukont      | 6388068    | https://github.com/doungnapat27     |
-| 3   | Sarayut     | Theeraumpronpunt | 6388111    | https://github.com/ORPGCLUP         |
-| 4   | Watsapol    | Samittivate      | 6388155    | https://github.com/MarkMPW          |
-| 5   | Thitirat    | Sukijprasert     | 6388156    | https://github.com/EFFTHIIZZ        |
-| 6   | Bunradar    | Chartchaiyadech  | 6388185    | https://github.com/BunradarCH       |
+### `npm test`
 
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-<details>
-<summary><h2>📱 Unit testing 📱</h2></summary>
-<details>
-<summary><h3>Feel free to use this template</h3></summary>
-   
-### Name of the Test: 
-### The goal of the test case:
-### Tool using for testing:
-### The characteristics developed for this test case:
-   - **Interface-based:**
-   - **Functionality-based:**
-**Interface-based**
-1. Identify testable functions
-2. Identify parameters, return types, return values, and exceptional behavior
-   - Parameters:
-   - Return type:
-   - Return value:
-   - Exceptional behavior:
-4. Model the input domain
-   - Develop Characteristics
-     - C1 =
-   - Partition characteristics
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-   - Identify (possible) values
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-5. Combine partitions to define test requirements
-   - Assumption:
-   - Test Requirements: number of test (upper bound) =
-      - (,)
-  
-6. Derive test values
+### `npm run build`
 
-     | Test             |            |            | expected results|
-     | ---------------- | ---------- | ---------- | --------------- |
-     |  T1(,)           |            |            |                 |
-   
-**Functionality-based**
-1. Identify testable functions
-3. Identify parameters, return types, return values, and exceptional behavior
-   - Parameters: cal, epoch
-   - Return type: long
-   - Return value: cal.getTimeInMillis();
-   - Exceptional behavior: ??
-5. Model the input domain
-   - Develop Characteristics
-     - C1 =
-   - Partition characteristics
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-   - Identify (possible) values
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-6. Combine partitions to define test requirements
-   - Assumption:
-   - Test Requirements: number of test(upper bound) =
-      - (,)
-  
-7. Derive test values
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-     | Test             |            |            | expected results|
-     | ---------------- | ---------- | ---------- | --------------- |
-     |  T1(,)           |            |            |                 |
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-</details> 
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-<details>
-<summary><h3>Test case #2: <code> Just placeholder </code> </h3></summary>
-   
-### Name of the Test: 
-### The goal of the test case:
-### Tool using for testing:
-### The characteristics developed for this test case:
-   - **Interface-based:**
-   - **Functionality-based:**
-**Interface-based**
-1. Identify testable functions
-2. Identify parameters, return types, return values, and exceptional behavior
-   - Parameters:
-   - Return type:
-   - Return value:
-   - Exceptional behavior:
-4. Model the input domain
-   - Develop Characteristics
-     - C1 =
-   - Partition characteristics
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-   - Identify (possible) values
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-5. Combine partitions to define test requirements
-   - Assumption:
-   - Test Requirements: number of test (upper bound) =
-      - (,)
-  
-6. Derive test values
+### `npm run eject`
 
-     | Test             |            |            | expected results|
-     | ---------------- | ---------- | ---------- | --------------- |
-     |  T1(,)           |            |            |                 |
-   
-**Functionality-based**
-1. Identify testable functions
-3. Identify parameters, return types, return values, and exceptional behavior
-   - Parameters: cal, epoch
-   - Return type: long
-   - Return value: cal.getTimeInMillis();
-   - Exceptional behavior: ??
-5. Model the input domain
-   - Develop Characteristics
-     - C1 =
-   - Partition characteristics
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-   - Identify (possible) values
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-6. Combine partitions to define test requirements
-   - Assumption:
-   - Test Requirements: number of test(upper bound) =
-      - (,)
-  
-7. Derive test values
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-     | Test             |            |            | expected results|
-     | ---------------- | ---------- | ---------- | --------------- |
-     |  T1(,)           |            |            |                 |
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-</details> 
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-<details>
-<summary><h3>Test case #3: <code> Just placeholder </code> </h3></summary>
-   
-### Name of the Test: 
-### The goal of the test case:
-### Tool using for testing:
-### The characteristics developed for this test case:
-   - **Interface-based:**
-   - **Functionality-based:**
-**Interface-based**
-1. Identify testable functions
-2. Identify parameters, return types, return values, and exceptional behavior
-   - Parameters:
-   - Return type:
-   - Return value:
-   - Exceptional behavior:
-4. Model the input domain
-   - Develop Characteristics
-     - C1 =
-   - Partition characteristics
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-   - Identify (possible) values
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-5. Combine partitions to define test requirements
-   - Assumption:
-   - Test Requirements: number of test (upper bound) =
-      - (,)
-  
-6. Derive test values
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-     | Test             |            |            | expected results|
-     | ---------------- | ---------- | ---------- | --------------- |
-     |  T1(,)           |            |            |                 |
-   
-**Functionality-based**
-1. Identify testable functions
-3. Identify parameters, return types, return values, and exceptional behavior
-   - Parameters: cal, epoch
-   - Return type: long
-   - Return value: cal.getTimeInMillis();
-   - Exceptional behavior: ??
-5. Model the input domain
-   - Develop Characteristics
-     - C1 =
-   - Partition characteristics
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-   - Identify (possible) values
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-6. Combine partitions to define test requirements
-   - Assumption:
-   - Test Requirements: number of test(upper bound) =
-      - (,)
-  
-7. Derive test values
+## Learn More
 
-     | Test             |            |            | expected results|
-     | ---------------- | ---------- | ---------- | --------------- |
-     |  T1(,)           |            |            |                 |
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-</details> 
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-<details>
-<summary><h3>Test case #1: <code> Just placeholder </code> </h3></summary>
-   
-### Name of the Test: 
-### The goal of the test case:
-### Tool using for testing:
-### The characteristics developed for this test case:
-   - **Interface-based:**
-   - **Functionality-based:**
-**Interface-based**
-1. Identify testable functions
-2. Identify parameters, return types, return values, and exceptional behavior
-   - Parameters:
-   - Return type:
-   - Return value:
-   - Exceptional behavior:
-4. Model the input domain
-   - Develop Characteristics
-     - C1 =
-   - Partition characteristics
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-   - Identify (possible) values
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-5. Combine partitions to define test requirements
-   - Assumption:
-   - Test Requirements: number of test (upper bound) =
-      - (,)
-  
-6. Derive test values
+### Code Splitting
 
-     | Test             |            |            | expected results|
-     | ---------------- | ---------- | ---------- | --------------- |
-     |  T1(,)           |            |            |                 |
-   
-**Functionality-based**
-1. Identify testable functions
-3. Identify parameters, return types, return values, and exceptional behavior
-   - Parameters: cal, epoch
-   - Return type: long
-   - Return value: cal.getTimeInMillis();
-   - Exceptional behavior: ??
-5. Model the input domain
-   - Develop Characteristics
-     - C1 =
-   - Partition characteristics
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-   - Identify (possible) values
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-6. Combine partitions to define test requirements
-   - Assumption:
-   - Test Requirements: number of test(upper bound) =
-      - (,)
-  
-7. Derive test values
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-     | Test             |            |            | expected results|
-     | ---------------- | ---------- | ---------- | --------------- |
-     |  T1(,)           |            |            |                 |
+### Analyzing the Bundle Size
 
-</details> 
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-</details>
+### Making a Progressive Web App
 
----
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-<details>
-  <summary><h2> 👩🏻‍💻 System test (Manual test) 👨🏻‍💻 </h2></summary>
+### Advanced Configuration
 
-  ### Description
-  - ### Three of manual tests with traceability matrix is in folder 📁 ```manual test case``` ➡️ [URL TO FOLDER manual test case in GITHUB](www.google.com)
-  - **You must create at least 3 test cases for system testing.**
-  - **Test case template and resources**
-    - [DOC](https://www.softwaretestinghelp.com/wp-content/qa/uploads/2012/12/Test-case-example-doc.doc)
-    - [Excel](https://www.softwaretestinghelp.com/wp-content/qa/uploads/2012/12/Test-case-template-xls.xls)
-    - [Test case example](https://www.softwaretestinghelp.com/wp-content/qa/uploads/2018/05/Test-Case-Format-with-Example.docx)
-    - [180+ Web Application Testing Example Test Cases](https://www.softwaretestinghelp.com/sample-test-cases-testing-web-desktop-applications/)
-    - [traceability matrix](https://www.guru99.com/traceability-matrix.html)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-  
-</details>
+### Deployment
 
----
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-<details>
-  <summary><h2> 🤖 Automated UI Testing 🤖 </h2></summary>
-  
-  ### Description
-  - ### Three of automated UI tests with code using Selenium Web Driver is in folder 📁 ```automated test case``` ➡️ [URL TO FOLDER automated test case in GITHUB](www.google.com)
-  - create at least **3 automated UI test cases.** Based on the 3 manual system test cases that you created, convert them into automated UI test cases using **Selenium Web Driver or Robot framework.**
-  - **[Automated UI Testing](https://studentmahidolac-my.sharepoint.com/:w:/g/personal/chaiyong_rag_mahidol_ac_th/EYxyoC1ZGkZPiKMl-9HXypsB9Xirs5iE6Bl3cCcb7plW1w?e=XdeDpo)**
+### `npm run build` fails to minify
 
-  
-</details>
-
----
-
-<details>
-  <summary><h2> 💚 BONUS: CI Integration 💚 </h1></summary>
-</details>
-
-</details>
-
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
