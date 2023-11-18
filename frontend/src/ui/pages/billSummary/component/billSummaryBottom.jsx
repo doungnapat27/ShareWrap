@@ -77,7 +77,7 @@ function BillSummaryBottom() {
             disabled={isLoading}
           >
             {isLoading ? (
-              <CircularProgress size={24} style={{ color: "#FFB53B" }} />
+              <CircularProgress size={24} style={{ color: "white" }} />
             ) : (
               "Create Bill"
             )}
