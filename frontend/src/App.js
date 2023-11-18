@@ -14,7 +14,6 @@ import SplitingBill from "./ui/pages/splitingBill/splittingBill.jsx";
 import AddFriend from "./ui/pages/addFriend/addFriend.jsx";
 import SummaryBill from ".//ui/pages/summaryBill/summaryBill.jsx";
 import ProtectedRoute from "./ui/modules/components/protectedRoute.jsx";
-
 import PromptPayDetails from "./ui/pages/promptpayDetails/promptpayDetails.jsx";
 import BankAccDetails from "./ui/pages/bankAccountDetails/bankAccountDetails.jsx";
 import EditBankAccount from "./ui/pages/editBankAccount/editBankAccount.jsx";
@@ -22,6 +21,7 @@ import EditPromptpay from "./ui/pages/editPromptpay/editPromptpay.jsx";
 import ViewReceipt from "./ui/pages/viewReceipt/viewReceipt.jsx";
 import BillSummary from "./ui/pages/billSummary/billSummary";
 import PendingBill from "./ui/pages/pendingBill/pendingBill.jsx";
+import BillDetails from "./ui/pages/billDetails/billDetails.jsx";
 
 function App() {
   return (
@@ -49,12 +49,13 @@ function App() {
             <Route path="/add-Friend" element={<AddFriend />} />
             <Route path="/summary-bill" element={<SummaryBill />} />
             <Route path="/bill-summary" element={<BillSummary />} />
+            <Route path="/pending-bill" element={<PendingBill />} />
           </Route>
           {/* <Route path="/create-bill" element={<CreateBill />} /> No longer use */}
           {/* </Route> */}
           {/* <Route path="/create-bill" element={<CreateBill />} /> No longer use */}
           <Route path="*" element={<PageNotFound />} />
-          <Route path="/pending-bill" element={<PendingBill />} />
+          <Route path="/bill-details" element={<BillDetails />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

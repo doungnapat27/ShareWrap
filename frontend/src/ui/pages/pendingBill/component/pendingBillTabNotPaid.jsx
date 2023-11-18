@@ -2,11 +2,7 @@ import React from "react";
 import useStyles from "../style/pendingBillTabStyle";
 import {
   Box,
-  Tab,
-  Tabs,
-  Paper,
   Typography,
-  Button,
   Avatar,
 } from "@mui/material";
 import { stringAvatar } from "../../../../helpers/avatar_helper";
