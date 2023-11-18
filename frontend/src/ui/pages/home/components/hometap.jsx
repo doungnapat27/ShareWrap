@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { Tabs, Tab, TabList, Typography, Box, Button, Link } from "@mui/material";
+import {
+  Tabs,
+  Tab,
+  Typography,
+  Box,
+  Link,
+} from "@mui/material";
 import useStyles from "../style/hometabStyle";
 
 import CreateBill from "./createBillButton";
@@ -8,6 +14,7 @@ import Bill from "./bill";
 import PendingBills from "./pendingBills";
 
 import TabPanel from "../../../../common/tabPanel";
+import { request } from "../../../../helpers/axios_helper";
 
 TabPanel.propTypes = {
   children: PropTypes.node,
@@ -24,17 +31,67 @@ function a11yProps(index) {
 
 function HomeTab() {
   const [value, setValue] = useState(0);
-  const classes = useStyles()
-  const billItems = [1] // mock up data
-  // const [billItems, setBillItems] = useState([])
-  const uid = JSON.parse(localStorage.getItem('auth_user')).id
+  const classes = useStyles();
+  const uid = JSON.parse(localStorage.getItem("auth_user")).id;
+
+  const [userBills, setUserBills] = useState([]);
+  const [bills, setBills] = useState([]);
+
+  const fetchUserBills = async () => {
+    try {
+      const response = await request("GET", "/" + uid + "/userBills");
+      const formattedBills = response.data.map((bill) => {
+        // Assuming the date in millis is stored in a field like billDate
+        const date = new Date(bill.billCreatedDate);
+
+        // Formatting the date
+        const day = date.getUTCDate();
+        const month = date.toLocaleString("en-US", { month: "short" });
+        const year = date.getUTCFullYear();
+
+        // Construct the formatted date string
+        bill.billCreatedDate = `${day} ${month} ${year}`;
+        return bill;
+      });
+      setUserBills(formattedBills);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchBills = async () => {
+    try {
+      const response = await request("GET", "/" + uid + "/bills");
+      const formattedBills = response.data.map((bill) => {
+        // Assuming the date in millis is stored in a field like billDate
+        const date = new Date(bill.createdDate);
+
+        // Formatting the date
+        const day = date.getUTCDate();
+        const month = date.toLocaleString("en-US", { month: "short" });
+        const year = date.getUTCFullYear();
+
+        // Construct the formatted date string
+        bill.createdDate = `${day} ${month} ${year}`;
+        return bill;
+      });
+      setBills(formattedBills);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserBills();
+    fetchBills();
+  }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   const handleCreateBill = () => {
     setTimeout(() => {
-      window.location.href = "/splitting-bill";; 
+      window.location.href = "/splitting-bill";
     }, 1000);
   };
   return (
@@ -69,29 +126,26 @@ function HomeTab() {
           <Box className={classes.containerInfo}>
             <TabPanel value={value} index={0}>
               <Box>
-                <CreateBill 
-                  onClick = {handleCreateBill}
-                />
-                <Typography variant='h4'>
-                  Pending bills
-                </Typography>
-                {billItems.length > 0 ? (
+                <CreateBill onClick={handleCreateBill} />
+                <Typography variant="h4">Pending bills</Typography>
+                {userBills.length > 0 ||  bills.length > 0 ? (
                   <Box mt={2}>
-                    {billItems.map((key, index) => (
-                      <Box key={`bill-${key}`}>
-                        <Bill />
-                        <PendingBills />
-                      </Box>
-                    ))}
+                    <Box>
+                      <Bill bills={bills} />
+                      <PendingBills userBills={userBills}/>
+                    </Box>
                   </Box>
                 ) : (
-                  <Box sx={{ textAlign: 'center', marginTop: '22px' }}>
+                  <Box sx={{ textAlign: "center", marginTop: "22px" }}>
                     <Box>
-                      <Typography variant="h5" sx={{ color: '#838383', marginBottom: '11px' }}>
+                      <Typography
+                        variant="h5"
+                        sx={{ color: "#838383", marginBottom: "11px" }}
+                      >
                         No pending bill.
                       </Typography>
                     </Box>
-                    <Link href="#" variant="h4" sx={{ color: '#981E25' }}>
+                    <Link href="/splitting-bill" variant="h4" sx={{ color: "#981E25" }}>
                       Create bill
                     </Link>
                   </Box>
