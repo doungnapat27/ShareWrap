@@ -49,7 +49,7 @@ function App() {
             <Route path="/add-Friend" element={<AddFriend />} />
             <Route path="/summary-bill" element={<SummaryBill />} />
             <Route path="/bill-summary" element={<BillSummary />} />
-            <Route path="/pending-bill" element={<PendingBill />} />
+            <Route path="/pending-bill/:id" element={<PendingBill />} />
           </Route>
           {/* <Route path="/create-bill" element={<CreateBill />} /> No longer use */}
           {/* </Route> */}
