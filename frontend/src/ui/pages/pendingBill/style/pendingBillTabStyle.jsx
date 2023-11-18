@@ -1,4 +1,5 @@
 import { makeStyles } from "@mui/styles";
+
 function addImportant(styles) {
   return Object.fromEntries(
     Object.entries(styles).map(([key, value]) => [key, `${value} !important`])
@@ -42,13 +43,6 @@ const useStyles = makeStyles({
     width: "50%",
     color: "black",
   }),
-  bottomBar: {
-    position: "fixed",
-    left: 0,
-    right: 0,
-    bottom: 0,
-    zIndex: 1000,
-  },
   menuContainer: {
     width: "100%",
     "@media (min-width: 601px) and (max-width: 1024px)": {
@@ -70,11 +64,6 @@ const useStyles = makeStyles({
     borderBottomLeftRadius: "15px",
     borderBottomRightRadius: "15px",
   }),
-  splittingBillContainer: {
-    marginTop: "10px",
-    overflowY: "auto",
-    maxHeight: "calc(100vh - 20px - 270px)",
-  },
 });
 
 export default useStyles;

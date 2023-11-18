@@ -21,6 +21,7 @@ import EditBankAccount from "./ui/pages/editBankAccount/editBankAccount.jsx";
 import EditPromptpay from "./ui/pages/editPromptpay/editPromptpay.jsx";
 import ViewReceipt from "./ui/pages/viewReceipt/viewReceipt.jsx";
 import BillSummary from "./ui/pages/billSummary/billSummary";
+import PendingBill from "./ui/pages/pendingBill/pendingBill.jsx";
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
           {/* </Route> */}
           {/* <Route path="/create-bill" element={<CreateBill />} /> No longer use */}
           <Route path="*" element={<PageNotFound />} />
+          <Route path="/pending-bill" element={<PendingBill />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
