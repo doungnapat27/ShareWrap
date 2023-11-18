@@ -51,7 +51,6 @@ export const ShareImageProvider = ({ children }) => {
         if (response.status === 200) {
           console.log("Bill is paid");
         }
-
         setSnackbarOpen(true);
         setSnackbarMessage(response.data);
         setSnackbarSeverity("success");

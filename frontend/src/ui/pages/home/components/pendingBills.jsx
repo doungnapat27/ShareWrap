@@ -10,8 +10,8 @@ function PendingBills({ userBills }) {
 
   return storedShowImage ? (
     <Box>
-      {userBills.map((userBill) => (
-        <Paper className={classes.cover}>
+      {userBills.map((userBill, index) => (
+        <Paper className={classes.cover} key={`${index}:${Date.now()}`}>
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <Typography variant="h4">{userBill.billName}</Typography>
             <Box sx={{ padding: "6px" }}>
