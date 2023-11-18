@@ -26,7 +26,7 @@ function a11yProps(index) {
 
 function PendingBill() {
   const [value, setValue] = useState(0);
-  const [openDialog, setOpenDialog] = useState(true);
+  const [openDialog, setOpenDialog] = useState(false);
   const classes = useStyles();
 
   const handleOpenDialog = () => {

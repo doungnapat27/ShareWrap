@@ -66,20 +66,6 @@ const styles = makeStyles({
     borderBottomRightRadius: "15px",
     marginBottom: "4px",
   }),
-  picContainer:{
-    width: "100%",
-    display: 'flex',
-    flexDirection: "column",
-  },
-  picDetail:addImportant({
-    backgroundColor: "white",
-    color: "white",
-  }),
-  billButtonContainer:{
-    width: "100%",
-    display: 'flex',
-    flexDirection: "column",
-  }
 });
 
 export default useStyles;
