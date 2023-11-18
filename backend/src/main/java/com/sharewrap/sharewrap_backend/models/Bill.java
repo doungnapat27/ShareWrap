@@ -54,6 +54,9 @@ public class Bill {
     @Column
     private Date uploadedDate;
 
+    @Column(name = "receipt_type")
+    private String receiptType;
+
     public Bill() {
         this.name = "My Bill";
         this.isPaid = false;

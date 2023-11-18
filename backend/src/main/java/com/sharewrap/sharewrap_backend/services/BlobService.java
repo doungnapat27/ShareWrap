@@ -12,13 +12,13 @@ import java.util.Base64;
 public class BlobService {
     public static byte[] convertBase64ToBlob(String base64String) {
         try {
-            if (base64String == null || !base64String.startsWith("data:image/png;base64,")) {
+            if (base64String == null || (!base64String.startsWith("data:image/png;base64,") && !base64String.startsWith("data:image/jpeg;base64,"))) {
                 System.err.println("Invalid or unexpected base64String format");
                 return null;
             }
 
-            // Remove the Data URL prefix
-            String encodedString = base64String.substring("data:image/png;base64,".length());
+            String prefix = base64String.startsWith("data:image/png;base64,") ? "data:image/png;base64," : "data:image/jpeg;base64,";
+            String encodedString = base64String.substring(prefix.length());
 
             // Optional: Remove any non-Base64 characters (like non-printable characters)
             encodedString = encodedString.replaceAll("[^A-Za-z0-9+/=]", "");
