@@ -79,7 +79,7 @@ const useStyles = makeStyles({
     justifyContent: "space-between",
     marginTop: "10px",
     borderRadius: "10px",
-  })
+  }),
 });
 
 export default useStyles;

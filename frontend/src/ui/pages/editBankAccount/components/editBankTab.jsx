@@ -1,10 +1,7 @@
 import React, { useState, useContext } from "react";
-
 import { Tabs, Tab, Typography, Box, Button, TextField } from "@mui/material";
-
 import { ShareContext } from "../../splitingBill/components/shareBankAndPromptPayContext";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-
 import logoKrungthai from "../../../assets/krungthai.png";
 import logoKasikorn from "../../../assets/kasikorn.png";
 import DropDown from "../../bankAccountDetails/components/dropDown";

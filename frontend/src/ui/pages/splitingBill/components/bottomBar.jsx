@@ -1,19 +1,12 @@
 import React, { useContext, useEffect } from "react";
-
-import CircleIcon from "@mui/icons-material/Circle";
-import CreateIcon from "@mui/icons-material/Create";
-
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import BankAccBtn from "../../../modules/components/bankAccBtn";
 import PromptPayBtn from "../../../modules/components/promptpayBtn";
 import SelectedBank from "./selectedBank";
 import SelectedPromptpay from "./selectedPromptpay";
-
 import { ShareContext } from "./shareBankAndPromptPayContext";
-
 import useStyles from "../style/bottomBarStyle";
-
 import { Box, Typography, Button } from "@mui/material";
 
 function BottomBar({ itemList, onSaveBill }) {
@@ -26,7 +19,6 @@ function BottomBar({ itemList, onSaveBill }) {
     fetchPromptpay,
     fetchBankAccount,
   } = useContext(ShareContext);
-
 
   const classes = useStyles({ isBankAcc, isPromptPay });
 
@@ -43,23 +35,25 @@ function BottomBar({ itemList, onSaveBill }) {
     };
     localStorage.setItem("billDetails", JSON.stringify(billDetails));
     localStorage.setItem("selectedFriendsId", JSON.stringify([id]));
-    setTimeout(() => {
-      window.location.href = "/add-Friend";
-    }, 1000);
+    window.location.href = "/add-Friend";
+
   };
 
   useEffect(() => {
     fetchPromptpay();
     fetchBankAccount();
 
-    const storedPayment = JSON.parse(localStorage.getItem('userPayment'));
-    
-    if (storedPayment && storedPayment.selectedPaymentMethod === 'bank') {
+    const storedPayment = JSON.parse(localStorage.getItem("userPayment"));
+
+    if (storedPayment && storedPayment.selectedPaymentMethod === "bank") {
       handleChangeBankAcc();
-      console.log('Payment Method:', storedPayment.selectedPaymentMethod);
-    } else if (storedPayment && storedPayment.selectedPaymentMethod === 'promptpay') {
+      console.log("Payment Method:", storedPayment.selectedPaymentMethod);
+    } else if (
+      storedPayment &&
+      storedPayment.selectedPaymentMethod === "promptpay"
+    ) {
       handleChangeIsProptPay();
-      console.log('Payment Method:', storedPayment.selectedPaymentMethod);
+      console.log("Payment Method:", storedPayment.selectedPaymentMethod);
     }
   }, []);
 

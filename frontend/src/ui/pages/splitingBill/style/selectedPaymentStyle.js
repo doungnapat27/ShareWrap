@@ -11,6 +11,6 @@ const useStyles = makeStyles({
     alignItems: "center",
     marginTop: "10px",
   },
-})
+});
 
-export default useStyles
+export default useStyles;

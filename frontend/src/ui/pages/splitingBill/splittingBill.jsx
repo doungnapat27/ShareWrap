@@ -1,8 +1,7 @@
-import React from 'react'
-import Navbar from '../../modules/components/navbar'
-import SplitingBillTab from './components/splittingBillTab'
-import MemoSplitingBillTab from './components/splittingBillTab'
-import { ShareContextProvider } from './components/shareBankAndPromptPayContext'
+import React from "react";
+import Navbar from "../../modules/components/navbar";
+import MemoSplitingBillTab from "./components/splittingBillTab";
+import { ShareContextProvider } from "./components/shareBankAndPromptPayContext";
 
 function SplitingBill() {
   return (
@@ -10,7 +9,7 @@ function SplitingBill() {
       <Navbar />
       <MemoSplitingBillTab />
     </ShareContextProvider>
-  )
+  );
 }
 
-export default SplitingBill
+export default SplitingBill;
