@@ -1,14 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
-
 import BankAccBtn from "../../../modules/components/bankAccBtn";
 import PromptPayBtn from "../../../modules/components/promptpayBtn";
-
 import { ShareContext } from "../../splitingBill/components/shareBankAndPromptPayContext";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-
 import { Tabs, Tab, Typography, Box, Button, TextField } from "@mui/material";
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 function PromptPayDetailsTab() {
   const [value, setValue] = useState(0);
@@ -29,30 +26,30 @@ function PromptPayDetailsTab() {
   } = useContext(ShareContext);
 
   const handleCloseSnackbar = (event, reason) => {
-    if (reason === 'clickaway') {
-        return;
+    if (reason === "clickaway") {
+      return;
     }
     setSnackbarOpen(false);
-};
-
+  };
 
   useEffect(() => {
-    if(isBankAcc) {
-      setIsBankAcc(false)
-      setIsPromptPay(true)
+    if (isBankAcc) {
+      setIsBankAcc(false);
+      setIsPromptPay(true);
     } else {
-      setIsPromptPay(true)
+      setIsPromptPay(true);
     }
-  })
+  });
 
+  const isButtonDisabled = !(
+    userPayment.promptpayName && userPayment.promptpayNumber
+  );
+  const buttonColor = isButtonDisabled ? "#838383" : "#FFB53B";
+  const textColor = isButtonDisabled ? "#fff" : "#000";
 
-  const isButtonDisabled = !(userPayment.promptpayName && userPayment.promptpayNumber);
-  const buttonColor = isButtonDisabled ? '#838383' : '#FFB53B';
-  const textColor = isButtonDisabled ? '#fff' : '#000';
-
-  console.log(userPayment)
-  console.log('isBank and isPrompt'  ,isBankAcc, isPromptPay)
-  console.log('PromptpayName', userPayment.promptpayName)
+  console.log(userPayment);
+  console.log("isBank and isPrompt", isBankAcc, isPromptPay);
+  console.log("PromptpayName", userPayment.promptpayName);
 
   return (
     <Box
@@ -119,7 +116,7 @@ function PromptPayDetailsTab() {
                 <BankAccBtn
                   isBankAcc={isBankAcc}
                   handleChangeBankAcc={handleChangeBankAcc}
-                  hrefValue='true'
+                  hrefValue="true"
                 />
                 <Box ml={1} />
                 <PromptPayBtn
@@ -133,9 +130,11 @@ function PromptPayDetailsTab() {
                   <TextField
                     fullWidth
                     placeholder="Ex) Srisamorn Sanuksud"
-                    onChange={(e) => handlePromptpayChange('promptpayName', e.target.value)}
-                    sx={{ backgroundColor: '#fff', borderRadius: '10px' }}
-                    type='text'
+                    onChange={(e) =>
+                      handlePromptpayChange("promptpayName", e.target.value)
+                    }
+                    sx={{ backgroundColor: "#fff", borderRadius: "10px" }}
+                    type="text"
                   />
                 </Box>
                 <Typography mt={2}>PromptPay ID</Typography>
@@ -143,9 +142,11 @@ function PromptPayDetailsTab() {
                   <TextField
                     fullWidth
                     placeholder="Ex) 0123456789"
-                    onChange={(e) => handlePromptpayChange('promptpayNumber', e.target.value)}
-                    sx={{ backgroundColor: '#fff', borderRadius: '10px' }}
-                    type='number'
+                    onChange={(e) =>
+                      handlePromptpayChange("promptpayNumber", e.target.value)
+                    }
+                    sx={{ backgroundColor: "#fff", borderRadius: "10px" }}
+                    type="number"
                   />
                 </Box>
               </Box>
@@ -159,7 +160,7 @@ function PromptPayDetailsTab() {
                   marginTop: "40px",
                   backgroundColor: buttonColor,
                   color: textColor,
-                  borderRadius: '10px'
+                  borderRadius: "10px",
                 }}
                 onClick={handleAddSelectedPromptpay}
               >
@@ -170,14 +171,14 @@ function PromptPayDetailsTab() {
         </Box>
       </Box>
       <Snackbar
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         open={snackbarOpen}
         autoHideDuration={2000}
         onClose={handleCloseSnackbar}
       >
         <MuiAlert
           elevation={6}
-          variant='filled'
+          variant="filled"
           onClose={handleCloseSnackbar}
           severity={snackbarSeverity}
         >

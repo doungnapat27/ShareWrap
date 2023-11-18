@@ -16,9 +16,6 @@ import {
   DialogContentText,
   DialogActions,
   Snackbar,
-  Paper,
-  IconButton,
-  InputBase,
 } from "@mui/material";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import MuiAlert from "@mui/material/Alert";
@@ -27,7 +24,8 @@ import AddFriendBottomBar from "./addFriendBottomBar";
 import FriendList from "./friendList";
 import { request } from "../../../../helpers/axios_helper";
 import { stringAvatar } from "../../../../helpers/avatar_helper";
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function a11yProps(index) {
   return {
@@ -46,7 +44,7 @@ function AddFriendTab() {
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
   const [selectedFriendsId, setSelectedFriendsId] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(true);
   const [autoValue, setAutoValue] = useState(null);
   const [open, toggleOpen] = useState(false);
 
@@ -65,12 +63,15 @@ function AddFriendTab() {
   const classes = useStyles();
 
   const fetchFriends = async () => {
+    setIsLoading(true);
     try {
       console.log("fetching friends...");
       const response = await request("GET", "/" + uid + "/friends");
       setFriends(response.data);
     } catch (error) {
       console.error("Error fetching friends:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -93,6 +94,7 @@ function AddFriendTab() {
   const handleAddFriend = async (event) => {
     event.preventDefault();
     console.log("adding friend...");
+    setIsLoading(true);
     try {
       setAutoValue({ id: dialogValue.id });
       if (uid === dialogValue.id) {
@@ -125,6 +127,8 @@ function AddFriendTab() {
       } else {
         setSnackbarMessage("Error adding friend!:", error.response.message);
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -179,12 +183,10 @@ function AddFriendTab() {
               onChange={(event, newValue) => {
                 if (typeof newValue === "string") {
                   // timeout to avoid instant validation of the dialog's form.
-                  setTimeout(() => {
                     toggleOpen(true);
                     setDialogValue({
                       id: newValue,
                     });
-                  });
                 } else if (newValue && newValue.inputValue) {
                   toggleOpen(true);
                   setDialogValue({
@@ -210,33 +212,39 @@ function AddFriendTab() {
               clearOnBlur
               handleHomeEndKeys
               renderOption={(props, option) => {
-                const isAlreadyFriend = friends.some(friend => friend.id === option.id);
+                const isAlreadyFriend = friends.some(
+                  (friend) => friend.id === option.id
+                );
                 return (
                   <li {...props} className={classes.searchResults}>
                     <Box className={classes.listFriend}>
                       {isAlreadyFriend && (
-                          <Box className={classes.listName}>
-                            <Avatar {...stringAvatar(option.id)} />
-                            <span style={{ marginLeft: "10px" }}>{option.id}</span>
-                          </Box>
+                        <Box className={classes.listName}>
+                          <Avatar {...stringAvatar(option.id)} />
+                          <span style={{ marginLeft: "10px" }}>
+                            {option.id}
+                          </span>
+                        </Box>
                       )}
                       {isAlreadyFriend && (
                         <Button
                           className={classes.addButton}
                           onClick={() => handleAddToSelected(option.id)}
                         >
-                          {selectedFriendsId.includes(option.id) ? "Remove" : "Add"}
+                          {selectedFriendsId.includes(option.id)
+                            ? "Remove"
+                            : "Add"}
                         </Button>
                       )}
                       {!isAlreadyFriend && (
-                          <Box className={classes.listName}>
-                          <span style={{ marginLeft: "10px" }}>{option.id}</span>
-                          </Box>
+                        <Box className={classes.listName}>
+                          <span style={{ marginLeft: "10px" }}>
+                            {option.id}
+                          </span>
+                        </Box>
                       )}
                       {!isAlreadyFriend && (
-                        <Button
-                          className={classes.addFriendButton}
-                        >
+                        <Button className={classes.addFriendButton}>
                           <PersonAddIcon />
                         </Button>
                       )}
@@ -270,11 +278,9 @@ function AddFriendTab() {
               <form onSubmit={handleAddFriend}>
                 <DialogTitle variant="h4">Add a new friend</DialogTitle>
                 <DialogContent>
-                  <DialogContentText>
-                    This is your friend ?
-                  </DialogContentText>
+                  <DialogContentText>This is your friend ?</DialogContentText>
                   <TextField
-                  className={classes.dialogTextfield}
+                    className={classes.dialogTextfield}
                     InputProps={{
                       readOnly: true,
                     }}
@@ -294,8 +300,19 @@ function AddFriendTab() {
                   />
                 </DialogContent>
                 <DialogActions className={classes.dialogAction}>
-                  <Button className={classes.buttonAdd}type="submit">Yes</Button>
-                  <Button className={classes.buttonCancel} onClick={handleClose}>No</Button>
+                  <Button className={classes.buttonAdd} type="submit">
+                    {isLoading ? (
+                      <CircularProgress size={24} style={{ color: "white" }} />
+                    ) : (
+                      "Yes"
+                    )}
+                  </Button>
+                  <Button
+                    className={classes.buttonCancel}
+                    onClick={handleClose}
+                  >
+                    No
+                  </Button>
                 </DialogActions>
               </form>
             </Dialog>
@@ -307,13 +324,27 @@ function AddFriendTab() {
             </Typography>
           </Box>
           <Box className={classes.friendList}>
-            <FriendList
-              friends={friends}
-              selectedFriends={selectedFriends}
-              setSelectedFriends={setSelectedFriends}
-              setSelectedFriendsId={setSelectedFriendsId}
-              selectedFriendsId={selectedFriendsId}
-            />
+            {isLoading ? (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "100%",
+                  marginTop: "24px",
+                }}
+              >
+                <CircularProgress size={48} style={{ color: "#FFB53B" }} />
+              </Box>
+            ) : (
+              <FriendList
+                friends={friends}
+                selectedFriends={selectedFriends}
+                setSelectedFriends={setSelectedFriends}
+                setSelectedFriendsId={setSelectedFriendsId}
+                selectedFriendsId={selectedFriendsId}
+              />
+            )}
           </Box>
         </Box>
         <Box className={classes.bottomBar}>

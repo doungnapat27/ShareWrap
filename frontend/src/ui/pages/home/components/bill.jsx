@@ -1,7 +1,5 @@
 import React from "react";
-
 import { Box, Typography, Paper, Button } from "@mui/material";
-
 import useStyles from "../../../pages/home/style/penddingBillsStyle";
 
 function Bill({ bills }) {

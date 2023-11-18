@@ -2,7 +2,7 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
   paperContainer: {
-    borderRadius: "10px !important" ,
+    borderRadius: "10px !important",
     backgroundColor: "rgba(255, 255, 255, 0.70)",
     display: "flex",
     padding: "16px 32px 17px",
@@ -16,12 +16,11 @@ const useStyles = makeStyles({
     top: -16,
   },
   positoinTypo: {
-    marginRight: "16px !important"
+    marginRight: "16px !important",
   },
   setWidthTextField: {
-    width: '120px'
-  }
+    width: "120px",
+  },
+});
 
-})
-
-export default useStyles
+export default useStyles;

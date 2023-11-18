@@ -6,7 +6,7 @@ function PendingBills({ userBills }) {
   const classes = useStyles();
   const uid = JSON.parse(localStorage.getItem("auth_user")).id;
   const storedShowImage = JSON.parse(localStorage.getItem("showImage"));
-  console.log('storedShowImage', storedShowImage);
+  console.log("storedShowImage", storedShowImage);
 
   return storedShowImage ? (
     <Box>
