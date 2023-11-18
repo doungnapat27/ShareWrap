@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 
-
 import { Tabs, Tab, Typography, Box, Button, TextField } from "@mui/material";
 
 import { ShareContext } from "../../splitingBill/components/shareBankAndPromptPayContext";
@@ -16,6 +15,8 @@ function EditBankTab() {
   const [value, setValue] = useState(0);
 
   const {
+    isBankAcc,
+    isPromptPay,
     userPayment,
     handlePromptpayChange,
     handleUpdateBankAccount,
@@ -35,6 +36,7 @@ function EditBankTab() {
     userPayment.bankAccNumber &&
     userPayment.bankName
   );
+
   const buttonColor = isButtonDisabled ? "#838383" : "#FFB53B";
   const textColor = isButtonDisabled ? "#fff" : "#000";
 
@@ -108,24 +110,65 @@ function EditBankTab() {
         <Box>
           <Box>
             <Box sx={{ padding: "30px 24px" }}>
-              <Box>
-                <DropDown
-                  placeholder="Select Bank Account"
-                  bankList={bankList}
+              <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  href="/edit-bank-account"
+                  sx={{
+                    backgroundColor: isBankAcc
+                      ? "#FFB53B"
+                      : "rgba(131, 131, 131, 0.50)",
+                    minWidth: "165px",
+                    color: "black",
+                    "&:hover": {
+                      backgroundColor: isBankAcc
+                        ? "#FFB53B"
+                        : "rgba(131, 131, 131, 0.50)",
+                    },
+                  }}
+                >
+                  Bank account
+                </Button>
+                <Box ml={1} />
+                <Button
+                  fullWidth
+                  variant="contained"
+                  // onClick={handleChangeIsProptPay}
+                  href="/edit-promptpay"
+                  sx={{
+                    backgroundColor: isPromptPay
+                      ? "#FFB53B"
+                      : "rgba(131, 131, 131, 0.50)",
+                    minWidth: "165px",
+                    color: "black",
+                    "&:hover": {
+                      backgroundColor: isPromptPay
+                        ? "#FFB53B"
+                        : "rgba(131, 131, 131, 0.50)",
+                    },
+                  }}
+                >
+                  Promptpay
+                </Button>
+              </Box>
+
+              <Box></Box>
+              <DropDown placeholder="Select Bank Account" bankList={bankList} />
+              <Box mt={3}>
+                <Typography mb={1}>Bank account name</Typography>
+                <TextField
+                  fullWidth
+                  placeholder="Ex) Srisamorn Sanuksud"
+                  onChange={(e) =>
+                    handlePromptpayChange("bankAccount", e.target.value)
+                  }
+                  value={userPayment.bankAccount}
+                  sx={{ backgroundColor: "#fff", borderRadius: "10px" }}
+                  type="text"
                 />
-                <Box>
-                  <Typography>Bank account name</Typography>
-                  <TextField
-                    fullWidth
-                    placeholder="Ex) Srisamorn Sanuksud"
-                    onChange={(e) =>
-                      handlePromptpayChange("bankAccount", e.target.value)
-                    }
-                    value={userPayment.bankAccount}
-                    sx={{ backgroundColor: "#fff", borderRadius: "10px" }}
-                    type="text"
-                  />
-                  <Typography>Bank account number</Typography>
+                <Box mt={3}>
+                  <Typography mb={1}>Bank account number</Typography>
                   <TextField
                     fullWidth
                     placeholder="Ex) 01234567890"
@@ -136,24 +179,24 @@ function EditBankTab() {
                     sx={{ backgroundColor: "#fff", borderRadius: "10px" }}
                     type="number"
                   />
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    endIcon={<ArrowForwardIcon />}
-                    disabled={isButtonDisabled}
-                    href="/splitting-bill"
-                    sx={{
-                      padding: "12px 20px",
-                      marginTop: "40px",
-                      backgroundColor: buttonColor,
-                      color: textColor,
-                      borderRadius: "10px",
-                    }}
-                    onClick={handleUpdateBankAccount}
-                  >
-                    <Typography>Confirm edit</Typography>
-                  </Button>
                 </Box>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  endIcon={<ArrowForwardIcon />}
+                  disabled={isButtonDisabled}
+                  href="/splitting-bill"
+                  sx={{
+                    padding: "12px 20px",
+                    marginTop: "40px",
+                    backgroundColor: buttonColor,
+                    color: textColor,
+                    borderRadius: "10px",
+                  }}
+                  onClick={handleUpdateBankAccount}
+                >
+                  <Typography>Confirm edit</Typography>
+                </Button>
               </Box>
             </Box>
           </Box>
