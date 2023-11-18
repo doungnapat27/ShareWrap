@@ -137,7 +137,7 @@ function PromptPayDetailsTab() {
                     type="text"
                   />
                 </Box>
-                <Typography mt={2}>PromptPay ID</Typography>
+                <Typography mt={3}>PromptPay ID</Typography>
                 <Box mt={1}>
                   <TextField
                     fullWidth
