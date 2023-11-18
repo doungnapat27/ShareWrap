@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Tabs, Tab, TabList, Typography, Box, Button, Link } from "@mui/material";
+import {
+  Tabs,
+  Tab,
+  TabList,
+  Typography,
+  Box,
+  Button,
+  Link,
+} from "@mui/material";
 import useStyles from "../style/hometabStyle";
 
 import CreateBill from "./createBillButton";
@@ -24,17 +32,17 @@ function a11yProps(index) {
 
 function HomeTab() {
   const [value, setValue] = useState(0);
-  const classes = useStyles()
-  const billItems = [1] // mock up data
+  const classes = useStyles();
+  const billItems = [1]; // mock up data
   // const [billItems, setBillItems] = useState([])
-  const uid = JSON.parse(localStorage.getItem('auth_user')).id
+  const uid = JSON.parse(localStorage.getItem("auth_user")).id;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   const handleCreateBill = () => {
     setTimeout(() => {
-      window.location.href = "/splitting-bill";; 
+      window.location.href = "/splitting-bill";
     }, 1000);
   };
   return (
@@ -69,12 +77,8 @@ function HomeTab() {
           <Box className={classes.containerInfo}>
             <TabPanel value={value} index={0}>
               <Box>
-                <CreateBill 
-                  onClick = {handleCreateBill}
-                />
-                <Typography variant='h4'>
-                  Pending bills
-                </Typography>
+                <CreateBill onClick={handleCreateBill} />
+                <Typography variant="h4">Pending bills</Typography>
                 {billItems.length > 0 ? (
                   <Box mt={2}>
                     {billItems.map((key, index) => (
@@ -85,13 +89,16 @@ function HomeTab() {
                     ))}
                   </Box>
                 ) : (
-                  <Box sx={{ textAlign: 'center', marginTop: '22px' }}>
+                  <Box sx={{ textAlign: "center", marginTop: "22px" }}>
                     <Box>
-                      <Typography variant="h5" sx={{ color: '#838383', marginBottom: '11px' }}>
+                      <Typography
+                        variant="h5"
+                        sx={{ color: "#838383", marginBottom: "11px" }}
+                      >
                         No pending bill.
                       </Typography>
                     </Box>
-                    <Link href="#" variant="h4" sx={{ color: '#981E25' }}>
+                    <Link href="#" variant="h4" sx={{ color: "#981E25" }}>
                       Create bill
                     </Link>
                   </Box>

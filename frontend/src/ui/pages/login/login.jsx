@@ -5,6 +5,7 @@ import withStyles from './style/loginStyle';
 import InputText from './components/loginInputText';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import CircularProgress from '@mui/material/CircularProgress';
 import { request, setAuthHeader, setUser } from '../../../helpers/axios_helper';
 
 class Loginpage extends Component {
@@ -16,6 +17,7 @@ class Loginpage extends Component {
         snackbarOpen: false,
         snackbarMessage: '',
         snackbarSeverity: 'success',
+        isLoading: false,
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,6 +30,7 @@ class Loginpage extends Component {
     };
     handleSubmit = (e) => {
         e.preventDefault();
+        this.setState({ isLoading: true }); 
         this.login(e);
     };
     
@@ -50,12 +53,11 @@ class Loginpage extends Component {
             console.log(uid);
             this.setState({
               snackbarOpen: true,
+              isLoading: false,
               snackbarMessage: 'Logged in successfully!!',
               snackbarSeverity: 'success',
               }, () => { 
-                setTimeout(() => {
-                    window.location.href = "/home/"+uid; 
-                }, 1000); 
+                window.location.href = "/home/"+uid; 
             });
         }).catch(
         (error) => {
@@ -63,6 +65,7 @@ class Loginpage extends Component {
             setAuthHeader(null);
             this.setState({
               snackbarOpen: true,
+              isLoading: false,
               snackbarMessage: error.response.data.message,
               snackbarSeverity: 'error'
           });
@@ -119,7 +122,7 @@ class Loginpage extends Component {
                         type="submit"
                         onClick={this.handleSubmit}
                     >
-                        Login
+                        {this.state.isLoading ? <CircularProgress size={24} style={{ color: '#FFB53B' }} /> : "Login"}
                     </Button>
                     <Box className={classes.BoxaccountText}>
                           <Typography variant="body1">

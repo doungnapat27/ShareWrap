@@ -4,6 +4,7 @@ import InputText from './components/registerInputText';
 import withStyles from './style/registerStyle';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import CircularProgress from '@mui/material/CircularProgress';
 import { request, setAuthHeader } from '../../../helpers/axios_helper';
 
 class Register extends Component {
@@ -17,6 +18,7 @@ class Register extends Component {
             snackbarOpen: false,
             snackbarMessage: '',
             snackbarSeverity: 'success',
+            isLoading: false,
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -50,6 +52,7 @@ class Register extends Component {
             this.setState({confirmPasswordError: "Passwords do not match."})
         } else {
             this.setState({confirmPasswordError: ""})
+            this.setState({ isLoading: true });
             this.register(e)
         }
         console.log(this.state);
@@ -69,18 +72,18 @@ class Register extends Component {
             setAuthHeader(response.data.token);
             this.setState({
               snackbarOpen: true,
+              isLoading: false,
               snackbarMessage: 'Registration successful!',
               snackbarSeverity: 'success',
               }, () => { 
-                setTimeout(() => {
-                    window.location.href = "/";; 
-                }, 1000); 
+                window.location.href = "/";
             });
         }).catch(
         (error) => {
             setAuthHeader(null);
             this.setState({
               snackbarOpen: true,
+              isLoading: false ,
               snackbarMessage: error.response.data.message,
               snackbarSeverity: 'error'
             });
@@ -165,7 +168,7 @@ class Register extends Component {
                                 !this.state.confirmPassword ||
                                 this.state.password !== this.state.confirmPassword}
                         >
-                            Register
+                            {this.state.isLoading ? <CircularProgress size={24} style={{ color: '#FFB53B' }} /> : "Register"}
                         </Button>
                         <Box  className={classes.AccountBox}>
                             <Typography variant="body1">
