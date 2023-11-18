@@ -22,6 +22,7 @@ import EditBankAccount from "./ui/pages/editBankAccount/editBankAccount.jsx";
 import EditPromptpay from "./ui/pages/editPromptpay/editPromptpay.jsx";
 import ViewReceipt from "./ui/pages/viewReceipt/viewReceipt.jsx";
 import BillSummary from "./ui/pages/billSummary/billSummary"
+import PaymentDetails from "./ui/pages/paymentDetails/paymentDetails.jsx";
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
             <Route path="/add-Friend" element={<AddFriend/>} />
             <Route path="/summary-bill" element={<SummaryBill/>} />
             <Route path="/bill-summary" element={<BillSummary/>} />
+            <Route path="/payment-details" element={<PaymentDetails />} />
           {/* </Route> */}
           {/* <Route path="/create-bill" element={<CreateBill />} /> No longer use */}
           <Route path="*" element={<PageNotFound />} />

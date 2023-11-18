@@ -51,7 +51,7 @@ function BillSummaryTab() {
                     <Box className={classes.menuContainer}>
                         <Paper className={classes.topicContainer}>
                             <Typography variant="h4">
-                                {billTitle || "Default Bill Name"}
+                                {billTitle || "My Bill"}
                             </Typography>
                             <Typography variant="h4">
                                 ฿ {totalCost.toLocaleString()} 
