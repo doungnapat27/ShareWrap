@@ -60,6 +60,7 @@ export const ShareImageProvider = ({ children }) => {
           window.location.href =
             '/receipt-uploaded/' + localStorage.getItem('userBillId')
         }, 4000)
+        
       } catch (error) {
         setSnackbarOpen(true)
         setSnackbarSeverity('error')

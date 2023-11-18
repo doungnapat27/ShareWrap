@@ -42,6 +42,9 @@ public class UserBill {
     @Column(name = "receipt", columnDefinition="LONGBLOB")
     private byte[] receipt;
 
+    @Column(name = "receipt_type")
+    private String receiptType;
+
     @Getter
     @Column
     private Date uploadedDate;

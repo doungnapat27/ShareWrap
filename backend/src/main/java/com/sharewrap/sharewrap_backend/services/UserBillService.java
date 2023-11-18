@@ -126,6 +126,11 @@ public class UserBillService {
         UserBill userBill = userBillRepository.findById(id)
                 .orElseThrow(() -> new AppException("UserBill not found", HttpStatus.NOT_FOUND));
 
+        if (receipt.startsWith("data:image/png;base64,")) {
+            userBill.setReceiptType("data:image/png;base64,");
+        } else {
+            userBill.setReceiptType("data:image/jpeg;base64,");
+        }
         userBill.setReceipt(convertBase64ToBlob(receipt));
         if(userBill.getReceipt() == null){
             throw new AppException("Receipt is not uploaded", HttpStatus.NOT_FOUND);
@@ -134,5 +139,15 @@ public class UserBillService {
         userBill.setIsPaid(true);
         userBillRepository.save(userBill);
         return "Receipt uploaded successfully. You paid for what you eat, Thank you na HAFFU~~!";
+    }
+
+    public String getReceipt(Long id) {
+        UserBill userBill = userBillRepository.findById(id)
+                .orElseThrow(() -> new AppException("UserBill not found", HttpStatus.NOT_FOUND));
+        byte[] receipt = userBill.getReceipt();
+        if(receipt == null){
+            throw new AppException("Receipt is not uploaded", HttpStatus.NOT_FOUND);
+        }
+        return userBill.getReceiptType()+convertToBase64(receipt);
     }
 }

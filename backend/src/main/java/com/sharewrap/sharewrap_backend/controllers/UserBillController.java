@@ -40,4 +40,9 @@ public class UserBillController {
         return ResponseEntity.ok(userBillService.updateReceipt(id, receipt));
     }
 
+    @GetMapping("/receipt/userBill/{id}")
+    public ResponseEntity<String> getReceiptUserBill(@PathVariable Long id) {
+        return ResponseEntity.ok(userBillService.getReceipt(id));
+    }
+
 }
