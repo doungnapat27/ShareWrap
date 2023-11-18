@@ -50,8 +50,7 @@ function SummaryBillTab() {
       }
     }
     if (billDetails && billDetails.items) {
-      setOriginalItems(billDetails.items); // Store the original items when component mounts
-      // ... other initializations
+      setOriginalItems(billDetails.items); 
     }
   }, []);
 
