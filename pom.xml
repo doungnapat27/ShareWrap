@@ -127,6 +127,15 @@
 					</compilerArgs>
 				</configuration>
 			</plugin>
+			<plugin>
+        			<groupId>org.springframework.boot</groupId>
+        			<artifactId>spring-boot-maven-plugin</artifactId>
+        			<configuration>
+            			<mainClass>com.sharewrap.sharewrap_backend.SharewrapBackendApplication</mainClass>
+            			<layout>JAR</layout>
+			</plugin>
+        </configuration>
+    </plugin>
 		</plugins>
 	</build>
 
