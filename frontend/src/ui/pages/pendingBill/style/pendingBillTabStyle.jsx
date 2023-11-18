@@ -174,12 +174,12 @@ const useStyles = makeStyles({
     height: '40px',
     color: 'black',
     marginBottom: '10px',
-    borderRadius: '10px',
+    borderRadius: '20px',
   }),
   yesButton:addImportant({
     color: 'white',
     backgroundColor: 'red',
-    borderRadius: '10px',
+    borderRadius: '20px',
     height: '40px',
     width: "100%",
   })
