@@ -42,11 +42,11 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
 <details>
 <summary><h2>📱 Unit testing 📱</h2></summary>
 <details>
-<summary><h3>Feel free to use this template</h3></summary>
+<summary><h3>Test case #1: <code> Valid username and password for Log In </code> </h3></summary>
    
-### Name of the Test: 
-### The goal of the test case:
-### Tool using for testing:
+### Name of the Test: Valid username and password for Log In
+### The goal of the test case: Verify that a user can successfully log in with a valid username and password
+### Tool using for testing: ISP (Input Space Partitioning) technique
 ### The characteristics developed for this test case:
    - **Interface-based:**
    - **Functionality-based:**
@@ -54,10 +54,60 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
 1. Identify testable functions
 2. Identify parameters, return types, return values, and exceptional behavior
    - Parameters:
-   - Return type:
+     - Email
+     - Password
+   - Return type: 
+     - User for a successful login
+     - Null for an indication of failure
    - Return value:
-   - Exceptional behavior:
-4. Model the input domain
+     - A user object if the login is successful.
+     - Null or an indication of failure if the login is unsuccessful.???
+   - Exceptional behavior: If the provided email or password is invalid, the method  throw an authentication exception. ???
+3. Model the input domain
+   - Develop Characteristics
+     - C1 = Email
+     - C2 = Password
+   - Partition characteristics
+     
+     | Characteristic | b1 | b2 | b3 |
+     | -------------- | --- | --- | ------ |
+     | Email | Valid | Invalid | Empty |
+     | Password | Valid | Invalid | Empty |
+     
+   - Identify (possible) values
+     
+     | Characteristic | b1 | b2 | b3 |
+     | -------------- | --- | --- | ------ |
+     | Email | "valid@example.com" | "NotUserEmail@example.com" | "" |
+     | Password | "validPassword" | "NotUserPassword" | "" |
+     
+5. Combine partitions to define test requirements
+   - Assumption: Each combination of email and password is a separate test requirement.
+   - Test Requirements: number of test (upper bound) = 9
+       - (Valid, Valid), (Invalid, Valid), (Valid, Invalid), (Invalid, Invalid), (Empty, Valid), (Valid, Empty), (Empty, Invalid), (Invalid, Empty), (Empty, Empty)
+  
+6. Derive test values
+
+     | Test | Email | Password | Expected Results|
+     | ---------------- | ---------- | ---------- | --------------- |
+     | T1 (Valid, Valid) | "valid@example.com" | "validPassword" | UserDto (indicating successful login) |
+     | T2 (Invalid, Valid) | "NotUserEmail@example.com" |	"validPassword" | Exception: Invalid credentials |
+     | T3 (Valid, Invalid) | "valid@example.com" | "NotUserPassword" | Exception: Invalid credentials |
+     | T4 (Invalid, Invalid) | "NotUserEmail@example.com" | "NotUserPassword" | Exception: Invalid credentials |
+     | T5 (Empty, Valid) | "" | "validPassword" | Exception: Invalid credentials |
+     | T6 (Valid, Empty) | "valid@example.com" |	"" | Exception: Invalid credentials |
+     | T7 (Empty, Invalid) | "" | "NotUserPassword" | Exception: Invalid credentials |
+     | T8 (Invalid, Empty) | "NotUserEmail@example.com" |	"" | Exception: Invalid credentials |
+     | T9 (Empty, Empty) | "" |	"" | Exception: Invalid credentials |
+   
+**Functionality-based**
+1. Identify testable functions
+2. Identify parameters, return types, return values, and exceptional behavior
+   - Parameters: cal, epoch
+   - Return type: long
+   - Return value: cal.getTimeInMillis();
+   - Exceptional behavior: ??
+3. Model the input domain
    - Develop Characteristics
      - C1 =
    - Partition characteristics
@@ -74,43 +124,10 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
      
 5. Combine partitions to define test requirements
    - Assumption:
-   - Test Requirements: number of test (upper bound) =
-      - (,)
-  
-6. Derive test values
-
-     | Test             |            |            | expected results|
-     | ---------------- | ---------- | ---------- | --------------- |
-     |  T1(,)           |            |            |                 |
-   
-**Functionality-based**
-1. Identify testable functions
-3. Identify parameters, return types, return values, and exceptional behavior
-   - Parameters: cal, epoch
-   - Return type: long
-   - Return value: cal.getTimeInMillis();
-   - Exceptional behavior: ??
-5. Model the input domain
-   - Develop Characteristics
-     - C1 =
-   - Partition characteristics
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-   - Identify (possible) values
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-6. Combine partitions to define test requirements
-   - Assumption:
    - Test Requirements: number of test(upper bound) =
       - (,)
   
-7. Derive test values
+6. Derive test values
 
      | Test             |            |            | expected results|
      | ---------------- | ---------- | ---------- | --------------- |
