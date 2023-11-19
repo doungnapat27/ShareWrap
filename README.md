@@ -44,94 +44,95 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
 <details>
 <summary><h3>Test case #1: <code> Valid username and password for Log In </code> </h3></summary>
    
-### Name of the Test: Valid username and password for Log In
-### The goal of the test case: Verify that a user can successfully log in with a valid username and password
-### Tool using for testing: ISP (Input Space Partitioning) technique
+### Name of the Test: Validate username and password
+### The goal of the test case: validate user input for a valid email and password, ensuring that the validation function works correctly.
+### Tool using for testing: JUnit
 ### The characteristics developed for this test case:
    - **Interface-based:**
    - **Functionality-based:**
 **Interface-based**
 1. Identify testable functions
+   -  'login' method in the 'UserService' class
 2. Identify parameters, return types, return values, and exceptional behavior
    - Parameters:
      - Email
      - Password
    - Return type: 
-     - User for a successful login
-     - Null for an indication of failure
+     - 'boolean'
    - Return value:
-     - A user object if the login is successful.
-     - Null or an indication of failure if the login is unsuccessful.???
-   - Exceptional behavior: If the provided email or password is invalid, the method  throw an authentication exception. ???
+     - 'true' if the user is valid
+     - 'false' otherwise.
+   - Exceptional behavior: -
+3. Model the input domain
+   - Develop Characteristics
+    - C1 = Valid email and password
+   - Partition characteristics
+     
+     | Characteristic | b1 | b2 |
+     | -------------- | --- | --- |
+     | Valid email and password | true | false |
+     
+   - Identify (possible) values
+     
+     | Characteristic | b1 | b2 |
+     | -------------- | --- | --- |
+     | Email | "test@example.com" | "test_invalid@example.com" |
+     | Password | "password" | "wrongPassword" |
+     
+4. Combine partitions to define test requirements
+   - Assumption: Each Choice Coverage (ECC)
+   - Test Requirements: number of test (upper bound) = 2
+       - (true), (false)
+  
+5. Derive test values
+
+     | Test | Email and Password | Expected Results|
+     | ---------------- | ---------- | --------------- |
+     | T1 (true) | (test@example.com, password) | true |
+     | T2 (false) | (test@example.com, wrongPassword) | false |
+   
+**Functionality-based**
+1. Identify testable functions
+   -  'login' method in the 'UserService' class
+2. Identify parameters, return types, return values, and exceptional behavior
+   - Parameters:
+     - 'LoginDto' containing email and password.
+   - Return type: 
+     - 'UserDto' for a successful login
+     - 'null' for an indication of failure
+   - Return value:
+     - A user object if the login is successful
+     - 'null' or an indication of failure if the login is unsuccessful
+   - Exceptional behavior: If the provided email or password is invalid, the method may throw an 'AppException'
 3. Model the input domain
    - Develop Characteristics
      - C1 = Email
      - C2 = Password
    - Partition characteristics
      
-     | Characteristic | b1 | b2 | b3 |
-     | -------------- | --- | --- | ------ |
-     | Email | Valid | Invalid | Empty |
-     | Password | Valid | Invalid | Empty |
+     | Characteristic | b1 | b2 |
+     | -------------- | --- | --- |
+     | Email | Valid | Invalid |
+     | Password | Valid | Invalid |
      
    - Identify (possible) values
      
      | Characteristic | b1 | b2 | b3 |
      | -------------- | --- | --- | ------ |
-     | Email | "valid@example.com" | "NotUserEmail@example.com" | "" |
-     | Password | "validPassword" | "NotUserPassword" | "" |
+     | Email | "test@example.com" | "test_invalid@example.com" |
+     | Password | "password" | "wrongPassword" |
      
-5. Combine partitions to define test requirements
-   - Assumption: Each combination of email and password is a separate test requirement.
-   - Test Requirements: number of test (upper bound) = 9
-       - (Valid, Valid), (Invalid, Valid), (Valid, Invalid), (Invalid, Invalid), (Empty, Valid), (Valid, Empty), (Empty, Invalid), (Invalid, Empty), (Empty, Empty)
+4. Combine partitions to define test requirements
+   - Assumption: Each Choice Coverage (ECC)
+   - Test Requirements: number of test (upper bound) = 2
+       - (Valid, Valid), (Invalid, Invalid),
   
-6. Derive test values
+5. Derive test values
 
      | Test | Email | Password | Expected Results|
      | ---------------- | ---------- | ---------- | --------------- |
-     | T1 (Valid, Valid) | "valid@example.com" | "validPassword" | UserDto (indicating successful login) |
-     | T2 (Invalid, Valid) | "NotUserEmail@example.com" |	"validPassword" | Exception: Invalid credentials |
-     | T3 (Valid, Invalid) | "valid@example.com" | "NotUserPassword" | Exception: Invalid credentials |
-     | T4 (Invalid, Invalid) | "NotUserEmail@example.com" | "NotUserPassword" | Exception: Invalid credentials |
-     | T5 (Empty, Valid) | "" | "validPassword" | Exception: Invalid credentials |
-     | T6 (Valid, Empty) | "valid@example.com" |	"" | Exception: Invalid credentials |
-     | T7 (Empty, Invalid) | "" | "NotUserPassword" | Exception: Invalid credentials |
-     | T8 (Invalid, Empty) | "NotUserEmail@example.com" |	"" | Exception: Invalid credentials |
-     | T9 (Empty, Empty) | "" |	"" | Exception: Invalid credentials |
-   
-**Functionality-based**
-1. Identify testable functions
-2. Identify parameters, return types, return values, and exceptional behavior
-   - Parameters: cal, epoch
-   - Return type: long
-   - Return value: cal.getTimeInMillis();
-   - Exceptional behavior: ??
-3. Model the input domain
-   - Develop Characteristics
-     - C1 =
-   - Partition characteristics
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-   - Identify (possible) values
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-5. Combine partitions to define test requirements
-   - Assumption:
-   - Test Requirements: number of test(upper bound) =
-      - (,)
-  
-6. Derive test values
-
-     | Test             |            |            | expected results|
-     | ---------------- | ---------- | ---------- | --------------- |
-     |  T1(,)           |            |            |                 |
+     | T1 (Valid, Valid) | "test@example.com" | "password" | UserDto (indicating successful login) |
+     | T2 (Invalid, Invalid) | "test_invalid@example.com" | "wrongPassword" | "" |
 
 </details> 
 
@@ -151,7 +152,7 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
    - Return type:
    - Return value:
    - Exceptional behavior:
-4. Model the input domain
+3. Model the input domain
    - Develop Characteristics
      - C1 =
    - Partition characteristics
@@ -166,12 +167,12 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
      | ---------------- | ---------- | ---------- | ----------------------------------- |
      |                  |            |            |                                     |
      
-5. Combine partitions to define test requirements
+4. Combine partitions to define test requirements
    - Assumption:
    - Test Requirements: number of test (upper bound) =
       - (,)
   
-6. Derive test values
+5. Derive test values
 
      | Test             |            |            | expected results|
      | ---------------- | ---------- | ---------- | --------------- |
