@@ -2,9 +2,6 @@ import React from "react";
 import useStyles from "../style/pendingBillTabStyle";
 import {
   Box,
-  Tab,
-  Tabs,
-  Paper,
   Typography,
   Button,
   Avatar,
@@ -13,7 +10,7 @@ import { stringAvatar } from "../../../../helpers/avatar_helper";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 
-function PendingBillPaid() {
+function PendingBillPaid({ bills}) {
   const classes = useStyles();
   return (
     <Box className={classes.paid}>
