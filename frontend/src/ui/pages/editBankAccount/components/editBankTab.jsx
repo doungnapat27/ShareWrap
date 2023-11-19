@@ -12,6 +12,8 @@ function EditBankTab() {
   const [value, setValue] = useState(0);
 
   const {
+    isBankAcc,
+    isPromptPay,
     userPayment,
     handlePromptpayChange,
     handleUpdateBankAccount,
@@ -104,13 +106,55 @@ function EditBankTab() {
         <Box>
           <Box>
             <Box sx={{ padding: "30px 24px" }}>
+              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  href="/edit-bank-account"
+                  sx={{
+                    backgroundColor: isBankAcc
+                      ? "#FFB53B"
+                      : "rgba(131, 131, 131, 0.50)",
+                    minWidth: "165px",
+                    color: "black",
+                    "&:hover": {
+                      backgroundColor: isBankAcc
+                        ? "#FFB53B"
+                        : "rgba(131, 131, 131, 0.50)",
+                    },
+                  }}
+                >
+                  Bank account
+                </Button>
+                <Box ml={1} />
+                <Button
+                  fullWidth
+                  variant="contained"
+                  // onClick={handleChangeIsProptPay}
+                  href="/edit-promptpay"
+                  sx={{
+                    backgroundColor: isPromptPay
+                      ? "#FFB53B"
+                      : "rgba(131, 131, 131, 0.50)",
+                    minWidth: "165px",
+                    color: "black",
+                    "&:hover": {
+                      backgroundColor: isPromptPay
+                        ? "#FFB53B"
+                        : "rgba(131, 131, 131, 0.50)",
+                    },
+                  }}
+                >
+                  Promptpay
+                </Button>
+              </Box>
               <Box>
                 <DropDown
                   placeholder="Select Bank Account"
                   bankList={bankList}
                 />
-                <Box>
-                  <Typography>Bank account name</Typography>
+                <Box mt={3}>
+                  <Typography mb={1}>Bank account name</Typography>
                   <TextField
                     fullWidth
                     placeholder="Ex) Srisamorn Sanuksud"
@@ -121,17 +165,19 @@ function EditBankTab() {
                     sx={{ backgroundColor: "#fff", borderRadius: "10px" }}
                     type="text"
                   />
-                  <Typography>Bank account number</Typography>
-                  <TextField
-                    fullWidth
-                    placeholder="Ex) 01234567890"
-                    onChange={(e) =>
-                      handlePromptpayChange("bankAccNumber", e.target.value)
-                    }
-                    value={userPayment.bankAccNumber}
-                    sx={{ backgroundColor: "#fff", borderRadius: "10px" }}
-                    type="number"
-                  />
+                  <Box mt={3}>
+                    <Typography mb={1}>Bank account number</Typography>
+                    <TextField
+                      fullWidth
+                      placeholder="Ex) 01234567890"
+                      onChange={(e) =>
+                        handlePromptpayChange("bankAccNumber", e.target.value)
+                      }
+                      value={userPayment.bankAccNumber}
+                      sx={{ backgroundColor: "#fff", borderRadius: "10px" }}
+                      type="number"
+                    />
+                  </Box>
                   <Button
                     fullWidth
                     variant="contained"
