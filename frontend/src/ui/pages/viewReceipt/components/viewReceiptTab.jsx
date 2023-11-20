@@ -56,7 +56,7 @@ function ViewRecepitTab() {
               sx={{
                 flex: 1,
                 width: "50%",
-                color: "black",
+                color: "black !important",
               }}
               label="Friend's bill details"
             />

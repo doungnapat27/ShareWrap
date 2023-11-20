@@ -10,10 +10,10 @@ export const ShareImageProvider = ({ children }) => {
     return storedImage ? storedImage : null;
   });
   const [showImage, setShowImage] = useState(false);
-
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleUploadFile = (e) => {
     const file = e.target.files[0];
@@ -39,6 +39,7 @@ export const ShareImageProvider = ({ children }) => {
     event.preventDefault();
 
     if (uploadImage !== null) {
+      setIsUploading(true);
       setShowImage(true);
       localStorage.setItem("showImage", JSON.stringify(true));
 
@@ -61,6 +62,8 @@ export const ShareImageProvider = ({ children }) => {
         setSnackbarSeverity("error");
         setSnackbarMessage(error.message);
         console.log(error);
+      } finally {
+        setIsUploading(false);
       }
     }
   };
@@ -75,6 +78,7 @@ export const ShareImageProvider = ({ children }) => {
         snackbarOpen,
         snackbarMessage,
         snackbarSeverity,
+        isUploading,
         setSnackbarOpen,
       }}
     >

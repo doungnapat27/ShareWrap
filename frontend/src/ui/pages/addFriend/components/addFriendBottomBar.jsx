@@ -1,17 +1,25 @@
-import React from "react";
+import React, {useState} from "react";
 import useStyles from "../style/addFriendBottomBarStyle";
 import { Box, Button, Typography, Avatar, AvatarGroup } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { stringAvatar } from "../../../../helpers/avatar_helper";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function AddFriendBottomBar({ selectedFriends, selectedFriendsId }) {
   const classes = useStyles();
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleSaveSelectedFriends = () => {
+    setIsLoading(true);
     localStorage.setItem(
       "selectedFriendsId",
       JSON.stringify(selectedFriendsId)
     );
       window.location.href = "/summary-bill";
+      // setTimeout(() => {
+      //   setIsLoading(false);
+      //   window.location.href = "/summary-bill";
+      // }, 1000);
   };
 
   return (
@@ -31,10 +39,15 @@ function AddFriendBottomBar({ selectedFriends, selectedFriendsId }) {
           <Button
             fullWidth={true}
             className={classes.positionButton}
-            endIcon={<ArrowForwardIcon />}
+            endIcon={!isLoading && <ArrowForwardIcon />}
             onClick={handleSaveSelectedFriends}
+            disabled={isLoading} // Disable the button while loading
           >
-            Next
+            {isLoading ? (
+              <CircularProgress size={24} style={{ color: "rgba(152, 30, 37, 0.80)" }} />
+            ) : (
+              "Next"
+            )}
           </Button>
         </Box>
       </Box>
