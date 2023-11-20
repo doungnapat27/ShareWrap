@@ -163,7 +163,7 @@ function HomeTab() {
                   </Box>
                 ) : (
                   <Box>
-                    {userBills.length > 0 || bills.length > 0 ? (
+                    {userBills.length > 0 && bills.length > 0 ? (
                       <Box
                         mt={2}
                         className={`${classes.billContainer} ${
