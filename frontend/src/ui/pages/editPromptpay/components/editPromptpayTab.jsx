@@ -124,7 +124,6 @@ function EditPromptpayTab() {
                 <Button
                   fullWidth
                   variant='contained'
-                  // onClick={handleChangeIsProptPay}
                   sx={{
                     backgroundColor: isPromptPay ? "#FFB53B" : "rgba(131, 131, 131, 0.50)",
                     minWidth: "165px",
