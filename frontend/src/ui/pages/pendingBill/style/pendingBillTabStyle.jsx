@@ -70,6 +70,11 @@ const useStyles = makeStyles({
     padding: "10px",
     borderRadius: "10px",
   },
+  statusContainerNotRecieved:{
+    backgroundColor: "rgba(227, 34, 49, 0.60)",
+    padding: "10px",
+    borderRadius: "10px",
+  },
   billContainer:{
     width: "100%",
     display: "flex",
