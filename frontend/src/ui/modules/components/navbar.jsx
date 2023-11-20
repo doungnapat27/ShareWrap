@@ -32,6 +32,9 @@ function Navbar() {
 
   const handleLogoClick = () => {
     window.location.href = "/home"; 
+    localStorage.removeItem('billDetails');
+    localStorage.removeItem('selectedFriendsId');
+    localStorage.removeItem('billsummary');
   };
   const classes = useStyles();
   const userData = JSON.parse(localStorage.getItem('auth_user'));
