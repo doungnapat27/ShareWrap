@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Box, Typography, Paper, Button } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Paper,
+  Button,
+  CircularProgress,
+} from "@mui/material";
 import logoKasikorn from "../../../assets/kasikorn.png";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
@@ -12,20 +18,22 @@ import useStyles from "../style/uploadReceiptStyle";
 function MethodPay() {
   const classes = useStyles();
   const [userBill, setUserBill] = useState();
-  // const [isPromptPay, setIsPromptPay] = useState(false)
+  const [isLoading, setIsLoading] = useState(true);
 
   const uid = JSON.parse(localStorage.getItem("auth_user")).id;
 
   const fetchUserBill = async () => {
+    setIsLoading(true);
     try {
       const response = await request(
         "GET",
         "/" + uid + "/userBills/" + window.location.pathname.split("/")[3]
       );
       setUserBill(response.data);
-      localStorage.setItem("userBillId", response.data.id);
     } catch (error) {
       alert(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -56,9 +64,10 @@ function MethodPay() {
         </Box>
       );
     } else if (userBill && userBill.paymentType === "P") {
-      return (
+      return isLoading ? (
+        <CircularProgress size={45} style={{ color: "#FFB53B" }} />
+      ) : (
         <Box>
-          <Typography sx={{ marginBottom: "11px" }}>1. Save QR Code</Typography>
           <Paper
             sx={{
               backgroundColor: "rgba(255, 255, 255, 0.70)",
@@ -101,13 +110,15 @@ function MethodPay() {
 
   useEffect(() => {
     fetchUserBill();
-    console.log("userBill", userBill);
   }, []);
 
   return (
     <Box p={4} className={classes.cover}>
       <Box className={classes.container}>
         <Box className={classes.receiptContainer}>
+          <Typography sx={{ marginBottom: "11px" }}>
+            1. Save QR Code
+            </Typography>
           {renderPaymentMethod()}
           <Typography sx={{ marginBottom: "42px" }}>
             2. Go to transfer via your mobile banking

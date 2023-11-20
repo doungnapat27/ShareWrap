@@ -22,6 +22,7 @@ function a11yProps(index) {
   };
 }
 
+
 function HomeTab() {
   const [value, setValue] = useState(0);
   const classes = useStyles();
@@ -72,6 +73,7 @@ function HomeTab() {
     }
   };
 
+
   const fetchBills = async () => {
     setIsLoading(true);
     try {
@@ -118,9 +120,6 @@ function HomeTab() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const handleCreateBill = () => {
-    window.location.href = "/splitting-bill";
-  };
   return (
     <Box className={classes.cover}>
       <Box className={classes.container}>
@@ -148,7 +147,7 @@ function HomeTab() {
           <Box className={classes.containerInfo}>
             <TabPanel value={value} index={0}>
               <Box>
-                <CreateBill onClick={handleCreateBill} />
+                <CreateBill/>
                 <Typography variant="h4">History bills</Typography>
                 {isLoading ? (
                   <Box

@@ -17,6 +17,8 @@ import com.sharewrap.sharewrap_backend.repositories.UserBillRepository;
 import com.sharewrap.sharewrap_backend.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -40,9 +42,7 @@ public class BillService {
     private final UserBillRepository userBillRepository;
     private final ItemRepository itemRepository;
 
-    public List<BillDto> allBills() {
-        return billMapper.toBillDtos(billRepository.findAll());
-    }
+
     public List<BillDto> allBillsUser(String userId) throws SQLException {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
@@ -53,20 +53,14 @@ public class BillService {
             Bill bill = billRepository.findById(billMapped.getId())
                     .orElseThrow(() -> new AppException("Unknown bill", HttpStatus.NOT_FOUND));
 
-//            if(bill.getReceipt() != null){
-                System.out.println("Receipt of: "+bill.getId()+":" + Arrays.toString(bill.getReceipt()));
+            if(bill.getReceipt() != null){
                 billDto.setReceipt(convertToBase64(bill.getReceipt()));
-                System.out.println(billDto.getReceipt());
-//            }
+            }
             Double total = 0.0;
             for(UserBill userBill: bill.getUserBills()){
-                if(!userBill.getIsPaid() && !userBill.getIsApprove()
-                        && !userBill.getUser().equals(user)){
+                if(!userBill.getUser().equals(user)){
                     total+=userBill.getShareTotal();
                 }
-            }
-            if(total<=0){
-                bill.setIsPaid(true);
             }
             billDto.setTotal(total);
         }
@@ -108,12 +102,6 @@ public class BillService {
         return billMapper.toBillDto(savedBill);
     }
 
-    public BillDto getBill(Long id) {
-        Bill bill = billRepository.findById(id)
-                .orElseThrow(() -> new AppException("Bill not found", HttpStatus.NOT_FOUND));
-
-        return billMapper.toBillDto(bill);
-    }
 
     public BillDto getBillUser(String userId, Long id) {
         User user = userRepository.findById(userId)
@@ -123,19 +111,55 @@ public class BillService {
         if (!user.getBills().contains(bill)) {
             throw new AppException("Bill not found", HttpStatus.NOT_FOUND);
         }
-        return billMapper.toBillDto(bill);
-    }
+        List<UserBillDto> userBillDtos = userBillMapper.toUserBillDtos(bill.getUserBills());
+        List<UserBill> userBills = bill.getUserBills();
+        for(int i=0;i<userBillDtos.size();i++){
+            if(userBills.get(i).getUser().getId().equals(userId)){
+                userBillDtos.remove(userBillMapper.toUserBillDto(userBills.get(i)));
+            }
+            userBillDtos.get(i).setReceipt(convertToBase64(userBills.get(i).getReceipt()));
+            userBillDtos.get(i).setUserId(userBills.get(i).getUser().getId());
+            userBillDtos.get(i).setUploadedDate(userBills.get(i).getUploadedDate());
+        }
 
-    @Transactional
-    public BillDto deleteBill(Long id) {
-        Bill bill = billRepository.findById(id)
-                .orElseThrow(() -> new AppException("Bill not found", HttpStatus.NOT_FOUND));
         BillDto billDto = billMapper.toBillDto(bill);
+        billDto.setUserBills(userBillDtos);
 
-        billRepository.deleteById(id);
+        Double total = 0.0;
+        for(UserBill userBill: bill.getUserBills()){
+            if(!userBill.getUser().equals(user)){
+                total+=userBill.getShareTotal();
+            }
+        }
+        billDto.setTotal(total);
 
         return billDto;
     }
+
+    @Transactional
+    public String deleteBill(Long id) {
+        // Find the bill by id, throw an exception if not found
+        Bill bill = billRepository.findById(id)
+                .orElseThrow(() -> new AppException("Bill not found", HttpStatus.NOT_FOUND));
+
+        // Attempt to delete the bill, handle any exceptions that might occur
+        try {
+            billRepository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            // This exception typically occurs when there are database constraints preventing deletion
+            throw new AppException("Cannot delete the bill because it is in use.", HttpStatus.CONFLICT);
+        } catch (DataAccessException e) {
+            // This is a general database access exception, which could include connection issues
+            throw new AppException("Error occurred while accessing the database", HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            // Catch any other exceptions that may occur
+            throw new AppException("An error occurred while deleting the bill", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        // If everything went well, return a success message
+        return "Bill deleted successfully";
+    }
+
 
     public String updateIsPaid(Long id) {
         Bill bill = billRepository.findById(id)

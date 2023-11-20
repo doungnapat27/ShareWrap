@@ -33,11 +33,8 @@ function EditBankTab() {
     userPayment.bankAccNumber &&
     userPayment.bankName
   );
-
   const buttonColor = isButtonDisabled ? "#838383" : "#FFB53B";
   const textColor = isButtonDisabled ? "#fff" : "#000";
-
-  console.log("userPayment in bank page: ", userPayment);
 
   const handleCloseSnackbar = (event, reason) => {
     if (reason === "clickaway") {
@@ -107,7 +104,7 @@ function EditBankTab() {
         <Box>
           <Box>
             <Box sx={{ padding: "30px 24px" }}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                 <Button
                   fullWidth
                   variant="contained"
@@ -131,7 +128,6 @@ function EditBankTab() {
                 <Button
                   fullWidth
                   variant="contained"
-                  // onClick={handleChangeIsProptPay}
                   href="/edit-promptpay"
                   sx={{
                     backgroundColor: isPromptPay
@@ -149,58 +145,61 @@ function EditBankTab() {
                   Promptpay
                 </Button>
               </Box>
-
-              <Box></Box>
-              <DropDown placeholder="Select Bank Account" bankList={bankList} />
-              <Box mt={3}>
-                <Typography mb={1}>Bank account name</Typography>
-                <TextField
-                  fullWidth
-                  placeholder="Ex) Srisamorn Sanuksud"
-                  onChange={(e) =>
-                    handlePromptpayChange("bankAccount", e.target.value)
-                  }
-                  value={userPayment.bankAccount}
-                  sx={{ backgroundColor: "#fff", borderRadius: "10px" }}
-                  type="text"
+              <Box>
+                <DropDown
+                  placeholder="Select Bank Account"
+                  bankList={bankList}
                 />
                 <Box mt={3}>
-                  <Typography mb={1}>Bank account number</Typography>
+                  <Typography mb={1}>Bank account name</Typography>
                   <TextField
                     fullWidth
-                    placeholder="Ex) 01234567890"
+                    placeholder="Ex) Srisamorn Sanuksud"
                     onChange={(e) =>
-                      handlePromptpayChange("bankAccNumber", e.target.value)
+                      handlePromptpayChange("bankAccount", e.target.value)
                     }
-                    value={userPayment.bankAccNumber}
+                    value={userPayment.bankAccount}
                     sx={{ backgroundColor: "#fff", borderRadius: "10px" }}
-                    type="number"
+                    type="text"
                   />
+                  <Box mt={3}>
+                    <Typography mb={1}>Bank account number</Typography>
+                    <TextField
+                      fullWidth
+                      placeholder="Ex) 01234567890"
+                      onChange={(e) =>
+                        handlePromptpayChange("bankAccNumber", e.target.value)
+                      }
+                      value={userPayment.bankAccNumber}
+                      sx={{ backgroundColor: "#fff", borderRadius: "10px" }}
+                      type="number"
+                    />
+                  </Box>
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    endIcon={<ArrowForwardIcon />}
+                    disabled={isButtonDisabled}
+                    href="/splitting-bill"
+                    sx={{
+                      padding: "12px 20px",
+                      marginTop: "40px",
+                      backgroundColor: buttonColor,
+                      color: textColor,
+                      borderRadius: "10px",
+                    }}
+                    onClick={handleUpdateBankAccount}
+                  >
+                    <Typography>Confirm edit</Typography>
+                  </Button>
                 </Box>
-                <Button
-                  fullWidth
-                  variant="contained"
-                  endIcon={<ArrowForwardIcon />}
-                  disabled={isButtonDisabled}
-                  href="/splitting-bill"
-                  sx={{
-                    padding: "12px 20px",
-                    marginTop: "40px",
-                    backgroundColor: buttonColor,
-                    color: textColor,
-                    borderRadius: "10px",
-                  }}
-                  onClick={handleUpdateBankAccount}
-                >
-                  <Typography>Confirm edit</Typography>
-                </Button>
               </Box>
             </Box>
           </Box>
         </Box>
       </Box>
       <Snackbar
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={snackbarOpen}
         autoHideDuration={2000}
         onClose={handleCloseSnackbar}

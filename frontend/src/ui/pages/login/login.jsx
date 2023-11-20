@@ -35,19 +35,15 @@ class Loginpage extends Component {
   };
 
   login = (e) => {
-    console.log("login");
-    console.log("before:" + this.state);
     e.preventDefault();
     request("POST", "/login", {
       email: this.state.email,
       password: this.state.password,
     })
       .then((response) => {
-        console.log(response.data.token);
         setAuthHeader(response.data.token);
         setUser(JSON.stringify(response.data));
         const uid = response.data.id;
-        console.log(uid);
         this.setState(
           {
             snackbarOpen: true,
@@ -142,7 +138,7 @@ class Loginpage extends Component {
           </Button>
         </Box>
         <Snackbar
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={this.state.snackbarOpen}
           autoHideDuration={2000}
           onClose={this.handleCloseSnackbar}

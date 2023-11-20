@@ -48,13 +48,17 @@ public class UserBillService {
         List<UserBillDto> userBillDtos = userBillMapper.toUserBillDtos(userBills);
         List<UserBillDto> onlyDebt = new ArrayList<>();
 
+        if(userBillDtos.isEmpty()){
+            throw new AppException("You don't have any bill", HttpStatus.NOT_FOUND);
+        }
         for(UserBillDto userBillDto: userBillDtos){
             UserBill userBillMapped = userBillMapper.toUserBill(userBillDto);
             UserBill userBill = userBillRepository.findById(userBillMapped.getId())
                     .orElseThrow(() -> new AppException("Unknown user bill", HttpStatus.NOT_FOUND));
 
-
+            System.out.print("userBill: " + userBill.getId());
             Bill bill = userBill.getBill();
+            System.out.println("bill: " + bill.getName());
             User billOwner = bill.getUser();
 
             if(!billOwner.getId().equals(userId)) {
@@ -89,7 +93,8 @@ public class UserBillService {
 
         userBillDto.setBillOwnerName(billOwner.getUsername());
         userBillDto.setBillCreatedDate(bill.getCreatedDate());
-
+        userBillDto.setIsPaid(userBill.getIsPaid());
+        userBillDto.setIsApprove(userBill.getIsApprove());
         if(bill.getPaymentType() == 'P') {
             Promptpay promptpay = promptpayRepository.findByUser(billOwner)
                     .orElseThrow(() -> new AppException("Unknown promptpay", HttpStatus.NOT_FOUND));

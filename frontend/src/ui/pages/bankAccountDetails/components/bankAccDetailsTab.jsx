@@ -47,8 +47,6 @@ function BankAccDetailsTab() {
   const buttonColor = isButtonDisabled ? "#838383" : "#FFB53B";
   const textColor = isButtonDisabled ? "#fff" : "#000";
 
-  console.log("userPayment in bank page: ", userPayment);
-
   return (
     <Box
       sx={{
@@ -137,29 +135,18 @@ function BankAccDetailsTab() {
                     type="text"
                   />
                   <Box mt={3}>
-                    <Typography mb={1}>Bank account number</Typography>
+                    <Typography>Bank account number</Typography>
                     <TextField
                       fullWidth
-                      placeholder='Ex) 01234567890'
-                      onChange={e =>
-                        handlePromptpayChange('bankAccNumber', e.target.value)
+                      placeholder="Ex) 01234567890"
+                      onChange={(e) =>
+                        handlePromptpayChange("bankAccNumber", e.target.value)
                       }
                       value={userPayment.bankAccNumber}
-                      sx={{ backgroundColor: '#fff', borderRadius: '10px' }}
-                      type='number'
+                      sx={{ backgroundColor: "#fff", borderRadius: "10px" }}
+                      type="number"
                     />
-                    </Box>
-                  <Typography>Bank account number</Typography>
-                  <TextField
-                    fullWidth
-                    placeholder="Ex) 01234567890"
-                    onChange={(e) =>
-                      handlePromptpayChange("bankAccNumber", e.target.value)
-                    }
-                    value={userPayment.bankAccNumber}
-                    sx={{ backgroundColor: "#fff", borderRadius: "10px" }}
-                    type="number"
-                  />
+                  </Box>
                   <Button
                     fullWidth
                     variant="contained"
@@ -183,7 +170,7 @@ function BankAccDetailsTab() {
         </Box>
       </Box>
       <Snackbar
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={snackbarOpen}
         autoHideDuration={2000}
         onClose={handleCloseSnackbar}

@@ -1,13 +1,21 @@
-import React from "react";
+import React, {useState} from "react";
 import { Button, Typography } from "@mui/material";
 import NoteStackAdd from "../../../assets/note-stack-add.svg";
-import { Link } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function CreateBill() {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleClick = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      window.location.href = "/splitting-bill";
+    }, 1000);
+  };
+
   return (
     <Button
-      component={Link}
-      to={"/splitting-bill"}
+      onClick={handleClick}
       variant="contained"
       fullWidth
       sx={{
@@ -22,7 +30,11 @@ function CreateBill() {
       }}
     >
       <Typography variant="h4">Create bill</Typography>
-      <img src={NoteStackAdd} alt="note-stack-add" />
+      {isLoading ? (
+        <CircularProgress size={45} style={{ color: "#FFB53B"  }} />
+      ) : (
+        <img src={NoteStackAdd} alt="note-stack-add" />
+      )}
     </Button>
   );
 }

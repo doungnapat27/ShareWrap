@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import useStyles from "../style/addFriendTabStyle";
+import useStyles from "../style/searchFriendsTabStyle";
 import {
   Box,
   Tabs,
@@ -17,15 +17,15 @@ import {
   DialogActions,
   Snackbar,
 } from "@mui/material";
-import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import MuiAlert from "@mui/material/Alert";
+import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import SearchIcon from "@mui/icons-material/Search";
-import AddFriendBottomBar from "./addFriendBottomBar";
-import FriendList from "./friendList";
 import { request } from "../../../../helpers/axios_helper";
 import { stringAvatar } from "../../../../helpers/avatar_helper";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import CircularProgress from "@mui/material/CircularProgress";
+import SearchFriendList from "./searchFriendsList";
+import SearchAddFriendBottomBar from "./searchFriendsBottom";
 
 function a11yProps(index) {
   return {
@@ -36,7 +36,7 @@ function a11yProps(index) {
 
 const filter = createFilterOptions();
 
-function AddFriendTab() {
+function SearchFriendsTab() {
   const [value, setValue] = useState(0);
   const [selectedFriends, setSelectedFriends] = useState([]);
   const [friends, setFriends] = useState([]);
@@ -47,7 +47,6 @@ function AddFriendTab() {
   const [isLoading, setIsLoading] = useState(true);
   const [autoValue, setAutoValue] = useState(null);
   const [open, toggleOpen] = useState(false);
-
   const handleClose = () => {
     setDialogValue({
       id: "",
@@ -92,6 +91,7 @@ function AddFriendTab() {
 
   const handleAddFriend = async (event) => {
     event.preventDefault();
+    console.log("adding friend...");
     setIsLoading(true);
     try {
       setAutoValue({ id: dialogValue.id });
@@ -119,7 +119,6 @@ function AddFriendTab() {
     } catch (error) {
       setSnackbarOpen(true);
       setSnackbarSeverity("error");
-      console.log(error.status);
       if (error.response.status === 404) {
         setSnackbarMessage("Friend not found!");
       } else {
@@ -141,7 +140,6 @@ function AddFriendTab() {
   useEffect(() => {
     fetchFriends();
   }, []);
-
   return (
     <Box className={classes.cover}>
       <Box className={classes.container}>
@@ -155,13 +153,12 @@ function AddFriendTab() {
           >
             <Tab
               className={classes.centerTab}
-              label="Bill splitting"
+              label="Search Friends"
               {...a11yProps(0)}
             />
           </Tabs>
         </Box>
       </Box>
-      {/* search box  */}
       <Box className={classes.cover}>
         <Box className={classes.searchQuery}>
           <Stack spacing={2} sx={{ marginTop: "30px" }}>
@@ -223,16 +220,6 @@ function AddFriendTab() {
                             {option.id}
                           </span>
                         </Box>
-                      )}
-                      {isAlreadyFriend && (
-                        <Button
-                          className={classes.addButton}
-                          onClick={() => handleAddToSelected(option.id)}
-                        >
-                          {selectedFriendsId.includes(option.id)
-                            ? "Remove"
-                            : "Add"}
-                        </Button>
                       )}
                       {!isAlreadyFriend && (
                         <Box className={classes.listName}>
@@ -315,11 +302,8 @@ function AddFriendTab() {
               </form>
             </Dialog>
           </Stack>
-          {/* search box */}
           <Box className={classes.selectFriend}>
-            <Typography variant="h5">
-              Select Friends ({friends.length})
-            </Typography>
+            <Typography variant="h5">Friends ({friends.length})</Typography>
           </Box>
           <Box className={classes.friendList}>
             {isLoading ? (
@@ -335,7 +319,7 @@ function AddFriendTab() {
                 <CircularProgress size={48} style={{ color: "#FFB53B" }} />
               </Box>
             ) : (
-              <FriendList
+              <SearchFriendList
                 friends={friends}
                 selectedFriends={selectedFriends}
                 setSelectedFriends={setSelectedFriends}
@@ -346,10 +330,7 @@ function AddFriendTab() {
           </Box>
         </Box>
         <Box className={classes.bottomBar}>
-          <AddFriendBottomBar
-            selectedFriends={selectedFriends}
-            selectedFriendsId={selectedFriendsId}
-          />
+          <SearchAddFriendBottomBar />
         </Box>
       </Box>
       <Snackbar
@@ -371,4 +352,4 @@ function AddFriendTab() {
   );
 }
 
-export default AddFriendTab;
+export default SearchFriendsTab;

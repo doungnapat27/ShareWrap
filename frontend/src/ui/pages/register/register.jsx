@@ -49,8 +49,6 @@ class Register extends Component {
   };
 
   handleSubmit = (e) => {
-    console.log("submit");
-    console.log(this.state);
     e.preventDefault();
     if (this.state.password !== this.state.confirmPassword) {
       this.setState({ confirmPasswordError: "Passwords do not match." });
@@ -190,7 +188,7 @@ class Register extends Component {
               </Button>
             </Box>
             <Snackbar
-              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+              anchorOrigin={{ vertical: "top", horizontal: "center" }}
               open={this.state.snackbarOpen}
               autoHideDuration={2000}
               onClose={this.handleCloseSnackbar}

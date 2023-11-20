@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import useStyle from "../style/summaryBillBottomStyle";
-import { Box, Button } from "@mui/material";
+import { Box, Button, CircularProgress } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 function SummaryBillBottom() {
   const classes = useStyle();
+  const [isLoading, setIsLoading] = useState(false);
   const handToBillSummary = () => {
+    setIsLoading(true);
     window.location.href = "/bill-summary";
+
+    // setTimeout(() => {
+    //   window.location.href = "/bill-summary";
+    //   setIsLoading(false);
+    // }, 1000);
   };
 
   return (
@@ -16,10 +23,15 @@ function SummaryBillBottom() {
           <Button
             fullWidth={true}
             className={classes.positionButton}
-            endIcon={<ArrowForwardIcon />}
+            endIcon={!isLoading && <ArrowForwardIcon />}
             onClick={handToBillSummary}
+            disabled={isLoading}
           >
-            Next
+            {isLoading ? (
+              <CircularProgress size={24} style={{ color: "rgba(152, 30, 37, 0.80)" }} />
+            ) : (
+              "Next"
+            )}
           </Button>
         </Box>
       </Box>

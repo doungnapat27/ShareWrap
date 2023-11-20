@@ -14,13 +14,15 @@ import SplitingBill from "./ui/pages/splitingBill/splittingBill.jsx";
 import AddFriend from "./ui/pages/addFriend/addFriend.jsx";
 import SummaryBill from ".//ui/pages/summaryBill/summaryBill.jsx";
 import ProtectedRoute from "./ui/modules/components/protectedRoute.jsx";
-
 import PromptPayDetails from "./ui/pages/promptpayDetails/promptpayDetails.jsx";
 import BankAccDetails from "./ui/pages/bankAccountDetails/bankAccountDetails.jsx";
 import EditBankAccount from "./ui/pages/editBankAccount/editBankAccount.jsx";
 import EditPromptpay from "./ui/pages/editPromptpay/editPromptpay.jsx";
 import ViewReceipt from "./ui/pages/viewReceipt/viewReceipt.jsx";
 import BillSummary from "./ui/pages/billSummary/billSummary";
+import PendingBill from "./ui/pages/pendingBill/pendingBill.jsx";
+import BillDetails from "./ui/pages/billDetails/billDetails.jsx";
+import SearchFriend from "./ui/pages/searchFriends/searchFriends.jsx";
 
 function App() {
   return (
@@ -39,7 +41,7 @@ function App() {
             <Route path="edit-bank-account" element={<EditBankAccount />} />
             <Route path="/upload-receipt" element={<UploadReceipt />} />
             <Route path="/receipt-uploaded" element={<ReceiptBillUpload />} />
-            <Route path="/view-receipt" element={<ViewReceipt />} />
+            <Route path="/view-receipt/:id" element={<ViewReceipt />} />
             <Route path="/add-Friend" element={<AddFriend />} />
             <Route path="/home/" element={<Home />} />
             <Route path="/splitting-bill" element={<SplitingBill />} />
@@ -48,6 +50,9 @@ function App() {
             <Route path="/add-Friend" element={<AddFriend />} />
             <Route path="/summary-bill" element={<SummaryBill />} />
             <Route path="/bill-summary" element={<BillSummary />} />
+            <Route path="/pending-bill/:id" element={<PendingBill />} />
+            <Route path="/bill-details" element={<BillDetails />} />
+            <Route path="/search-friend" element={<SearchFriend />} />
           </Route>
           {/* <Route path="/create-bill" element={<CreateBill />} /> No longer use */}
           {/* </Route> */}

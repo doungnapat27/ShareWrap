@@ -28,7 +28,8 @@ function Bill({ bills }) {
           >
             Transaction ID: {bill.id}
           </Typography>
-          <Button fullWidth className={classes.payButton}>
+          <Button fullWidth className={classes.payButton}
+          href={'/pending-bill/'+bill.id}>
             <Typography variant="h5">See payment details</Typography>
           </Button>
         </Paper>

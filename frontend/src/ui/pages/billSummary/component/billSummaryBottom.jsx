@@ -77,7 +77,7 @@ function BillSummaryBottom() {
             disabled={isLoading}
           >
             {isLoading ? (
-              <CircularProgress size={24} style={{ color: "#FFB53B" }} />
+              <CircularProgress size={24} style={{ color: "white" }} />
             ) : (
               "Create Bill"
             )}
@@ -85,7 +85,7 @@ function BillSummaryBottom() {
         </Box>
       </Box>
       <Snackbar
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={snackbarOpen}
         autoHideDuration={2000}
         onClose={handleCloseSnackbar}
