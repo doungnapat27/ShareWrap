@@ -43,11 +43,6 @@ function EditPromptpayTab() {
   const buttonColor = isButtonDisabled ? "#838383" : "#FFB53B";
   const textColor = isButtonDisabled ? "#fff" : "#000";
 
-  console.log(userPayment);
-  console.log("isBank and isPrompt", isBankAcc, isPromptPay);
-  console.log("PromptpayName", userPayment.promptpayName);
-  console.log("PromptPayId", userPayment.promptpayId);
-
   return (
     <Box
       sx={{

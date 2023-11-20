@@ -93,7 +93,8 @@ public class UserBillService {
 
         userBillDto.setBillOwnerName(billOwner.getUsername());
         userBillDto.setBillCreatedDate(bill.getCreatedDate());
-
+        userBillDto.setIsPaid(userBill.getIsPaid());
+        userBillDto.setIsApprove(userBill.getIsApprove());
         if(bill.getPaymentType() == 'P') {
             Promptpay promptpay = promptpayRepository.findByUser(billOwner)
                     .orElseThrow(() -> new AppException("Unknown promptpay", HttpStatus.NOT_FOUND));

@@ -50,4 +50,11 @@ public class UserBillDto {
 
     private Date uploadedDate;
 
+    public void setIsApprove(Boolean isApprove) {
+        this.isApprove = isApprove;
+    }
+
+    public void setIsPaid(Boolean isPaid) {
+        this.isPaid = isPaid;
+    }
 }

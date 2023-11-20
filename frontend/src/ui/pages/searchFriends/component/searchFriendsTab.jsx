@@ -64,7 +64,6 @@ function SearchFriendsTab() {
   const fetchFriends = async () => {
     setIsLoading(true);
     try {
-      console.log("fetching friends...");
       const response = await request("GET", "/" + uid + "/friends");
       setFriends(response.data);
     } catch (error) {
@@ -120,7 +119,6 @@ function SearchFriendsTab() {
     } catch (error) {
       setSnackbarOpen(true);
       setSnackbarSeverity("error");
-      console.log(error.status);
       if (error.response.status === 404) {
         setSnackbarMessage("Friend not found!");
       } else {

@@ -22,7 +22,6 @@ function a11yProps(index) {
   };
 }
 
-console.log(localStorage)
 
 function HomeTab() {
   const [value, setValue] = useState(0);
@@ -68,7 +67,6 @@ function HomeTab() {
       });
       setIsLoading(false);
       setUserBills(formattedBills);
-      console.log('userBills: ', response)
     } catch (error) {
       setIsLoading(false);
       console.log(error);

@@ -6,10 +6,6 @@ import { request } from "../../../../helpers/axios_helper";
 
 function ViewRecepitTab() {
   const [value, setValues] = useState(0);
-  const { uploadImage } = useContext(ShareImageContext);
-
-  console.log('Image base64: ', uploadImage)
-
   const [receiptImage, setReceiptImage] = useState('')
 
   const fetchImageApi = async () => {
@@ -24,7 +20,6 @@ function ViewRecepitTab() {
 
   useEffect(() => {
     fetchImageApi()
-    console.log('Receipt iamge: ', receiptImage)
   }, [])
 
 

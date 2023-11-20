@@ -10,18 +10,12 @@ function UploadImage() {
     uploadImage,
     handleUploadFile,
     handleChange,
-    showImage,
     snackbarOpen,
     snackbarMessage,
     snackbarSeverity,
     setSnackbarOpen,
     isUploading,
   } = useContext(ShareImageContext);
-
-
-  useEffect(() => {
-    console.log('You have navigate into user bill: ', localStorage.getItem('userBillId'))
-  }, [])
 
   const handleCloseSnackbar = (event, reason) => {
     if (reason === "clickaway") {
@@ -38,8 +32,6 @@ function UploadImage() {
         accept="image/*"
         onChange={handleUploadFile}
       />
-      {/* {console.log("upload image in upload compo", uploadImage)}
-      {console.log("show image in upload compo", showImage)} */}
 
       <Button
         onClick={handleChange}
