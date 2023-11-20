@@ -1,6 +1,5 @@
 import React from "react";
 import LogoHomepage from "../../assets/logoHomepage.svg"
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import useStyles  from '../style/navbarStyle';
 import {AppBar,Box,Toolbar,IconButton,Typography,} from "@mui/material";
 import Avatar from '@mui/material/Avatar';
@@ -48,7 +47,6 @@ function Navbar() {
           <Typography variant="h5" component="div" className={classes.title}>
             ShareWrap
           </Typography>
-          <NotificationsNoneIcon className={classes.notificationIcon} />
           <Tooltip title="Account settings">
           <Avatar 
             onClick={handleClick}
