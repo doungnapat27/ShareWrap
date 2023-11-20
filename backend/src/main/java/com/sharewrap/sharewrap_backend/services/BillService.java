@@ -75,16 +75,18 @@ public class BillService {
                 .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
         owner.addBill(bill);
         for(UserBillDto userBillDto: billDto.getUserBills()){
-            UserBill userBill = userBillMapper.toUserBill(userBillDto);
-            userBill.setBill(bill);
-            User shareUser = userRepository.findById(userBillDto.getUserId())
-                    .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
-            userBill.setUser(shareUser);
-            userBillRepository.save(userBill);
-            for(ItemDto itemDto: userBillDto.getItems()){
-                Item item = itemMapper.toItem(itemDto);
-                item.setUserBill(userBill);
-                itemRepository.save(item);
+            if(!userBillDto.getUserId().equals(billDto.getUserId())){
+                UserBill userBill = userBillMapper.toUserBill(userBillDto);
+                userBill.setBill(bill);
+                User shareUser = userRepository.findById(userBillDto.getUserId())
+                        .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
+                userBill.setUser(shareUser);
+                userBillRepository.save(userBill);
+                for(ItemDto itemDto: userBillDto.getItems()){
+                    Item item = itemMapper.toItem(itemDto);
+                    item.setUserBill(userBill);
+                    itemRepository.save(item);
+                }
             }
         }
         Bill savedBill = billRepository.save(bill);
@@ -111,24 +113,25 @@ public class BillService {
         if (!user.getBills().contains(bill)) {
             throw new AppException("Bill not found", HttpStatus.NOT_FOUND);
         }
-        List<UserBillDto> userBillDtos = userBillMapper.toUserBillDtos(bill.getUserBills());
+        List<UserBillDto> userBillDtos = new ArrayList<>();
         List<UserBill> userBills = bill.getUserBills();
-        for(int i=0;i<userBillDtos.size();i++){
-            if(userBills.get(i).getUser().getId().equals(userId)){
-                userBillDtos.remove(userBillMapper.toUserBillDto(userBills.get(i)));
+        for (UserBill userBill : userBills) {
+            if (!userBill.getUser().getId().equals(userId)) {
+                UserBillDto dto = userBillMapper.toUserBillDto(userBill);
+                dto.setReceipt(convertToBase64(userBill.getReceipt()));
+                dto.setUserId(userBill.getUser().getId());
+                dto.setUploadedDate(userBill.getUploadedDate());
+                userBillDtos.add(dto);
             }
-            userBillDtos.get(i).setReceipt(convertToBase64(userBills.get(i).getReceipt()));
-            userBillDtos.get(i).setUserId(userBills.get(i).getUser().getId());
-            userBillDtos.get(i).setUploadedDate(userBills.get(i).getUploadedDate());
         }
 
         BillDto billDto = billMapper.toBillDto(bill);
         billDto.setUserBills(userBillDtos);
 
         Double total = 0.0;
-        for(UserBill userBill: bill.getUserBills()){
-            if(!userBill.getUser().equals(user)){
-                total+=userBill.getShareTotal();
+        for (UserBill userBill : bill.getUserBills()) {
+            if (!userBill.getUser().equals(user)) {
+                total += userBill.getShareTotal();
             }
         }
         billDto.setTotal(total);

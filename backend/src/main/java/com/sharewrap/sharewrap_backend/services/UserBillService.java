@@ -53,12 +53,11 @@ public class UserBillService {
         }
         for(UserBillDto userBillDto: userBillDtos){
             UserBill userBillMapped = userBillMapper.toUserBill(userBillDto);
+            System.out.println("userBillMapped: " + userBillMapped.getId());
             UserBill userBill = userBillRepository.findById(userBillMapped.getId())
                     .orElseThrow(() -> new AppException("Unknown user bill", HttpStatus.NOT_FOUND));
 
-            System.out.print("userBill: " + userBill.getId());
             Bill bill = userBill.getBill();
-            System.out.println("bill: " + bill.getName());
             User billOwner = bill.getUser();
 
             if(!billOwner.getId().equals(userId)) {
@@ -90,11 +89,15 @@ public class UserBillService {
         userBillDto.setBillName(bill.getName());
         userBillDto.setPaymentType(bill.getPaymentType());
         userBillDto.setReceipt(convertToBase64(userBill.getReceipt()));
+        userBillDto.setIsPaid(userBill.getIsPaid());
+        userBillDto.setIsApprove(userBill.getIsApprove());
 
         userBillDto.setBillOwnerName(billOwner.getUsername());
         userBillDto.setBillCreatedDate(bill.getCreatedDate());
+
         userBillDto.setIsPaid(userBill.getIsPaid());
         userBillDto.setIsApprove(userBill.getIsApprove());
+
         if(bill.getPaymentType() == 'P') {
             Promptpay promptpay = promptpayRepository.findByUser(billOwner)
                     .orElseThrow(() -> new AppException("Unknown promptpay", HttpStatus.NOT_FOUND));
@@ -107,7 +110,6 @@ public class UserBillService {
             BankAccountDto bankAccountDto = bankAccountMapper.toBankAccountDto(bankAccount);
             userBillDto.setBankAccountDto(bankAccountDto);
         }
-
         return userBillDto;
     }
 
