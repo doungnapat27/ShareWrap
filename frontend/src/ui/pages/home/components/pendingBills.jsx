@@ -1,12 +1,22 @@
 import { Paper, Box, Typography, Button } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import useStyles from "../../../pages/home/style/penddingBillsStyle";
 
 function PendingBills({ userBills }) {
   const classes = useStyles();
   const uid = JSON.parse(localStorage.getItem("auth_user")).id;
   const storedShowImage = JSON.parse(localStorage.getItem("showImage"));
-  console.log("storedShowImage", storedShowImage);
+  const billId = JSON.parse(localStorage.getItem('userBillId'))
+
+  const storedImage = localStorage.getItem(`uploadImage_${userBills.id}`);
+
+  console.log(`Retrieved image for bill ${userBills.id}: ${storedImage}`);
+
+  console.log('storagedImage: ', storedImage)
+
+  useEffect(() => {
+    console.log('View user pendingBills: ', billId)
+  }, [])
 
   return storedShowImage ? (
     <Box>

@@ -66,11 +66,13 @@ function HomeTab() {
       });
       setIsLoading(false);
       setUserBills(formattedBills);
+      console.log('userBills: ', response)
     } catch (error) {
       setIsLoading(false);
       console.log(error);
     }
   };
+
 
   const fetchBills = async () => {
     setIsLoading(true);

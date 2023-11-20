@@ -23,6 +23,10 @@ function MethodPay() {
 
   const uid = JSON.parse(localStorage.getItem("auth_user")).id;
 
+  useEffect(() => {
+    console.log(`user bill id: ${localStorage.getItem('userBillId')}`)
+  }, [])
+
   const fetchUserBill = async () => {
     setIsLoading(true);
     try {

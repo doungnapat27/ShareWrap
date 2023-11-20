@@ -7,6 +7,10 @@ function ViewRecepitTab() {
   const [value, setValues] = useState(0);
   const { uploadImage } = useContext(ShareImageContext);
 
+  console.log('View bill id: ', localStorage.getItem('userBillId'))
+
+  console.log('Image base64: ', uploadImage)
+
   return (
     <Box
       sx={{
@@ -101,7 +105,7 @@ function ViewRecepitTab() {
                 <Paper sx={{ height: "400px" }}>
                   <img
                     src={uploadImage}
-                    alt="bill image"
+                    alt="bill"
                     style={{ maxWidth: "100%", maxHeight: "100%" }}
                   />
                 </Paper>

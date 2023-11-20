@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Box, Button, Snackbar } from "@mui/material";
 import { ShareImageContext } from "./shareImageContext";
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
@@ -33,8 +33,8 @@ function UploadImage() {
         accept="image/*"
         onChange={handleUploadFile}
       />
-      {console.log("upload image in upload compo", uploadImage)}
-      {console.log("show image in upload compo", showImage)}
+      {/* {console.log("upload image in upload compo", uploadImage)}
+      {console.log("show image in upload compo", showImage)} */}
 
       <Button
         onClick={handleChange}

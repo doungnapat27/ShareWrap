@@ -24,7 +24,7 @@ export const ShareImageProvider = ({ children }) => {
       setUploadImage(base64data);
       try {
         localStorage.setItem("uploadImage", base64data);
-        console.log("The image saved into localStorage");
+        console.log(`The image saved into localStorage in: ${localStorage.getItem('userBillId')}`);
       } catch (error) {
         console.log(error);
       }
@@ -52,6 +52,9 @@ export const ShareImageProvider = ({ children }) => {
         if (response.status === 200) {
           console.log("Bill is paid");
         }
+
+        console.log('response image: ', response)
+
         setSnackbarOpen(true);
         setSnackbarMessage(response.data);
         setSnackbarSeverity("success");
