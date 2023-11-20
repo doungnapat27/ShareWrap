@@ -49,8 +49,6 @@ class Register extends Component {
   };
 
   handleSubmit = (e) => {
-    console.log("submit");
-    console.log(this.state);
     e.preventDefault();
     if (this.state.password !== this.state.confirmPassword) {
       this.setState({ confirmPasswordError: "Passwords do not match." });

@@ -1,21 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Box, Button, Snackbar } from "@mui/material";
 import { ShareImageContext } from "./shareImageContext";
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 import MuiAlert from "@mui/material/Alert";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function UploadImage() {
   const {
     uploadImage,
     handleUploadFile,
     handleChange,
-    showImage,
     snackbarOpen,
     snackbarMessage,
     snackbarSeverity,
     setSnackbarOpen,
+    isUploading,
   } = useContext(ShareImageContext);
-
 
   const handleCloseSnackbar = (event, reason) => {
     if (reason === "clickaway") {
@@ -32,12 +32,10 @@ function UploadImage() {
         accept="image/*"
         onChange={handleUploadFile}
       />
-      {console.log("upload image in upload compo", uploadImage)}
-      {console.log("show image in upload compo", showImage)}
 
       <Button
         onClick={handleChange}
-        disabled={uploadImage === null}
+        disabled={uploadImage === null || isUploading}
         sx={{
           width: "100%",
           backgroundColor: uploadImage === null ? "#838383" : "#FFB53B",
@@ -49,11 +47,17 @@ function UploadImage() {
           marginTop: "20px",
         }}
       >
-        <FileUploadOutlinedIcon />
-        Upload image
+        {isUploading ? (
+          <CircularProgress size={24} style={{ color: "rgba(152, 30, 37, 0.80)"  }} />
+        ) : (
+          <>
+            <FileUploadOutlinedIcon />
+            Upload image
+          </>
+        )}
       </Button>
       <Snackbar
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={snackbarOpen}
         autoHideDuration={2000}
         onClose={handleCloseSnackbar}

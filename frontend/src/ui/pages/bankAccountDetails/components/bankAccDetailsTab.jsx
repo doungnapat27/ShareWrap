@@ -47,8 +47,6 @@ function BankAccDetailsTab() {
   const buttonColor = isButtonDisabled ? "#838383" : "#FFB53B";
   const textColor = isButtonDisabled ? "#fff" : "#000";
 
-  console.log("userPayment in bank page: ", userPayment);
-
   return (
     <Box
       sx={{
@@ -172,7 +170,7 @@ function BankAccDetailsTab() {
         </Box>
       </Box>
       <Snackbar
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={snackbarOpen}
         autoHideDuration={2000}
         onClose={handleCloseSnackbar}

@@ -52,7 +52,6 @@ export const ShareContextProvider = ({ children }) => {
 
   const handleAddSelectedPromptpay = async (event) => {
     event.preventDefault();
-    console.log("Adding promptpay...");
     setUserPayment((prevState) => ({
       ...prevState,
       selectedPromptPay: true,
@@ -79,7 +78,6 @@ export const ShareContextProvider = ({ children }) => {
 
   const handleAddSelectedBankAccount = async (event) => {
     event.preventDefault();
-    console.log("Adding bank Account...");
     setUserPayment((prevState) => ({
       ...prevState,
       selectedBankAccount: true,
@@ -161,7 +159,7 @@ export const ShareContextProvider = ({ children }) => {
 
   const handleUpdatePromptpay = async (event) => {
     event.preventDefault();
-    console.log("Updating promptpay...");
+
     setUserPayment((prevState) => ({
       ...prevState,
       selectedPromptPay: true,
@@ -189,7 +187,6 @@ export const ShareContextProvider = ({ children }) => {
 
   const handleUpdateBankAccount = async (event) => {
     event.preventDefault();
-    console.log("Updating bank account...");
     setUserPayment((prevState) => ({
       ...prevState,
       selectedBankAccount: true,

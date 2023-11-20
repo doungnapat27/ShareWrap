@@ -10,7 +10,6 @@ import { stringAvatar } from "../../../../helpers/avatar_helper";
 function PendingBillNotPaid({ userBill }) {
   const classes = useStyles();
   return (
-    console.log(userBill),
     <Box className={classes.paid}>
     <Box className={classes.name}>
       <Avatar

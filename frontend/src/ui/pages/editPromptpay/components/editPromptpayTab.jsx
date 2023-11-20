@@ -43,11 +43,6 @@ function EditPromptpayTab() {
   const buttonColor = isButtonDisabled ? "#838383" : "#FFB53B";
   const textColor = isButtonDisabled ? "#fff" : "#000";
 
-  console.log(userPayment);
-  console.log("isBank and isPrompt", isBankAcc, isPromptPay);
-  console.log("PromptpayName", userPayment.promptpayName);
-  console.log("PromptPayId", userPayment.promptpayId);
-
   return (
     <Box
       sx={{
@@ -129,7 +124,6 @@ function EditPromptpayTab() {
                 <Button
                   fullWidth
                   variant='contained'
-                  // onClick={handleChangeIsProptPay}
                   sx={{
                     backgroundColor: isPromptPay ? "#FFB53B" : "rgba(131, 131, 131, 0.50)",
                     minWidth: "165px",
@@ -192,7 +186,7 @@ function EditPromptpayTab() {
         </Box>
       </Box>
       <Snackbar
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={snackbarOpen}
         autoHideDuration={2000}
         onClose={handleCloseSnackbar}

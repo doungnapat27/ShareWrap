@@ -36,8 +36,6 @@ function EditBankTab() {
   const buttonColor = isButtonDisabled ? "#838383" : "#FFB53B";
   const textColor = isButtonDisabled ? "#fff" : "#000";
 
-  console.log("userPayment in bank page: ", userPayment);
-
   const handleCloseSnackbar = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -130,7 +128,6 @@ function EditBankTab() {
                 <Button
                   fullWidth
                   variant="contained"
-                  // onClick={handleChangeIsProptPay}
                   href="/edit-promptpay"
                   sx={{
                     backgroundColor: isPromptPay
@@ -202,7 +199,7 @@ function EditBankTab() {
         </Box>
       </Box>
       <Snackbar
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={snackbarOpen}
         autoHideDuration={2000}
         onClose={handleCloseSnackbar}

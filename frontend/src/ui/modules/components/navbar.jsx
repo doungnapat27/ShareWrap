@@ -1,6 +1,6 @@
 import React from "react";
 import LogoHomepage from "../../assets/logoHomepage.svg"
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import useStyles  from '../style/navbarStyle';
 import {AppBar,Box,Toolbar,IconButton,Typography,} from "@mui/material";
 import Avatar from '@mui/material/Avatar';
@@ -11,14 +11,12 @@ import Divider from '@mui/material/Divider';
 import Tooltip from '@mui/material/Tooltip';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-import { setAuthHeader, setUser } from '../../../helpers/axios_helper';
 import { stringAvatar } from '../../../helpers/avatar_helper'
 
 
 function Navbar() {
   const handleLogout = () => {
     localStorage.clear();
-
     window.location.href = "/";
   };
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -29,9 +27,14 @@ function Navbar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const handleClickSearch = () => {
+    window.location.href = "/search-friend";
+  };
   const handleLogoClick = () => {
     window.location.href = "/home"; 
+    localStorage.removeItem('billDetails');
+    localStorage.removeItem('selectedFriendsId');
+    localStorage.removeItem('billsummary');
   };
   const classes = useStyles();
   const userData = JSON.parse(localStorage.getItem('auth_user'));
@@ -45,7 +48,7 @@ function Navbar() {
           <Typography variant="h5" component="div" className={classes.title}>
             ShareWrap
           </Typography>
-          <NotificationsNoneIcon className={classes.notificationIcon} />
+          <PersonAddIcon  onClick={handleClickSearch} className={classes.notificationIcon}  sx={{ fontSize: 24 }}/>
           <Tooltip title="Account settings">
           <Avatar 
             onClick={handleClick}

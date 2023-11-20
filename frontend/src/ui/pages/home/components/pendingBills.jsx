@@ -5,8 +5,6 @@ import useStyles from "../../../pages/home/style/penddingBillsStyle";
 function PendingBills({ userBills }) {
   const classes = useStyles();
   const uid = JSON.parse(localStorage.getItem("auth_user")).id;
-  const storedShowImage = JSON.parse(localStorage.getItem("showImage"));
-  console.log("storedShowImage", storedShowImage);
 
   return (
     <Box>
@@ -32,20 +30,24 @@ function PendingBills({ userBills }) {
             Transaction ID: {userBill.id}
           </Typography>
           {userBill.paid ? (
-                      <Button href="/view-receipt" fullWidth className={classes.payButton}>
-                      <Typography variant="h5">See payment details</Typography>
-                    </Button>
-          ):(  
-          <Button
-            href={"/" + uid + "/upload-receipt/" + userBill.id}
-            fullWidth
-            className={classes.payButton}
-          >
-            <Typography variant="h5">Pay</Typography>
-          </Button>
+            <Button
+              href={"/view-receipt/" + userBill.id}
+              fullWidth
+              className={classes.payButton}
+            >
+              <Typography variant="h5">See payment details</Typography>
+            </Button>
+          ) : (
+            <Button
+              href={"/" + uid + "/upload-receipt/" + userBill.id}
+              fullWidth
+              className={classes.payButton}
+            >
+              <Typography variant="h5">Pay</Typography>
+            </Button>
           )}
-          </Paper>
-    ))}
+        </Paper>
+      ))}
     </Box>
   );
 }
