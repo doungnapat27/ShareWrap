@@ -37,12 +37,8 @@ function BottomBar({ itemList, onSaveBill }) {
     localStorage.setItem("billDetails", JSON.stringify(billDetails));
     localStorage.setItem("selectedFriendsId", JSON.stringify([id]));
     window.location.href = "/add-Friend";
-    // setTimeout(() => {
-    //   setIsLoading(false); 
-    //   window.location.href = "/add-Friend";
-    // }, 1000);
   };
-  
+
   const handleButtonClick = () => {
     setIsLoading(true);
   };
@@ -55,13 +51,11 @@ function BottomBar({ itemList, onSaveBill }) {
 
     if (storedPayment && storedPayment.selectedPaymentMethod === "bank") {
       handleChangeBankAcc();
-      console.log("Payment Method:", storedPayment.selectedPaymentMethod);
     } else if (
       storedPayment &&
       storedPayment.selectedPaymentMethod === "promptpay"
     ) {
       handleChangeIsProptPay();
-      console.log("Payment Method:", storedPayment.selectedPaymentMethod);
     }
   }, []);
 

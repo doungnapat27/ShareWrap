@@ -36,8 +36,6 @@ function EditBankTab() {
   const buttonColor = isButtonDisabled ? "#838383" : "#FFB53B";
   const textColor = isButtonDisabled ? "#fff" : "#000";
 
-  console.log("userPayment in bank page: ", userPayment);
-
   const handleCloseSnackbar = (event, reason) => {
     if (reason === "clickaway") {
       return;

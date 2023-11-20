@@ -65,7 +65,6 @@ function AddFriendTab() {
   const fetchFriends = async () => {
     setIsLoading(true);
     try {
-      console.log("fetching friends...");
       const response = await request("GET", "/" + uid + "/friends");
       setFriends(response.data);
     } catch (error) {
@@ -93,7 +92,6 @@ function AddFriendTab() {
 
   const handleAddFriend = async (event) => {
     event.preventDefault();
-    console.log("adding friend...");
     setIsLoading(true);
     try {
       setAutoValue({ id: dialogValue.id });

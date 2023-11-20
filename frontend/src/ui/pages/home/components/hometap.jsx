@@ -22,6 +22,7 @@ function a11yProps(index) {
   };
 }
 
+
 function HomeTab() {
   const [value, setValue] = useState(0);
   const classes = useStyles();
@@ -71,6 +72,7 @@ function HomeTab() {
       console.log(error);
     }
   };
+
 
   const fetchBills = async () => {
     setIsLoading(true);

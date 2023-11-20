@@ -19,7 +19,6 @@ function MethodPay() {
   const classes = useStyles();
   const [userBill, setUserBill] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  // const [isPromptPay, setIsPromptPay] = useState(false)
 
   const uid = JSON.parse(localStorage.getItem("auth_user")).id;
 
@@ -31,7 +30,6 @@ function MethodPay() {
         "/" + uid + "/userBills/" + window.location.pathname.split("/")[3]
       );
       setUserBill(response.data);
-      localStorage.setItem("userBillId", response.data.id);
     } catch (error) {
       alert(error.message);
     } finally {
@@ -70,7 +68,6 @@ function MethodPay() {
         <CircularProgress size={45} style={{ color: "#FFB53B" }} />
       ) : (
         <Box>
-          {/* <Typography sx={{ marginBottom: "11px" }}>1. Save QR Code</Typography> */}
           <Paper
             sx={{
               backgroundColor: "rgba(255, 255, 255, 0.70)",
@@ -113,7 +110,6 @@ function MethodPay() {
 
   useEffect(() => {
     fetchUserBill();
-    console.log("userBill", userBill);
   }, []);
 
   return (

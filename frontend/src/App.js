@@ -41,7 +41,7 @@ function App() {
             <Route path="edit-bank-account" element={<EditBankAccount />} />
             <Route path="/upload-receipt" element={<UploadReceipt />} />
             <Route path="/receipt-uploaded" element={<ReceiptBillUpload />} />
-            <Route path="/view-receipt" element={<ViewReceipt />} />
+            <Route path="/view-receipt/:id" element={<ViewReceipt />} />
             <Route path="/add-Friend" element={<AddFriend />} />
             <Route path="/home/" element={<Home />} />
             <Route path="/splitting-bill" element={<SplitingBill />} />
