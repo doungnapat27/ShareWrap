@@ -11,6 +11,16 @@ const useStyles = makeStyles({
     overflowY: "auto",
     maxHeight: "calc(100vh - 235px - 196px)",
   },
+  searchCover:{
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    overflowY: "auto",
+    maxHeight: "calc(100vh - 235px - 95px)",
+  },
   container: {
     width: "100%",
     display: "flex",

@@ -16,10 +16,6 @@ function AddFriendBottomBar({ selectedFriends, selectedFriendsId }) {
       JSON.stringify(selectedFriendsId)
     );
       window.location.href = "/summary-bill";
-      // setTimeout(() => {
-      //   setIsLoading(false);
-      //   window.location.href = "/summary-bill";
-      // }, 1000);
   };
 
   return (

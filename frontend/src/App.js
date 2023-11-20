@@ -22,6 +22,7 @@ import ViewReceipt from "./ui/pages/viewReceipt/viewReceipt.jsx";
 import BillSummary from "./ui/pages/billSummary/billSummary";
 import PendingBill from "./ui/pages/pendingBill/pendingBill.jsx";
 import BillDetails from "./ui/pages/billDetails/billDetails.jsx";
+import SearchFriend from "./ui/pages/searchFriends/searchFriends.jsx";
 
 function App() {
   return (
@@ -50,12 +51,13 @@ function App() {
             <Route path="/summary-bill" element={<SummaryBill />} />
             <Route path="/bill-summary" element={<BillSummary />} />
             <Route path="/pending-bill/:id" element={<PendingBill />} />
+            <Route path="/bill-details" element={<BillDetails />} />
+            <Route path="/search-friend" element={<SearchFriend />} />
           </Route>
           {/* <Route path="/create-bill" element={<CreateBill />} /> No longer use */}
           {/* </Route> */}
           {/* <Route path="/create-bill" element={<CreateBill />} /> No longer use */}
           <Route path="*" element={<PageNotFound />} />
-          <Route path="/bill-details" element={<BillDetails />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
