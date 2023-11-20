@@ -11,11 +11,10 @@ import {
   DialogActions,
   DialogTitle,
 } from "@mui/material";
-import CircleIcon from "@mui/icons-material/Circle";
-import CreateIcon from "@mui/icons-material/Create";
 
 import PaidBill from "./pendingBillTabPaid";
 import NotPaidBill from "./pendingBillTabNotPaid";
+import { request } from "../../../../helpers/axios_helper";
 
 function a11yProps(index) {
   return {
@@ -24,10 +23,14 @@ function a11yProps(index) {
   };
 }
 
-function PendingBill() {
+function PendingBill(props) {
   const [value, setValue] = useState(0);
   const [openDialog, setOpenDialog] = useState(false);
   const classes = useStyles();
+  const bill = props.bill;
+  const userBills = props.bill.userBills;
+  const paidBills = userBills.filter(userBill => userBill.paid);
+  const unpaidBills = userBills.filter(userBill => !userBill.paid);
 
   const handleOpenDialog = () => {
     setOpenDialog(true);
@@ -36,6 +39,26 @@ function PendingBill() {
   const handleCloseDialog = () => {
     setOpenDialog(false);
   };
+
+  const handleDeleteBill = async event => {
+    try{
+      //snack bar success later
+      await request("DELETE", 
+      "/bills/"+bill.id
+      );
+      window.location.href = "/home";
+    }catch(error){
+      //snackbar error later
+      console.log(error);
+    }
+  }
+
+  const allUserBillsPaid = () => {
+    if (bill && userBills) {
+      return userBills.every((userBill) => userBill.paid);
+    }
+    return false;
+  }
 
   return (
     <Box className={classes.cover}>
@@ -59,36 +82,23 @@ function PendingBill() {
           <Box className={classes.menuContainer}>
             <Paper className={classes.topicContainer}>
               <Typography variant="h5">
-                Bill Name
-                <Typography variant="h4">฿ 100000</Typography>
+                {bill.name}
+                <Typography variant="h4">{parseFloat(bill.total).toFixed(2)}</Typography>
               </Typography>
-              <Box className={classes.statusContainer}>
-                <Typography variant="h5">Received all</Typography>
+              <Box className={allUserBillsPaid() ? classes.statusContainer : classes.statusContainerNotRecieved}>
+                <Typography variant="h5">{allUserBillsPaid() ? "Received All" : "Not Recieved"}</Typography>
               </Box>
             </Paper>
             <Box className={classes.cover}>
               <Box className={classes.billContainer}>
-                <Box className={classes.accountDetail}>
-                  <Box className={classes.boxAccount}>
-                    <Box sx={{ display: "flex" }}>
-                      <CircleIcon sx={{ fontSize: "40px" }} />
-                      <Box ml={1}>
-                        <Typography variant="h5">Account Name</Typography>
-                        <Typography variant="h6">
-                          Bank name, Account Number
-                        </Typography>
-                      </Box>
-                    </Box>
-                    <Button>
-                      <CreateIcon style={{ color: "black" }} />
-                    </Button>
-                  </Box>
-                </Box>
-                <Box className={classes.paidContainer}>
+              <Box className={classes.paidContainer}>
                   <Typography variant="h4">Friends who already paid</Typography>
                   <Box className={classes.statusBill}>
                     <Box className={classes.alreadyPaidContainer}>
-                      <PaidBill />
+                      {paidBills.length === 0 && <Typography variant="h5">No one paid yet</Typography>}
+                      {paidBills.map((paidBill) => 
+                        <PaidBill userBill={paidBill}/>
+                      )}
                     </Box>
                   </Box>
                 </Box>
@@ -96,7 +106,10 @@ function PendingBill() {
                   <Typography variant="h4">Friends who didn’t pay</Typography>
                   <Box className={classes.statusBill}>
                     <Box className={classes.didNotPayContainer}>
-                      <NotPaidBill />
+                      {unpaidBills.length === 0 && <Typography variant="h5">Everyone paid</Typography>}
+                      {unpaidBills.map((unpaidBill) =>
+                        <NotPaidBill userBill={unpaidBill}/>
+                      )}
                     </Box>
                   </Box>
                 </Box>
@@ -124,7 +137,7 @@ function PendingBill() {
                       <Typography variant="h5">No, don’t cancel this bill</Typography>
                     </Button>
                     <Button
-                      onClick={handleCloseDialog}
+                      onClick={handleDeleteBill}
                       autoFocus
                       className={classes.yesButton}
                     >
