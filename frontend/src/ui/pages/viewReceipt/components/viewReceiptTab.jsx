@@ -1,15 +1,32 @@
-import React, { useState, useContext} from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Tabs, Tab, Box, Paper } from "@mui/material";
 import BillStatus from "../../home/components/billStatus";
 import { ShareImageContext } from "../../uploadReceipt/components/shareImageContext";
+import { request } from "../../../../helpers/axios_helper";
 
 function ViewRecepitTab() {
   const [value, setValues] = useState(0);
   const { uploadImage } = useContext(ShareImageContext);
 
-  console.log('View bill id: ', localStorage.getItem('userBillId'))
-
   console.log('Image base64: ', uploadImage)
+
+  const [receiptImage, setReceiptImage] = useState('')
+
+  const fetchImageApi = async () => {
+    const userBillId = window.location.pathname.split("/")[2]
+    try {
+      const response = await request('GET', '/receipt/userBill/' + userBillId)
+      setReceiptImage(response.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchImageApi()
+    console.log('Receipt iamge: ', receiptImage)
+  }, [])
+
 
   return (
     <Box
@@ -104,7 +121,7 @@ function ViewRecepitTab() {
               >
                 <Paper sx={{ height: "400px" }}>
                   <img
-                    src={uploadImage}
+                    src={receiptImage}
                     alt="bill"
                     style={{ maxWidth: "100%", maxHeight: "100%" }}
                   />

@@ -40,7 +40,7 @@ function App() {
             <Route path="edit-bank-account" element={<EditBankAccount />} />
             <Route path="/upload-receipt" element={<UploadReceipt />} />
             <Route path="/receipt-uploaded" element={<ReceiptBillUpload />} />
-            <Route path="/view-receipt" element={<ViewReceipt />} />
+            <Route path="/view-receipt/:id" element={<ViewReceipt />} />
             <Route path="/add-Friend" element={<AddFriend />} />
             <Route path="/home/" element={<Home />} />
             <Route path="/splitting-bill" element={<SplitingBill />} />
@@ -50,12 +50,12 @@ function App() {
             <Route path="/summary-bill" element={<SummaryBill />} />
             <Route path="/bill-summary" element={<BillSummary />} />
             <Route path="/pending-bill/:id" element={<PendingBill />} />
+             <Route path="/bill-details" element={<BillDetails />} />
           </Route>
           {/* <Route path="/create-bill" element={<CreateBill />} /> No longer use */}
           {/* </Route> */}
           {/* <Route path="/create-bill" element={<CreateBill />} /> No longer use */}
           <Route path="*" element={<PageNotFound />} />
-          <Route path="/bill-details" element={<BillDetails />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

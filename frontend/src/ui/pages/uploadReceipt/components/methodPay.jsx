@@ -35,7 +35,6 @@ function MethodPay() {
         "/" + uid + "/userBills/" + window.location.pathname.split("/")[3]
       );
       setUserBill(response.data);
-      localStorage.setItem("userBillId", response.data.id);
     } catch (error) {
       alert(error.message);
     } finally {

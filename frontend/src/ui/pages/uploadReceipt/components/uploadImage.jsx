@@ -18,6 +18,11 @@ function UploadImage() {
     isUploading,
   } = useContext(ShareImageContext);
 
+
+  useEffect(() => {
+    console.log('You have navigate into user bill: ', localStorage.getItem('userBillId'))
+  }, [])
+
   const handleCloseSnackbar = (event, reason) => {
     if (reason === "clickaway") {
       return;

@@ -8,12 +8,6 @@ function PendingBills({ userBills }) {
   const storedShowImage = JSON.parse(localStorage.getItem("showImage"));
   const billId = JSON.parse(localStorage.getItem('userBillId'))
 
-  const storedImage = localStorage.getItem(`uploadImage_${userBills.id}`);
-
-  console.log(`Retrieved image for bill ${userBills.id}: ${storedImage}`);
-
-  console.log('storagedImage: ', storedImage)
-
   useEffect(() => {
     console.log('View user pendingBills: ', billId)
   }, [])
@@ -41,7 +35,7 @@ function PendingBills({ userBills }) {
           >
             Transaction ID: {userBill.id}
           </Typography>
-          <Button href="/view-receipt" fullWidth className={classes.payButton}>
+          <Button href={"/view-receipt/" + userBill.id} fullWidth className={classes.payButton}>
             <Typography variant="h5">See payment details</Typography>
           </Button>
         </Paper>

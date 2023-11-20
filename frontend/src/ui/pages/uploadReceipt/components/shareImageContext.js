@@ -15,19 +15,21 @@ export const ShareImageProvider = ({ children }) => {
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
   const [isUploading, setIsUploading] = useState(false);
 
+
   const handleUploadFile = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
 
+
     reader.onloadend = () => {
       const base64data = reader.result;
       setUploadImage(base64data);
-      try {
-        localStorage.setItem("uploadImage", base64data);
-        console.log(`The image saved into localStorage in: ${localStorage.getItem('userBillId')}`);
-      } catch (error) {
-        console.log(error);
-      }
+      // try {
+      //   localStorage.setItem("uploadImage", base64data);
+      //   console.log(`The image saved into localStorage in: ${localStorage.getItem('userBillId')}`);
+      // } catch (error) {
+      //   console.log(error);
+      // }
     };
 
     if (file) {
@@ -46,7 +48,7 @@ export const ShareImageProvider = ({ children }) => {
       try {
         const response = await request(
           "PUT",
-          "/receipt/userBill/" + localStorage.getItem("userBillId"),
+          "/receipt/userBill/" + window.location.pathname.split("/")[3],
           uploadImage
         );
         if (response.status === 200) {
@@ -59,7 +61,7 @@ export const ShareImageProvider = ({ children }) => {
         setSnackbarMessage(response.data);
         setSnackbarSeverity("success");
         window.location.href =
-            "/receipt-uploaded/" + localStorage.getItem("userBillId");
+            "/receipt-uploaded/" + window.location.pathname.split("/")[3];
       } catch (error) {
         setSnackbarOpen(true);
         setSnackbarSeverity("error");
