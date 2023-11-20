@@ -37,10 +37,6 @@ function BottomBar({ itemList, onSaveBill }) {
     localStorage.setItem("billDetails", JSON.stringify(billDetails));
     localStorage.setItem("selectedFriendsId", JSON.stringify([id]));
     window.location.href = "/add-Friend";
-    // setTimeout(() => {
-    //   setIsLoading(false);
-    //   window.location.href = "/add-Friend";
-    // }, 1000);
   };
 
   const handleButtonClick = () => {
