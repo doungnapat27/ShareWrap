@@ -42,11 +42,11 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
 <details>
 <summary><h2>📱 Unit testing 📱</h2></summary>
 <details>
-<summary><h3>Test case #1: <code> Valid username and password for Log In </code> </h3></summary>
+<summary><h3>Test case #1: <code> UserService - Test valid username and password for Log In </code> </h3></summary>
    
 ### Name of the Test: Validate username and password
 ### The goal of the test case: validate user input for a valid email and password, ensuring that the validation function works correctly.
-### Tool using for testing: JUnit
+### Tool using for testing: JUnit, Mockito
 ### The characteristics developed for this test case:
    - **Interface-based:**
    - **Functionality-based:**
@@ -137,86 +137,89 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
 </details> 
 
 <details>
-<summary><h3>Test case #2: <code> Just placeholder </code> </h3></summary>
+<summary><h3>Test case #2: <code> UserService - Test generateUniqueUserId</code> </h3></summary>
    
-### Name of the Test: 
-### The goal of the test case:
-### Tool using for testing:
+### Name of the Test: test_generateUniqueUserId
+### The goal of the test case: Verify that the generateUniqueUserId method in the UserService class produces unique user IDs for different usernames.
+### Tool using for testing: JUnit, Mockito
 ### The characteristics developed for this test case:
    - **Interface-based:**
    - **Functionality-based:**
 **Interface-based**
 1. Identify testable functions
 2. Identify parameters, return types, return values, and exceptional behavior
-   - Parameters:
-   - Return type:
-   - Return value:
-   - Exceptional behavior:
+   - Parameters: String username
+   - Return type: String
+   - Return value: The generated user ID
+   - Exceptional behavior: -
 3. Model the input domain
    - Develop Characteristics
-     - C1 =
+     - C1 = Length of username
    - Partition characteristics
      
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
+     | Characteristic   | b1         | b2         |
+     | ---------------- | ---------- | ---------- |
+     | Length of username | <min_length | >=min_length|
      
    - Identify (possible) values
      
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
+     | Characteristic   | b1         | b2         |
+     | ---------------- | ---------- | ---------- |
+     | Length of username | 0 | "john_doe" |
      
 4. Combine partitions to define test requirements
-   - Assumption:
-   - Test Requirements: number of test (upper bound) =
-      - (,)
+   - Assumption:ACoC
+   - Test Requirements: number of test (upper bound) = 2
+      - (""), ("john_doe")
   
 5. Derive test values
 
-     | Test             |            |            | expected results|
-     | ---------------- | ---------- | ---------- | --------------- |
-     |  T1(,)           |            |            |                 |
+     | Test             | Length of username | expected results |
+     | ---------------- | ---------- | ---------- |
+     |  T1("")  | 0 | false |
+     |  T2("john_doe")  | 8 | true |
    
 **Functionality-based**
 1. Identify testable functions
-3. Identify parameters, return types, return values, and exceptional behavior
-   - Parameters: cal, epoch
-   - Return type: long
-   - Return value: cal.getTimeInMillis();
-   - Exceptional behavior: ??
-5. Model the input domain
+   - generateUniqueUserId method in UserService
+2. Identify parameters, return types, return values, and exceptional behavior
+   - Parameters: username (String)
+   - Return type: String
+   - Return value: Unique user ID generated based on the username
+   - Exceptional behavior: -
+3. Model the input domain
    - Develop Characteristics
-     - C1 =
+     - C1 = Usernames
    - Partition characteristics
      
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
+     | Characteristic | b1         | b2         |
+     | ---------- | ---------- | ---------- |
+     | Usernames  |  Valid |  Invalid  |
      
    - Identify (possible) values
      
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
+     | Characteristic   | b1         | b2         |
+     | ---------------- | ---------- | ---------- |
+     |  Usernames  | "john_doe" | "jane_smith"  |
      
-6. Combine partitions to define test requirements
-   - Assumption:
-   - Test Requirements: number of test(upper bound) =
-      - (,)
+4. Combine partitions to define test requirements
+   - Assumption: ECC
+   - Test Requirements: number of test(upper bound) = 2
+      - (Vallid), (Invalid)
   
-7. Derive test values
+5. Derive test values
 
-     | Test             |            |            | expected results|
-     | ---------------- | ---------- | ---------- | --------------- |
-     |  T1(,)           |            |            |                 |
+     | Test             | Usernames | expected results|
+     | ---------------- | ---------- | ---------- |
+     |  T1(Valid)    | ("john_doe", "jane_smith") |Unique user ID generated|
+     |  T2(Invalid)    | ("john_doe", "john_doe") |Unique user ID generated|
 
 </details> 
 
 <details>
-<summary><h3>Test case #3: <code> Just placeholder </code> </h3></summary>
+<summary><h3>Test case #3: <code> UserService - Test generateUserId </code> </h3></summary>
    
-### Name of the Test: 
+### Name of the Test: test_generateUserId
 ### The goal of the test case:
 ### Tool using for testing:
 ### The characteristics developed for this test case:
@@ -225,149 +228,71 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
 **Interface-based**
 1. Identify testable functions
 2. Identify parameters, return types, return values, and exceptional behavior
-   - Parameters:
-   - Return type:
-   - Return value:
-   - Exceptional behavior:
-4. Model the input domain
+   - Parameters: String username
+   - Return type: String
+   - Return value: The generated user ID
+   - Exceptional behavior: -
+3. Model the input domain
    - Develop Characteristics
-     - C1 =
+     - C1 = Length of the input username
    - Partition characteristics
      
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
+     | Characteristic   | b1         | b2         |
+     | ---------------- | ---------- | ---------- |
+     | Length of username | len = 0 | len > 0 |
      
    - Identify (possible) values
      
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
+     | Characteristic   | b1         | b2         |
+     | ---------------- | ---------- | ---------- |
+     | Length of username | "" | "john_doe" |
      
-5. Combine partitions to define test requirements
-   - Assumption:
-   - Test Requirements: number of test (upper bound) =
-      - (,)
+4. Combine partitions to define test requirements
+   - Assumption:ACoC
+   - Test Requirements: number of test (upper bound) = 2
+      - (len = 0), (len > 0)
   
-6. Derive test values
+5. Derive test values
 
-     | Test             |            |            | expected results|
-     | ---------------- | ---------- | ---------- | --------------- |
-     |  T1(,)           |            |            |                 |
+     | Test             | Length of username | expected results |
+     | ---------------- | ---------- | ---------- |
+     |  T1(len = 0)  | "" | 6 |
+     |  T2(len > 0)  | "john_doe" | 14 |
    
 **Functionality-based**
-1. Identify testable functions
+1. Identify testable functions: generateUserId
 3. Identify parameters, return types, return values, and exceptional behavior
-   - Parameters: cal, epoch
-   - Return type: long
-   - Return value: cal.getTimeInMillis();
-   - Exceptional behavior: ??
+   - Parameters: String username
+   - Return type: String
+   - Return value: The generated user ID
+   - Exceptional behavior: -
 5. Model the input domain
    - Develop Characteristics
-     - C1 =
+     - C1 = Length of the username
    - Partition characteristics
      
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
+     | Characteristic   | b1         | 
+     | ---------------- | ---------- | 
+     | Length of the username | 1 |
      
    - Identify (possible) values
      
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
+     | Characteristic   | b1         |
+     | ---------------- | ---------- |
+     | Length of the username | "a" |
      
 6. Combine partitions to define test requirements
-   - Assumption:
+   - Assumption: ACoC
    - Test Requirements: number of test(upper bound) =
-      - (,)
+      - ("a")
   
 7. Derive test values
 
-     | Test             |            |            | expected results|
-     | ---------------- | ---------- | ---------- | --------------- |
-     |  T1(,)           |            |            |                 |
+     | Test             |           | expected results|
+     | ---------------- | ---------- | --------------- |
+     |  T1("a") | 1 |	7 characters | 
 
 </details> 
-
-<details>
-<summary><h3>Test case #1: <code> Just placeholder </code> </h3></summary>
-   
-### Name of the Test: 
-### The goal of the test case:
-### Tool using for testing:
-### The characteristics developed for this test case:
-   - **Interface-based:**
-   - **Functionality-based:**
-**Interface-based**
-1. Identify testable functions
-2. Identify parameters, return types, return values, and exceptional behavior
-   - Parameters:
-   - Return type:
-   - Return value:
-   - Exceptional behavior:
-4. Model the input domain
-   - Develop Characteristics
-     - C1 =
-   - Partition characteristics
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-   - Identify (possible) values
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-5. Combine partitions to define test requirements
-   - Assumption:
-   - Test Requirements: number of test (upper bound) =
-      - (,)
-  
-6. Derive test values
-
-     | Test             |            |            | expected results|
-     | ---------------- | ---------- | ---------- | --------------- |
-     |  T1(,)           |            |            |                 |
-   
-**Functionality-based**
-1. Identify testable functions
-3. Identify parameters, return types, return values, and exceptional behavior
-   - Parameters: cal, epoch
-   - Return type: long
-   - Return value: cal.getTimeInMillis();
-   - Exceptional behavior: ??
-5. Model the input domain
-   - Develop Characteristics
-     - C1 =
-   - Partition characteristics
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-   - Identify (possible) values
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-6. Combine partitions to define test requirements
-   - Assumption:
-   - Test Requirements: number of test(upper bound) =
-      - (,)
-  
-7. Derive test values
-
-     | Test             |            |            | expected results|
-     | ---------------- | ---------- | ---------- | --------------- |
-     |  T1(,)           |            |            |                 |
-
-</details> 
-
-</details>
 
 ---
 
