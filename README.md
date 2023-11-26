@@ -44,7 +44,7 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
 <details>
 <summary><h3>Test case #1: <code> UserService - Test valid email and password for Log In </code> </h3></summary>
    
-### Name of the Test: Test valid email and password
+### Name of the Test: test_login
 ### The goal of the test case: validate user input for a valid email and password, ensuring that the validation function works correctly.
 ### Tool using for testing: JUnit, Mockito
 ### The characteristics developed for this test case:
@@ -160,7 +160,7 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
 **Interface-based**
 1. Identify testable functions
    - 'generateUniqueUserId' method in the 'UserService' class
-3. Identify parameters, return types, return values, and exceptional behavior
+2. Identify parameters, return types, return values, and exceptional behavior
    - Parameters: String username
    - Return type: 
      - Boolean
@@ -168,6 +168,7 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
      - true
      - false
    - Exceptional behavior: -
+3. Model the input domain
    - Develop Characteristics
      - C1 = Length of username
    - Partition characteristics
@@ -182,12 +183,12 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
      | ---------------- | ---------- | ---------- | ---------- |
      | C1 = Length of username | username+(0<length<6) |username+(length=6) | username+(length>6) |
      
-5. Combine partitions to define test requirements
+4. Combine partitions to define test requirements
    - Assumption:ACoC
    - Test Requirements: number of test (upper bound) = 3
       - (false), (true), (false)
   
-6. Derive test values
+5. Derive test values
 
      | Test             | Length of username | expected results |
      | ---------------- | ---------- | ---------- |
@@ -233,80 +234,86 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
 </details> 
 
 <details>
-<summary><h3>Test case #3: <code> UserService - Test generateUserId </code> </h3></summary>
+<summary><h3>Test case #3: <code> UserService - Test getUser </code> </h3></summary>
    
-### Name of the Test: test_generateUserId
-### The goal of the test case:
-### Tool using for testing:
+### Name of the Test: test_getUser
+### The goal of the test case: Confirm and Validate retrieving and mapping a user when the user with the provided userId exists.
+### Tool using for testing: JUnit, Mockito
 ### The characteristics developed for this test case:
    - **Interface-based:**
    - **Functionality-based:**
 **Interface-based**
 1. Identify testable functions
+   - 'getUser' method in the 'UserService' class
 2. Identify parameters, return types, return values, and exceptional behavior
-   - Parameters: String username
-   - Return type: String
-   - Return value: The generated user ID
-   - Exceptional behavior: -
+   - Parameters: String userId
+   - Return type: 
+     - Boolean
+   - Return value:
+     - true
+     - false
+   - Exceptional behavior: AppException - Thrown if the user with the given userId is not found.
 3. Model the input domain
    - Develop Characteristics
-     - C1 = Length of the input username
+     - C1 = Existence of user
    - Partition characteristics
      
      | Characteristic   | b1         | b2         |
      | ---------------- | ---------- | ---------- |
-     | Length of username | len = 0 | len > 0 |
+     | C1 = Existence of user | true |	false |
      
    - Identify (possible) values
      
      | Characteristic   | b1         | b2         |
      | ---------------- | ---------- | ---------- |
-     | Length of username | "" | "john_doe" |
+     |  C1 = Existence of user | "validUserId" | "invalidUserId" |
      
 4. Combine partitions to define test requirements
    - Assumption:ACoC
    - Test Requirements: number of test (upper bound) = 2
-      - (len = 0), (len > 0)
+      - (true), (false)
   
 5. Derive test values
 
      | Test             | Length of username | expected results |
      | ---------------- | ---------- | ---------- |
-     |  T1(len = 0)  | "" | 6 |
-     |  T2(len > 0)  | "john_doe" | 14 |
+     |  T1 (true)  | "validUserId" | true |
+     |  T2 (false)  | "invalidUserId" | Throws an AppException, and return false |
    
 **Functionality-based**
-1. Identify testable functions: generateUserId
-3. Identify parameters, return types, return values, and exceptional behavior
-   - Parameters: String username
-   - Return type: String
-   - Return value: The generated user ID
-   - Exceptional behavior: -
-5. Model the input domain
+1. Identify testable functions:
+  - 'getUser' method in the 'UserService' class
+2. Identify parameters, return types, return values, and exceptional behavior
+   - Parameters: String userId
+   - Return type: UserDto
+   - Return value: UserDto containing user information.
+   - Exceptional behavior: Throws AppException with the message "User not found" and HTTP status HttpStatus.NOT_FOUND if the user is not found.
+3. Model the input domain
    - Develop Characteristics
-     - C1 = Length of the username
+     - C1 = Existence of user
    - Partition characteristics
      
-     | Characteristic   | b1         | 
-     | ---------------- | ---------- | 
-     | Length of the username | 1 |
+     | Characteristic   | b1         | b2         |
+     | ---------------- | ---------- | ---------- |
+     | C1 = Existence of user | User exists |	User does not exist |
      
    - Identify (possible) values
      
-     | Characteristic   | b1         |
-     | ---------------- | ---------- |
-     | Length of the username | "a" |
+     | Characteristic   | b1         | b2         |
+     | ---------------- | ---------- | ---------- |
+     |  C1 = Existence of user | "validUserId" | "invalidUserId" |
      
-6. Combine partitions to define test requirements
-   - Assumption: ACoC
-   - Test Requirements: number of test(upper bound) =
-      - ("a")
+4. Combine partitions to define test requirements
+   - Assumption:ACoC
+   - Test Requirements: number of test (upper bound) = 2
+      - (User exists), (User does not exist)
   
-7. Derive test values
+5. Derive test values
 
-     | Test             |           | expected results|
-     | ---------------- | ---------- | --------------- |
-     |  T1("a") | 1 |	7 characters | 
+     | Test             | Length of username | expected results |
+     | ---------------- | ---------- | ---------- |
+     |  T1 (User exists)  | "validUserId" | UserDto with validUserId |
+     |  T2 (User does not exist)  | "invalidUserId" | AppException with "User not found" |
 
 </details> 
 
