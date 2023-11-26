@@ -72,15 +72,15 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
      
      | Characteristic | b1 | b2 |
      | -------------- | --- | --- |
-     | Email | true | false |
-     | Password | true | false |
+     | C1 = Email | true | false |
+     | C2 = Password | true | false |
      
    - Identify (possible) values
      
      | Characteristic | b1 | b2 |
      | -------------- | --- | --- |
-     | Email | "test@example.com" | "" |
-     | Password | "password" | "wrongPassword" |
+     | C1 = Email | "test@example.com" | "" |
+     | C2 = Password  | "password" | "wrongPassword" |
      
 4. Combine partitions to define test requirements
    - Assumption: ACoC
@@ -122,15 +122,15 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
      
      | Characteristic | b1 | b2 |
      | -------------- | --- | --- |
-     | Email | Valid | Invalid |
-     | Password | Valid | Invalid |
+     | C1 = Email | Valid | Invalid |
+     | C2 = Password  | Valid | Invalid |
      
    - Identify (possible) values
      
      | Characteristic | b1 | b2 |
      | -------------- | --- | --- |
-     | Email | "test@example.com" | "" |
-     | Password | "password" | "wrongPassword" |
+     | C1 = Email | "test@example.com" | "" |
+     | C2 = Password  | "password" | "wrongPassword" |
      
 4. Combine partitions to define test requirements
    - Assumption: ACoc
@@ -141,7 +141,7 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
 
      | Test | Email | Password | Expected Results|
      | ---------------- | ---------- | ---------- | --------------- |
-     | T1 ((Valid Email, Valid Password)) | "test@example.com" | "password" | "logging in..." |
+     | T1 (Valid Email, Valid Password) | "test@example.com" | "password" | "logging in..." |
      | T2 (Valid Email, Invalid Password) | "test_@example.com" | "wrongPassword" | HttpStatus.BAD_REQUEST, "Invalid password" |
      | T3 (Invalid Email, Valid Password) | "" | "password" | HttpStatus.NOT_FOUND |
      | T4 (Invalid Email, Invalid Password) | "" | "wrongPassword" | HttpStatus.BAD_REQUEST |
@@ -152,52 +152,56 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
 <summary><h3>Test case #2: <code> UserService - Test generateUniqueUserId</code> </h3></summary>
    
 ### Name of the Test: test_generateUniqueUserId
-### The goal of the test case: Verify that the generateUniqueUserId method in the UserService class produces unique user IDs for different usernames.
+### The goal of the test case: Validate the generateUniqueUserId method in the UserService class produces unique user IDs.
 ### Tool using for testing: JUnit, Mockito
 ### The characteristics developed for this test case:
    - **Interface-based:**
    - **Functionality-based:**
 **Interface-based**
 1. Identify testable functions
-2. Identify parameters, return types, return values, and exceptional behavior
+   - 'generateUniqueUserId' method in the 'UserService' class
+3. Identify parameters, return types, return values, and exceptional behavior
    - Parameters: String username
-   - Return type: String
-   - Return value: The generated user ID
+   - Return type: 
+     - Boolean
+   - Return value:
+     - true
+     - false
    - Exceptional behavior: -
-3. Model the input domain
    - Develop Characteristics
      - C1 = Length of username
    - Partition characteristics
      
-     | Characteristic   | b1         | b2         |
-     | ---------------- | ---------- | ---------- |
-     | Length of username | <min_length | >=min_length|
+     | Characteristic   | b1         | b2         | b3         |
+     | ---------------- | ---------- | ---------- | ---------- |
+     | C1 = Length of username | false | true | false|
      
    - Identify (possible) values
      
-     | Characteristic   | b1         | b2         |
-     | ---------------- | ---------- | ---------- |
-     | Length of username | 0 | "john_doe" |
+     | Characteristic   | b1         | b2         | b3         |
+     | ---------------- | ---------- | ---------- | ---------- |
+     | C1 = Length of username | username+(0<length<6) |username+(length=6) | username+(length>6) |
      
-4. Combine partitions to define test requirements
+5. Combine partitions to define test requirements
    - Assumption:ACoC
-   - Test Requirements: number of test (upper bound) = 2
-      - (""), ("john_doe")
+   - Test Requirements: number of test (upper bound) = 3
+      - (false), (true), (false)
   
-5. Derive test values
+6. Derive test values
 
      | Test             | Length of username | expected results |
      | ---------------- | ---------- | ---------- |
-     |  T1("")  | 0 | false |
-     |  T2("john_doe")  | 8 | true |
+     |  T1 (false)  | "john_doe".length()+3 | false |
+     |  T2 (true)  | "john_doe".length()+6 | true |
+     |  T3 (false)  | "john_doe".length()+8 | false |
    
 **Functionality-based**
 1. Identify testable functions
-   - generateUniqueUserId method in UserService
+   - 'generateUniqueUserId' method in the 'UserService' class
 2. Identify parameters, return types, return values, and exceptional behavior
-   - Parameters: username (String)
+   - Parameters: String username
    - Return type: String
-   - Return value: Unique user ID generated based on the username
+   - Return value: String representing unique user ID 
    - Exceptional behavior: -
 3. Model the input domain
    - Develop Characteristics
@@ -206,25 +210,25 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
      
      | Characteristic | b1         | b2         |
      | ---------- | ---------- | ---------- |
-     | Usernames  |  Valid |  Invalid  |
+     | C1 = Usernames  |  different username |  same username |
      
    - Identify (possible) values
      
      | Characteristic   | b1         | b2         |
      | ---------------- | ---------- | ---------- |
-     |  Usernames  | "john_doe" | "jane_smith"  |
+     |   C1 = Usernames   | ("john_doe", "jane_smith") | ("john_doe", "john_doe") |
      
 4. Combine partitions to define test requirements
-   - Assumption: ECC
+   - Assumption: ACoC
    - Test Requirements: number of test(upper bound) = 2
-      - (Vallid), (Invalid)
+      - (different username), (same username)
   
 5. Derive test values
 
      | Test             | Usernames | expected results|
      | ---------------- | ---------- | ---------- |
-     |  T1(Valid)    | ("john_doe", "jane_smith") |Unique user ID generated|
-     |  T2(Invalid)    | ("john_doe", "john_doe") |Unique user ID generated|
+     |  T1 (different username)   | ("john_doe", "jane_smith") |Unique user ID generated|
+     |  T2 (same username)   | ("john_doe", "john_doe") |Unique user ID generated|
 
 </details> 
 
