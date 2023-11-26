@@ -84,17 +84,20 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
      
 4. Combine partitions to define test requirements
    - Assumption: ACoC
-   - Test Requirements: number of test (upper bound) = c
-       - (Valid Email, Valid Password), (Valid Email, Invalid Password), (Invalid Email, Valid Password), (Invalid Email, Invalid Password).
+   - Test Requirements: number of test (upper bound) = 4
+       - (true, true)
+       - (true, false)
+       - (false, true)
+       - (false, false)
   
 5. Derive test values
 
      | Test | Email | Password | Expected Results|
      | ---------------- | ---------- | ---------- | --------------- |
-     | T1 ((Valid Email, Valid Password)) | "test@example.com" | "password" | true |
-     | T2 (Valid Email, Invalid Password) | "test_@example.com" | "wrongPassword" | false |
-     | T3 (Invalid Email, Valid Password) | "" | "wrongPassword" | false |
-     | T4 (Invalid Email, Invalid Password) | "test_invalid@example.com" | "wrongPassword" | false |
+     | T1 (true, true) | "test@example.com" | "password" | true |
+     | T2 (true, false) | "test_@example.com" | "wrongPassword" | false |
+     | T3 (false, true) | "" | "password" | false |
+     | T4 (false, false) | "" | "wrongPassword" | false |
    
 **Functionality-based**
 1. Identify testable functions
