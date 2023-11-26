@@ -42,9 +42,9 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
 <details>
 <summary><h2>📱 Unit testing 📱</h2></summary>
 <details>
-<summary><h3>Test case #1: <code> UserService - Test valid username and password for Log In </code> </h3></summary>
+<summary><h3>Test case #1: <code> UserService - Test valid email and password for Log In </code> </h3></summary>
    
-### Name of the Test: Validate username and password
+### Name of the Test: Test valid email and password
 ### The goal of the test case: validate user input for a valid email and password, ensuring that the validation function works correctly.
 ### Tool using for testing: JUnit, Mockito
 ### The characteristics developed for this test case:
@@ -55,41 +55,46 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
    -  'login' method in the 'UserService' class
 2. Identify parameters, return types, return values, and exceptional behavior
    - Parameters:
-     - Email
-     - Password
+     - 'LoginDto' containing email and password.
    - Return type: 
-     - 'boolean'
+     - Boolean
    - Return value:
-     - 'true' if the user is valid
-     - 'false' otherwise.
-   - Exceptional behavior: -
+     - true
+     - false
+   - Exceptional behavior:
+     - Throws `AppException` with message "Unknown user" and HTTP status NOT_FOUND if the user is not found.
+     - Throws `AppException` with message "Invalid password" and HTTP status BAD_REQUEST if the password is invalid.
 3. Model the input domain
    - Develop Characteristics
-    - C1 = Valid email and password
+     - C1 = Email
+     - C2 = Password
    - Partition characteristics
      
      | Characteristic | b1 | b2 |
      | -------------- | --- | --- |
-     | Valid email and password | true | false |
+     | Email | true | false |
+     | Password | true | false |
      
    - Identify (possible) values
      
      | Characteristic | b1 | b2 |
      | -------------- | --- | --- |
-     | Email | "test@example.com" | "test_invalid@example.com" |
+     | Email | "test@example.com" | "" |
      | Password | "password" | "wrongPassword" |
      
 4. Combine partitions to define test requirements
-   - Assumption: Each Choice Coverage (ECC)
-   - Test Requirements: number of test (upper bound) = 2
-       - (true), (false)
+   - Assumption: ACoC
+   - Test Requirements: number of test (upper bound) = c
+       - (Valid Email, Valid Password), (Valid Email, Invalid Password), (Invalid Email, Valid Password), (Invalid Email, Invalid Password).
   
 5. Derive test values
 
-     | Test | Email and Password | Expected Results|
-     | ---------------- | ---------- | --------------- |
-     | T1 (true) | (test@example.com, password) | true |
-     | T2 (false) | (test@example.com, wrongPassword) | false |
+     | Test | Email | Password | Expected Results|
+     | ---------------- | ---------- | ---------- | --------------- |
+     | T1 ((Valid Email, Valid Password)) | "test@example.com" | "password" | true |
+     | T2 (Valid Email, Invalid Password) | "test_@example.com" | "wrongPassword" | false |
+     | T3 (Invalid Email, Valid Password) | "" | "wrongPassword" | false |
+     | T4 (Invalid Email, Invalid Password) | "test_invalid@example.com" | "wrongPassword" | false |
    
 **Functionality-based**
 1. Identify testable functions
@@ -103,7 +108,9 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
    - Return value:
      - A user object if the login is successful
      - 'null' or an indication of failure if the login is unsuccessful
-   - Exceptional behavior: If the provided email or password is invalid, the method may throw an 'AppException'
+   - Exceptional behavior:
+     - Throws `AppException` with message "Unknown user" and HTTP status NOT_FOUND if the user is not found.
+     - Throws `AppException` with message "Invalid password" and HTTP status BAD_REQUEST if the password is invalid.
 3. Model the input domain
    - Develop Characteristics
      - C1 = Email
@@ -117,22 +124,24 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
      
    - Identify (possible) values
      
-     | Characteristic | b1 | b2 | b3 |
-     | -------------- | --- | --- | ------ |
-     | Email | "test@example.com" | "test_invalid@example.com" |
+     | Characteristic | b1 | b2 |
+     | -------------- | --- | --- |
+     | Email | "test@example.com" | "" |
      | Password | "password" | "wrongPassword" |
      
 4. Combine partitions to define test requirements
-   - Assumption: Each Choice Coverage (ECC)
-   - Test Requirements: number of test (upper bound) = 2
-       - (Valid, Valid), (Invalid, Invalid),
+   - Assumption: ACoc
+   - Test Requirements: number of test (upper bound) = c
+       - (Valid Email, Valid Password), (Valid Email, Invalid Password), (Invalid Email, Valid Password), (Invalid Email, Invalid Password).
   
 5. Derive test values
 
      | Test | Email | Password | Expected Results|
      | ---------------- | ---------- | ---------- | --------------- |
-     | T1 (Valid, Valid) | "test@example.com" | "password" | UserDto (indicating successful login) |
-     | T2 (Invalid, Invalid) | "test_invalid@example.com" | "wrongPassword" | "" |
+     | T1 ((Valid Email, Valid Password)) | "test@example.com" | "password" | "logging in..." |
+     | T2 (Valid Email, Invalid Password) | "test_@example.com" | "wrongPassword" | HttpStatus.BAD_REQUEST, "Invalid password" |
+     | T3 (Invalid Email, Valid Password) | "" | "password" | HttpStatus.NOT_FOUND |
+     | T4 (Invalid Email, Invalid Password) | "" | "wrongPassword" | HttpStatus.BAD_REQUEST |
 
 </details> 
 
