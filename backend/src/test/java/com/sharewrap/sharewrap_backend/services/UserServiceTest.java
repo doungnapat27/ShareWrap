@@ -436,4 +436,35 @@ public class UserServiceTest {
         assertEquals(7, result.length());
     }
 
+    @Test
+    public void test_valid_username() {
+        // Arrange
+        UserRepository userRepository = mock(UserRepository.class);
+        UserMapper userMapper = mock(UserMapper.class);
+        PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
+        BillRepository billRepository = mock(BillRepository.class);
+        UserService userService = new UserService(userRepository, passwordEncoder, userMapper, billRepository);
+
+        String username = "Unknown user";
+        User user = new User();
+        user.setUsername(username);
+        UserDto expectedUserDto = new UserDto();
+
+        // Define the behavior of mocks
+        when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
+        when(userMapper.toUserDto(user)).thenReturn(expectedUserDto);
+
+        // Act
+        UserDto result = userService.findByUsername(username);
+
+        // Assert
+        assertNotNull(result);
+        assertNotNull(expectedUserDto);
+        assertEquals(expectedUserDto, result);
+
+        // Verify that the expected methods were called on mocks
+        verify(userRepository).findByUsername(username);
+        verify(userMapper).toUserDto(user);
+    }
+
 }
