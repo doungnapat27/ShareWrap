@@ -1,0 +1,144 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > PromptpayController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.sharewrap.sharewrap_backend.controllers</a>
+</div>
+
+<h1>Coverage Summary for Class: PromptpayController (com.sharewrap.sharewrap_backend.controllers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PromptpayController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.sharewrap.sharewrap_backend.controllers;
+&nbsp;
+&nbsp;import com.sharewrap.sharewrap_backend.dtos.PaymentDto;
+&nbsp;import com.sharewrap.sharewrap_backend.dtos.PromptpayDto;
+&nbsp;import com.sharewrap.sharewrap_backend.services.PromptpayService;
+&nbsp;import jakarta.validation.Valid;
+&nbsp;import lombok.RequiredArgsConstructor;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;
+&nbsp;import java.net.URI;
+&nbsp;
+<b class="nc">&nbsp;@RequiredArgsConstructor</b>
+&nbsp;@RestController
+&nbsp;public class PromptpayController {
+&nbsp;
+&nbsp;    final private PromptpayService promptpayService;
+&nbsp;
+&nbsp;    @PostMapping(&quot;/add/promptpay&quot;)
+&nbsp;    public ResponseEntity&lt;PromptpayDto&gt; addPromptpay(@RequestBody @Valid PromptpayDto promptpayDto) {
+<b class="nc">&nbsp;        System.out.println(&quot;Adding promptpay...&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;PromptpayDto: &quot; + promptpayDto);</b>
+<b class="nc">&nbsp;        PromptpayDto createdPromptpay = promptpayService.createPromptpay(promptpayDto);</b>
+<b class="nc">&nbsp;        return ResponseEntity.created(URI.create(&quot;/promptpays/&quot; + createdPromptpay.getId())).body(createdPromptpay);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/{userId}/promptpay&quot;)
+&nbsp;    public ResponseEntity&lt;PromptpayDto&gt; getPromptpay(@PathVariable String userId) {
+<b class="nc">&nbsp;        System.out.println(&quot;Getting promptpay...&quot;);</b>
+<b class="nc">&nbsp;        PromptpayDto promptpayDto = promptpayService.getPromptpay(userId);</b>
+<b class="nc">&nbsp;        return ResponseEntity.ok(promptpayDto);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PutMapping(&quot;/update/promptpay&quot;)
+&nbsp;    public ResponseEntity&lt;PromptpayDto&gt; updatePromptpay(@RequestBody @Valid PromptpayDto promptpayDto) {
+<b class="nc">&nbsp;        System.out.println(&quot;Updating promptpay...&quot;);</b>
+<b class="nc">&nbsp;        PromptpayDto updatedPromptpay = promptpayService.updatePromptpay(promptpayDto);</b>
+<b class="nc">&nbsp;        return ResponseEntity.ok(updatedPromptpay);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-11-28 00:26</div>
+</div>
+</body>
+</html>

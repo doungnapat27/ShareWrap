@@ -1,0 +1,252 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > UserBillService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.sharewrap.sharewrap_backend.services</a>
+</div>
+
+<h1>Coverage Summary for Class: UserBillService (com.sharewrap.sharewrap_backend.services)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UserBillService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    28.6%
+  </span>
+  <span class="absValue">
+    (2/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    8.3%
+  </span>
+  <span class="absValue">
+    (1/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    23.4%
+  </span>
+  <span class="absValue">
+    (15/64)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.sharewrap.sharewrap_backend.services;
+&nbsp;
+&nbsp;
+&nbsp;import com.sharewrap.sharewrap_backend.dtos.BankAccountDto;
+&nbsp;import com.sharewrap.sharewrap_backend.dtos.PromptpayDto;
+&nbsp;import com.sharewrap.sharewrap_backend.dtos.UserBillDto;
+&nbsp;import com.sharewrap.sharewrap_backend.exceptions.AppException;
+&nbsp;import com.sharewrap.sharewrap_backend.mappers.BankAccountMapper;
+&nbsp;import com.sharewrap.sharewrap_backend.mappers.PromptpayMapper;
+&nbsp;import com.sharewrap.sharewrap_backend.mappers.UserBillMapper;
+&nbsp;import com.sharewrap.sharewrap_backend.models.*;
+&nbsp;import com.sharewrap.sharewrap_backend.repositories.*;
+&nbsp;import jakarta.transaction.Transactional;
+&nbsp;import lombok.RequiredArgsConstructor;
+&nbsp;import org.springframework.http.HttpStatus;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;
+&nbsp;import java.sql.Date;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;import static com.sharewrap.sharewrap_backend.services.BlobService.convertBase64ToBlob;
+&nbsp;import static com.sharewrap.sharewrap_backend.services.BlobService.convertToBase64;
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;@RequiredArgsConstructor</b>
+&nbsp;@Service
+&nbsp;public class UserBillService {
+&nbsp;
+&nbsp;    private final UserRepository userRepository;
+&nbsp;    private final UserBillMapper userBillMapper;
+&nbsp;    private final PromptpayRepository promptpayRepository;
+&nbsp;    private final PromptpayMapper promptpayMapper;
+&nbsp;    private final BankAccountRepository bankAccountRepository;
+&nbsp;    private final BankAccountMapper bankAccountMapper;
+&nbsp;    private final UserBillRepository userBillRepository;
+&nbsp;
+&nbsp;
+&nbsp;    @Transactional
+&nbsp;    public List&lt;UserBillDto&gt; getUserBills(String userId) {
+<b class="nc">&nbsp;        System.out.println(&quot;Start to get user bill&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        User user = userRepository.findById(userId)</b>
+<b class="nc">&nbsp;                .orElseThrow(() -&gt; new AppException(&quot;Unknown user&quot;, HttpStatus.NOT_FOUND));</b>
+&nbsp;
+<b class="nc">&nbsp;        List&lt;UserBill&gt; userBills = user.getUserBills();</b>
+<b class="nc">&nbsp;        List&lt;UserBillDto&gt; userBillDtos = userBillMapper.toUserBillDtos(userBills);</b>
+<b class="nc">&nbsp;        List&lt;UserBillDto&gt; onlyDebt = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="nc">&nbsp;        for(UserBillDto userBillDto: userBillDtos){</b>
+<b class="nc">&nbsp;            UserBill userBillMapped = userBillMapper.toUserBill(userBillDto);</b>
+<b class="nc">&nbsp;            UserBill userBill = userBillRepository.findById(userBillMapped.getId())</b>
+<b class="nc">&nbsp;                    .orElseThrow(() -&gt; new AppException(&quot;Unknown user bill&quot;, HttpStatus.NOT_FOUND));</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;            Bill bill = userBill.getBill();</b>
+<b class="nc">&nbsp;            User billOwner = bill.getUser();</b>
+&nbsp;
+<b class="nc">&nbsp;            if(!billOwner.getId().equals(userId)) {</b>
+<b class="nc">&nbsp;                userBillDto = addDetails(bill, userBillDto, userBill);</b>
+<b class="nc">&nbsp;                onlyDebt.add(userBillDto);</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return onlyDebt;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public UserBillDto getUserBill(String userId,Long userBillId){
+<b class="nc">&nbsp;        User user = userRepository.findById(userId)</b>
+<b class="nc">&nbsp;                .orElseThrow(() -&gt; new AppException(&quot;Unknown user&quot;, HttpStatus.NOT_FOUND));</b>
+<b class="nc">&nbsp;        UserBill userBill = userBillRepository.findById(userBillId)</b>
+<b class="nc">&nbsp;                .orElseThrow(() -&gt; new AppException(&quot;Unknown user bill&quot;, HttpStatus.NOT_FOUND));</b>
+<b class="nc">&nbsp;        if(!user.getId().equals(userBill.getUser().getId())) {</b>
+<b class="nc">&nbsp;            throw new AppException(&quot;Don&#39;t peep at other bill&quot;, HttpStatus.NOT_FOUND);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        UserBillDto userBillDto = userBillMapper.toUserBillDto(userBill);</b>
+&nbsp;
+<b class="nc">&nbsp;        return addDetails(userBill.getBill(), userBillDto, userBill);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public UserBillDto addDetails(Bill bill, UserBillDto userBillDto, UserBill userBill) {
+<b class="fc">&nbsp;        User billOwner = bill.getUser();</b>
+&nbsp;
+<b class="fc">&nbsp;        userBillDto.setBillId(bill.getId());</b>
+<b class="fc">&nbsp;        userBillDto.setBillName(bill.getName());</b>
+<b class="fc">&nbsp;        userBillDto.setPaymentType(bill.getPaymentType());</b>
+<b class="fc">&nbsp;        userBillDto.setReceipt(convertToBase64(userBill.getReceipt()));</b>
+&nbsp;
+<b class="fc">&nbsp;        userBillDto.setBillOwnerName(billOwner.getUsername());</b>
+<b class="fc">&nbsp;        userBillDto.setBillCreatedDate(bill.getCreatedDate());</b>
+&nbsp;
+<b class="pc">&nbsp;        if(bill.getPaymentType() == &#39;P&#39;) {</b>
+<b class="fc">&nbsp;            Promptpay promptpay = promptpayRepository.findByUser(billOwner)</b>
+<b class="fc">&nbsp;                    .orElseThrow(() -&gt; new AppException(&quot;Unknown promptpay&quot;, HttpStatus.NOT_FOUND));</b>
+<b class="fc">&nbsp;            PromptpayDto promptpayDto = promptpayMapper.toPromptpayDto(promptpay);</b>
+<b class="fc">&nbsp;            userBillDto.setPromptpayDto(promptpayDto);</b>
+<b class="fc">&nbsp;        }</b>
+<b class="nc">&nbsp;        else if(bill.getPaymentType() == &#39;B&#39;){</b>
+<b class="nc">&nbsp;            BankAccount bankAccount = bankAccountRepository.findByUser(billOwner)</b>
+<b class="nc">&nbsp;                    .orElseThrow(() -&gt; new AppException(&quot;Unknown bank account&quot;, HttpStatus.NOT_FOUND));</b>
+<b class="nc">&nbsp;            BankAccountDto bankAccountDto = bankAccountMapper.toBankAccountDto(bankAccount);</b>
+<b class="nc">&nbsp;            userBillDto.setBankAccountDto(bankAccountDto);</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        return userBillDto;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String updateIsPaid(Long id) {
+<b class="nc">&nbsp;        UserBill userBill = userBillRepository.findById(id)</b>
+<b class="nc">&nbsp;                .orElseThrow(() -&gt; new AppException(&quot;Unknown user bill&quot;, HttpStatus.NOT_FOUND));</b>
+<b class="nc">&nbsp;        userBill.setIsPaid(true);</b>
+<b class="nc">&nbsp;        userBillRepository.save(userBill);</b>
+<b class="nc">&nbsp;        return &quot;You paid for what you eat, Thank you na HAFFU~~!&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String updateIsApprove(Long id) {
+<b class="nc">&nbsp;        UserBill userBill = userBillRepository.findById(id)</b>
+<b class="nc">&nbsp;                .orElseThrow(() -&gt; new AppException(&quot;Unknown user bill&quot;, HttpStatus.NOT_FOUND));</b>
+<b class="nc">&nbsp;        userBill.setIsApprove(true);</b>
+<b class="nc">&nbsp;        userBillRepository.save(userBill);</b>
+<b class="nc">&nbsp;        return &quot;Bill approved&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String updateReceipt(Long id, String receipt) {
+<b class="nc">&nbsp;        UserBill userBill = userBillRepository.findById(id)</b>
+<b class="nc">&nbsp;                .orElseThrow(() -&gt; new AppException(&quot;UserBill not found&quot;, HttpStatus.NOT_FOUND));</b>
+&nbsp;
+<b class="nc">&nbsp;        userBill.setReceipt(convertBase64ToBlob(receipt));</b>
+<b class="nc">&nbsp;        if(userBill.getReceipt() == null){</b>
+<b class="nc">&nbsp;            throw new AppException(&quot;Receipt is not uploaded&quot;, HttpStatus.NOT_FOUND);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        userBill.setUploadedDate(new Date(System.currentTimeMillis()));</b>
+<b class="nc">&nbsp;        userBill.setIsPaid(true);</b>
+<b class="nc">&nbsp;        userBillRepository.save(userBill);</b>
+<b class="nc">&nbsp;        return &quot;Receipt uploaded successfully. You paid for what you eat, Thank you na HAFFU~~!&quot;;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-11-28 00:26</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,146 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > UserBillController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.sharewrap.sharewrap_backend.controllers</a>
+</div>
+
+<h1>Coverage Summary for Class: UserBillController (com.sharewrap.sharewrap_backend.controllers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UserBillController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.sharewrap.sharewrap_backend.controllers;
+&nbsp;
+&nbsp;import com.sharewrap.sharewrap_backend.dtos.UserBillDto;
+&nbsp;import com.sharewrap.sharewrap_backend.repositories.UserRepository;
+&nbsp;import com.sharewrap.sharewrap_backend.services.UserBillService;
+&nbsp;import lombok.RequiredArgsConstructor;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+<b class="nc">&nbsp;@RequiredArgsConstructor</b>
+&nbsp;@RestController
+&nbsp;public class UserBillController {
+&nbsp;
+&nbsp;    private final UserBillService userBillService;
+&nbsp;    private final UserRepository userRepository;
+&nbsp;
+&nbsp;    @GetMapping(&quot;/{userId}/userBills&quot;)
+&nbsp;    public ResponseEntity&lt;List&lt;UserBillDto&gt;&gt; getUserBills(@PathVariable String userId) {
+<b class="nc">&nbsp;        return ResponseEntity.ok(userBillService.getUserBills(userId));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;{userId}/userBills/{id}&quot;)
+&nbsp;    public ResponseEntity&lt;UserBillDto&gt; getUserBill(@PathVariable String userId, @PathVariable Long id) {
+<b class="nc">&nbsp;        return ResponseEntity.ok(userBillService.getUserBill(userId, id));</b>
+&nbsp;    }
+&nbsp;    @PutMapping(&quot;/isPaid/userBill/{id}&quot;)
+&nbsp;    public ResponseEntity&lt;String&gt; updateIsPaidUserBill(@PathVariable Long id) {
+<b class="nc">&nbsp;        return ResponseEntity.ok(userBillService.updateIsPaid(id));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PutMapping(&quot;/isApprove/userBill/{id}&quot;)
+&nbsp;    public ResponseEntity&lt;String&gt; updateIsApproveUserBill(@PathVariable Long id) {
+<b class="nc">&nbsp;        return ResponseEntity.ok(userBillService.updateIsApprove(id));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PutMapping(&quot;/receipt/userBill/{id}&quot;)
+&nbsp;    public ResponseEntity&lt;String&gt; updateReceiptUserBill(@PathVariable Long id, @RequestBody String receipt) {
+<b class="nc">&nbsp;        return ResponseEntity.ok(userBillService.updateReceipt(id, receipt));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-11-28 00:26</div>
+</div>
+</body>
+</html>

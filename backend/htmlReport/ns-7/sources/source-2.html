@@ -1,0 +1,223 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > BankAccountServiceTests</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.sharewrap.sharewrap_backend.services</a>
+</div>
+
+<h1>Coverage Summary for Class: BankAccountServiceTests (com.sharewrap.sharewrap_backend.services)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BankAccountServiceTests</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (18/18)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.sharewrap.sharewrap_backend.services;
+&nbsp;
+&nbsp;import com.sharewrap.sharewrap_backend.dtos.BankAccountDto;
+&nbsp;import com.sharewrap.sharewrap_backend.exceptions.AppException;
+&nbsp;import com.sharewrap.sharewrap_backend.mappers.BankAccountMapper;
+&nbsp;import com.sharewrap.sharewrap_backend.models.BankAccount;
+&nbsp;import com.sharewrap.sharewrap_backend.models.User;
+&nbsp;import com.sharewrap.sharewrap_backend.repositories.BankAccountRepository;
+&nbsp;import com.sharewrap.sharewrap_backend.repositories.UserRepository;
+&nbsp;import org.junit.Test;
+&nbsp;
+&nbsp;import java.util.Optional;
+&nbsp;
+&nbsp;import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+&nbsp;import static org.junit.jupiter.api.Assertions.assertEquals;
+&nbsp;import static org.junit.jupiter.api.Assertions.assertTrue;
+&nbsp;import static org.mockito.ArgumentMatchers.any;
+&nbsp;import static org.mockito.Mockito.mock;
+&nbsp;import static org.mockito.Mockito.when;
+&nbsp;
+<b class="fc">&nbsp;public class BankAccountServiceTests {</b>
+&nbsp;//    @Test
+&nbsp;//    public void test_createBankAccount_validUserValidDetails() {
+&nbsp;//        // Arrange
+&nbsp;//        BankAccountDto bankAccountDto = new BankAccountDto();
+&nbsp;//        bankAccountDto.setUserId(&quot;validUserId&quot;);
+&nbsp;//        bankAccountDto.setName(&quot;validName&quot;);
+&nbsp;//        bankAccountDto.setBankName(&quot;validBankName&quot;);
+&nbsp;//        bankAccountDto.setAccountNumber(&quot;validAccountNumber&quot;);
+&nbsp;//
+&nbsp;//        BankAccountMapper bankAccountMapper = mock(BankAccountMapper.class);
+&nbsp;//        BankAccountRepository bankAccountRepository = mock(BankAccountRepository.class);
+&nbsp;//        UserRepository userRepository = mock(UserRepository.class);
+&nbsp;//
+&nbsp;//        BankAccountService bankAccountService = new BankAccountService(bankAccountRepository, bankAccountMapper, userRepository);
+&nbsp;//
+&nbsp;//        User user = new User();
+&nbsp;//        when(userRepository.findById(&quot;validUserId&quot;)).thenReturn(Optional.of(user));
+&nbsp;//
+&nbsp;//        BankAccount savedBankAccount = new BankAccount();
+&nbsp;//        when(bankAccountRepository.save(any())).thenAnswer(invocation -&gt; {
+&nbsp;//            BankAccount argument = invocation.getArgument(0);
+&nbsp;//            argument.setId(1L); // Assuming setId method is available
+&nbsp;//            return argument;
+&nbsp;//        });
+&nbsp;//
+&nbsp;//        when(bankAccountMapper.toBankAccount(any())).thenReturn(savedBankAccount); // Mock the mapper to return a non-null BankAccount
+&nbsp;//
+&nbsp;//        // Act
+&nbsp;//        BankAccountDto result = bankAccountService.createBankAccount(bankAccountDto);
+&nbsp;//
+&nbsp;//        // Assert
+&nbsp;//        assertNotNull(result);
+&nbsp;//        assertEquals(savedBankAccount, bankAccountMapper.toBankAccount(result));
+&nbsp;//        assertEquals(user, savedBankAccount.getUser());
+&nbsp;//        assertTrue(user.getPayments().contains(savedBankAccount));
+&nbsp;//    }
+&nbsp;
+&nbsp;//    @Test
+&nbsp;//    public void test_createBankAccount_returnsCreatedDto() {
+&nbsp;//        // Arrange
+&nbsp;//        BankAccountDto bankAccountDto = new BankAccountDto();
+&nbsp;//        bankAccountDto.setUserId(&quot;validUserId&quot;);
+&nbsp;//        bankAccountDto.setName(&quot;validName&quot;);
+&nbsp;//        bankAccountDto.setBankName(&quot;validBankName&quot;);
+&nbsp;//        bankAccountDto.setAccountNumber(&quot;validAccountNumber&quot;);
+&nbsp;//
+&nbsp;//        BankAccountMapper bankAccountMapper = mock(BankAccountMapper.class);
+&nbsp;//        BankAccountRepository bankAccountRepository = mock(BankAccountRepository.class);
+&nbsp;//        UserRepository userRepository = mock(UserRepository.class);
+&nbsp;//
+&nbsp;//        BankAccountService bankAccountService = new BankAccountService(bankAccountRepository, bankAccountMapper, userRepository);
+&nbsp;//
+&nbsp;//        User user = new User();
+&nbsp;//        when(userRepository.findById(&quot;validUserId&quot;)).thenReturn(Optional.of(user));
+&nbsp;//
+&nbsp;//        BankAccount savedBankAccount = new BankAccount();
+&nbsp;//        when(bankAccountRepository.save(any(BankAccount.class))).thenReturn(savedBankAccount);
+&nbsp;//
+&nbsp;//        // Act
+&nbsp;//        BankAccountDto result = bankAccountService.createBankAccount(bankAccountDto);
+&nbsp;//
+&nbsp;//        // Assert
+&nbsp;//        assertNotNull(result);
+&nbsp;//        assertEquals(savedBankAccount, bankAccountMapper.toBankAccount(result));
+&nbsp;//    }
+&nbsp;    @Test(expected = AppException.class)
+&nbsp;    public void test_createBankAccount_unknownUserIdThrowsAppException() {
+&nbsp;        // Arrange
+<b class="fc">&nbsp;        BankAccountDto bankAccountDto = new BankAccountDto();</b>
+<b class="fc">&nbsp;        bankAccountDto.setUserId(&quot;unknownUserId&quot;);</b>
+<b class="fc">&nbsp;        bankAccountDto.setName(&quot;validName&quot;);</b>
+<b class="fc">&nbsp;        bankAccountDto.setBankName(&quot;validBankName&quot;);</b>
+<b class="fc">&nbsp;        bankAccountDto.setAccountNumber(&quot;validAccountNumber&quot;);</b>
+&nbsp;
+<b class="fc">&nbsp;        BankAccountMapper bankAccountMapper = mock(BankAccountMapper.class);</b>
+<b class="fc">&nbsp;        BankAccountRepository bankAccountRepository = mock(BankAccountRepository.class);</b>
+<b class="fc">&nbsp;        UserRepository userRepository = mock(UserRepository.class);</b>
+&nbsp;
+<b class="fc">&nbsp;        BankAccountService bankAccountService = new BankAccountService(bankAccountRepository, bankAccountMapper, userRepository);</b>
+&nbsp;
+<b class="fc">&nbsp;        when(userRepository.findById(&quot;unknownUserId&quot;)).thenReturn(Optional.empty());</b>
+&nbsp;
+&nbsp;        // Act
+<b class="fc">&nbsp;        bankAccountService.createBankAccount(bankAccountDto);</b>
+&nbsp;    }
+&nbsp;    @Test(expected = AppException.class)
+&nbsp;    public void test_null_user_id() {
+&nbsp;        // Arrange
+<b class="fc">&nbsp;        String userId = null;</b>
+<b class="fc">&nbsp;        BankAccountMapper bankAccountMapper = mock(BankAccountMapper.class);</b>
+<b class="fc">&nbsp;        BankAccountRepository bankAccountRepository = mock(BankAccountRepository.class);</b>
+<b class="fc">&nbsp;        UserRepository userRepository = mock(UserRepository.class);</b>
+&nbsp;
+<b class="fc">&nbsp;        BankAccountService bankAccountService = new BankAccountService(bankAccountRepository, bankAccountMapper, userRepository);</b>
+&nbsp;
+&nbsp;        // Act
+<b class="fc">&nbsp;        bankAccountService.getBankAccount(userId);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-11-28 00:26</div>
+</div>
+</body>
+</html>

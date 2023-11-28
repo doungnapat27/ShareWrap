@@ -1,0 +1,153 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > UserBillDtoTests</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.sharewrap.sharewrap_backend.dtos</a>
+</div>
+
+<h1>Coverage Summary for Class: UserBillDtoTests (com.sharewrap.sharewrap_backend.dtos)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UserBillDtoTests</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (32/32)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.sharewrap.sharewrap_backend.dtos;
+&nbsp;
+&nbsp;import org.junit.Test;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Date;
+&nbsp;
+&nbsp;import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+&nbsp;import static org.junit.jupiter.api.Assertions.assertEquals;
+&nbsp;import static org.junit.jupiter.api.Assertions.assertTrue;
+&nbsp;
+<b class="fc">&nbsp;public class UserBillDtoTests {</b>
+&nbsp;    @Test
+&nbsp;    public void test_update_attributes() {
+<b class="fc">&nbsp;        UserBillDto userBillDto = new UserBillDto();</b>
+&nbsp;
+<b class="fc">&nbsp;        userBillDto.setId(1L);</b>
+<b class="fc">&nbsp;        userBillDto.setUserId(&quot;user1&quot;);</b>
+<b class="fc">&nbsp;        userBillDto.setBillId(2L);</b>
+<b class="fc">&nbsp;        userBillDto.setShareTotal(100.0);</b>
+<b class="fc">&nbsp;        userBillDto.setPaid(true);</b>
+<b class="fc">&nbsp;        userBillDto.setApprove(true);</b>
+<b class="fc">&nbsp;        userBillDto.setItems(new ArrayList&lt;&gt;());</b>
+<b class="fc">&nbsp;        userBillDto.setPaymentType(&#39;P&#39;);</b>
+<b class="fc">&nbsp;        userBillDto.setBillName(&quot;bill1&quot;);</b>
+<b class="fc">&nbsp;        userBillDto.setBillOwnerName(&quot;owner1&quot;);</b>
+<b class="fc">&nbsp;        userBillDto.setBillCreatedDate(new Date());</b>
+<b class="fc">&nbsp;        userBillDto.setPromptpayDto(new PromptpayDto());</b>
+<b class="fc">&nbsp;        userBillDto.setBankAccountDto(new BankAccountDto());</b>
+<b class="fc">&nbsp;        userBillDto.setReceipt(&quot;receipt1&quot;);</b>
+<b class="fc">&nbsp;        userBillDto.setUploadedDate(new Date());</b>
+&nbsp;
+<b class="fc">&nbsp;        assertEquals(1L, userBillDto.getId().longValue());</b>
+<b class="fc">&nbsp;        assertEquals(&quot;user1&quot;, userBillDto.getUserId());</b>
+<b class="fc">&nbsp;        assertEquals(2L, userBillDto.getBillId().longValue());</b>
+<b class="fc">&nbsp;        assertEquals(100.0, userBillDto.getShareTotal(), 0.0);</b>
+<b class="fc">&nbsp;        assertTrue(userBillDto.isPaid());</b>
+<b class="fc">&nbsp;        assertTrue(userBillDto.isApprove());</b>
+<b class="fc">&nbsp;        assertNotNull(userBillDto.getItems());</b>
+<b class="fc">&nbsp;        assertEquals(&#39;P&#39;, userBillDto.getPaymentType());</b>
+<b class="fc">&nbsp;        assertEquals(&quot;bill1&quot;, userBillDto.getBillName());</b>
+<b class="fc">&nbsp;        assertEquals(&quot;owner1&quot;, userBillDto.getBillOwnerName());</b>
+<b class="fc">&nbsp;        assertNotNull(userBillDto.getBillCreatedDate());</b>
+<b class="fc">&nbsp;        assertNotNull(userBillDto.getPromptpayDto());</b>
+<b class="fc">&nbsp;        assertNotNull(userBillDto.getBankAccountDto());</b>
+<b class="fc">&nbsp;        assertEquals(&quot;receipt1&quot;, userBillDto.getReceipt());</b>
+<b class="fc">&nbsp;        assertNotNull(userBillDto.getUploadedDate());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-11-28 00:26</div>
+</div>
+</body>
+</html>
