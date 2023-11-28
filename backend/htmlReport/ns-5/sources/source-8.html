@@ -1,0 +1,292 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > UserBillMapperImpl</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.sharewrap.sharewrap_backend.mappers</a>
+</div>
+
+<h1>Coverage Summary for Class: UserBillMapperImpl (com.sharewrap.sharewrap_backend.mappers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UserBillMapperImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/36)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/84)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.sharewrap.sharewrap_backend.mappers;
+&nbsp;
+&nbsp;import com.sharewrap.sharewrap_backend.dtos.ItemDto;
+&nbsp;import com.sharewrap.sharewrap_backend.dtos.UserBillDto;
+&nbsp;import com.sharewrap.sharewrap_backend.models.Item;
+&nbsp;import com.sharewrap.sharewrap_backend.models.UserBill;
+&nbsp;import java.sql.Date;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Arrays;
+&nbsp;import java.util.List;
+&nbsp;import javax.annotation.processing.Generated;
+&nbsp;import org.springframework.stereotype.Component;
+&nbsp;
+&nbsp;@Generated(
+&nbsp;    value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
+&nbsp;    date = &quot;2023-11-27T23:15:40+0700&quot;,
+&nbsp;    comments = &quot;version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (Amazon.com Inc.)&quot;
+&nbsp;)
+&nbsp;@Component
+<b class="nc">&nbsp;public class UserBillMapperImpl implements UserBillMapper {</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public UserBill toUserBill(UserBillDto userBillDto) {
+<b class="nc">&nbsp;        if ( userBillDto == null ) {</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        UserBill userBill = new UserBill();</b>
+&nbsp;
+<b class="nc">&nbsp;        userBill.setReceipt( base64ToBlob( userBillDto.getReceipt() ) );</b>
+<b class="nc">&nbsp;        if ( userBillDto.getUploadedDate() != null ) {</b>
+<b class="nc">&nbsp;            userBill.setUploadedDate( new Date( userBillDto.getUploadedDate().getTime() ) );</b>
+&nbsp;        }
+<b class="nc">&nbsp;        userBill.setId( userBillDto.getId() );</b>
+<b class="nc">&nbsp;        userBill.setShareTotal( userBillDto.getShareTotal() );</b>
+<b class="nc">&nbsp;        userBill.setItems( itemDtoListToItemList( userBillDto.getItems() ) );</b>
+&nbsp;
+<b class="nc">&nbsp;        return userBill;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public UserBillDto toUserBillDto(UserBill userBill) {
+<b class="nc">&nbsp;        if ( userBill == null ) {</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        UserBillDto userBillDto = new UserBillDto();</b>
+&nbsp;
+<b class="nc">&nbsp;        userBillDto.setReceipt( blobToBase64( userBill.getReceipt() ) );</b>
+<b class="nc">&nbsp;        userBillDto.setId( userBill.getId() );</b>
+<b class="nc">&nbsp;        userBillDto.setShareTotal( userBill.getShareTotal() );</b>
+<b class="nc">&nbsp;        userBillDto.setItems( itemListToItemDtoList( userBill.getItems() ) );</b>
+<b class="nc">&nbsp;        userBillDto.setUploadedDate( userBill.getUploadedDate() );</b>
+&nbsp;
+<b class="nc">&nbsp;        return userBillDto;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;UserBillDto&gt; toUserBillDtos(List&lt;UserBill&gt; userBills) {
+<b class="nc">&nbsp;        if ( userBills == null ) {</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        List&lt;UserBillDto&gt; list = new ArrayList&lt;UserBillDto&gt;( userBills.size() );</b>
+<b class="nc">&nbsp;        for ( UserBill userBill : userBills ) {</b>
+<b class="nc">&nbsp;            list.add( toUserBillDto( userBill ) );</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+<b class="nc">&nbsp;        return list;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;UserBill&gt; toUserBills(List&lt;UserBillDto&gt; userBillDtos) {
+<b class="nc">&nbsp;        if ( userBillDtos == null ) {</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        List&lt;UserBill&gt; list = new ArrayList&lt;UserBill&gt;( userBillDtos.size() );</b>
+<b class="nc">&nbsp;        for ( UserBillDto userBillDto : userBillDtos ) {</b>
+<b class="nc">&nbsp;            list.add( toUserBill( userBillDto ) );</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+<b class="nc">&nbsp;        return list;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void updateUserBill(UserBill target, UserBill source) {
+<b class="nc">&nbsp;        if ( source == null ) {</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        target.setBill( source.getBill() );</b>
+<b class="nc">&nbsp;        target.setUploadedDate( source.getUploadedDate() );</b>
+<b class="nc">&nbsp;        target.setId( source.getId() );</b>
+<b class="nc">&nbsp;        target.setUser( source.getUser() );</b>
+<b class="nc">&nbsp;        target.setShareTotal( source.getShareTotal() );</b>
+<b class="nc">&nbsp;        target.setIsPaid( source.getIsPaid() );</b>
+<b class="nc">&nbsp;        target.setIsApprove( source.getIsApprove() );</b>
+<b class="nc">&nbsp;        if ( target.getItems() != null ) {</b>
+<b class="nc">&nbsp;            List&lt;Item&gt; list = source.getItems();</b>
+<b class="nc">&nbsp;            if ( list != null ) {</b>
+<b class="nc">&nbsp;                target.getItems().clear();</b>
+<b class="nc">&nbsp;                target.getItems().addAll( list );</b>
+&nbsp;            }
+&nbsp;            else {
+<b class="nc">&nbsp;                target.setItems( null );</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+&nbsp;        else {
+<b class="nc">&nbsp;            List&lt;Item&gt; list = source.getItems();</b>
+<b class="nc">&nbsp;            if ( list != null ) {</b>
+<b class="nc">&nbsp;                target.setItems( new ArrayList&lt;Item&gt;( list ) );</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        byte[] receipt = source.getReceipt();</b>
+<b class="nc">&nbsp;        if ( receipt != null ) {</b>
+<b class="nc">&nbsp;            target.setReceipt( Arrays.copyOf( receipt, receipt.length ) );</b>
+&nbsp;        }
+&nbsp;        else {
+<b class="nc">&nbsp;            target.setReceipt( null );</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    protected Item itemDtoToItem(ItemDto itemDto) {
+<b class="nc">&nbsp;        if ( itemDto == null ) {</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Item item = new Item();</b>
+&nbsp;
+<b class="nc">&nbsp;        item.setPrice( itemDto.getPrice() );</b>
+<b class="nc">&nbsp;        item.setName( itemDto.getName() );</b>
+<b class="nc">&nbsp;        item.setId( itemDto.getId() );</b>
+&nbsp;
+<b class="nc">&nbsp;        return item;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    protected List&lt;Item&gt; itemDtoListToItemList(List&lt;ItemDto&gt; list) {
+<b class="nc">&nbsp;        if ( list == null ) {</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        List&lt;Item&gt; list1 = new ArrayList&lt;Item&gt;( list.size() );</b>
+<b class="nc">&nbsp;        for ( ItemDto itemDto : list ) {</b>
+<b class="nc">&nbsp;            list1.add( itemDtoToItem( itemDto ) );</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+<b class="nc">&nbsp;        return list1;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    protected ItemDto itemToItemDto(Item item) {
+<b class="nc">&nbsp;        if ( item == null ) {</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        ItemDto itemDto = new ItemDto();</b>
+&nbsp;
+<b class="nc">&nbsp;        itemDto.setId( item.getId() );</b>
+<b class="nc">&nbsp;        itemDto.setName( item.getName() );</b>
+<b class="nc">&nbsp;        itemDto.setPrice( item.getPrice() );</b>
+&nbsp;
+<b class="nc">&nbsp;        return itemDto;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    protected List&lt;ItemDto&gt; itemListToItemDtoList(List&lt;Item&gt; list) {
+<b class="nc">&nbsp;        if ( list == null ) {</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        List&lt;ItemDto&gt; list1 = new ArrayList&lt;ItemDto&gt;( list.size() );</b>
+<b class="nc">&nbsp;        for ( Item item : list ) {</b>
+<b class="nc">&nbsp;            list1.add( itemToItemDto( item ) );</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+<b class="nc">&nbsp;        return list1;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-11-28 00:26</div>
+</div>
+</body>
+</html>

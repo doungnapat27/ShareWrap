@@ -1,0 +1,93 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > PromptpayMapper</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.sharewrap.sharewrap_backend.mappers</a>
+</div>
+
+<h1>Coverage Summary for Class: PromptpayMapper (com.sharewrap.sharewrap_backend.mappers)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">PromptpayMapper$MockitoMock$idCHpGX9</td>
+  </tr>
+  <tr>
+    <td class="name">PromptpayMapper$MockitoMock$idCHpGX9$auxiliary$NdZIKtn2</td>
+  </tr>
+  <tr>
+    <td class="name">PromptpayMapper$MockitoMock$idCHpGX9$auxiliary$OuKWSagA</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.sharewrap.sharewrap_backend.mappers;
+&nbsp;
+&nbsp;import com.sharewrap.sharewrap_backend.dtos.PaymentDto;
+&nbsp;import com.sharewrap.sharewrap_backend.dtos.PromptpayDto;
+&nbsp;import com.sharewrap.sharewrap_backend.models.Payment;
+&nbsp;import com.sharewrap.sharewrap_backend.models.Promptpay;
+&nbsp;import org.mapstruct.Mapper;
+&nbsp;import org.mapstruct.MappingTarget;
+&nbsp;
+&nbsp;@Mapper(componentModel = &quot;spring&quot;)
+&nbsp;public interface PromptpayMapper {
+&nbsp;
+&nbsp;    PromptpayDto toPromptpayDto(Promptpay promptpay);
+&nbsp;    Promptpay toPromptpay(PromptpayDto promptpayDto);
+&nbsp;
+&nbsp;    void updatePromptpay(@MappingTarget Promptpay target, Promptpay source);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-11-28 00:26</div>
+</div>
+</body>
+</html>
