@@ -1,0 +1,201 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ItemMapperImpl</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.sharewrap.sharewrap_backend.mappers</a>
+</div>
+
+<h1>Coverage Summary for Class: ItemMapperImpl (com.sharewrap.sharewrap_backend.mappers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ItemMapperImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/33)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.sharewrap.sharewrap_backend.mappers;
+&nbsp;
+&nbsp;import com.sharewrap.sharewrap_backend.dtos.ItemDto;
+&nbsp;import com.sharewrap.sharewrap_backend.models.Item;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;import javax.annotation.processing.Generated;
+&nbsp;import org.springframework.stereotype.Component;
+&nbsp;
+&nbsp;@Generated(
+&nbsp;    value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
+&nbsp;    date = &quot;2023-11-27T23:15:40+0700&quot;,
+&nbsp;    comments = &quot;version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (Amazon.com Inc.)&quot;
+&nbsp;)
+&nbsp;@Component
+<b class="nc">&nbsp;public class ItemMapperImpl implements ItemMapper {</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Item toItem(ItemDto itemDto) {
+<b class="nc">&nbsp;        if ( itemDto == null ) {</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Item item = new Item();</b>
+&nbsp;
+<b class="nc">&nbsp;        item.setPrice( itemDto.getPrice() );</b>
+<b class="nc">&nbsp;        item.setName( itemDto.getName() );</b>
+<b class="nc">&nbsp;        item.setId( itemDto.getId() );</b>
+&nbsp;
+<b class="nc">&nbsp;        return item;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public ItemDto toItemDto(Item item) {
+<b class="nc">&nbsp;        if ( item == null ) {</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        ItemDto itemDto = new ItemDto();</b>
+&nbsp;
+<b class="nc">&nbsp;        itemDto.setId( item.getId() );</b>
+<b class="nc">&nbsp;        itemDto.setName( item.getName() );</b>
+<b class="nc">&nbsp;        itemDto.setPrice( item.getPrice() );</b>
+&nbsp;
+<b class="nc">&nbsp;        return itemDto;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;ItemDto&gt; toItemDtos(List&lt;Item&gt; items) {
+<b class="nc">&nbsp;        if ( items == null ) {</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        List&lt;ItemDto&gt; list = new ArrayList&lt;ItemDto&gt;( items.size() );</b>
+<b class="nc">&nbsp;        for ( Item item : items ) {</b>
+<b class="nc">&nbsp;            list.add( toItemDto( item ) );</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+<b class="nc">&nbsp;        return list;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;Item&gt; toItems(List&lt;ItemDto&gt; items) {
+<b class="nc">&nbsp;        if ( items == null ) {</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        List&lt;Item&gt; list = new ArrayList&lt;Item&gt;( items.size() );</b>
+<b class="nc">&nbsp;        for ( ItemDto itemDto : items ) {</b>
+<b class="nc">&nbsp;            list.add( toItem( itemDto ) );</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+<b class="nc">&nbsp;        return list;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void updateItem(Item target, Item source) {
+<b class="nc">&nbsp;        if ( source == null ) {</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        target.setPrice( source.getPrice() );</b>
+<b class="nc">&nbsp;        target.setName( source.getName() );</b>
+<b class="nc">&nbsp;        target.setId( source.getId() );</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-11-28 00:26</div>
+</div>
+</body>
+</html>

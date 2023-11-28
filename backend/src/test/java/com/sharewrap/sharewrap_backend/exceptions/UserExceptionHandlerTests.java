@@ -29,7 +29,4 @@ public class UserExceptionHandlerTests {
         assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
     }
 
-    // This is a dummy method to avoid NoSuchMethodException
-    public void dummyMethod() {
-    }
 }

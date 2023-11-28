@@ -2,10 +2,14 @@ package com.sharewrap.sharewrap_backend.services;
 
 import com.sharewrap.sharewrap_backend.dtos.LoginDto;
 import com.sharewrap.sharewrap_backend.dtos.PromptpayDto;
+import com.sharewrap.sharewrap_backend.dtos.RegisterDto;
 import com.sharewrap.sharewrap_backend.dtos.UserDto;
 import com.sharewrap.sharewrap_backend.exceptions.AppException;
+import com.sharewrap.sharewrap_backend.exceptions.UserExceptionHandler;
+import com.sharewrap.sharewrap_backend.exceptions.UserExceptionHandlerTests;
 import com.sharewrap.sharewrap_backend.mappers.PromptpayMapper;
 import com.sharewrap.sharewrap_backend.mappers.UserMapper;
+import com.sharewrap.sharewrap_backend.models.Bill;
 import com.sharewrap.sharewrap_backend.models.Promptpay;
 import com.sharewrap.sharewrap_backend.models.User;
 import com.sharewrap.sharewrap_backend.repositories.BillRepository;
@@ -13,15 +17,20 @@ import com.sharewrap.sharewrap_backend.repositories.PromptpayRepository;
 import com.sharewrap.sharewrap_backend.repositories.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -435,5 +444,188 @@ public class UserServiceTest {
         String result = userService.generateUserId(username);
         assertEquals(7, result.length());
     }
+    @Test
+    public void test_register_null_email() {
+        // Arrange
+        UserRepository userRepository = Mockito.mock(UserRepository.class);
+        PasswordEncoder passwordEncoder = Mockito.mock(PasswordEncoder.class);
+        UserMapper userMapper = Mockito.mock(UserMapper.class);
+        BillRepository billRepository = Mockito.mock(BillRepository.class);
 
+        UserService userService = new UserService(userRepository, passwordEncoder, userMapper, billRepository);
+
+        RegisterDto userDto = new RegisterDto(null, "testuser", "password".toCharArray());
+
+        // Act and Assert
+        assertThrows(NullPointerException.class, () -> userService.register(userDto));
+        verify(userRepository, never()).findByEmail(anyString());
+    }
+    @Test
+    public void test_register_existing_email() {
+        // Arrange
+        UserRepository userRepository = Mockito.mock(UserRepository.class);
+        PasswordEncoder passwordEncoder = Mockito.mock(PasswordEncoder.class);
+        UserMapper userMapper = Mockito.mock(UserMapper.class);
+        BillRepository billRepository = Mockito.mock(BillRepository.class);
+
+        UserService userService = new UserService(userRepository, passwordEncoder, userMapper, billRepository);
+        RegisterDto userDto = new RegisterDto("test@example.com", "testuser", "password".toCharArray());
+        User existingUser = new User("test@example.com", "existinguser");
+
+        when(userRepository.findByEmail(userDto.getEmail())).thenReturn(Optional.of(existingUser));
+
+        // Act and Assert
+        assertThrows(AppException.class, () -> userService.register(userDto));
+        verify(userRepository).findByEmail(userDto.getEmail());
+    }
+    @Test
+    public void test_invalid_user_id() {
+        // Arrange
+        UserRepository userRepository = Mockito.mock(UserRepository.class);
+        PasswordEncoder passwordEncoder = Mockito.mock(PasswordEncoder.class);
+        UserMapper userMapper = Mockito.mock(UserMapper.class);
+        BillRepository billRepository = Mockito.mock(BillRepository.class);
+
+        UserService userService = new UserService(userRepository, passwordEncoder, userMapper, billRepository);
+        String userId = "invalidUserId";
+        Bill bill = new Bill();
+
+        // Act and Assert
+        try {
+            userService.addBill(userId, bill);
+            fail("Expected AppException, but no exception was thrown");
+        } catch (AppException e) {
+            assertEquals("Unknown user", e.getMessage());
+        }
+    }
+    @Test
+    void test_add_bills_null_user_id() {
+        // Arrange
+        UserRepository userRepository = Mockito.mock(UserRepository.class);
+        PasswordEncoder passwordEncoder = Mockito.mock(PasswordEncoder.class);
+        UserMapper userMapper = Mockito.mock(UserMapper.class);
+        BillRepository billRepository = Mockito.mock(BillRepository.class);
+        UserService userService = new UserService(userRepository, passwordEncoder, userMapper, billRepository);
+        String userId = null;
+        List<Bill> billList = new ArrayList<>();
+        Bill bill1 = new Bill("Bill 1");
+        Bill bill2 = new Bill("Bill 2");
+        billList.add(bill1);
+        billList.add(bill2);
+
+        // Act and Assert
+        AppException exception = assertThrows(AppException.class, () -> userService.addBills(userId, billList));
+        assertEquals("Unknown user", exception.getMessage());
+    }
+    @Test
+    public void test_add_bills_unknown_user() {
+        // Arrange
+        UserRepository userRepository = Mockito.mock(UserRepository.class);
+        PasswordEncoder passwordEncoder = Mockito.mock(PasswordEncoder.class);
+        UserMapper userMapper = Mockito.mock(UserMapper.class);
+        BillRepository billRepository = Mockito.mock(BillRepository.class);
+        UserService userService = new UserService(userRepository, passwordEncoder, userMapper, billRepository);
+
+        // Mock the UserRepository to return an empty optional when findById is called
+        when(userRepository.findById("user123")).thenReturn(Optional.empty());
+
+        String userId = "user123";
+        List<Bill> billList = new ArrayList<>();
+        Bill bill1 = new Bill("Bill 1");
+        Bill bill2 = new Bill("Bill 2");
+        billList.add(bill1);
+        billList.add(bill2);
+
+        // Act and Assert
+        assertThrows(AppException.class, () -> userService.addBills(userId, billList));
+
+        // Verify that findById was called with the correct user ID
+        verify(userRepository, times(1)).findById(userId);
+
+        // Verify that no interactions happened with other mocks
+        verifyNoMoreInteractions(userRepository, passwordEncoder, userMapper, billRepository);
+    }
+    @Test
+    public void test_null_user_id() {
+        // Arrange
+        String userId = null;
+        String friendId = "friend1";
+
+        UserRepository userRepository = mock(UserRepository.class);
+
+        // Assuming you have a user in the repository for the friend
+        User friendUser = new User();
+        when(userRepository.findById(friendId)).thenReturn(Optional.of(friendUser));
+
+        UserService userService = new UserService(userRepository, null, null, null);
+
+        // Act and Assert
+        assertThrows(AppException.class, () -> userService.deleteFriend(userId, friendId));
+    }
+    @Test
+    public void test_valid_username() {
+        // Arrange
+        UserRepository userRepository = Mockito.mock(UserRepository.class);
+        PasswordEncoder passwordEncoder = Mockito.mock(PasswordEncoder.class);
+        UserMapper userMapper = Mockito.mock(UserMapper.class);
+        BillRepository billRepository = Mockito.mock(BillRepository.class);
+        UserService userService = new UserService(userRepository, passwordEncoder, userMapper, billRepository);
+        String validUsername = "john_doe";
+
+        // Mock behavior of userRepository.findByUsername to return an empty Optional
+        when(userRepository.findByUsername(validUsername)).thenReturn(Optional.empty());
+
+        // Act and Assert
+        AppException exception = assertThrows(AppException.class, () -> userService.findByUsername(validUsername));
+        assertEquals("Unknown user", exception.getMessage());
+    }
+    @Test
+    public void test_correct_userDto() {
+        // Arrange
+        UserRepository userRepository = Mockito.mock(UserRepository.class);
+        PasswordEncoder passwordEncoder = Mockito.mock(PasswordEncoder.class);
+        UserMapper userMapper = Mockito.mock(UserMapper.class);
+        BillRepository billRepository = Mockito.mock(BillRepository.class);
+        UserService userService = new UserService(userRepository, passwordEncoder, userMapper, billRepository);
+        String validUsername = "john_doe";
+        User expectedUser = new User("john.doe@example.com", validUsername);
+        UserDto expectedUserDto = new UserDto(expectedUser.getId(), expectedUser.getEmail(), expectedUser.getUsername(), "");
+        when(userRepository.findByUsername(validUsername)).thenReturn(Optional.of(expectedUser));
+
+        // Act
+        UserDto result = userService.findByUsername(validUsername);
+
+        // Assert
+        assertEquals(expectedUserDto, result);
+    }
+    @Test
+    public void test_valid_username_findByUsername() {
+        // Arrange
+        UserRepository userRepository = mock(UserRepository.class);
+        UserMapper userMapper = mock(UserMapper.class);
+        PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
+        BillRepository billRepository = mock(BillRepository.class);
+        UserService userService = new UserService(userRepository, passwordEncoder, userMapper, billRepository);
+
+        String username = "Unknown user";
+        User user = new User();
+        user.setUsername(username);
+        UserDto expectedUserDto = new UserDto();
+
+        // Define the behavior of mocks
+        when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
+        when(userMapper.toUserDto(user)).thenReturn(expectedUserDto);
+
+        // Act
+        UserDto result = userService.findByUsername(username);
+
+        // Assert
+        assertNotNull(result);
+        assertNotNull(expectedUserDto);
+        assertEquals(expectedUserDto, result);
+
+        // Verify that the expected methods were called on mocks
+        verify(userRepository).findByUsername(username);
+        verify(userMapper).toUserDto(user);
+    }
 }

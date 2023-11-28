@@ -1,0 +1,231 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ItemServiceTests</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.sharewrap.sharewrap_backend.services</a>
+</div>
+
+<h1>Coverage Summary for Class: ItemServiceTests (com.sharewrap.sharewrap_backend.services)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ItemServiceTests</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (36/36)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.sharewrap.sharewrap_backend.services;
+&nbsp;
+&nbsp;import com.sharewrap.sharewrap_backend.dtos.ItemDto;
+&nbsp;import com.sharewrap.sharewrap_backend.exceptions.AppException;
+&nbsp;import com.sharewrap.sharewrap_backend.mappers.ItemMapper;
+&nbsp;import com.sharewrap.sharewrap_backend.models.Item;
+&nbsp;import com.sharewrap.sharewrap_backend.repositories.ItemRepository;
+&nbsp;import org.junit.Test;
+&nbsp;import org.mockito.Mockito;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Collections;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;
+&nbsp;import static org.junit.jupiter.api.Assertions.*;
+&nbsp;import static org.mockito.Mockito.*;
+&nbsp;
+<b class="fc">&nbsp;public class ItemServiceTests {</b>
+&nbsp;    @Test
+&nbsp;    public void test_empty_list() {
+<b class="fc">&nbsp;        ItemRepository itemRepository = mock(ItemRepository.class);</b>
+<b class="fc">&nbsp;        ItemMapper itemMapper = mock(ItemMapper.class);</b>
+&nbsp;
+&nbsp;        // Creating a new instance of ItemService with MOCKED repositories and mapper
+<b class="fc">&nbsp;        ItemService itemService = new ItemService(itemRepository, itemMapper);</b>
+&nbsp;
+<b class="fc">&nbsp;        when(itemRepository.findAll()).thenReturn(Collections.emptyList());</b>
+&nbsp;
+<b class="fc">&nbsp;        List&lt;ItemDto&gt; result = itemService.allItems();</b>
+&nbsp;
+<b class="fc">&nbsp;        assertTrue(result.isEmpty());</b>
+&nbsp;    }
+&nbsp;//    @Test
+&nbsp;//    public void test_non_null_fields_list() {
+&nbsp;//        ItemRepository itemRepository = Mockito.mock(ItemRepository.class);
+&nbsp;//        ItemMapper itemMapper = Mockito.mock(ItemMapper.class);
+&nbsp;//
+&nbsp;//        // Creating a new instance of ItemService with MOCKED repositories and mapper
+&nbsp;//        ItemService itemService = new ItemService(itemRepository, itemMapper);
+&nbsp;//
+&nbsp;//        List&lt;Item&gt; itemList = new ArrayList&lt;&gt;();
+&nbsp;//        Item item = new Item();
+&nbsp;//        item.setName(&quot;Item 1&quot;);
+&nbsp;//        item.setPrice(10.0);
+&nbsp;//        itemList.add(item);
+&nbsp;//        when(itemRepository.findAll()).thenReturn(itemList);
+&nbsp;//
+&nbsp;//        List&lt;ItemDto&gt; result = itemService.allItems();
+&nbsp;//
+&nbsp;//        assertEquals(1, result.size());
+&nbsp;//        assertEquals(&quot;Item 1&quot;, result.get(0).getName());
+&nbsp;//        assertEquals(10.0, result.get(0).getPrice(), 0.001);
+&nbsp;//    }
+&nbsp;//    @Test
+&nbsp;//    public void test_not_empty_list() {
+&nbsp;//        ItemRepository itemRepository = mock(ItemRepository.class);
+&nbsp;//        ItemMapper itemMapper = mock(ItemMapper.class);
+&nbsp;//
+&nbsp;//        // Creating a new instance of ItemService with MOCKED repositories and mapper
+&nbsp;//        ItemService itemService = new ItemService(itemRepository, itemMapper);
+&nbsp;//
+&nbsp;//        List&lt;Item&gt; itemList = new ArrayList&lt;&gt;();
+&nbsp;//        itemList.add(new Item());
+&nbsp;//        when(itemRepository.findAll()).thenReturn(itemList);
+&nbsp;//
+&nbsp;//        List&lt;ItemDto&gt; result = itemService.allItems();
+&nbsp;//
+&nbsp;//        assertEquals(1, result.size());
+&nbsp;//    }
+&nbsp;    @Test
+&nbsp;    public void test_returns_correct_item_with_correct_id() {
+<b class="fc">&nbsp;        ItemRepository itemRepository = mock(ItemRepository.class);</b>
+<b class="fc">&nbsp;        ItemMapper itemMapper = mock(ItemMapper.class);</b>
+&nbsp;
+&nbsp;        // Creating a new instance of ItemService with MOCKED repositories and mapper
+<b class="fc">&nbsp;        ItemService itemService = new ItemService(itemRepository, itemMapper);</b>
+&nbsp;        // Arrange
+<b class="fc">&nbsp;        Long itemId = 1L;</b>
+<b class="fc">&nbsp;        Item item = new Item(&quot;Test Item&quot;, 10.0);</b>
+<b class="fc">&nbsp;        item.setId(itemId);</b>
+<b class="fc">&nbsp;        ItemDto expectedItemDto = new ItemDto();</b>
+<b class="fc">&nbsp;        expectedItemDto.setId(itemId);</b>
+<b class="fc">&nbsp;        expectedItemDto.setName(&quot;Test Item&quot;);</b>
+<b class="fc">&nbsp;        expectedItemDto.setPrice(10.0);</b>
+&nbsp;
+<b class="fc">&nbsp;        when(itemRepository.findById(itemId)).thenReturn(Optional.of(item));</b>
+<b class="fc">&nbsp;        when(itemMapper.toItemDto(item)).thenReturn(expectedItemDto);</b>
+&nbsp;
+&nbsp;        // Act
+<b class="fc">&nbsp;        ItemDto result = itemService.getItem(itemId);</b>
+&nbsp;
+&nbsp;        // Assert
+<b class="fc">&nbsp;        assertEquals(expectedItemDto.getId(), result.getId());</b>
+<b class="fc">&nbsp;        verify(itemRepository, times(1)).findById(itemId);</b>
+<b class="fc">&nbsp;        verify(itemMapper, times(1)).toItemDto(item);</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    public void test_throws_app_exception_with_status_not_found_if_item_not_exists() {
+<b class="fc">&nbsp;        ItemRepository itemRepository = mock(ItemRepository.class);</b>
+<b class="fc">&nbsp;        ItemMapper itemMapper = mock(ItemMapper.class);</b>
+&nbsp;
+&nbsp;        // Creating a new instance of ItemService with MOCKED repositories and mapper
+<b class="fc">&nbsp;        ItemService itemService = new ItemService(itemRepository, itemMapper);</b>
+&nbsp;        // Arrange
+<b class="fc">&nbsp;        Long itemId = 1L;</b>
+&nbsp;
+<b class="fc">&nbsp;        Mockito.when(itemRepository.findById(itemId)).thenReturn(Optional.empty());</b>
+&nbsp;
+&nbsp;        // Act and Assert
+<b class="fc">&nbsp;        assertThrows(AppException.class, () -&gt; itemService.getItem(itemId));</b>
+<b class="fc">&nbsp;        Mockito.verify(itemRepository, Mockito.times(1)).findById(itemId);</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    public void test_throws_app_exception_with_status_not_found_if_id_parameter_is_null() {
+<b class="fc">&nbsp;        ItemRepository itemRepository = mock(ItemRepository.class);</b>
+<b class="fc">&nbsp;        ItemMapper itemMapper = mock(ItemMapper.class);</b>
+&nbsp;
+&nbsp;        // Creating a new instance of ItemService with MOCKED repositories and mapper
+<b class="fc">&nbsp;        ItemService itemService = new ItemService(itemRepository, itemMapper);</b>
+&nbsp;        // Arrange
+<b class="fc">&nbsp;        Long itemId = null;</b>
+&nbsp;
+&nbsp;        // Act and Assert
+<b class="fc">&nbsp;        assertThrows(AppException.class, () -&gt; itemService.getItem(itemId));</b>
+<b class="fc">&nbsp;        Mockito.verify(itemRepository, Mockito.never()).findById(Mockito.anyLong());</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-11-28 00:26</div>
+</div>
+</body>
+</html>
