@@ -13,6 +13,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>sharewrap_backend</name>
 	<description>Web application for cost sharing</description>
+	<url>https://github.com/doungnapat27/ShareWrap</url>
+	
 	<properties>
 		<java.version>17</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
