@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ItemServiceTests.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in sharewrap_backend Coverage Results, java in sharewrap_backend Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.sharewrap.sharewrap_backend.services</a> &gt; <span class="el_source">ItemServiceTests.java</span></div><h1>ItemServiceTests.java</h1><pre class="source lang-java linenums">package com.sharewrap.sharewrap_backend.services;
+
+import com.sharewrap.sharewrap_backend.dtos.ItemDto;
+import com.sharewrap.sharewrap_backend.exceptions.AppException;
+import com.sharewrap.sharewrap_backend.mappers.ItemMapper;
+import com.sharewrap.sharewrap_backend.models.Item;
+import com.sharewrap.sharewrap_backend.repositories.ItemRepository;
+import org.junit.Test;
+import org.mockito.Mockito;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+<span class="fc" id="L19">public class ItemServiceTests {</span>
+    @Test
+    public void test_empty_list() {
+<span class="fc" id="L22">        ItemRepository itemRepository = mock(ItemRepository.class);</span>
+<span class="fc" id="L23">        ItemMapper itemMapper = mock(ItemMapper.class);</span>
+
+        // Creating a new instance of ItemService with MOCKED repositories and mapper
+<span class="fc" id="L26">        ItemService itemService = new ItemService(itemRepository, itemMapper);</span>
+
+<span class="fc" id="L28">        when(itemRepository.findAll()).thenReturn(Collections.emptyList());</span>
+
+<span class="fc" id="L30">        List&lt;ItemDto&gt; result = itemService.allItems();</span>
+
+<span class="fc" id="L32">        assertTrue(result.isEmpty());</span>
+<span class="fc" id="L33">    }</span>
+//    @Test
+//    public void test_non_null_fields_list() {
+//        ItemRepository itemRepository = Mockito.mock(ItemRepository.class);
+//        ItemMapper itemMapper = Mockito.mock(ItemMapper.class);
+//
+//        // Creating a new instance of ItemService with MOCKED repositories and mapper
+//        ItemService itemService = new ItemService(itemRepository, itemMapper);
+//
+//        List&lt;Item&gt; itemList = new ArrayList&lt;&gt;();
+//        Item item = new Item();
+//        item.setName(&quot;Item 1&quot;);
+//        item.setPrice(10.0);
+//        itemList.add(item);
+//        when(itemRepository.findAll()).thenReturn(itemList);
+//
+//        List&lt;ItemDto&gt; result = itemService.allItems();
+//
+//        assertEquals(1, result.size());
+//        assertEquals(&quot;Item 1&quot;, result.get(0).getName());
+//        assertEquals(10.0, result.get(0).getPrice(), 0.001);
+//    }
+//    @Test
+//    public void test_not_empty_list() {
+//        ItemRepository itemRepository = mock(ItemRepository.class);
+//        ItemMapper itemMapper = mock(ItemMapper.class);
+//
+//        // Creating a new instance of ItemService with MOCKED repositories and mapper
+//        ItemService itemService = new ItemService(itemRepository, itemMapper);
+//
+//        List&lt;Item&gt; itemList = new ArrayList&lt;&gt;();
+//        itemList.add(new Item());
+//        when(itemRepository.findAll()).thenReturn(itemList);
+//
+//        List&lt;ItemDto&gt; result = itemService.allItems();
+//
+//        assertEquals(1, result.size());
+//    }
+    @Test
+    public void test_returns_correct_item_with_correct_id() {
+<span class="fc" id="L73">        ItemRepository itemRepository = mock(ItemRepository.class);</span>
+<span class="fc" id="L74">        ItemMapper itemMapper = mock(ItemMapper.class);</span>
+
+        // Creating a new instance of ItemService with MOCKED repositories and mapper
+<span class="fc" id="L77">        ItemService itemService = new ItemService(itemRepository, itemMapper);</span>
+        // Arrange
+<span class="fc" id="L79">        Long itemId = 1L;</span>
+<span class="fc" id="L80">        Item item = new Item(&quot;Test Item&quot;, 10.0);</span>
+<span class="fc" id="L81">        item.setId(itemId);</span>
+<span class="fc" id="L82">        ItemDto expectedItemDto = new ItemDto();</span>
+<span class="fc" id="L83">        expectedItemDto.setId(itemId);</span>
+<span class="fc" id="L84">        expectedItemDto.setName(&quot;Test Item&quot;);</span>
+<span class="fc" id="L85">        expectedItemDto.setPrice(10.0);</span>
+
+<span class="fc" id="L87">        when(itemRepository.findById(itemId)).thenReturn(Optional.of(item));</span>
+<span class="fc" id="L88">        when(itemMapper.toItemDto(item)).thenReturn(expectedItemDto);</span>
+
+        // Act
+<span class="fc" id="L91">        ItemDto result = itemService.getItem(itemId);</span>
+
+        // Assert
+<span class="fc" id="L94">        assertEquals(expectedItemDto.getId(), result.getId());</span>
+<span class="fc" id="L95">        verify(itemRepository, times(1)).findById(itemId);</span>
+<span class="fc" id="L96">        verify(itemMapper, times(1)).toItemDto(item);</span>
+<span class="fc" id="L97">    }</span>
+    @Test
+    public void test_throws_app_exception_with_status_not_found_if_item_not_exists() {
+<span class="fc" id="L100">        ItemRepository itemRepository = mock(ItemRepository.class);</span>
+<span class="fc" id="L101">        ItemMapper itemMapper = mock(ItemMapper.class);</span>
+
+        // Creating a new instance of ItemService with MOCKED repositories and mapper
+<span class="fc" id="L104">        ItemService itemService = new ItemService(itemRepository, itemMapper);</span>
+        // Arrange
+<span class="fc" id="L106">        Long itemId = 1L;</span>
+
+<span class="fc" id="L108">        Mockito.when(itemRepository.findById(itemId)).thenReturn(Optional.empty());</span>
+
+        // Act and Assert
+<span class="pc" id="L111">        assertThrows(AppException.class, () -&gt; itemService.getItem(itemId));</span>
+<span class="fc" id="L112">        Mockito.verify(itemRepository, Mockito.times(1)).findById(itemId);</span>
+<span class="fc" id="L113">    }</span>
+    @Test
+    public void test_throws_app_exception_with_status_not_found_if_id_parameter_is_null() {
+<span class="fc" id="L116">        ItemRepository itemRepository = mock(ItemRepository.class);</span>
+<span class="fc" id="L117">        ItemMapper itemMapper = mock(ItemMapper.class);</span>
+
+        // Creating a new instance of ItemService with MOCKED repositories and mapper
+<span class="fc" id="L120">        ItemService itemService = new ItemService(itemRepository, itemMapper);</span>
+        // Arrange
+<span class="fc" id="L122">        Long itemId = null;</span>
+
+        // Act and Assert
+<span class="pc" id="L125">        assertThrows(AppException.class, () -&gt; itemService.getItem(itemId));</span>
+<span class="fc" id="L126">        Mockito.verify(itemRepository, Mockito.never()).findById(Mockito.anyLong());</span>
+<span class="fc" id="L127">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

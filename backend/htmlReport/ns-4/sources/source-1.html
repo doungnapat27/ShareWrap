@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > AppException</title>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > BankAccountDto</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -18,21 +19,22 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.sharewrap.sharewrap_backend.exceptions</a>
+    <a href="../index.html">com.sharewrap.sharewrap_backend.dtos</a>
 </div>
 
-<h1>Coverage Summary for Class: AppException (com.sharewrap.sharewrap_backend.exceptions)</h1>
+<h1>Coverage Summary for Class: BankAccountDto (com.sharewrap.sharewrap_backend.dtos)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
 <th class="coverageStat 
 ">
-  Class, %
+  Method, %
 </th>
 <th class="coverageStat 
 ">
-  Method, %
+  Branch, %
 </th>
 <th class="coverageStat 
 ">
@@ -40,33 +42,78 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">AppException</td>
+  <td class="name">BankAccountDto</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    70%
   </span>
   <span class="absValue">
-    (1/1)
+    (7/10)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (2/2)
+    (0/46)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    70%
   </span>
   <span class="absValue">
-    (3/3)
+    (7/10)
   </span>
 </td>
 </tr>
-
+  <tr>
+    <td class="name">BankAccountDto$BankAccountDtoBuilder</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    63.6%
+  </span>
+  <span class="absValue">
+    (7/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/46)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    63.6%
+  </span>
+  <span class="absValue">
+    (7/11)
+  </span>
+</td>
+</tr>
 </table>
 
 <br/>
@@ -74,21 +121,24 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.sharewrap.sharewrap_backend.exceptions;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.sharewrap.sharewrap_backend.dtos;
 &nbsp;
-&nbsp;import org.springframework.http.HttpStatus;
+&nbsp;import lombok.*;
+&nbsp;import lombok.experimental.SuperBuilder;
 &nbsp;
-&nbsp;public class AppException extends RuntimeException{
-&nbsp;    private final HttpStatus status;
+&nbsp;@Getter
+<b class="fc">&nbsp;@Setter</b>
+<b class="nc">&nbsp;@Builder</b>
+<b class="nc">&nbsp;@AllArgsConstructor</b>
+<b class="nc">&nbsp;@Data</b>
+<b class="fc">&nbsp;@NoArgsConstructor</b>
+&nbsp;public class BankAccountDto {
+<b class="fc">&nbsp;    Long id;</b>
+<b class="fc">&nbsp;    String name;</b>
+<b class="fc">&nbsp;    String userId;</b>
+<b class="fc">&nbsp;    private String bankName;</b>
+<b class="fc">&nbsp;    private String accountNumber;</b>
 &nbsp;
-&nbsp;    public AppException(String message, HttpStatus status) {
-<b class="fc">&nbsp;        super(message);</b>
-<b class="fc">&nbsp;        this.status = status;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public HttpStatus getStatus() {
-<b class="fc">&nbsp;        return status;</b>
-&nbsp;    }
 &nbsp;}
 </code>
 </pre>
@@ -113,7 +163,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-28 00:26</div>
+    <div style="float:right;">generated on 2023-11-29 16:16</div>
 </div>
 </body>
 </html>

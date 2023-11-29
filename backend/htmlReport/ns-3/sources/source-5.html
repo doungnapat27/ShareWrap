@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > ErrorDto</title>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > PromptpayController</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -18,15 +19,18 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.sharewrap.sharewrap_backend.dtos</a>
+    <a href="../index.html">com.sharewrap.sharewrap_backend.controllers</a>
 </div>
 
-<h1>Coverage Summary for Class: ErrorDto (com.sharewrap.sharewrap_backend.dtos)</h1>
+<h1>Coverage Summary for Class: PromptpayController (com.sharewrap.sharewrap_backend.controllers)</h1>
 
 <table class="coverageStats">
-
 <tr>
   <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
 <th class="coverageStat 
 ">
   Method, %
@@ -37,7 +41,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">ErrorDto</td>
+  <td class="name">PromptpayController</td>
 <td class="coverageStat">
   <span class="percent">
     0%
@@ -51,48 +55,19 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/1)
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
   </span>
 </td>
 </tr>
-  <tr>
-    <td class="name">ErrorDto$ErrorDtoBuilder</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/1)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/1)
-  </span>
-</td>
-  </tr>
-<tr>
-  <td class="name"><strong>Total</strong></td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/2)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/2)
-  </span>
-</td>
-</tr>
+
 </table>
 
 <br/>
@@ -100,17 +75,46 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.sharewrap.sharewrap_backend.dtos;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.sharewrap.sharewrap_backend.controllers;
 &nbsp;
-&nbsp;import lombok.AllArgsConstructor;
-&nbsp;import lombok.Builder;
-&nbsp;import lombok.Data;
+&nbsp;import com.sharewrap.sharewrap_backend.dtos.PaymentDto;
+&nbsp;import com.sharewrap.sharewrap_backend.dtos.PromptpayDto;
+&nbsp;import com.sharewrap.sharewrap_backend.services.PromptpayService;
+&nbsp;import jakarta.validation.Valid;
+&nbsp;import lombok.RequiredArgsConstructor;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;import org.springframework.web.bind.annotation.*;
 &nbsp;
-<b class="nc">&nbsp;@AllArgsConstructor</b>
-&nbsp;@Data
-<b class="nc">&nbsp;@Builder</b>
-&nbsp;public class ErrorDto {
-&nbsp;    String message;
+&nbsp;import java.net.URI;
+&nbsp;
+<b class="nc">&nbsp;@RequiredArgsConstructor</b>
+&nbsp;@RestController
+&nbsp;public class PromptpayController {
+&nbsp;
+&nbsp;    final private PromptpayService promptpayService;
+&nbsp;
+&nbsp;    @PostMapping(&quot;/add/promptpay&quot;)
+&nbsp;    public ResponseEntity&lt;PromptpayDto&gt; addPromptpay(@RequestBody @Valid PromptpayDto promptpayDto) {
+<b class="nc">&nbsp;        System.out.println(&quot;Adding promptpay...&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;PromptpayDto: &quot; + promptpayDto);</b>
+<b class="nc">&nbsp;        PromptpayDto createdPromptpay = promptpayService.createPromptpay(promptpayDto);</b>
+<b class="nc">&nbsp;        return ResponseEntity.created(URI.create(&quot;/promptpays/&quot; + createdPromptpay.getId())).body(createdPromptpay);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/{userId}/promptpay&quot;)
+&nbsp;    public ResponseEntity&lt;PromptpayDto&gt; getPromptpay(@PathVariable String userId) {
+<b class="nc">&nbsp;        System.out.println(&quot;Getting promptpay...&quot;);</b>
+<b class="nc">&nbsp;        PromptpayDto promptpayDto = promptpayService.getPromptpay(userId);</b>
+<b class="nc">&nbsp;        return ResponseEntity.ok(promptpayDto);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PutMapping(&quot;/update/promptpay&quot;)
+&nbsp;    public ResponseEntity&lt;PromptpayDto&gt; updatePromptpay(@RequestBody @Valid PromptpayDto promptpayDto) {
+<b class="nc">&nbsp;        System.out.println(&quot;Updating promptpay...&quot;);</b>
+<b class="nc">&nbsp;        PromptpayDto updatedPromptpay = promptpayService.updatePromptpay(promptpayDto);</b>
+<b class="nc">&nbsp;        return ResponseEntity.ok(updatedPromptpay);</b>
+&nbsp;    }
 &nbsp;}
 </code>
 </pre>
@@ -135,7 +139,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-28 00:26</div>
+    <div style="float:right;">generated on 2023-11-29 16:16</div>
 </div>
 </body>
 </html>

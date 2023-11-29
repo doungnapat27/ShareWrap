@@ -1,0 +1,210 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > UserBillDto</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.sharewrap.sharewrap_backend.dtos</a>
+</div>
+
+<h1>Coverage Summary for Class: UserBillDto (com.sharewrap.sharewrap_backend.dtos)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UserBillDto</td>
+<td class="coverageStat">
+  <span class="percent">
+    86.4%
+  </span>
+  <span class="absValue">
+    (19/22)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/112)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    87.5%
+  </span>
+  <span class="absValue">
+    (21/24)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">UserBillDto$UserBillDtoBuilder</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    82.6%
+  </span>
+  <span class="absValue">
+    (19/23)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/112)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    84%
+  </span>
+  <span class="absValue">
+    (21/25)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.sharewrap.sharewrap_backend.dtos;
+&nbsp;
+&nbsp;import com.sharewrap.sharewrap_backend.models.Bill;
+&nbsp;import com.sharewrap.sharewrap_backend.models.Item;
+&nbsp;import com.sharewrap.sharewrap_backend.models.Promptpay;
+&nbsp;import jakarta.validation.constraints.NotNull;
+&nbsp;import lombok.*;
+&nbsp;
+&nbsp;import java.util.Date;
+&nbsp;import java.util.List;
+&nbsp;
+<b class="nc">&nbsp;@AllArgsConstructor</b>
+<b class="fc">&nbsp;@NoArgsConstructor</b>
+<b class="nc">&nbsp;@Builder</b>
+<b class="nc">&nbsp;@Data</b>
+&nbsp;@Getter
+<b class="fc">&nbsp;@Setter</b>
+&nbsp;public class UserBillDto {
+&nbsp;
+<b class="fc">&nbsp;    private Long id;</b>
+&nbsp;    @NotNull
+<b class="fc">&nbsp;    private String userId;</b>
+&nbsp;
+&nbsp;    @NotNull
+<b class="fc">&nbsp;    private Long billId;</b>
+&nbsp;
+&nbsp;    @NotNull
+<b class="fc">&nbsp;    private Double shareTotal;</b>
+&nbsp;
+<b class="fc">&nbsp;    private boolean isPaid;</b>
+&nbsp;
+<b class="fc">&nbsp;    private boolean isApprove;</b>
+&nbsp;
+&nbsp;    @NotNull
+<b class="fc">&nbsp;    private List&lt;ItemDto&gt; items;</b>
+&nbsp;
+<b class="fc">&nbsp;    private char paymentType;</b>
+&nbsp;
+<b class="fc">&nbsp;    private String billName;</b>
+&nbsp;
+<b class="fc">&nbsp;    private String billOwnerName;</b>
+&nbsp;
+<b class="fc">&nbsp;    private Date billCreatedDate;</b>
+&nbsp;
+<b class="fc">&nbsp;    private PromptpayDto promptpayDto;</b>
+&nbsp;
+<b class="fc">&nbsp;    private BankAccountDto bankAccountDto;</b>
+&nbsp;
+<b class="fc">&nbsp;    private String receipt;</b>
+&nbsp;
+<b class="fc">&nbsp;    private Date uploadedDate;</b>
+&nbsp;
+&nbsp;    public void setIsApprove(Boolean isApprove) {
+<b class="fc">&nbsp;        this.isApprove = isApprove;</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    public void setIsPaid(Boolean isPaid) {
+<b class="fc">&nbsp;        this.isPaid = isPaid;</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-11-29 16:16</div>
+</div>
+</body>
+</html>

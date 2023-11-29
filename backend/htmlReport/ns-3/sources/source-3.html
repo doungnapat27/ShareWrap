@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > BillDto</title>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > BillController</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -18,22 +19,21 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.sharewrap.sharewrap_backend.dtos</a>
+    <a href="../index.html">com.sharewrap.sharewrap_backend.controllers</a>
 </div>
 
-<h1>Coverage Summary for Class: BillDto (com.sharewrap.sharewrap_backend.dtos)</h1>
+<h1>Coverage Summary for Class: BillController (com.sharewrap.sharewrap_backend.controllers)</h1>
 
 <table class="coverageStats">
-
 <tr>
   <th class="name">Class</th>
 <th class="coverageStat 
 ">
-  Method, %
+  Class, %
 </th>
 <th class="coverageStat 
 ">
-  Branch, %
+  Method, %
 </th>
 <th class="coverageStat 
 ">
@@ -41,34 +41,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">BillDto</td>
-<td class="coverageStat">
-  <span class="percent">
-    86.7%
-  </span>
-  <span class="absValue">
-    (13/15)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    1.3%
-  </span>
-  <span class="absValue">
-    (1/76)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    86.7%
-  </span>
-  <span class="absValue">
-    (13/15)
-  </span>
-</td>
-</tr>
-  <tr>
-    <td class="name">BillDto$BillDtoBuilder</td>
+  <td class="name">BillController</td>
 <td class="coverageStat">
   <span class="percent">
     0%
@@ -82,37 +55,19 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/1)
-  </span>
-</td>
-  </tr>
-<tr>
-  <td class="name"><strong>Total</strong></td>
-<td class="coverageStat">
-  <span class="percent">
-    81.2%
-  </span>
-  <span class="absValue">
-    (13/16)
+    (0/8)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    1.3%
+    0%
   </span>
   <span class="absValue">
-    (1/76)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    81.2%
-  </span>
-  <span class="absValue">
-    (13/16)
+    (0/10)
   </span>
 </td>
 </tr>
+
 </table>
 
 <br/>
@@ -120,44 +75,63 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.sharewrap.sharewrap_backend.dtos;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.sharewrap.sharewrap_backend.controllers;
 &nbsp;
-&nbsp;import jakarta.validation.constraints.NotNull;
-&nbsp;import lombok.*;
+&nbsp;import com.sharewrap.sharewrap_backend.dtos.BillDto;
+&nbsp;import com.sharewrap.sharewrap_backend.services.BillService;
+&nbsp;import jakarta.validation.Valid;
+&nbsp;import lombok.RequiredArgsConstructor;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.web.bind.annotation.*;
 &nbsp;
-&nbsp;import java.util.Date;
+&nbsp;import java.net.URI;
+&nbsp;import java.sql.SQLException;
 &nbsp;import java.util.List;
 &nbsp;
-<b class="nc">&nbsp;@AllArgsConstructor</b>
-<b class="fc">&nbsp;@NoArgsConstructor</b>
-<b class="nc">&nbsp;@Builder</b>
-<b class="pc">&nbsp;@Data</b>
-&nbsp;@Getter
-<b class="fc">&nbsp;@Setter</b>
-&nbsp;public class BillDto {
+<b class="nc">&nbsp;@RequiredArgsConstructor</b>
+&nbsp;@RestController
+&nbsp;public class BillController {
 &nbsp;
-<b class="fc">&nbsp;    private Long id;</b>
+&nbsp;    private final BillService billService;
 &nbsp;
-&nbsp;    @NotNull
-<b class="fc">&nbsp;    private String name;</b>
 &nbsp;
-<b class="fc">&nbsp;    private boolean isPaid;</b>
+&nbsp;    @GetMapping(&quot;/{userId}/bills&quot;)
+&nbsp;    public ResponseEntity&lt;List&lt;BillDto&gt;&gt; allBills(@PathVariable String userId) throws SQLException {
+<b class="nc">&nbsp;        return ResponseEntity.ok(billService.allBillsUser(userId));</b>
+&nbsp;    }
 &nbsp;
-&nbsp;    @NotNull
-<b class="fc">&nbsp;    private String userId;</b>
+&nbsp;    @GetMapping(&quot;/{userId}/bills/{id}&quot;)
+&nbsp;    public ResponseEntity&lt;BillDto&gt; getBill( @PathVariable String userId, @PathVariable Long id) {
+<b class="nc">&nbsp;        return ResponseEntity.ok(billService.getBillUser(userId,id));</b>
+&nbsp;    }
 &nbsp;
-&nbsp;    @NotNull
-<b class="fc">&nbsp;    private List&lt;UserBillDto&gt; userBills;</b>
+&nbsp;    @PostMapping(&quot;/bills&quot;)
+&nbsp;    public ResponseEntity&lt;BillDto&gt; createBill(@Valid @RequestBody BillDto billDto) {
+<b class="nc">&nbsp;        System.out.println(&quot;BillDto: &quot; + billDto);</b>
+<b class="nc">&nbsp;        BillDto createdBill = billService.createBill(billDto);</b>
+<b class="nc">&nbsp;        return ResponseEntity.created(URI.create(&quot;/bills/&quot; + billDto.getId())).body(createdBill);</b>
+&nbsp;    }
 &nbsp;
-<b class="fc">&nbsp;    private char paymentType;</b>
 &nbsp;
-<b class="fc">&nbsp;    private Date createdDate;</b>
+&nbsp;    @PutMapping(&quot;/bills/{id}&quot;)
+&nbsp;    public ResponseEntity&lt;BillDto&gt; updateBill(@PathVariable Long id, @Valid @RequestBody BillDto billDto) {
+<b class="nc">&nbsp;        return ResponseEntity.ok(billService.updateBill(id, billDto));</b>
+&nbsp;    }
 &nbsp;
-<b class="fc">&nbsp;    private Double total;</b>
+&nbsp;    @DeleteMapping(&quot;/bills/{id}&quot;)
+&nbsp;    public ResponseEntity&lt;String&gt; deleteBill(@PathVariable Long id) {
+<b class="nc">&nbsp;        return ResponseEntity.ok(billService.deleteBill(id));</b>
+&nbsp;    }
 &nbsp;
-<b class="fc">&nbsp;    private String receipt;</b>
+&nbsp;    @PutMapping(&quot;/isPaid/bill/{id}&quot;)
+&nbsp;    public ResponseEntity&lt;String&gt; updateIsPaidBill(@PathVariable Long id) {
+<b class="nc">&nbsp;        return ResponseEntity.ok(billService.updateIsPaid(id));</b>
+&nbsp;    }
 &nbsp;
-<b class="fc">&nbsp;    private Date uploadedDate;</b>
+&nbsp;    @PutMapping(&quot;/receipt/bill/{id}&quot;)
+&nbsp;    public ResponseEntity&lt;String&gt; updateReceiptBill(@PathVariable Long id, @Valid @RequestBody String receipt) {
+<b class="nc">&nbsp;        return ResponseEntity.ok(billService.updateReceipt(id, receipt));</b>
+&nbsp;    }
 &nbsp;
 &nbsp;}
 </code>
@@ -183,7 +157,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-28 00:26</div>
+    <div style="float:right;">generated on 2023-11-29 16:16</div>
 </div>
 </body>
 </html>

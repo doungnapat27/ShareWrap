@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BlobService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in sharewrap_backend Coverage Results, java in sharewrap_backend Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.sharewrap.sharewrap_backend.services</a> &gt; <span class="el_source">BlobService.java</span></div><h1>BlobService.java</h1><pre class="source lang-java linenums">package com.sharewrap.sharewrap_backend.services;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import javax.sql.rowset.serial.SerialBlob;
+import java.sql.Blob;
+import java.util.Base64;
+
+<span class="nc" id="L10">@RequiredArgsConstructor</span>
+@Service
+public class BlobService {
+    public static byte[] convertBase64ToBlob(String base64String) {
+        try {
+<span class="nc bnc" id="L15" title="All 6 branches missed.">            if (base64String == null || (!base64String.startsWith(&quot;data:image/png;base64,&quot;) &amp;&amp; !base64String.startsWith(&quot;data:image/jpeg;base64,&quot;))) {</span>
+<span class="nc" id="L16">                System.err.println(&quot;Invalid or unexpected base64String format&quot;);</span>
+<span class="nc" id="L17">                return null;</span>
+            }
+
+<span class="nc bnc" id="L20" title="All 2 branches missed.">            String prefix = base64String.startsWith(&quot;data:image/png;base64,&quot;) ? &quot;data:image/png;base64,&quot; : &quot;data:image/jpeg;base64,&quot;;</span>
+<span class="nc" id="L21">            String encodedString = base64String.substring(prefix.length());</span>
+
+            // Optional: Remove any non-Base64 characters (like non-printable characters)
+<span class="nc" id="L24">            encodedString = encodedString.replaceAll(&quot;[^A-Za-z0-9+/=]&quot;, &quot;&quot;);</span>
+
+<span class="nc" id="L26">            return Base64.getDecoder().decode(encodedString);</span>
+<span class="nc" id="L27">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L28">            System.err.println(&quot;Error decoding Base64 string: &quot; + e.getMessage());</span>
+<span class="nc" id="L29">            return null;</span>
+<span class="nc" id="L30">        } catch (Exception e) {</span>
+<span class="nc" id="L31">            e.printStackTrace();</span>
+<span class="nc" id="L32">            return null;</span>
+        }
+    }
+
+    public static String convertToBase64(byte[] imageData) {
+<span class="fc bfc" id="L37" title="All 4 branches covered.">        if (imageData == null || imageData.length == 0) {</span>
+<span class="fc" id="L38">            return null;</span>
+        }
+
+<span class="fc" id="L41">        return Base64.getEncoder().encodeToString(imageData);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

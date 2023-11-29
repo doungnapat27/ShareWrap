@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > PromptpayController</title>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > UserAuthEntryPoint</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -18,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.sharewrap.sharewrap_backend.controllers</a>
+    <a href="../index.html">com.sharewrap.sharewrap_backend.config</a>
 </div>
 
-<h1>Coverage Summary for Class: PromptpayController (com.sharewrap.sharewrap_backend.controllers)</h1>
+<h1>Coverage Summary for Class: UserAuthEntryPoint (com.sharewrap.sharewrap_backend.config)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -40,7 +41,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">PromptpayController</td>
+  <td class="name">UserAuthEntryPoint</td>
 <td class="coverageStat">
   <span class="percent">
     0%
@@ -54,7 +55,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/4)
+    (0/3)
   </span>
 </td>
 <td class="coverageStat">
@@ -62,7 +63,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/11)
+    (0/6)
   </span>
 </td>
 </tr>
@@ -74,46 +75,34 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.sharewrap.sharewrap_backend.controllers;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.sharewrap.sharewrap_backend.config;
 &nbsp;
-&nbsp;import com.sharewrap.sharewrap_backend.dtos.PaymentDto;
-&nbsp;import com.sharewrap.sharewrap_backend.dtos.PromptpayDto;
-&nbsp;import com.sharewrap.sharewrap_backend.services.PromptpayService;
-&nbsp;import jakarta.validation.Valid;
-&nbsp;import lombok.RequiredArgsConstructor;
-&nbsp;import org.springframework.http.ResponseEntity;
-&nbsp;import org.springframework.stereotype.Service;
-&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;import com.sharewrap.sharewrap_backend.dtos.ErrorDto;
+&nbsp;import jakarta.servlet.ServletException;
+&nbsp;import jakarta.servlet.http.HttpServletRequest;
+&nbsp;import jakarta.servlet.http.HttpServletResponse;
+&nbsp;import org.springframework.http.HttpHeaders;
+&nbsp;import org.springframework.http.MediaType;
+&nbsp;import org.springframework.security.core.AuthenticationException;
+&nbsp;import org.springframework.security.web.AuthenticationEntryPoint;
+&nbsp;import org.springframework.stereotype.Component;
+&nbsp;import com.fasterxml.jackson.databind.ObjectMapper;
 &nbsp;
-&nbsp;import java.net.URI;
+&nbsp;import java.io.IOException;
 &nbsp;
-<b class="nc">&nbsp;@RequiredArgsConstructor</b>
-&nbsp;@RestController
-&nbsp;public class PromptpayController {
+&nbsp;@Component
+<b class="nc">&nbsp;public class UserAuthEntryPoint implements AuthenticationEntryPoint {</b>
 &nbsp;
-&nbsp;    final private PromptpayService promptpayService;
-&nbsp;
-&nbsp;    @PostMapping(&quot;/add/promptpay&quot;)
-&nbsp;    public ResponseEntity&lt;PromptpayDto&gt; addPromptpay(@RequestBody @Valid PromptpayDto promptpayDto) {
-<b class="nc">&nbsp;        System.out.println(&quot;Adding promptpay...&quot;);</b>
-<b class="nc">&nbsp;        System.out.println(&quot;PromptpayDto: &quot; + promptpayDto);</b>
-<b class="nc">&nbsp;        PromptpayDto createdPromptpay = promptpayService.createPromptpay(promptpayDto);</b>
-<b class="nc">&nbsp;        return ResponseEntity.created(URI.create(&quot;/promptpays/&quot; + createdPromptpay.getId())).body(createdPromptpay);</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    @GetMapping(&quot;/{userId}/promptpay&quot;)
-&nbsp;    public ResponseEntity&lt;PromptpayDto&gt; getPromptpay(@PathVariable String userId) {
-<b class="nc">&nbsp;        System.out.println(&quot;Getting promptpay...&quot;);</b>
-<b class="nc">&nbsp;        PromptpayDto promptpayDto = promptpayService.getPromptpay(userId);</b>
-<b class="nc">&nbsp;        return ResponseEntity.ok(promptpayDto);</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    @PutMapping(&quot;/update/promptpay&quot;)
-&nbsp;    public ResponseEntity&lt;PromptpayDto&gt; updatePromptpay(@RequestBody @Valid PromptpayDto promptpayDto) {
-<b class="nc">&nbsp;        System.out.println(&quot;Updating promptpay...&quot;);</b>
-<b class="nc">&nbsp;        PromptpayDto updatedPromptpay = promptpayService.updatePromptpay(promptpayDto);</b>
-<b class="nc">&nbsp;        return ResponseEntity.ok(updatedPromptpay);</b>
-&nbsp;    }
+<b class="nc">&nbsp;    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();</b>
+&nbsp;    @Override
+&nbsp;    public void commence(
+&nbsp;            HttpServletRequest request,
+&nbsp;            HttpServletResponse response,
+&nbsp;            AuthenticationException authException) throws IOException, ServletException {
+<b class="nc">&nbsp;        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);</b>
+<b class="nc">&nbsp;        response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);</b>
+<b class="nc">&nbsp;        OBJECT_MAPPER.writeValue(response.getOutputStream(), new ErrorDto(&quot;Unauthorized path&quot;));</b>
+<b class="nc">&nbsp;    }</b>
 &nbsp;}
 </code>
 </pre>
@@ -138,7 +127,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-28 00:26</div>
+    <div style="float:right;">generated on 2023-11-29 16:16</div>
 </div>
 </body>
 </html>

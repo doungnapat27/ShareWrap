@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BankAccountDtoTests.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in sharewrap_backend Coverage Results, java in sharewrap_backend Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.sharewrap.sharewrap_backend.dtos</a> &gt; <span class="el_source">BankAccountDtoTests.java</span></div><h1>BankAccountDtoTests.java</h1><pre class="source lang-java linenums">package com.sharewrap.sharewrap_backend.dtos;
+
+import org.junit.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+<span class="fc" id="L8">public class BankAccountDtoTests {</span>
+    @Test
+    public void test_get_null_values_for_all_fields_if_not_set() {
+<span class="fc" id="L11">        BankAccountDto bankAccountDto = new BankAccountDto();</span>
+
+<span class="fc" id="L13">        assertNull(bankAccountDto.getId());</span>
+<span class="fc" id="L14">        assertNull(bankAccountDto.getName());</span>
+<span class="fc" id="L15">        assertNull(bankAccountDto.getUserId());</span>
+<span class="fc" id="L16">        assertNull(bankAccountDto.getBankName());</span>
+<span class="fc" id="L17">        assertNull(bankAccountDto.getAccountNumber());</span>
+<span class="fc" id="L18">    }</span>
+    @Test
+    public void test_create_bank_account_with_all_fields() {
+<span class="fc" id="L21">        BankAccountDto bankAccountDto = new BankAccountDto();</span>
+<span class="fc" id="L22">        bankAccountDto.setId(1L);</span>
+<span class="fc" id="L23">        bankAccountDto.setName(&quot;John Doe&quot;);</span>
+<span class="fc" id="L24">        bankAccountDto.setUserId(&quot;user1&quot;);</span>
+<span class="fc" id="L25">        bankAccountDto.setBankName(&quot;Bank of America&quot;);</span>
+<span class="fc" id="L26">        bankAccountDto.setAccountNumber(&quot;1234567890&quot;);</span>
+
+<span class="fc" id="L28">        assertEquals(1L, bankAccountDto.getId().longValue());</span>
+<span class="fc" id="L29">        assertEquals(&quot;John Doe&quot;, bankAccountDto.getName());</span>
+<span class="fc" id="L30">        assertEquals(&quot;user1&quot;, bankAccountDto.getUserId());</span>
+<span class="fc" id="L31">        assertEquals(&quot;Bank of America&quot;, bankAccountDto.getBankName());</span>
+<span class="fc" id="L32">        assertEquals(&quot;1234567890&quot;, bankAccountDto.getAccountNumber());</span>
+<span class="fc" id="L33">    }</span>
+    @Test
+    public void test_create_bank_account_with_no_fields() {
+<span class="fc" id="L36">        BankAccountDto bankAccountDto = new BankAccountDto();</span>
+
+<span class="fc" id="L38">        assertNull(bankAccountDto.getId());</span>
+<span class="fc" id="L39">        assertNull(bankAccountDto.getName());</span>
+<span class="fc" id="L40">        assertNull(bankAccountDto.getUserId());</span>
+<span class="fc" id="L41">        assertNull(bankAccountDto.getBankName());</span>
+<span class="fc" id="L42">        assertNull(bankAccountDto.getAccountNumber());</span>
+<span class="fc" id="L43">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

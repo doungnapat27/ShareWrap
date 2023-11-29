@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1.1 (Python 3.11.3 on win32)" generated="20231129 02:06:12.984" rpa="false" schemaversion="4">
+<suite id="s1" name="Auto03 Sys03" source="C:\Users\rujip\Desktop\ShareWrap\RobotTest\Auto03_Sys03.robot">
+<test id="s1-t1" name="Open Website And Login" line="11">
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${URL}</arg>
+<arg>browser=chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20231129 02:06:13.160" level="INFO">Opening browser 'chrome' to base url 'https://sharewrap-69b7da4e01ff.herokuapp.com/'.</msg>
+<status status="PASS" starttime="20231129 02:06:13.160" endtime="20231129 02:06:19.508"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20231129 02:06:19.509" endtime="20231129 02:06:19.625"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id=email</arg>
+<arg>${EMAIL}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231129 02:06:19.627" level="INFO">Typing text 'test_17@gmail.com' into text field 'id=email'.</msg>
+<status status="PASS" starttime="20231129 02:06:19.626" endtime="20231129 02:06:19.836"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id=password</arg>
+<arg>${PASSWORD}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231129 02:06:19.836" level="INFO">Typing text 'Test17' into text field 'id=password'.</msg>
+<status status="PASS" starttime="20231129 02:06:19.836" endtime="20231129 02:06:19.958"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>//button[text()='Login']</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20231129 02:06:19.958" level="INFO">Clicking element '//button[text()='Login']'.</msg>
+<status status="PASS" starttime="20231129 02:06:19.958" endtime="20231129 02:06:20.035"/>
+</kw>
+<status status="PASS" starttime="20231129 02:06:13.159" endtime="20231129 02:06:20.035"/>
+</test>
+<test id="s1-t2" name="Press Avatar and Logout" line="18">
+<kw name="Sleep" library="BuiltIn">
+<arg>5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231129 02:06:25.037" level="INFO">Slept 5 seconds</msg>
+<status status="PASS" starttime="20231129 02:06:20.037" endtime="20231129 02:06:25.037"/>
+</kw>
+<kw name="Click Avatar">
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>css=.MuiAvatar-root</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20231129 02:06:25.038" level="INFO">Clicking element 'css=.MuiAvatar-root'.</msg>
+<status status="PASS" starttime="20231129 02:06:25.038" endtime="20231129 02:06:25.091"/>
+</kw>
+<status status="PASS" starttime="20231129 02:06:25.037" endtime="20231129 02:06:25.091"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231129 02:06:30.093" level="INFO">Slept 5 seconds</msg>
+<status status="PASS" starttime="20231129 02:06:25.092" endtime="20231129 02:06:30.093"/>
+</kw>
+<kw name="Click Logout">
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>xpath=//li[contains(., 'Logout')]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20231129 02:06:30.094" level="INFO">Clicking element 'xpath=//li[contains(., 'Logout')]'.</msg>
+<status status="PASS" starttime="20231129 02:06:30.094" endtime="20231129 02:06:30.991"/>
+</kw>
+<status status="PASS" starttime="20231129 02:06:30.093" endtime="20231129 02:06:30.991"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>3s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231129 02:06:33.992" level="INFO">Slept 3 seconds</msg>
+<status status="PASS" starttime="20231129 02:06:30.991" endtime="20231129 02:06:33.992"/>
+</kw>
+<status status="PASS" starttime="20231129 02:06:20.036" endtime="20231129 02:06:33.992"/>
+</test>
+<test id="s1-t3" name="Open Website And Login" line="25">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id=email</arg>
+<arg>${EMAIL}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231129 02:06:33.995" level="INFO">Typing text 'test_17@gmail.com' into text field 'id=email'.</msg>
+<status status="PASS" starttime="20231129 02:06:33.995" endtime="20231129 02:06:34.161"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id=password</arg>
+<arg>${PASSWORD}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231129 02:06:34.162" level="INFO">Typing text 'Test17' into text field 'id=password'.</msg>
+<status status="PASS" starttime="20231129 02:06:34.161" endtime="20231129 02:06:34.252"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>//button[text()='Login']</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20231129 02:06:34.253" level="INFO">Clicking element '//button[text()='Login']'.</msg>
+<status status="PASS" starttime="20231129 02:06:34.252" endtime="20231129 02:06:34.288"/>
+</kw>
+<status status="PASS" starttime="20231129 02:06:33.993" endtime="20231129 02:06:34.289"/>
+</test>
+<status status="PASS" starttime="20231129 02:06:12.985" endtime="20231129 02:06:34.289"/>
+</suite>
+<statistics>
+<total>
+<stat pass="3" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="3" fail="0" skip="0" id="s1" name="Auto03 Sys03">Auto03 Sys03</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20231129 02:06:33.993" level="WARN">Multiple tests with name 'Open Website And Login' executed in suite 'Auto03 Sys03'.</msg>
+</errors>
+</robot>

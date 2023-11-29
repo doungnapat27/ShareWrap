@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserExceptionHandlerTests.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in sharewrap_backend Coverage Results, java in sharewrap_backend Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.sharewrap.sharewrap_backend.exceptions</a> &gt; <span class="el_source">UserExceptionHandlerTests.java</span></div><h1>UserExceptionHandlerTests.java</h1><pre class="source lang-java linenums">package com.sharewrap.sharewrap_backend.exceptions;
+
+import com.sharewrap.sharewrap_backend.exceptions.UserExceptionHandler;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.List;
+import org.springframework.core.MethodParameter;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.testng.annotations.Test;
+import org.mockito.Mockito;
+
+import static org.testng.Assert.assertEquals;
+
+<span class="nc" id="L15">public class UserExceptionHandlerTests {</span>
+    private BindingResult bindingResult;
+
+    @Test
+    public void test_http_status_code_400() throws NoSuchMethodException {
+        // Arrange
+<span class="nc" id="L21">        UserExceptionHandler userExceptionHandler = new UserExceptionHandler();</span>
+<span class="nc" id="L22">        MethodParameter methodParameter = new MethodParameter(UserExceptionHandlerTests.class.getMethod(&quot;dummyMethod&quot;), -1);</span>
+<span class="nc" id="L23">        bindingResult = Mockito.mock(BindingResult.class);</span>
+
+<span class="nc" id="L25">        MethodArgumentNotValidException exception = new MethodArgumentNotValidException(methodParameter, bindingResult);</span>
+<span class="nc" id="L26">        ResponseEntity&lt;?&gt; responseEntity = userExceptionHandler.handleValidationExceptions(exception);</span>
+
+        // Assert
+<span class="nc" id="L29">        assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());</span>
+<span class="nc" id="L30">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

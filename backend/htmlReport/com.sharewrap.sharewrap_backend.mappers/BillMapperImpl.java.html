@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BillMapperImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in sharewrap_backend Coverage Results, java in sharewrap_backend Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.sharewrap.sharewrap_backend.mappers</a> &gt; <span class="el_source">BillMapperImpl.java</span></div><h1>BillMapperImpl.java</h1><pre class="source lang-java linenums">package com.sharewrap.sharewrap_backend.mappers;
+
+import com.sharewrap.sharewrap_backend.dtos.BillDto;
+import com.sharewrap.sharewrap_backend.dtos.ItemDto;
+import com.sharewrap.sharewrap_backend.dtos.UserBillDto;
+import com.sharewrap.sharewrap_backend.models.Bill;
+import com.sharewrap.sharewrap_backend.models.Item;
+import com.sharewrap.sharewrap_backend.models.UserBill;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
+    date = &quot;2023-11-29T15:55:29+0700&quot;,
+    comments = &quot;version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (Oracle Corporation)&quot;
+)
+@Component
+<span class="nc" id="L22">public class BillMapperImpl implements BillMapper {</span>
+
+    @Override
+    public Bill toBill(BillDto billDto) {
+<span class="nc bnc" id="L26" title="All 2 branches missed.">        if ( billDto == null ) {</span>
+<span class="nc" id="L27">            return null;</span>
+        }
+
+<span class="nc" id="L30">        Bill bill = new Bill();</span>
+
+<span class="nc" id="L32">        bill.setReceipt( base64ToBlob( billDto.getReceipt() ) );</span>
+<span class="nc" id="L33">        bill.setName( billDto.getName() );</span>
+<span class="nc" id="L34">        bill.setPaymentType( billDto.getPaymentType() );</span>
+<span class="nc" id="L35">        bill.setId( billDto.getId() );</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        if ( billDto.getUploadedDate() != null ) {</span>
+<span class="nc" id="L37">            bill.setUploadedDate( new Date( billDto.getUploadedDate().getTime() ) );</span>
+        }
+<span class="nc bnc" id="L39" title="All 2 branches missed.">        if ( bill.getUserBills() != null ) {</span>
+<span class="nc" id="L40">            List&lt;UserBill&gt; list = userBillDtoListToUserBillList( billDto.getUserBills() );</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">            if ( list != null ) {</span>
+<span class="nc" id="L42">                bill.getUserBills().addAll( list );</span>
+            }
+        }
+
+<span class="nc" id="L46">        return bill;</span>
+    }
+
+    @Override
+    public BillDto toBillDto(Bill bill) {
+<span class="nc bnc" id="L51" title="All 2 branches missed.">        if ( bill == null ) {</span>
+<span class="nc" id="L52">            return null;</span>
+        }
+
+<span class="nc" id="L55">        BillDto billDto = new BillDto();</span>
+
+<span class="nc" id="L57">        billDto.setReceipt( blobToBase64( bill.getReceipt() ) );</span>
+<span class="nc" id="L58">        billDto.setId( bill.getId() );</span>
+<span class="nc" id="L59">        billDto.setName( bill.getName() );</span>
+<span class="nc" id="L60">        billDto.setUserBills( userBillListToUserBillDtoList( bill.getUserBills() ) );</span>
+<span class="nc" id="L61">        billDto.setPaymentType( bill.getPaymentType() );</span>
+<span class="nc" id="L62">        billDto.setCreatedDate( bill.getCreatedDate() );</span>
+<span class="nc" id="L63">        billDto.setUploadedDate( bill.getUploadedDate() );</span>
+
+<span class="nc" id="L65">        return billDto;</span>
+    }
+
+    @Override
+    public List&lt;BillDto&gt; toBillDtos(List&lt;Bill&gt; bills) {
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        if ( bills == null ) {</span>
+<span class="nc" id="L71">            return null;</span>
+        }
+
+<span class="nc" id="L74">        List&lt;BillDto&gt; list = new ArrayList&lt;BillDto&gt;( bills.size() );</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">        for ( Bill bill : bills ) {</span>
+<span class="nc" id="L76">            list.add( toBillDto( bill ) );</span>
+<span class="nc" id="L77">        }</span>
+
+<span class="nc" id="L79">        return list;</span>
+    }
+
+    @Override
+    public UserBillDto toUserBillDto(UserBill userBill) {
+<span class="nc bnc" id="L84" title="All 2 branches missed.">        if ( userBill == null ) {</span>
+<span class="nc" id="L85">            return null;</span>
+        }
+
+<span class="nc" id="L88">        UserBillDto userBillDto = new UserBillDto();</span>
+
+<span class="nc" id="L90">        userBillDto.setReceipt( blobToBase64( userBill.getReceipt() ) );</span>
+<span class="nc" id="L91">        userBillDto.setIsApprove( userBill.getIsApprove() );</span>
+<span class="nc" id="L92">        userBillDto.setIsPaid( userBill.getIsPaid() );</span>
+<span class="nc" id="L93">        userBillDto.setId( userBill.getId() );</span>
+<span class="nc" id="L94">        userBillDto.setShareTotal( userBill.getShareTotal() );</span>
+<span class="nc" id="L95">        userBillDto.setItems( itemListToItemDtoList( userBill.getItems() ) );</span>
+<span class="nc" id="L96">        userBillDto.setUploadedDate( userBill.getUploadedDate() );</span>
+
+<span class="nc" id="L98">        return userBillDto;</span>
+    }
+
+    @Override
+    public UserBill toUserBill(UserBillDto userBillDto) {
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        if ( userBillDto == null ) {</span>
+<span class="nc" id="L104">            return null;</span>
+        }
+
+<span class="nc" id="L107">        UserBill userBill = new UserBill();</span>
+
+<span class="nc" id="L109">        userBill.setReceipt( base64ToBlob( userBillDto.getReceipt() ) );</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">        if ( userBillDto.getUploadedDate() != null ) {</span>
+<span class="nc" id="L111">            userBill.setUploadedDate( new Date( userBillDto.getUploadedDate().getTime() ) );</span>
+        }
+<span class="nc" id="L113">        userBill.setId( userBillDto.getId() );</span>
+<span class="nc" id="L114">        userBill.setShareTotal( userBillDto.getShareTotal() );</span>
+<span class="nc" id="L115">        userBill.setItems( itemDtoListToItemList( userBillDto.getItems() ) );</span>
+
+<span class="nc" id="L117">        return userBill;</span>
+    }
+
+    @Override
+    public void updateBill(Bill target, Bill source) {
+<span class="nc bnc" id="L122" title="All 2 branches missed.">        if ( source == null ) {</span>
+<span class="nc" id="L123">            return;</span>
+        }
+
+<span class="nc" id="L126">        target.setUser( source.getUser() );</span>
+<span class="nc" id="L127">        target.setName( source.getName() );</span>
+<span class="nc" id="L128">        target.setPaymentType( source.getPaymentType() );</span>
+<span class="nc" id="L129">        target.setId( source.getId() );</span>
+<span class="nc" id="L130">        byte[] receipt = source.getReceipt();</span>
+<span class="nc bnc" id="L131" title="All 2 branches missed.">        if ( receipt != null ) {</span>
+<span class="nc" id="L132">            target.setReceipt( Arrays.copyOf( receipt, receipt.length ) );</span>
+        }
+        else {
+<span class="nc" id="L135">            target.setReceipt( null );</span>
+        }
+<span class="nc" id="L137">        target.setUploadedDate( source.getUploadedDate() );</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">        if ( target.getUserBills() != null ) {</span>
+<span class="nc" id="L139">            target.getUserBills().clear();</span>
+<span class="nc" id="L140">            List&lt;UserBill&gt; list = source.getUserBills();</span>
+<span class="nc bnc" id="L141" title="All 2 branches missed.">            if ( list != null ) {</span>
+<span class="nc" id="L142">                target.getUserBills().addAll( list );</span>
+            }
+        }
+<span class="nc" id="L145">    }</span>
+
+    protected List&lt;UserBill&gt; userBillDtoListToUserBillList(List&lt;UserBillDto&gt; list) {
+<span class="nc bnc" id="L148" title="All 2 branches missed.">        if ( list == null ) {</span>
+<span class="nc" id="L149">            return null;</span>
+        }
+
+<span class="nc" id="L152">        List&lt;UserBill&gt; list1 = new ArrayList&lt;UserBill&gt;( list.size() );</span>
+<span class="nc bnc" id="L153" title="All 2 branches missed.">        for ( UserBillDto userBillDto : list ) {</span>
+<span class="nc" id="L154">            list1.add( toUserBill( userBillDto ) );</span>
+<span class="nc" id="L155">        }</span>
+
+<span class="nc" id="L157">        return list1;</span>
+    }
+
+    protected List&lt;UserBillDto&gt; userBillListToUserBillDtoList(List&lt;UserBill&gt; list) {
+<span class="nc bnc" id="L161" title="All 2 branches missed.">        if ( list == null ) {</span>
+<span class="nc" id="L162">            return null;</span>
+        }
+
+<span class="nc" id="L165">        List&lt;UserBillDto&gt; list1 = new ArrayList&lt;UserBillDto&gt;( list.size() );</span>
+<span class="nc bnc" id="L166" title="All 2 branches missed.">        for ( UserBill userBill : list ) {</span>
+<span class="nc" id="L167">            list1.add( toUserBillDto( userBill ) );</span>
+<span class="nc" id="L168">        }</span>
+
+<span class="nc" id="L170">        return list1;</span>
+    }
+
+    protected ItemDto itemToItemDto(Item item) {
+<span class="nc bnc" id="L174" title="All 2 branches missed.">        if ( item == null ) {</span>
+<span class="nc" id="L175">            return null;</span>
+        }
+
+<span class="nc" id="L178">        ItemDto itemDto = new ItemDto();</span>
+
+<span class="nc" id="L180">        itemDto.setId( item.getId() );</span>
+<span class="nc" id="L181">        itemDto.setName( item.getName() );</span>
+<span class="nc" id="L182">        itemDto.setPrice( item.getPrice() );</span>
+
+<span class="nc" id="L184">        return itemDto;</span>
+    }
+
+    protected List&lt;ItemDto&gt; itemListToItemDtoList(List&lt;Item&gt; list) {
+<span class="nc bnc" id="L188" title="All 2 branches missed.">        if ( list == null ) {</span>
+<span class="nc" id="L189">            return null;</span>
+        }
+
+<span class="nc" id="L192">        List&lt;ItemDto&gt; list1 = new ArrayList&lt;ItemDto&gt;( list.size() );</span>
+<span class="nc bnc" id="L193" title="All 2 branches missed.">        for ( Item item : list ) {</span>
+<span class="nc" id="L194">            list1.add( itemToItemDto( item ) );</span>
+<span class="nc" id="L195">        }</span>
+
+<span class="nc" id="L197">        return list1;</span>
+    }
+
+    protected Item itemDtoToItem(ItemDto itemDto) {
+<span class="nc bnc" id="L201" title="All 2 branches missed.">        if ( itemDto == null ) {</span>
+<span class="nc" id="L202">            return null;</span>
+        }
+
+<span class="nc" id="L205">        Item item = new Item();</span>
+
+<span class="nc" id="L207">        item.setPrice( itemDto.getPrice() );</span>
+<span class="nc" id="L208">        item.setName( itemDto.getName() );</span>
+<span class="nc" id="L209">        item.setId( itemDto.getId() );</span>
+
+<span class="nc" id="L211">        return item;</span>
+    }
+
+    protected List&lt;Item&gt; itemDtoListToItemList(List&lt;ItemDto&gt; list) {
+<span class="nc bnc" id="L215" title="All 2 branches missed.">        if ( list == null ) {</span>
+<span class="nc" id="L216">            return null;</span>
+        }
+
+<span class="nc" id="L219">        List&lt;Item&gt; list1 = new ArrayList&lt;Item&gt;( list.size() );</span>
+<span class="nc bnc" id="L220" title="All 2 branches missed.">        for ( ItemDto itemDto : list ) {</span>
+<span class="nc" id="L221">            list1.add( itemDtoToItem( itemDto ) );</span>
+<span class="nc" id="L222">        }</span>
+
+<span class="nc" id="L224">        return list1;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

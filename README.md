@@ -322,7 +322,6 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
 </details> 
 
 ---
-
 <details>
   <summary><h2> 👩🏻‍💻 System test (Manual test) 👨🏻‍💻 </h2></summary>
 

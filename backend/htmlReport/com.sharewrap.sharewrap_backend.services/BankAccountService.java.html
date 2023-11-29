@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BankAccountService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in sharewrap_backend Coverage Results, java in sharewrap_backend Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.sharewrap.sharewrap_backend.services</a> &gt; <span class="el_source">BankAccountService.java</span></div><h1>BankAccountService.java</h1><pre class="source lang-java linenums">package com.sharewrap.sharewrap_backend.services;
+
+import com.sharewrap.sharewrap_backend.dtos.BankAccountDto;
+import com.sharewrap.sharewrap_backend.exceptions.AppException;
+import com.sharewrap.sharewrap_backend.mappers.BankAccountMapper;
+import com.sharewrap.sharewrap_backend.models.BankAccount;
+import com.sharewrap.sharewrap_backend.models.User;
+import com.sharewrap.sharewrap_backend.repositories.BankAccountRepository;
+import com.sharewrap.sharewrap_backend.repositories.UserRepository;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+
+@Service
+<span class="fc" id="L16">@RequiredArgsConstructor</span>
+public class BankAccountService {
+
+    final private BankAccountRepository bankAccountRepository;
+    final private BankAccountMapper bankAccountMapper;
+    final private UserRepository userRepository;
+
+
+    @Transactional
+    public BankAccountDto createBankAccount(BankAccountDto bankAccountDto) {
+<span class="fc" id="L26">        BankAccount bankAccount = bankAccountMapper.toBankAccount(bankAccountDto);</span>
+<span class="fc" id="L27">        User user = userRepository.findById(bankAccountDto.getUserId())</span>
+<span class="pc" id="L28">                .orElseThrow(() -&gt; new AppException(&quot;Unknown user&quot;, HttpStatus.NOT_FOUND));</span>
+<span class="nc" id="L29">        bankAccount.setUser(user);</span>
+<span class="nc" id="L30">        user.getPayments().add(bankAccount);</span>
+<span class="nc" id="L31">        BankAccount savedBankAccount = bankAccountRepository.save(bankAccount);</span>
+<span class="nc" id="L32">        return bankAccountMapper.toBankAccountDto(savedBankAccount);</span>
+    }
+
+    public BankAccountDto getBankAccount(String userId) {
+<span class="fc" id="L36">        User user = userRepository.findById(userId)</span>
+<span class="pc" id="L37">                .orElseThrow(() -&gt; new AppException(&quot;Unknown user&quot;, HttpStatus.NOT_FOUND));</span>
+<span class="nc" id="L38">        BankAccount bankAccount = bankAccountRepository.findByUser(user)</span>
+<span class="nc" id="L39">                .orElseThrow(() -&gt; new AppException(&quot;BankAccount not found&quot;, HttpStatus.NOT_FOUND));</span>
+<span class="nc" id="L40">        return bankAccountMapper.toBankAccountDto(bankAccount);</span>
+    }
+
+    public BankAccountDto updateBankAccount(BankAccountDto bankAccountDto) {
+<span class="nc" id="L44">        User user = userRepository.findById(bankAccountDto.getUserId())</span>
+<span class="nc" id="L45">                .orElseThrow(() -&gt; new AppException(&quot;Unknown user&quot;, HttpStatus.NOT_FOUND));</span>
+<span class="nc" id="L46">        BankAccount bankAccount = bankAccountRepository.findById(bankAccountDto.getId())</span>
+<span class="nc" id="L47">                .orElseThrow(() -&gt; new AppException(&quot;BankAccount not found&quot;, HttpStatus.NOT_FOUND));</span>
+<span class="nc" id="L48">        bankAccountMapper.updateBankAccount(bankAccount, bankAccountMapper.toBankAccount(bankAccountDto));</span>
+<span class="nc" id="L49">        bankAccount.setUser(user);</span>
+<span class="nc" id="L50">        BankAccount savedBankAccount = bankAccountRepository.save(bankAccount);</span>
+<span class="nc" id="L51">        return bankAccountMapper.toBankAccountDto(savedBankAccount);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

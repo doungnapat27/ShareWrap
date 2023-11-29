@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PromptpayTests.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in sharewrap_backend Coverage Results, java in sharewrap_backend Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.sharewrap.sharewrap_backend.models</a> &gt; <span class="el_source">PromptpayTests.java</span></div><h1>PromptpayTests.java</h1><pre class="source lang-java linenums">package com.sharewrap.sharewrap_backend.models;
+
+import org.junit.Test;
+
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+<span class="fc" id="L9">public class PromptpayTests {</span>
+    @Test
+    public void test_getter_and_setter_methods_for_phoneNumber_work_as_expected() {
+        // Arrange
+<span class="fc" id="L13">        Promptpay promptpay = new Promptpay();</span>
+<span class="fc" id="L14">        String phoneNumber = &quot;1234567890&quot;;</span>
+
+        // Act
+<span class="fc" id="L17">        promptpay.setPhoneNumber(phoneNumber);</span>
+<span class="fc" id="L18">        String result = promptpay.getPhoneNumber();</span>
+
+        // Assert
+<span class="fc" id="L21">        assertEquals(phoneNumber, result);</span>
+<span class="fc" id="L22">    }</span>
+    @Test
+    public void test_constructor_can_take_a_non_null_phoneNumber_argument() {
+        // Arrange
+<span class="fc" id="L26">        String phoneNumber = &quot;1234567890&quot;;</span>
+
+        // Act
+<span class="fc" id="L29">        Promptpay promptpay = new Promptpay(&quot;John Doe&quot;, phoneNumber);</span>
+<span class="fc" id="L30">        String result = promptpay.getPhoneNumber();</span>
+
+        // Assert
+<span class="fc" id="L33">        assertEquals(phoneNumber, result);</span>
+<span class="fc" id="L34">    }</span>
+    @Test
+    public void test_create_promptpay_with_name_and_phoneNumber() {
+        // Arrange
+<span class="fc" id="L38">        String name = &quot;John Doe&quot;;</span>
+<span class="fc" id="L39">        String phoneNumber = &quot;1234567890&quot;;</span>
+
+        // Act
+<span class="fc" id="L42">        Promptpay promptpay = new Promptpay(name, phoneNumber);</span>
+
+        // Assert
+<span class="fc" id="L45">        assertEquals(name, promptpay.getName());</span>
+<span class="fc" id="L46">        assertEquals(phoneNumber, promptpay.getPhoneNumber());</span>
+<span class="fc" id="L47">    }</span>
+    @Test
+    public void test_set_valid_phone_number() {
+        // Arrange
+<span class="fc" id="L51">        Promptpay promptpay = new Promptpay();</span>
+<span class="fc" id="L52">        String phoneNumber = &quot;0899999999&quot;;</span>
+
+        // Act
+<span class="fc" id="L55">        promptpay.setPhoneNumber(phoneNumber);</span>
+<span class="fc" id="L56">        String result = promptpay.getPhoneNumber();</span>
+
+        // Assert
+<span class="fc" id="L59">        assertEquals(phoneNumber, result);</span>
+<span class="fc" id="L60">    }</span>
+    @Test
+    public void test_return_null_if_promptpay_and_payment_have_null_names() {
+        // Arrange
+<span class="fc" id="L64">        String name = null;</span>
+<span class="fc" id="L65">        String phoneNumber = &quot;1234567890&quot;;</span>
+<span class="fc" id="L66">        Promptpay promptpay = new Promptpay(name, phoneNumber);</span>
+<span class="fc" id="L67">        Payment payment = new Payment(null);</span>
+<span class="fc" id="L68">        promptpay.setUser(payment.getUser());</span>
+
+        // Act
+<span class="fc" id="L71">        String result = promptpay.getName();</span>
+
+        // Assert
+<span class="fc" id="L74">        assertNull(result);</span>
+<span class="fc" id="L75">    }</span>
+    @Test
+    public void test_setValidName() {
+<span class="fc" id="L78">        Promptpay promptpay = new Promptpay();</span>
+<span class="fc" id="L79">        promptpay.setName(&quot;John Doe&quot;);</span>
+<span class="fc" id="L80">        assertEquals(&quot;John Doe&quot;, promptpay.getName());</span>
+<span class="fc" id="L81">    }</span>
+    @Test(expected = NumberFormatException.class)
+    public void test_setId_nonNumericId() {
+<span class="fc" id="L84">        Promptpay promptpay = new Promptpay();</span>
+<span class="fc" id="L85">        String nonNumericId = &quot;abc&quot;;</span>
+<span class="nc" id="L86">        promptpay.setId(Long.parseLong(nonNumericId));</span>
+<span class="nc" id="L87">    }</span>
+    @Test
+    public void test_setId_nullId() {
+<span class="fc" id="L90">        Promptpay promptpay = new Promptpay();</span>
+<span class="fc" id="L91">        Long initialId = promptpay.getId();</span>
+<span class="fc" id="L92">        promptpay.setId(null);</span>
+<span class="fc" id="L93">        assertEquals(initialId, promptpay.getId());</span>
+<span class="fc" id="L94">    }</span>
+    @Test
+    public void test_setId_validId() {
+<span class="fc" id="L97">        Promptpay promptpay = new Promptpay();</span>
+<span class="fc" id="L98">        Long id = 1L;</span>
+<span class="fc" id="L99">        promptpay.setId(id);</span>
+<span class="fc" id="L100">        assertEquals(id, promptpay.getId());</span>
+<span class="fc" id="L101">    }</span>
+    @Test
+    public void test_setUser_validUserObject() {
+        // Arrange
+<span class="fc" id="L105">        User user = new User(&quot;test@example.com&quot;, &quot;testUser&quot;);</span>
+<span class="fc" id="L106">        Promptpay promptpay = new Promptpay();</span>
+
+        // Act
+<span class="fc" id="L109">        promptpay.setUser(user);</span>
+
+        // Assert
+<span class="fc" id="L112">        assertEquals(user, promptpay.getUser());</span>
+<span class="fc" id="L113">    }</span>
+    @Test
+    public void test_setUser_nullUserObject() {
+        // Arrange
+<span class="fc" id="L117">        Promptpay promptpay = new Promptpay();</span>
+
+        // Act
+<span class="fc" id="L120">        promptpay.setUser(null);</span>
+
+        // Assert
+<span class="fc" id="L123">        assertNull(promptpay.getUser());</span>
+<span class="fc" id="L124">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

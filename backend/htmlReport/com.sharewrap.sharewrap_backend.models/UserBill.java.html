@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserBill.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in sharewrap_backend Coverage Results, java in sharewrap_backend Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.sharewrap.sharewrap_backend.models</a> &gt; <span class="el_source">UserBill.java</span></div><h1>UserBill.java</h1><pre class="source lang-java linenums">package com.sharewrap.sharewrap_backend.models;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.sql.Blob;
+import java.sql.Date;
+import java.util.List;
+
+@Entity
+@Table(name = &quot;user_bills&quot;)
+@Getter
+<span class="pc" id="L14">@Setter</span>
+public class UserBill {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+<span class="nc" id="L18">    private Long id;</span>
+
+    @ManyToOne
+    @JoinColumn(name = &quot;user_id&quot;)
+<span class="fc" id="L22">    private User user;</span>
+
+<span class="fc" id="L24">    @Getter</span>
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = &quot;bill_id&quot;)
+    private Bill bill;
+
+    @Column(name=&quot;share_total&quot;)
+<span class="fc" id="L30">    private Double shareTotal;</span>
+
+    @Column(nullable = false)
+<span class="fc" id="L33">    private Boolean isPaid;</span>
+
+    @Column
+<span class="fc" id="L36">    private Boolean isApprove;</span>
+
+    @OneToMany(mappedBy = &quot;userBill&quot;, cascade = CascadeType.ALL, orphanRemoval = true)
+<span class="nc" id="L39">    private List&lt;Item&gt; items;</span>
+
+    @Lob
+    @Column(name = &quot;receipt&quot;, columnDefinition=&quot;LONGBLOB&quot;)
+<span class="fc" id="L43">    private byte[] receipt;</span>
+
+    @Column(name = &quot;receipt_type&quot;)
+<span class="nc" id="L46">    private String receiptType;</span>
+
+<span class="nc" id="L48">    @Getter</span>
+    @Column
+    private Date uploadedDate;
+
+<span class="fc" id="L52">    public UserBill() {</span>
+<span class="fc" id="L53">        this.isPaid = false;</span>
+<span class="fc" id="L54">        this.isApprove = false;</span>
+<span class="fc" id="L55">        this.shareTotal = 0.0;</span>
+<span class="fc" id="L56">    }</span>
+
+<span class="fc" id="L58">    public UserBill(User user, Bill bill, Double shareTotal) {</span>
+<span class="fc" id="L59">        this.user = user;</span>
+<span class="fc" id="L60">        this.bill = bill;</span>
+<span class="fc" id="L61">        this.shareTotal = shareTotal;</span>
+<span class="fc" id="L62">        this.isPaid = false;</span>
+<span class="fc" id="L63">        this.isApprove = false;</span>
+<span class="fc" id="L64">    }</span>
+
+    public void setBill(Bill bill) {
+<span class="fc" id="L67">        this.bill = bill;</span>
+<span class="fc" id="L68">    }</span>
+
+    public void setUploadedDate(Date uploadedDate) {
+<span class="nc" id="L71">        this.uploadedDate = uploadedDate;</span>
+<span class="nc" id="L72">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

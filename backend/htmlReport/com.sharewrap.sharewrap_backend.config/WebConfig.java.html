@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WebConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in sharewrap_backend Coverage Results, java in sharewrap_backend Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.sharewrap.sharewrap_backend.config</a> &gt; <span class="el_source">WebConfig.java</span></div><h1>WebConfig.java</h1><pre class="source lang-java linenums">package com.sharewrap.sharewrap_backend.config;
+
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+import java.util.Arrays;
+
+@Configuration
+@EnableWebMvc
+<span class="nc" id="L17">public class WebConfig {</span>
+<span class="fc" id="L18">    private static final Long MAX_AGE = 3600L;</span>
+    private static final int CORS_FILTER_ORDER = -100;
+
+    @Bean
+    public FilterRegistrationBean corsFilter() {
+<span class="nc" id="L23">        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();</span>
+<span class="nc" id="L24">        CorsConfiguration config = new CorsConfiguration();</span>
+<span class="nc" id="L25">        config.setAllowCredentials(true);</span>
+<span class="nc" id="L26">        config.addAllowedOrigin(&quot;http://localhost:3000&quot;);</span>
+<span class="nc" id="L27">        config.setAllowedHeaders(Arrays.asList(</span>
+                HttpHeaders.AUTHORIZATION,
+                HttpHeaders.CONTENT_TYPE,
+                HttpHeaders.ACCEPT));
+<span class="nc" id="L31">        config.setAllowedMethods(Arrays.asList(</span>
+<span class="nc" id="L32">                HttpMethod.GET.name(),</span>
+<span class="nc" id="L33">                HttpMethod.POST.name(),</span>
+<span class="nc" id="L34">                HttpMethod.PUT.name(),</span>
+<span class="nc" id="L35">                HttpMethod.DELETE.name()));</span>
+<span class="nc" id="L36">        config.setMaxAge(MAX_AGE);</span>
+<span class="nc" id="L37">        source.registerCorsConfiguration(&quot;/**&quot;, config);</span>
+<span class="nc" id="L38">        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));</span>
+
+        // should be set order to -100 because we need to CorsFilter before SpringSecurityFilter
+<span class="nc" id="L41">        bean.setOrder(CORS_FILTER_ORDER);</span>
+<span class="nc" id="L42">        return bean;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

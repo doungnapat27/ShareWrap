@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ItemService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in sharewrap_backend Coverage Results, java in sharewrap_backend Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.sharewrap.sharewrap_backend.services</a> &gt; <span class="el_source">ItemService.java</span></div><h1>ItemService.java</h1><pre class="source lang-java linenums">package com.sharewrap.sharewrap_backend.services;
+
+import com.sharewrap.sharewrap_backend.dtos.ItemDto;
+import com.sharewrap.sharewrap_backend.exceptions.AppException;
+import com.sharewrap.sharewrap_backend.mappers.ItemMapper;
+import com.sharewrap.sharewrap_backend.models.Item;
+import com.sharewrap.sharewrap_backend.models.UserBill;
+import com.sharewrap.sharewrap_backend.repositories.ItemRepository;
+import com.sharewrap.sharewrap_backend.repositories.UserBillRepository;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+<span class="fc" id="L17">@RequiredArgsConstructor</span>
+@Service
+public class ItemService {
+    private final ItemRepository itemRepository;
+    private final ItemMapper itemMapper;
+
+    public List&lt;ItemDto&gt; allItems() {
+<span class="fc" id="L24">        return itemMapper.toItemDtos(itemRepository.findAll());</span>
+    }
+
+    @Transactional
+    public List&lt;ItemDto&gt; addItems(List&lt;ItemDto&gt; itemDtos) {
+<span class="nc" id="L29">        List&lt;Item&gt; items = itemMapper.toItems(itemDtos);</span>
+<span class="nc" id="L30">        List&lt;Item&gt; savedItems = itemRepository.saveAll(items);</span>
+<span class="nc" id="L31">        return itemMapper.toItemDtos(savedItems);</span>
+    }
+//    public List&lt;ItemDto&gt; allItemsBill(Long billId) {
+//        Bill bill = billRepository.findById(billId)
+//                .orElseThrow(() -&gt; new AppException(&quot;Unknown bill&quot;, HttpStatus.NOT_FOUND));
+//        List&lt;Item&gt; items = new ArrayList&lt;&gt;();
+//        items.addAll(bill.getItems());
+//        return itemMapper.toItemDtos(items);
+//    }
+
+//    @Transactional
+//    public Item createItem(ItemDto itemDto, UserBill userBill) {
+//
+//        Item item = itemMapper.toItem(itemDto);
+//        item.setUserBill(userBill);
+//
+//        return itemRepository.save(item);
+//    }
+
+//    public ItemDto updateItem(Long id, ItemDto itemDto) {
+//        Item item = itemRepository.findById(id)
+//                .orElseThrow(() -&gt; new AppException(&quot;Item not found&quot;, HttpStatus.NOT_FOUND));
+//
+//        itemMapper.updateItem(item, itemMapper.toItem(itemDto));
+//
+//        Item savedItem = itemRepository.save(item);
+//
+//        return itemMapper.toItemDto(savedItem);
+//    }
+
+    public ItemDto getItem(Long id) {
+<span class="fc" id="L62">        Item item = itemRepository.findById(id)</span>
+<span class="fc" id="L63">                .orElseThrow(() -&gt; new AppException(&quot;Item not found&quot;, HttpStatus.NOT_FOUND));</span>
+
+<span class="fc" id="L65">        return itemMapper.toItemDto(item);</span>
+    }
+
+//    public ItemDto getItemBill(Long billId, Long id) {
+//        Bill bill = billRepository.findById(billId)
+//                .orElseThrow(() -&gt; new AppException(&quot;Unknown bill&quot;, HttpStatus.NOT_FOUND));
+//        Item item = itemRepository.findById(id)
+//                .orElseThrow(() -&gt; new AppException(&quot;Item not found&quot;, HttpStatus.NOT_FOUND));
+//        if (!bill.getItems().contains(item)) {
+//            throw new AppException(&quot;Item not found&quot;, HttpStatus.NOT_FOUND);
+//        }
+//        return itemMapper.toItemDto(item);
+//    }
+
+//    @Transactional
+//    public ItemDto deleteItem(Long id) {
+//        Item item = itemRepository.findById(id)
+//                .orElseThrow(() -&gt; new AppException(&quot;Item not found&quot;, HttpStatus.NOT_FOUND));
+//        ItemDto itemDto = itemMapper.toItemDto(item);
+//        itemRepository.deleteById(id);
+//
+//        return itemDto;
+//    }
+//
+//    public Double shareItem(Long id) {
+//        Item item = itemRepository.findById(id)
+//                .orElseThrow(() -&gt; new AppException(&quot;Item not found&quot;, HttpStatus.NOT_FOUND));
+//        return item.getEqualShare();
+//    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

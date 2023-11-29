@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserBillService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in sharewrap_backend Coverage Results, java in sharewrap_backend Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.sharewrap.sharewrap_backend.services</a> &gt; <span class="el_source">UserBillService.java</span></div><h1>UserBillService.java</h1><pre class="source lang-java linenums">package com.sharewrap.sharewrap_backend.services;
+
+
+import com.sharewrap.sharewrap_backend.dtos.BankAccountDto;
+import com.sharewrap.sharewrap_backend.dtos.PromptpayDto;
+import com.sharewrap.sharewrap_backend.dtos.UserBillDto;
+import com.sharewrap.sharewrap_backend.exceptions.AppException;
+import com.sharewrap.sharewrap_backend.mappers.BankAccountMapper;
+import com.sharewrap.sharewrap_backend.mappers.PromptpayMapper;
+import com.sharewrap.sharewrap_backend.mappers.UserBillMapper;
+import com.sharewrap.sharewrap_backend.models.*;
+import com.sharewrap.sharewrap_backend.repositories.*;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.sharewrap.sharewrap_backend.services.BlobService.convertBase64ToBlob;
+import static com.sharewrap.sharewrap_backend.services.BlobService.convertToBase64;
+
+
+<span class="fc" id="L26">@RequiredArgsConstructor</span>
+@Service
+public class UserBillService {
+
+    private final UserRepository userRepository;
+    private final UserBillMapper userBillMapper;
+    private final PromptpayRepository promptpayRepository;
+    private final PromptpayMapper promptpayMapper;
+    private final BankAccountRepository bankAccountRepository;
+    private final BankAccountMapper bankAccountMapper;
+    private final UserBillRepository userBillRepository;
+
+
+    @Transactional
+    public List&lt;UserBillDto&gt; getUserBills(String userId) {
+<span class="nc" id="L41">        System.out.println(&quot;Start to get user bill&quot;);</span>
+
+<span class="nc" id="L43">        User user = userRepository.findById(userId)</span>
+<span class="nc" id="L44">                .orElseThrow(() -&gt; new AppException(&quot;Unknown user&quot;, HttpStatus.NOT_FOUND));</span>
+
+<span class="nc" id="L46">        List&lt;UserBill&gt; userBills = user.getUserBills();</span>
+<span class="nc" id="L47">        List&lt;UserBillDto&gt; userBillDtos = userBillMapper.toUserBillDtos(userBills);</span>
+<span class="nc" id="L48">        List&lt;UserBillDto&gt; onlyDebt = new ArrayList&lt;&gt;();</span>
+
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        if(userBillDtos.isEmpty()){</span>
+<span class="nc" id="L51">            throw new AppException(&quot;You don't have any bill&quot;, HttpStatus.NOT_FOUND);</span>
+        }
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        for(UserBillDto userBillDto: userBillDtos){</span>
+<span class="nc" id="L54">            UserBill userBillMapped = userBillMapper.toUserBill(userBillDto);</span>
+<span class="nc" id="L55">            UserBill userBill = userBillRepository.findById(userBillMapped.getId())</span>
+<span class="nc" id="L56">                    .orElseThrow(() -&gt; new AppException(&quot;Unknown user bill&quot;, HttpStatus.NOT_FOUND));</span>
+
+<span class="nc" id="L58">            System.out.print(&quot;userBill: &quot; + userBill.getId());</span>
+<span class="nc" id="L59">            Bill bill = userBill.getBill();</span>
+<span class="nc" id="L60">            System.out.println(&quot;bill: &quot; + bill.getName());</span>
+<span class="nc" id="L61">            User billOwner = bill.getUser();</span>
+
+<span class="nc bnc" id="L63" title="All 2 branches missed.">            if(!billOwner.getId().equals(userId)) {</span>
+<span class="nc" id="L64">                userBillDto = addDetails(bill, userBillDto, userBill);</span>
+<span class="nc" id="L65">                onlyDebt.add(userBillDto);</span>
+            }
+<span class="nc" id="L67">        }</span>
+<span class="nc" id="L68">        return onlyDebt;</span>
+    }
+
+    public UserBillDto getUserBill(String userId,Long userBillId){
+<span class="nc" id="L72">        User user = userRepository.findById(userId)</span>
+<span class="nc" id="L73">                .orElseThrow(() -&gt; new AppException(&quot;Unknown user&quot;, HttpStatus.NOT_FOUND));</span>
+<span class="nc" id="L74">        UserBill userBill = userBillRepository.findById(userBillId)</span>
+<span class="nc" id="L75">                .orElseThrow(() -&gt; new AppException(&quot;Unknown user bill&quot;, HttpStatus.NOT_FOUND));</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        if(!user.getId().equals(userBill.getUser().getId())) {</span>
+<span class="nc" id="L77">            throw new AppException(&quot;Don't peep at other bill&quot;, HttpStatus.NOT_FOUND);</span>
+        }
+
+<span class="nc" id="L80">        UserBillDto userBillDto = userBillMapper.toUserBillDto(userBill);</span>
+
+<span class="nc" id="L82">        return addDetails(userBill.getBill(), userBillDto, userBill);</span>
+    }
+
+    public UserBillDto addDetails(Bill bill, UserBillDto userBillDto, UserBill userBill) {
+<span class="fc" id="L86">        User billOwner = bill.getUser();</span>
+
+<span class="fc" id="L88">        userBillDto.setBillId(bill.getId());</span>
+<span class="fc" id="L89">        userBillDto.setBillName(bill.getName());</span>
+<span class="fc" id="L90">        userBillDto.setPaymentType(bill.getPaymentType());</span>
+<span class="fc" id="L91">        userBillDto.setReceipt(convertToBase64(userBill.getReceipt()));</span>
+
+<span class="fc" id="L93">        userBillDto.setBillOwnerName(billOwner.getUsername());</span>
+<span class="fc" id="L94">        userBillDto.setBillCreatedDate(bill.getCreatedDate());</span>
+<span class="fc" id="L95">        userBillDto.setIsPaid(userBill.getIsPaid());</span>
+<span class="fc" id="L96">        userBillDto.setIsApprove(userBill.getIsApprove());</span>
+<span class="pc bpc" id="L97" title="1 of 2 branches missed.">        if(bill.getPaymentType() == 'P') {</span>
+<span class="fc" id="L98">            Promptpay promptpay = promptpayRepository.findByUser(billOwner)</span>
+<span class="pc" id="L99">                    .orElseThrow(() -&gt; new AppException(&quot;Unknown promptpay&quot;, HttpStatus.NOT_FOUND));</span>
+<span class="fc" id="L100">            PromptpayDto promptpayDto = promptpayMapper.toPromptpayDto(promptpay);</span>
+<span class="fc" id="L101">            userBillDto.setPromptpayDto(promptpayDto);</span>
+<span class="fc" id="L102">        }</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        else if(bill.getPaymentType() == 'B'){</span>
+<span class="nc" id="L104">            BankAccount bankAccount = bankAccountRepository.findByUser(billOwner)</span>
+<span class="nc" id="L105">                    .orElseThrow(() -&gt; new AppException(&quot;Unknown bank account&quot;, HttpStatus.NOT_FOUND));</span>
+<span class="nc" id="L106">            BankAccountDto bankAccountDto = bankAccountMapper.toBankAccountDto(bankAccount);</span>
+<span class="nc" id="L107">            userBillDto.setBankAccountDto(bankAccountDto);</span>
+        }
+
+<span class="fc" id="L110">        return userBillDto;</span>
+    }
+
+    public String updateIsPaid(Long id) {
+<span class="nc" id="L114">        UserBill userBill = userBillRepository.findById(id)</span>
+<span class="nc" id="L115">                .orElseThrow(() -&gt; new AppException(&quot;Unknown user bill&quot;, HttpStatus.NOT_FOUND));</span>
+<span class="nc" id="L116">        userBill.setIsPaid(true);</span>
+<span class="nc" id="L117">        userBillRepository.save(userBill);</span>
+<span class="nc" id="L118">        return &quot;You paid for what you eat, Thank you na HAFFU~~!&quot;;</span>
+    }
+
+    public String updateIsApprove(Long id) {
+<span class="nc" id="L122">        UserBill userBill = userBillRepository.findById(id)</span>
+<span class="nc" id="L123">                .orElseThrow(() -&gt; new AppException(&quot;Unknown user bill&quot;, HttpStatus.NOT_FOUND));</span>
+<span class="nc" id="L124">        userBill.setIsApprove(true);</span>
+<span class="nc" id="L125">        userBillRepository.save(userBill);</span>
+<span class="nc" id="L126">        return &quot;Bill approved&quot;;</span>
+    }
+
+    public String updateReceipt(Long id, String receipt) {
+<span class="nc" id="L130">        UserBill userBill = userBillRepository.findById(id)</span>
+<span class="nc" id="L131">                .orElseThrow(() -&gt; new AppException(&quot;UserBill not found&quot;, HttpStatus.NOT_FOUND));</span>
+
+<span class="nc bnc" id="L133" title="All 2 branches missed.">        if (receipt.startsWith(&quot;data:image/png;base64,&quot;)) {</span>
+<span class="nc" id="L134">            userBill.setReceiptType(&quot;data:image/png;base64,&quot;);</span>
+        } else {
+<span class="nc" id="L136">            userBill.setReceiptType(&quot;data:image/jpeg;base64,&quot;);</span>
+        }
+<span class="nc" id="L138">        userBill.setReceipt(convertBase64ToBlob(receipt));</span>
+<span class="nc bnc" id="L139" title="All 2 branches missed.">        if(userBill.getReceipt() == null){</span>
+<span class="nc" id="L140">            throw new AppException(&quot;Receipt is not uploaded&quot;, HttpStatus.NOT_FOUND);</span>
+        }
+<span class="nc" id="L142">        userBill.setUploadedDate(new Date(System.currentTimeMillis()));</span>
+<span class="nc" id="L143">        userBill.setIsPaid(true);</span>
+<span class="nc" id="L144">        userBillRepository.save(userBill);</span>
+<span class="nc" id="L145">        return &quot;Receipt uploaded successfully. You paid for what you eat, Thank you na HAFFU~~!&quot;;</span>
+    }
+
+    public String getReceipt(Long id) {
+<span class="nc" id="L149">        UserBill userBill = userBillRepository.findById(id)</span>
+<span class="nc" id="L150">                .orElseThrow(() -&gt; new AppException(&quot;UserBill not found&quot;, HttpStatus.NOT_FOUND));</span>
+<span class="nc" id="L151">        byte[] receipt = userBill.getReceipt();</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">        if(receipt == null){</span>
+<span class="nc" id="L153">            throw new AppException(&quot;Receipt is not uploaded&quot;, HttpStatus.NOT_FOUND);</span>
+        }
+<span class="nc" id="L155">        return userBill.getReceiptType()+convertToBase64(receipt);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

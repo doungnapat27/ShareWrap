@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ItemMapperImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in sharewrap_backend Coverage Results, java in sharewrap_backend Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.sharewrap.sharewrap_backend.mappers</a> &gt; <span class="el_source">ItemMapperImpl.java</span></div><h1>ItemMapperImpl.java</h1><pre class="source lang-java linenums">package com.sharewrap.sharewrap_backend.mappers;
+
+import com.sharewrap.sharewrap_backend.dtos.ItemDto;
+import com.sharewrap.sharewrap_backend.models.Item;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
+    date = &quot;2023-11-29T15:55:29+0700&quot;,
+    comments = &quot;version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (Oracle Corporation)&quot;
+)
+@Component
+<span class="nc" id="L16">public class ItemMapperImpl implements ItemMapper {</span>
+
+    @Override
+    public Item toItem(ItemDto itemDto) {
+<span class="nc bnc" id="L20" title="All 2 branches missed.">        if ( itemDto == null ) {</span>
+<span class="nc" id="L21">            return null;</span>
+        }
+
+<span class="nc" id="L24">        Item item = new Item();</span>
+
+<span class="nc" id="L26">        item.setPrice( itemDto.getPrice() );</span>
+<span class="nc" id="L27">        item.setName( itemDto.getName() );</span>
+<span class="nc" id="L28">        item.setId( itemDto.getId() );</span>
+
+<span class="nc" id="L30">        return item;</span>
+    }
+
+    @Override
+    public ItemDto toItemDto(Item item) {
+<span class="nc bnc" id="L35" title="All 2 branches missed.">        if ( item == null ) {</span>
+<span class="nc" id="L36">            return null;</span>
+        }
+
+<span class="nc" id="L39">        ItemDto itemDto = new ItemDto();</span>
+
+<span class="nc" id="L41">        itemDto.setId( item.getId() );</span>
+<span class="nc" id="L42">        itemDto.setName( item.getName() );</span>
+<span class="nc" id="L43">        itemDto.setPrice( item.getPrice() );</span>
+
+<span class="nc" id="L45">        return itemDto;</span>
+    }
+
+    @Override
+    public List&lt;ItemDto&gt; toItemDtos(List&lt;Item&gt; items) {
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        if ( items == null ) {</span>
+<span class="nc" id="L51">            return null;</span>
+        }
+
+<span class="nc" id="L54">        List&lt;ItemDto&gt; list = new ArrayList&lt;ItemDto&gt;( items.size() );</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">        for ( Item item : items ) {</span>
+<span class="nc" id="L56">            list.add( toItemDto( item ) );</span>
+<span class="nc" id="L57">        }</span>
+
+<span class="nc" id="L59">        return list;</span>
+    }
+
+    @Override
+    public List&lt;Item&gt; toItems(List&lt;ItemDto&gt; items) {
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        if ( items == null ) {</span>
+<span class="nc" id="L65">            return null;</span>
+        }
+
+<span class="nc" id="L68">        List&lt;Item&gt; list = new ArrayList&lt;Item&gt;( items.size() );</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">        for ( ItemDto itemDto : items ) {</span>
+<span class="nc" id="L70">            list.add( toItem( itemDto ) );</span>
+<span class="nc" id="L71">        }</span>
+
+<span class="nc" id="L73">        return list;</span>
+    }
+
+    @Override
+    public void updateItem(Item target, Item source) {
+<span class="nc bnc" id="L78" title="All 2 branches missed.">        if ( source == null ) {</span>
+<span class="nc" id="L79">            return;</span>
+        }
+
+<span class="nc" id="L82">        target.setPrice( source.getPrice() );</span>
+<span class="nc" id="L83">        target.setName( source.getName() );</span>
+<span class="nc" id="L84">        target.setId( source.getId() );</span>
+<span class="nc" id="L85">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
