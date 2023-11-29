@@ -1,5 +1,5 @@
-package com.sharewrap.sharewrap_backend.repository;
-
+//package com.sharewrap.sharewrap_backend.repository;
+//
 //import static org.assertj.core.api.Assertions.assertThat;
 //import static org.junit.jupiter.api.Assertions.assertNotNull;
 //
@@ -18,13 +18,13 @@ package com.sharewrap.sharewrap_backend.repository;
 //@DataJpaTest
 //@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 //@Rollback(false)
-//public class UserRepositoryTests {
+public class UserRepositoryTests {
 //    @Autowired
 //    private TestEntityManager entityManager;
-
+//
 //    @Autowired
 //    private UserRepository userRepo;
-
+//
 //    @MockBean
 //    private UserRepository userRepository;
 //
@@ -50,4 +50,5 @@ package com.sharewrap.sharewrap_backend.repository;
 //        assertThat(user.getEmail()).isEqualTo(existUser.getEmail());
 //
 //    }
-//}
+
+}

@@ -42,314 +42,280 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
 <details>
 <summary><h2>📱 Unit testing 📱</h2></summary>
 <details>
-<summary><h3>Feel free to use this template</h3></summary>
+<summary><h3>Test case #1: <code> UserService - Test valid email and password for Log In </code> </h3></summary>
    
-### Name of the Test: 
-### The goal of the test case:
-### Tool using for testing:
+### Name of the Test: test_login
+### The goal of the test case: validate user input for a valid email and password, ensuring that the validation function works correctly.
+### Tool using for testing: JUnit, Mockito
 ### The characteristics developed for this test case:
    - **Interface-based:**
    - **Functionality-based:**
 **Interface-based**
 1. Identify testable functions
+   -  'login' method in the 'UserService' class
 2. Identify parameters, return types, return values, and exceptional behavior
    - Parameters:
-   - Return type:
+     - 'LoginDto' containing email and password.
+   - Return type: 
+     - Boolean
    - Return value:
+     - true
+     - false
    - Exceptional behavior:
-4. Model the input domain
+     - Throws `AppException` with message "Unknown user" and HTTP status NOT_FOUND if the user is not found.
+     - Throws `AppException` with message "Invalid password" and HTTP status BAD_REQUEST if the password is invalid.
+3. Model the input domain
    - Develop Characteristics
-     - C1 =
+     - C1 = Email
+     - C2 = Password
    - Partition characteristics
      
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
+     | Characteristic | b1 | b2 |
+     | -------------- | --- | --- |
+     | C1 = Email | true | false |
+     | C2 = Password | true | false |
      
    - Identify (possible) values
      
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
+     | Characteristic | b1 | b2 |
+     | -------------- | --- | --- |
+     | C1 = Email | "test@example.com" | "" |
+     | C2 = Password  | "password" | "wrongPassword" |
      
-5. Combine partitions to define test requirements
-   - Assumption:
-   - Test Requirements: number of test (upper bound) =
-      - (,)
+4. Combine partitions to define test requirements
+   - Assumption: ACoC
+   - Test Requirements: number of test (upper bound) = 4
+       - (true, true)
+       - (true, false)
+       - (false, true)
+       - (false, false)
   
-6. Derive test values
+5. Derive test values
 
-     | Test             |            |            | expected results|
+     | Test | Email | Password | Expected Results|
      | ---------------- | ---------- | ---------- | --------------- |
-     |  T1(,)           |            |            |                 |
+     | T1 (true, true) | "test@example.com" | "password" | true |
+     | T2 (true, false) | "test_@example.com" | "wrongPassword" | false |
+     | T3 (false, true) | "" | "password" | false |
+     | T4 (false, false) | "" | "wrongPassword" | false |
    
 **Functionality-based**
 1. Identify testable functions
-3. Identify parameters, return types, return values, and exceptional behavior
-   - Parameters: cal, epoch
-   - Return type: long
-   - Return value: cal.getTimeInMillis();
-   - Exceptional behavior: ??
-5. Model the input domain
+   -  'login' method in the 'UserService' class
+2. Identify parameters, return types, return values, and exceptional behavior
+   - Parameters:
+     - 'LoginDto' containing email and password.
+   - Return type: 
+     - 'UserDto' for a successful login
+     - 'null' for an indication of failure
+   - Return value:
+     - A user object if the login is successful
+     - 'null' or an indication of failure if the login is unsuccessful
+   - Exceptional behavior:
+     - Throws `AppException` with message "Unknown user" and HTTP status NOT_FOUND if the user is not found.
+     - Throws `AppException` with message "Invalid password" and HTTP status BAD_REQUEST if the password is invalid.
+3. Model the input domain
    - Develop Characteristics
-     - C1 =
+     - C1 = Email
+     - C2 = Password
    - Partition characteristics
      
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
+     | Characteristic | b1 | b2 |
+     | -------------- | --- | --- |
+     | C1 = Email | Valid | Invalid |
+     | C2 = Password  | Valid | Invalid |
      
    - Identify (possible) values
      
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
+     | Characteristic | b1 | b2 |
+     | -------------- | --- | --- |
+     | C1 = Email | "test@example.com" | "" |
+     | C2 = Password  | "password" | "wrongPassword" |
      
-6. Combine partitions to define test requirements
-   - Assumption:
-   - Test Requirements: number of test(upper bound) =
-      - (,)
+4. Combine partitions to define test requirements
+   - Assumption: ACoc
+   - Test Requirements: number of test (upper bound) = c
+       - (Valid Email, Valid Password), (Valid Email, Invalid Password), (Invalid Email, Valid Password), (Invalid Email, Invalid Password).
   
-7. Derive test values
+5. Derive test values
 
-     | Test             |            |            | expected results|
+     | Test | Email | Password | Expected Results|
      | ---------------- | ---------- | ---------- | --------------- |
-     |  T1(,)           |            |            |                 |
+     | T1 (Valid Email, Valid Password) | "test@example.com" | "password" | "logging in..." |
+     | T2 (Valid Email, Invalid Password) | "test_@example.com" | "wrongPassword" | HttpStatus.BAD_REQUEST, "Invalid password" |
+     | T3 (Invalid Email, Valid Password) | "" | "password" | HttpStatus.NOT_FOUND |
+     | T4 (Invalid Email, Invalid Password) | "" | "wrongPassword" | HttpStatus.BAD_REQUEST |
 
 </details> 
 
 <details>
-<summary><h3>Test case #2: <code> Just placeholder </code> </h3></summary>
+<summary><h3>Test case #2: <code> UserService - Test generateUniqueUserId</code> </h3></summary>
    
-### Name of the Test: 
-### The goal of the test case:
-### Tool using for testing:
+### Name of the Test: test_generateUniqueUserId
+### The goal of the test case: Validate the generateUniqueUserId method in the UserService class produces unique user IDs.
+### Tool using for testing: JUnit, Mockito
 ### The characteristics developed for this test case:
    - **Interface-based:**
    - **Functionality-based:**
 **Interface-based**
 1. Identify testable functions
+   - 'generateUniqueUserId' method in the 'UserService' class
 2. Identify parameters, return types, return values, and exceptional behavior
-   - Parameters:
-   - Return type:
+   - Parameters: String username
+   - Return type: 
+     - Boolean
    - Return value:
-   - Exceptional behavior:
-4. Model the input domain
+     - true
+     - false
+   - Exceptional behavior: -
+3. Model the input domain
    - Develop Characteristics
-     - C1 =
+     - C1 = Length of username
    - Partition characteristics
      
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
+     | Characteristic   | b1         | b2         | b3         |
+     | ---------------- | ---------- | ---------- | ---------- |
+     | C1 = Length of username | false | true | false|
      
    - Identify (possible) values
      
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
+     | Characteristic   | b1         | b2         | b3         |
+     | ---------------- | ---------- | ---------- | ---------- |
+     | C1 = Length of username | username+(0<length<6) |username+(length=6) | username+(length>6) |
      
-5. Combine partitions to define test requirements
-   - Assumption:
-   - Test Requirements: number of test (upper bound) =
-      - (,)
+4. Combine partitions to define test requirements
+   - Assumption:ACoC
+   - Test Requirements: number of test (upper bound) = 3
+      - (false), (true), (false)
   
-6. Derive test values
+5. Derive test values
 
-     | Test             |            |            | expected results|
-     | ---------------- | ---------- | ---------- | --------------- |
-     |  T1(,)           |            |            |                 |
+     | Test             | Length of username | expected results |
+     | ---------------- | ---------- | ---------- |
+     |  T1 (false)  | "john_doe".length()+3 | false |
+     |  T2 (true)  | "john_doe".length()+6 | true |
+     |  T3 (false)  | "john_doe".length()+8 | false |
    
 **Functionality-based**
 1. Identify testable functions
-3. Identify parameters, return types, return values, and exceptional behavior
-   - Parameters: cal, epoch
-   - Return type: long
-   - Return value: cal.getTimeInMillis();
-   - Exceptional behavior: ??
-5. Model the input domain
+   - 'generateUniqueUserId' method in the 'UserService' class
+2. Identify parameters, return types, return values, and exceptional behavior
+   - Parameters: String username
+   - Return type: String
+   - Return value: String representing unique user ID 
+   - Exceptional behavior: -
+3. Model the input domain
    - Develop Characteristics
-     - C1 =
+     - C1 = Usernames
    - Partition characteristics
      
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
+     | Characteristic | b1         | b2         |
+     | ---------- | ---------- | ---------- |
+     | C1 = Usernames  |  different username |  same username |
      
    - Identify (possible) values
      
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
+     | Characteristic   | b1         | b2         |
+     | ---------------- | ---------- | ---------- |
+     |   C1 = Usernames   | ("john_doe", "jane_smith") | ("john_doe", "john_doe") |
      
-6. Combine partitions to define test requirements
-   - Assumption:
-   - Test Requirements: number of test(upper bound) =
-      - (,)
+4. Combine partitions to define test requirements
+   - Assumption: ACoC
+   - Test Requirements: number of test(upper bound) = 2
+      - (different username), (same username)
   
-7. Derive test values
+5. Derive test values
 
-     | Test             |            |            | expected results|
-     | ---------------- | ---------- | ---------- | --------------- |
-     |  T1(,)           |            |            |                 |
+     | Test             | Usernames | expected results|
+     | ---------------- | ---------- | ---------- |
+     |  T1 (different username)   | ("john_doe", "jane_smith") |Unique user ID generated|
+     |  T2 (same username)   | ("john_doe", "john_doe") |Unique user ID generated|
 
 </details> 
 
 <details>
-<summary><h3>Test case #3: <code> Just placeholder </code> </h3></summary>
+<summary><h3>Test case #3: <code> UserService - Test getUser </code> </h3></summary>
    
-### Name of the Test: 
-### The goal of the test case:
-### Tool using for testing:
+### Name of the Test: test_getUser
+### The goal of the test case: Confirm and Validate retrieving and mapping a user when the user with the provided userId exists.
+### Tool using for testing: JUnit, Mockito
 ### The characteristics developed for this test case:
    - **Interface-based:**
    - **Functionality-based:**
 **Interface-based**
 1. Identify testable functions
+   - 'getUser' method in the 'UserService' class
 2. Identify parameters, return types, return values, and exceptional behavior
-   - Parameters:
-   - Return type:
+   - Parameters: String userId
+   - Return type: 
+     - Boolean
    - Return value:
-   - Exceptional behavior:
-4. Model the input domain
+     - true
+     - false
+   - Exceptional behavior: AppException - Thrown if the user with the given userId is not found.
+3. Model the input domain
    - Develop Characteristics
-     - C1 =
+     - C1 = Existence of user
    - Partition characteristics
      
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
+     | Characteristic   | b1         | b2         |
+     | ---------------- | ---------- | ---------- |
+     | C1 = Existence of user | true |	false |
      
    - Identify (possible) values
      
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
+     | Characteristic   | b1         | b2         |
+     | ---------------- | ---------- | ---------- |
+     |  C1 = Existence of user | "validUserId" | "invalidUserId" |
      
-5. Combine partitions to define test requirements
-   - Assumption:
-   - Test Requirements: number of test (upper bound) =
-      - (,)
+4. Combine partitions to define test requirements
+   - Assumption:ACoC
+   - Test Requirements: number of test (upper bound) = 2
+      - (true), (false)
   
-6. Derive test values
+5. Derive test values
 
-     | Test             |            |            | expected results|
-     | ---------------- | ---------- | ---------- | --------------- |
-     |  T1(,)           |            |            |                 |
+     | Test             | Length of username | expected results |
+     | ---------------- | ---------- | ---------- |
+     |  T1 (true)  | "validUserId" | true |
+     |  T2 (false)  | "invalidUserId" | Throws an AppException, and return false |
    
 **Functionality-based**
-1. Identify testable functions
-3. Identify parameters, return types, return values, and exceptional behavior
-   - Parameters: cal, epoch
-   - Return type: long
-   - Return value: cal.getTimeInMillis();
-   - Exceptional behavior: ??
-5. Model the input domain
-   - Develop Characteristics
-     - C1 =
-   - Partition characteristics
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-   - Identify (possible) values
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-6. Combine partitions to define test requirements
-   - Assumption:
-   - Test Requirements: number of test(upper bound) =
-      - (,)
-  
-7. Derive test values
-
-     | Test             |            |            | expected results|
-     | ---------------- | ---------- | ---------- | --------------- |
-     |  T1(,)           |            |            |                 |
-
-</details> 
-
-<details>
-<summary><h3>Test case #1: <code> Just placeholder </code> </h3></summary>
-   
-### Name of the Test: 
-### The goal of the test case:
-### Tool using for testing:
-### The characteristics developed for this test case:
-   - **Interface-based:**
-   - **Functionality-based:**
-**Interface-based**
-1. Identify testable functions
+1. Identify testable functions:
+  - 'getUser' method in the 'UserService' class
 2. Identify parameters, return types, return values, and exceptional behavior
-   - Parameters:
-   - Return type:
-   - Return value:
-   - Exceptional behavior:
-4. Model the input domain
+   - Parameters: String userId
+   - Return type: UserDto
+   - Return value: UserDto containing user information.
+   - Exceptional behavior: Throws AppException with the message "User not found" and HTTP status HttpStatus.NOT_FOUND if the user is not found.
+3. Model the input domain
    - Develop Characteristics
-     - C1 =
+     - C1 = Existence of user
    - Partition characteristics
      
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
+     | Characteristic   | b1         | b2         |
+     | ---------------- | ---------- | ---------- |
+     | C1 = Existence of user | User exists |	User does not exist |
      
    - Identify (possible) values
      
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
+     | Characteristic   | b1         | b2         |
+     | ---------------- | ---------- | ---------- |
+     |  C1 = Existence of user | "validUserId" | "invalidUserId" |
      
-5. Combine partitions to define test requirements
-   - Assumption:
-   - Test Requirements: number of test (upper bound) =
-      - (,)
+4. Combine partitions to define test requirements
+   - Assumption:ACoC
+   - Test Requirements: number of test (upper bound) = 2
+      - (User exists), (User does not exist)
   
-6. Derive test values
+5. Derive test values
 
-     | Test             |            |            | expected results|
-     | ---------------- | ---------- | ---------- | --------------- |
-     |  T1(,)           |            |            |                 |
-   
-**Functionality-based**
-1. Identify testable functions
-3. Identify parameters, return types, return values, and exceptional behavior
-   - Parameters: cal, epoch
-   - Return type: long
-   - Return value: cal.getTimeInMillis();
-   - Exceptional behavior: ??
-5. Model the input domain
-   - Develop Characteristics
-     - C1 =
-   - Partition characteristics
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-   - Identify (possible) values
-     
-     | Characteristic   | b1         | b2         | b3... and so on(feel free to modify)|
-     | ---------------- | ---------- | ---------- | ----------------------------------- |
-     |                  |            |            |                                     |
-     
-6. Combine partitions to define test requirements
-   - Assumption:
-   - Test Requirements: number of test(upper bound) =
-      - (,)
-  
-7. Derive test values
-
-     | Test             |            |            | expected results|
-     | ---------------- | ---------- | ---------- | --------------- |
-     |  T1(,)           |            |            |                 |
+     | Test             | Length of username | expected results |
+     | ---------------- | ---------- | ---------- |
+     |  T1 (User exists)  | "validUserId" | UserDto with validUserId |
+     |  T2 (User does not exist)  | "invalidUserId" | AppException with "User not found" |
 
 </details> 
-
-</details>
 
 ---
 
