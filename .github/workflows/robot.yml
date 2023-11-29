@@ -1,4 +1,4 @@
-# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# This workflow will install Python dependencies, run tests with Robot Framework
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
 name: UI CI with Robot Framework
@@ -11,22 +11,25 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+
     steps:
-        - name: Checkout repository
-          uses: actions/checkout@v1
+    - name: Checkout repository
+      uses: actions/checkout@v2 # Updated to use the latest version
 
-        - name: Install pip dependencies
-          run: |
-            pip install --upgrade pip
-            pip install robotframework robotframework-seleniumlibrary
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10' # Specify the Python version
 
-        - name: Run Test
-          run: |
-            & "automated test cases"
-            robot Auto01_Sys01.robot
-            robot Auto02_Sys02.robot
-            robot Auto03_Sys03.robot
-             
+    - name: Install pip dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install robotframework robotframework-seleniumlibrary
 
+    - name: Run Robot Framework Tests
+      run: |
+        cd 'automated test cases'
+        robot Auto01_Sys01.robot
+        robot Auto02_Sys02.robot
+        robot Auto03_Sys03.robot
