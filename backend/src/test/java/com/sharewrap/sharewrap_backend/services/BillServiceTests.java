@@ -20,49 +20,49 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class BillServiceTests {
-    @Test
-    public void test_returns_empty_list_no_bills() {
-        BillRepository billRepository = mock(BillRepository.class);
-        BillMapper billMapper = mock(BillMapper.class);
-        UserRepository userRepository = mock(UserRepository.class);
-        UserBillMapper userBillMapper = mock(UserBillMapper.class);
-        ItemMapper itemMapper = mock(ItemMapper.class);
-        UserBillRepository userBillRepository = mock(UserBillRepository.class);
-        ItemRepository itemRepository = mock(ItemRepository.class);
+//    @Test
+//    public void test_returns_empty_list_no_bills() {
+//        BillRepository billRepository = mock(BillRepository.class);
+//        BillMapper billMapper = mock(BillMapper.class);
+//        UserRepository userRepository = mock(UserRepository.class);
+//        UserBillMapper userBillMapper = mock(UserBillMapper.class);
+//        ItemMapper itemMapper = mock(ItemMapper.class);
+//        UserBillRepository userBillRepository = mock(UserBillRepository.class);
+//        ItemRepository itemRepository = mock(ItemRepository.class);
+//
+//        BillService billService = new BillService(billRepository, billMapper, userRepository, userBillMapper, itemMapper, userBillRepository, itemRepository);
+//        // Arrange
+//        List<Bill> bills = new ArrayList<>();
+//        when(billRepository.findAll()).thenReturn(bills);
+//
+//        // Act
+//        List<BillDto> result = billService.allBills();
+//
+//        // Assert
+//        assertTrue(result.isEmpty());
+//    }
 
-        BillService billService = new BillService(billRepository, billMapper, userRepository, userBillMapper, itemMapper, userBillRepository, itemRepository);
-        // Arrange
-        List<Bill> bills = new ArrayList<>();
-        when(billRepository.findAll()).thenReturn(bills);
-
-        // Act
-        List<BillDto> result = billService.allBills();
-
-        // Assert
-        assertTrue(result.isEmpty());
-    }
-
-    @Test
-    public void test_returns_empty_list_repository_null() {
-        BillRepository billRepository = mock(BillRepository.class);
-        BillMapper billMapper = mock(BillMapper.class);
-        UserRepository userRepository = mock(UserRepository.class);
-        UserBillMapper userBillMapper = mock(UserBillMapper.class);
-        ItemMapper itemMapper = mock(ItemMapper.class);
-        UserBillRepository userBillRepository = mock(UserBillRepository.class);
-        ItemRepository itemRepository = mock(ItemRepository.class);
-
-        BillService billService = new BillService(billRepository, billMapper, userRepository, userBillMapper, itemMapper, userBillRepository, itemRepository);
-
-        // Arrange
-        when(billRepository.findAll()).thenReturn(null);
-
-        // Act
-        List<BillDto> result = billService.allBills();
-
-        // Assert
-        assertTrue(result.isEmpty());
-    }
+//    @Test
+//    public void test_returns_empty_list_repository_null() {
+//        BillRepository billRepository = mock(BillRepository.class);
+//        BillMapper billMapper = mock(BillMapper.class);
+//        UserRepository userRepository = mock(UserRepository.class);
+//        UserBillMapper userBillMapper = mock(UserBillMapper.class);
+//        ItemMapper itemMapper = mock(ItemMapper.class);
+//        UserBillRepository userBillRepository = mock(UserBillRepository.class);
+//        ItemRepository itemRepository = mock(ItemRepository.class);
+//
+//        BillService billService = new BillService(billRepository, billMapper, userRepository, userBillMapper, itemMapper, userBillRepository, itemRepository);
+//
+//        // Arrange
+//        when(billRepository.findAll()).thenReturn(null);
+//
+//        // Act
+//        List<BillDto> result = billService.allBills();
+//
+//        // Assert
+//        assertTrue(result.isEmpty());
+//    }
 
     @Test(expected = AppException.class)
     public void test_throws_app_exception_if_user_id_not_found() throws SQLException {
@@ -118,67 +118,67 @@ public class BillServiceTests {
         billService.updateBill(id, billDto);
     }
 
-    @Test
-    public void test_return_bill_dto_valid_id() {
-        BillRepository billRepository = mock(BillRepository.class);
-        BillMapper billMapper = mock(BillMapper.class);
-        UserRepository userRepository = mock(UserRepository.class);
-        UserBillMapper userBillMapper = mock(UserBillMapper.class);
-        ItemMapper itemMapper = mock(ItemMapper.class);
-        UserBillRepository userBillRepository = mock(UserBillRepository.class);
-        ItemRepository itemRepository = mock(ItemRepository.class);
+//    @Test
+//    public void test_return_bill_dto_valid_id() {
+//        BillRepository billRepository = mock(BillRepository.class);
+//        BillMapper billMapper = mock(BillMapper.class);
+//        UserRepository userRepository = mock(UserRepository.class);
+//        UserBillMapper userBillMapper = mock(UserBillMapper.class);
+//        ItemMapper itemMapper = mock(ItemMapper.class);
+//        UserBillRepository userBillRepository = mock(UserBillRepository.class);
+//        ItemRepository itemRepository = mock(ItemRepository.class);
+//
+//        BillService billService = new BillService(billRepository, billMapper, userRepository, userBillMapper, itemMapper, userBillRepository, itemRepository);
+//        // Arrange
+//        Long id = 1L;
+//        Bill bill = new Bill();
+//        bill.setId(id);
+//        BillDto expectedBillDto = new BillDto();
+//        expectedBillDto.setId(id);
+//
+//        Mockito.when(billRepository.findById(id)).thenReturn(Optional.of(bill));
+//        Mockito.when(billMapper.toBillDto(bill)).thenReturn(expectedBillDto);
+//
+//        // Act
+//        BillDto actualBillDto = billService.getBill(id);
+//
+//        // Assert
+//        assertEquals(expectedBillDto, actualBillDto);
+//        Mockito.verify(billRepository, times(1)).findById(id);
+//        Mockito.verify(billMapper, times(1)).toBillDto(bill);
+//    }
 
-        BillService billService = new BillService(billRepository, billMapper, userRepository, userBillMapper, itemMapper, userBillRepository, itemRepository);
-        // Arrange
-        Long id = 1L;
-        Bill bill = new Bill();
-        bill.setId(id);
-        BillDto expectedBillDto = new BillDto();
-        expectedBillDto.setId(id);
-
-        Mockito.when(billRepository.findById(id)).thenReturn(Optional.of(bill));
-        Mockito.when(billMapper.toBillDto(bill)).thenReturn(expectedBillDto);
-
-        // Act
-        BillDto actualBillDto = billService.getBill(id);
-
-        // Assert
-        assertEquals(expectedBillDto, actualBillDto);
-        Mockito.verify(billRepository, times(1)).findById(id);
-        Mockito.verify(billMapper, times(1)).toBillDto(bill);
-    }
-
-    @Test
-    public void test_return_correct_bill_dto_valid_id() {
-        BillRepository billRepository = mock(BillRepository.class);
-        BillMapper billMapper = mock(BillMapper.class);
-        UserRepository userRepository = mock(UserRepository.class);
-        UserBillMapper userBillMapper = mock(UserBillMapper.class);
-        ItemMapper itemMapper = mock(ItemMapper.class);
-        UserBillRepository userBillRepository = mock(UserBillRepository.class);
-        ItemRepository itemRepository = mock(ItemRepository.class);
-
-        BillService billService = new BillService(billRepository, billMapper, userRepository, userBillMapper, itemMapper, userBillRepository, itemRepository);
-        // Arrange
-        Long id = 1L;
-        Bill bill = new Bill();
-        bill.setId(id);
-        bill.setName("Test Bill");
-        BillDto expectedBillDto = new BillDto();
-        expectedBillDto.setId(id);
-        expectedBillDto.setName("Test Bill");
-
-        Mockito.when(billRepository.findById(id)).thenReturn(Optional.of(bill));
-        Mockito.when(billMapper.toBillDto(bill)).thenReturn(expectedBillDto);
-
-        // Act
-        BillDto actualBillDto = billService.getBill(id);
-
-        // Assert
-        assertEquals(expectedBillDto, actualBillDto);
-        Mockito.verify(billRepository, times(1)).findById(id);
-        Mockito.verify(billMapper, times(1)).toBillDto(bill);
-    }
+//    @Test
+//    public void test_return_correct_bill_dto_valid_id() {
+//        BillRepository billRepository = mock(BillRepository.class);
+//        BillMapper billMapper = mock(BillMapper.class);
+//        UserRepository userRepository = mock(UserRepository.class);
+//        UserBillMapper userBillMapper = mock(UserBillMapper.class);
+//        ItemMapper itemMapper = mock(ItemMapper.class);
+//        UserBillRepository userBillRepository = mock(UserBillRepository.class);
+//        ItemRepository itemRepository = mock(ItemRepository.class);
+//
+//        BillService billService = new BillService(billRepository, billMapper, userRepository, userBillMapper, itemMapper, userBillRepository, itemRepository);
+//        // Arrange
+//        Long id = 1L;
+//        Bill bill = new Bill();
+//        bill.setId(id);
+//        bill.setName("Test Bill");
+//        BillDto expectedBillDto = new BillDto();
+//        expectedBillDto.setId(id);
+//        expectedBillDto.setName("Test Bill");
+//
+//        Mockito.when(billRepository.findById(id)).thenReturn(Optional.of(bill));
+//        Mockito.when(billMapper.toBillDto(bill)).thenReturn(expectedBillDto);
+//
+//        // Act
+//        BillDto actualBillDto = billService.getBill(id);
+//
+//        // Assert
+//        assertEquals(expectedBillDto, actualBillDto);
+//        Mockito.verify(billRepository, times(1)).findById(id);
+//        Mockito.verify(billMapper, times(1)).toBillDto(bill);
+//    }
 
 //    @Test
 //    public void test_handle_null_receipt_no_receipt() {

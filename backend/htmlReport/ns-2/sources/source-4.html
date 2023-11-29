@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > ItemController</title>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > SecurityConfig</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -18,18 +19,15 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.sharewrap.sharewrap_backend.controllers</a>
+    <a href="../index.html">com.sharewrap.sharewrap_backend.config</a>
 </div>
 
-<h1>Coverage Summary for Class: ItemController (com.sharewrap.sharewrap_backend.controllers)</h1>
+<h1>Coverage Summary for Class: SecurityConfig (com.sharewrap.sharewrap_backend.config)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
-<th class="coverageStat 
-">
-  Class, %
-</th>
 <th class="coverageStat 
 ">
   Method, %
@@ -40,15 +38,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">ItemController</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/1)
-  </span>
-</td>
+  <td class="name">SecurityConfig</td>
 <td class="coverageStat">
   <span class="percent">
     0%
@@ -62,11 +52,38 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/3)
+    (0/10)
   </span>
 </td>
 </tr>
-
+  <tr>
+    <td class="name">SecurityConfig$$SpringCGLIB$$0</td>
+  </tr>
+  <tr>
+    <td class="name">SecurityConfig$$SpringCGLIB$$FastClass$$0</td>
+  </tr>
+  <tr>
+    <td class="name">SecurityConfig$$SpringCGLIB$$FastClass$$1</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+</tr>
 </table>
 
 <br/>
@@ -74,38 +91,37 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.sharewrap.sharewrap_backend.controllers;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.sharewrap.sharewrap_backend.config;
 &nbsp;
-&nbsp;import com.sharewrap.sharewrap_backend.dtos.ItemDto;
-&nbsp;import com.sharewrap.sharewrap_backend.services.ItemService;
-&nbsp;import jakarta.validation.Valid;
 &nbsp;import lombok.RequiredArgsConstructor;
-&nbsp;import org.springframework.http.ResponseEntity;
-&nbsp;import org.springframework.web.bind.annotation.*;
-&nbsp;
-&nbsp;import java.net.URI;
-&nbsp;import java.util.List;
+&nbsp;import org.springframework.context.annotation.Bean;
+&nbsp;import org.springframework.context.annotation.Configuration;
+&nbsp;import org.springframework.http.HttpMethod;
+&nbsp;import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+&nbsp;import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+&nbsp;import org.springframework.security.config.http.SessionCreationPolicy;
+&nbsp;import org.springframework.security.web.SecurityFilterChain;
+&nbsp;import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 &nbsp;
 <b class="nc">&nbsp;@RequiredArgsConstructor</b>
-&nbsp;@RestController
-&nbsp;public class ItemController {
-&nbsp;    private final ItemService itemService;
+&nbsp;@Configuration
+&nbsp;@EnableWebSecurity
+&nbsp;public class SecurityConfig {
+&nbsp;    private final UserAuthEntryPoint userAuthEntryPoint;
+&nbsp;    private final UserAuthProvider userAuthProvider;
 &nbsp;
-&nbsp;    @GetMapping(&quot;/items&quot;)
-&nbsp;    public ResponseEntity&lt;List&lt;ItemDto&gt;&gt; allItems() {
-<b class="nc">&nbsp;        return ResponseEntity.ok(itemService.allItems());</b>
+&nbsp;    @Bean
+&nbsp;    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+<b class="nc">&nbsp;        http</b>
+<b class="nc">&nbsp;                .csrf(csrf -&gt; csrf.disable())</b>
+<b class="nc">&nbsp;                .exceptionHandling(exception-&gt; exception.authenticationEntryPoint(userAuthEntryPoint))</b>
+<b class="nc">&nbsp;                .addFilterBefore(new JwtAuthFilter(userAuthProvider), BasicAuthenticationFilter.class)</b>
+<b class="nc">&nbsp;                .sessionManagement(sess -&gt; sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))</b>
+<b class="nc">&nbsp;                .authorizeHttpRequests((authorize) -&gt; authorize</b>
+<b class="nc">&nbsp;                        .requestMatchers(HttpMethod.POST, &quot;/login&quot;, &quot;/register&quot;).permitAll()</b>
+<b class="nc">&nbsp;                        .anyRequest().authenticated());</b>
+<b class="nc">&nbsp;        return http.build();</b>
 &nbsp;    }
-&nbsp;
-&nbsp;
-&nbsp;    @GetMapping(&quot;/items/{id}&quot;)
-&nbsp;    public ResponseEntity&lt;ItemDto&gt; getItem(@PathVariable Long id) {
-<b class="nc">&nbsp;        return ResponseEntity.ok(itemService.getItem(id));</b>
-&nbsp;    }
-&nbsp;
-&nbsp;//    @GetMapping(&quot;/{userBillId}/items/{id}&quot;)
-&nbsp;//    public ResponseEntity&lt;ItemDto&gt; getItem( @PathVariable Long billId, @PathVariable Long id) {
-&nbsp;//        return ResponseEntity.ok(itemService.getItemBill(billId,id));
-&nbsp;//    }
 &nbsp;
 &nbsp;}
 </code>
@@ -131,7 +147,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-28 00:26</div>
+    <div style="float:right;">generated on 2023-11-29 16:16</div>
 </div>
 </body>
 </html>

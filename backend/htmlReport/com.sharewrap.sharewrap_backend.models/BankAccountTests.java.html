@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BankAccountTests.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in sharewrap_backend Coverage Results, java in sharewrap_backend Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.sharewrap.sharewrap_backend.models</a> &gt; <span class="el_source">BankAccountTests.java</span></div><h1>BankAccountTests.java</h1><pre class="source lang-java linenums">package com.sharewrap.sharewrap_backend.models;
+
+import org.junit.jupiter.api.Test;
+
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+<span class="fc" id="L8">public class BankAccountTests {</span>
+    @Test
+    public void test_createBankAccountWithParameters() {
+        // Arrange
+<span class="fc" id="L12">        String bankName = &quot;Bank A&quot;;</span>
+<span class="fc" id="L13">        String accountNumber = &quot;1234567890&quot;;</span>
+<span class="fc" id="L14">        String name = &quot;Bank Account&quot;;</span>
+
+        // Act
+<span class="fc" id="L17">        BankAccount bankAccount = new BankAccount(bankName, accountNumber, name);</span>
+
+        // Assert
+<span class="fc" id="L20">        assertNotNull(bankAccount);</span>
+<span class="fc" id="L21">        assertEquals(bankName, bankAccount.getBankName());</span>
+<span class="fc" id="L22">        assertEquals(accountNumber, bankAccount.getAccountNumber());</span>
+<span class="fc" id="L23">        assertEquals(name, bankAccount.getName());</span>
+<span class="fc" id="L24">    }</span>
+    @Test
+    public void test_getAndSetBankNameAccountNumberAndName() {
+        // Arrange
+<span class="fc" id="L28">        BankAccount bankAccount = new BankAccount();</span>
+<span class="fc" id="L29">        String bankName = &quot;Bank A&quot;;</span>
+<span class="fc" id="L30">        String accountNumber = &quot;1234567890&quot;;</span>
+<span class="fc" id="L31">        String name = &quot;Bank Account&quot;;</span>
+
+        // Act
+<span class="fc" id="L34">        bankAccount.setBankName(bankName);</span>
+<span class="fc" id="L35">        bankAccount.setAccountNumber(accountNumber);</span>
+<span class="fc" id="L36">        bankAccount.setName(name);</span>
+
+        // Assert
+<span class="fc" id="L39">        assertEquals(bankName, bankAccount.getBankName());</span>
+<span class="fc" id="L40">        assertEquals(accountNumber, bankAccount.getAccountNumber());</span>
+<span class="fc" id="L41">        assertEquals(name, bankAccount.getName());</span>
+<span class="fc" id="L42">    }</span>
+    @Test
+    public void test_getAndSetUser() {
+        // Arrange
+<span class="fc" id="L46">        BankAccount bankAccount = new BankAccount();</span>
+<span class="fc" id="L47">        User user = new User();</span>
+
+        // Act
+<span class="fc" id="L50">        bankAccount.setUser(user);</span>
+
+        // Assert
+<span class="fc" id="L53">        assertEquals(user, bankAccount.getUser());</span>
+<span class="fc" id="L54">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

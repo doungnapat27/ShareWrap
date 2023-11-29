@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BankAccountServiceTests.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in sharewrap_backend Coverage Results, java in sharewrap_backend Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.sharewrap.sharewrap_backend.services</a> &gt; <span class="el_source">BankAccountServiceTests.java</span></div><h1>BankAccountServiceTests.java</h1><pre class="source lang-java linenums">package com.sharewrap.sharewrap_backend.services;
+
+import com.sharewrap.sharewrap_backend.dtos.BankAccountDto;
+import com.sharewrap.sharewrap_backend.exceptions.AppException;
+import com.sharewrap.sharewrap_backend.mappers.BankAccountMapper;
+import com.sharewrap.sharewrap_backend.models.BankAccount;
+import com.sharewrap.sharewrap_backend.models.User;
+import com.sharewrap.sharewrap_backend.repositories.BankAccountRepository;
+import com.sharewrap.sharewrap_backend.repositories.UserRepository;
+import org.junit.Test;
+
+import java.util.Optional;
+
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+<span class="fc" id="L21">public class BankAccountServiceTests {</span>
+//    @Test
+//    public void test_createBankAccount_validUserValidDetails() {
+//        // Arrange
+//        BankAccountDto bankAccountDto = new BankAccountDto();
+//        bankAccountDto.setUserId(&quot;validUserId&quot;);
+//        bankAccountDto.setName(&quot;validName&quot;);
+//        bankAccountDto.setBankName(&quot;validBankName&quot;);
+//        bankAccountDto.setAccountNumber(&quot;validAccountNumber&quot;);
+//
+//        BankAccountMapper bankAccountMapper = mock(BankAccountMapper.class);
+//        BankAccountRepository bankAccountRepository = mock(BankAccountRepository.class);
+//        UserRepository userRepository = mock(UserRepository.class);
+//
+//        BankAccountService bankAccountService = new BankAccountService(bankAccountRepository, bankAccountMapper, userRepository);
+//
+//        User user = new User();
+//        when(userRepository.findById(&quot;validUserId&quot;)).thenReturn(Optional.of(user));
+//
+//        BankAccount savedBankAccount = new BankAccount();
+//        when(bankAccountRepository.save(any())).thenAnswer(invocation -&gt; {
+//            BankAccount argument = invocation.getArgument(0);
+//            argument.setId(1L); // Assuming setId method is available
+//            return argument;
+//        });
+//
+//        when(bankAccountMapper.toBankAccount(any())).thenReturn(savedBankAccount); // Mock the mapper to return a non-null BankAccount
+//
+//        // Act
+//        BankAccountDto result = bankAccountService.createBankAccount(bankAccountDto);
+//
+//        // Assert
+//        assertNotNull(result);
+//        assertEquals(savedBankAccount, bankAccountMapper.toBankAccount(result));
+//        assertEquals(user, savedBankAccount.getUser());
+//        assertTrue(user.getPayments().contains(savedBankAccount));
+//    }
+
+//    @Test
+//    public void test_createBankAccount_returnsCreatedDto() {
+//        // Arrange
+//        BankAccountDto bankAccountDto = new BankAccountDto();
+//        bankAccountDto.setUserId(&quot;validUserId&quot;);
+//        bankAccountDto.setName(&quot;validName&quot;);
+//        bankAccountDto.setBankName(&quot;validBankName&quot;);
+//        bankAccountDto.setAccountNumber(&quot;validAccountNumber&quot;);
+//
+//        BankAccountMapper bankAccountMapper = mock(BankAccountMapper.class);
+//        BankAccountRepository bankAccountRepository = mock(BankAccountRepository.class);
+//        UserRepository userRepository = mock(UserRepository.class);
+//
+//        BankAccountService bankAccountService = new BankAccountService(bankAccountRepository, bankAccountMapper, userRepository);
+//
+//        User user = new User();
+//        when(userRepository.findById(&quot;validUserId&quot;)).thenReturn(Optional.of(user));
+//
+//        BankAccount savedBankAccount = new BankAccount();
+//        when(bankAccountRepository.save(any(BankAccount.class))).thenReturn(savedBankAccount);
+//
+//        // Act
+//        BankAccountDto result = bankAccountService.createBankAccount(bankAccountDto);
+//
+//        // Assert
+//        assertNotNull(result);
+//        assertEquals(savedBankAccount, bankAccountMapper.toBankAccount(result));
+//    }
+    @Test(expected = AppException.class)
+    public void test_createBankAccount_unknownUserIdThrowsAppException() {
+        // Arrange
+<span class="fc" id="L90">        BankAccountDto bankAccountDto = new BankAccountDto();</span>
+<span class="fc" id="L91">        bankAccountDto.setUserId(&quot;unknownUserId&quot;);</span>
+<span class="fc" id="L92">        bankAccountDto.setName(&quot;validName&quot;);</span>
+<span class="fc" id="L93">        bankAccountDto.setBankName(&quot;validBankName&quot;);</span>
+<span class="fc" id="L94">        bankAccountDto.setAccountNumber(&quot;validAccountNumber&quot;);</span>
+
+<span class="fc" id="L96">        BankAccountMapper bankAccountMapper = mock(BankAccountMapper.class);</span>
+<span class="fc" id="L97">        BankAccountRepository bankAccountRepository = mock(BankAccountRepository.class);</span>
+<span class="fc" id="L98">        UserRepository userRepository = mock(UserRepository.class);</span>
+
+<span class="fc" id="L100">        BankAccountService bankAccountService = new BankAccountService(bankAccountRepository, bankAccountMapper, userRepository);</span>
+
+<span class="fc" id="L102">        when(userRepository.findById(&quot;unknownUserId&quot;)).thenReturn(Optional.empty());</span>
+
+        // Act
+<span class="nc" id="L105">        bankAccountService.createBankAccount(bankAccountDto);</span>
+<span class="nc" id="L106">    }</span>
+    @Test(expected = AppException.class)
+    public void test_null_user_id() {
+        // Arrange
+<span class="fc" id="L110">        String userId = null;</span>
+<span class="fc" id="L111">        BankAccountMapper bankAccountMapper = mock(BankAccountMapper.class);</span>
+<span class="fc" id="L112">        BankAccountRepository bankAccountRepository = mock(BankAccountRepository.class);</span>
+<span class="fc" id="L113">        UserRepository userRepository = mock(UserRepository.class);</span>
+
+<span class="fc" id="L115">        BankAccountService bankAccountService = new BankAccountService(bankAccountRepository, bankAccountMapper, userRepository);</span>
+
+        // Act
+<span class="nc" id="L118">        bankAccountService.getBankAccount(userId);</span>
+<span class="nc" id="L119">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

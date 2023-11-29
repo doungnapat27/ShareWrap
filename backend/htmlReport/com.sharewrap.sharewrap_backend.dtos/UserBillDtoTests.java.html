@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserBillDtoTests.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in sharewrap_backend Coverage Results, java in sharewrap_backend Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.sharewrap.sharewrap_backend.dtos</a> &gt; <span class="el_source">UserBillDtoTests.java</span></div><h1>UserBillDtoTests.java</h1><pre class="source lang-java linenums">package com.sharewrap.sharewrap_backend.dtos;
+
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Date;
+
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+<span class="fc" id="L12">public class UserBillDtoTests {</span>
+    @Test
+    public void test_update_attributes() {
+<span class="fc" id="L15">        UserBillDto userBillDto = new UserBillDto();</span>
+
+<span class="fc" id="L17">        userBillDto.setId(1L);</span>
+<span class="fc" id="L18">        userBillDto.setUserId(&quot;user1&quot;);</span>
+<span class="fc" id="L19">        userBillDto.setBillId(2L);</span>
+<span class="fc" id="L20">        userBillDto.setShareTotal(100.0);</span>
+<span class="fc" id="L21">        userBillDto.setIsPaid(true);</span>
+<span class="fc" id="L22">        userBillDto.setIsApprove(true);</span>
+<span class="fc" id="L23">        userBillDto.setItems(new ArrayList&lt;&gt;());</span>
+<span class="fc" id="L24">        userBillDto.setPaymentType('P');</span>
+<span class="fc" id="L25">        userBillDto.setBillName(&quot;bill1&quot;);</span>
+<span class="fc" id="L26">        userBillDto.setBillOwnerName(&quot;owner1&quot;);</span>
+<span class="fc" id="L27">        userBillDto.setBillCreatedDate(new Date());</span>
+<span class="fc" id="L28">        userBillDto.setPromptpayDto(new PromptpayDto());</span>
+<span class="fc" id="L29">        userBillDto.setBankAccountDto(new BankAccountDto());</span>
+<span class="fc" id="L30">        userBillDto.setReceipt(&quot;receipt1&quot;);</span>
+<span class="fc" id="L31">        userBillDto.setUploadedDate(new Date());</span>
+
+<span class="fc" id="L33">        assertEquals(1L, userBillDto.getId().longValue());</span>
+<span class="fc" id="L34">        assertEquals(&quot;user1&quot;, userBillDto.getUserId());</span>
+<span class="fc" id="L35">        assertEquals(2L, userBillDto.getBillId().longValue());</span>
+<span class="fc" id="L36">        assertEquals(100.0, userBillDto.getShareTotal(), 0.0);</span>
+<span class="fc" id="L37">        assertTrue(userBillDto.isPaid());</span>
+<span class="fc" id="L38">        assertTrue(userBillDto.isApprove());</span>
+<span class="fc" id="L39">        assertNotNull(userBillDto.getItems());</span>
+<span class="fc" id="L40">        assertEquals('P', userBillDto.getPaymentType());</span>
+<span class="fc" id="L41">        assertEquals(&quot;bill1&quot;, userBillDto.getBillName());</span>
+<span class="fc" id="L42">        assertEquals(&quot;owner1&quot;, userBillDto.getBillOwnerName());</span>
+<span class="fc" id="L43">        assertNotNull(userBillDto.getBillCreatedDate());</span>
+<span class="fc" id="L44">        assertNotNull(userBillDto.getPromptpayDto());</span>
+<span class="fc" id="L45">        assertNotNull(userBillDto.getBankAccountDto());</span>
+<span class="fc" id="L46">        assertEquals(&quot;receipt1&quot;, userBillDto.getReceipt());</span>
+<span class="fc" id="L47">        assertNotNull(userBillDto.getUploadedDate());</span>
+<span class="fc" id="L48">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

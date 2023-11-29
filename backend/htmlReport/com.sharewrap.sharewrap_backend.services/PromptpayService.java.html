@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PromptpayService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in sharewrap_backend Coverage Results, java in sharewrap_backend Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.sharewrap.sharewrap_backend.services</a> &gt; <span class="el_source">PromptpayService.java</span></div><h1>PromptpayService.java</h1><pre class="source lang-java linenums">package com.sharewrap.sharewrap_backend.services;
+
+import com.sharewrap.sharewrap_backend.dtos.BillDto;
+import com.sharewrap.sharewrap_backend.dtos.PromptpayDto;
+import com.sharewrap.sharewrap_backend.exceptions.AppException;
+import com.sharewrap.sharewrap_backend.mappers.PromptpayMapper;
+import com.sharewrap.sharewrap_backend.models.Bill;
+import com.sharewrap.sharewrap_backend.models.Promptpay;
+import com.sharewrap.sharewrap_backend.models.User;
+import com.sharewrap.sharewrap_backend.repositories.PromptpayRepository;
+import com.sharewrap.sharewrap_backend.repositories.UserRepository;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+
+@Service
+<span class="nc" id="L18">@RequiredArgsConstructor</span>
+public class PromptpayService {
+    final private PromptpayRepository promptpayRepository;
+    final private PromptpayMapper promptpayMapper;
+    final private UserRepository userRepository;
+
+    @Transactional
+    public PromptpayDto createPromptpay(PromptpayDto promptpayDto) {
+<span class="nc" id="L26">        Promptpay promptpay = promptpayMapper.toPromptpay(promptpayDto);</span>
+<span class="nc" id="L27">        User user = userRepository.findById(promptpayDto.getUserId())</span>
+<span class="nc" id="L28">                .orElseThrow(() -&gt; new AppException(&quot;Unknown user&quot;, HttpStatus.NOT_FOUND));</span>
+<span class="nc" id="L29">        promptpay.setUser(user);</span>
+<span class="nc" id="L30">        user.getPayments().add(promptpay);</span>
+<span class="nc" id="L31">        Promptpay savedPromptpay = promptpayRepository.save(promptpay);</span>
+<span class="nc" id="L32">        return promptpayMapper.toPromptpayDto(savedPromptpay);</span>
+    }
+
+    public PromptpayDto getPromptpay(String userId) {
+<span class="nc" id="L36">        User user = userRepository.findById(userId)</span>
+<span class="nc" id="L37">                .orElseThrow(() -&gt; new AppException(&quot;Unknown user&quot;, HttpStatus.NOT_FOUND));</span>
+<span class="nc" id="L38">        Promptpay promptpay = promptpayRepository.findByUser(user)</span>
+<span class="nc" id="L39">                .orElseThrow(() -&gt; new AppException(&quot;Promptpay not found&quot;, HttpStatus.NOT_FOUND));</span>
+<span class="nc" id="L40">        return promptpayMapper.toPromptpayDto(promptpay);</span>
+    }
+
+    public PromptpayDto updatePromptpay(PromptpayDto PromptpayDto) {
+<span class="nc" id="L44">        User user = userRepository.findById(PromptpayDto.getUserId())</span>
+<span class="nc" id="L45">                .orElseThrow(() -&gt; new AppException(&quot;Unknown user&quot;, HttpStatus.NOT_FOUND));</span>
+<span class="nc" id="L46">        Promptpay promptpay = promptpayRepository.findById(PromptpayDto.getId())</span>
+<span class="nc" id="L47">                .orElseThrow(() -&gt; new AppException(&quot;Promptpay not found&quot;, HttpStatus.NOT_FOUND));</span>
+<span class="nc" id="L48">        promptpayMapper.updatePromptpay(promptpay, promptpayMapper.toPromptpay(PromptpayDto));</span>
+<span class="nc" id="L49">        promptpay.setUser(user);</span>
+<span class="nc" id="L50">        Promptpay savedPromptpay = promptpayRepository.save(promptpay);</span>
+<span class="nc" id="L51">        return promptpayMapper.toPromptpayDto(savedPromptpay);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

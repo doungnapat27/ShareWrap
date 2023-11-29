@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PaymentTests.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in sharewrap_backend Coverage Results, java in sharewrap_backend Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.sharewrap.sharewrap_backend.models</a> &gt; <span class="el_source">PaymentTests.java</span></div><h1>PaymentTests.java</h1><pre class="source lang-java linenums">package com.sharewrap.sharewrap_backend.models;
+
+import org.junit.Test;
+
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+<span class="fc" id="L8">public class PaymentTests {</span>
+    @Test
+    public void test_payment_object_id_retrieved() {
+        // Arrange
+<span class="fc" id="L12">        String name = &quot;Test Payment&quot;;</span>
+<span class="fc" id="L13">        Payment payment = new Payment(name);</span>
+<span class="fc" id="L14">        Long expectedId = 1L;</span>
+<span class="fc" id="L15">        payment.setId(expectedId);</span>
+
+        // Act
+<span class="fc" id="L18">        Long actualId = payment.getId();</span>
+
+        // Assert
+<span class="fc" id="L21">        assertEquals(expectedId, actualId);</span>
+<span class="fc" id="L22">    }</span>
+    @Test
+    public void test_paymentObjectWithName() {
+<span class="fc" id="L25">        Payment payment = new Payment(&quot;Test Payment&quot;);</span>
+<span class="fc" id="L26">        assertNotNull(payment);</span>
+<span class="fc" id="L27">        assertEquals(&quot;Test Payment&quot;, payment.getName());</span>
+<span class="fc" id="L28">    }</span>
+    @Test
+    public void test_paymentObjectWithoutParameters() {
+<span class="fc" id="L31">        Payment payment = new Payment();</span>
+<span class="fc" id="L32">        assertNotNull(payment);</span>
+<span class="fc" id="L33">    }</span>
+    @Test
+    public void test_paymentObjectWithUser() {
+<span class="fc" id="L36">        User user = new User();</span>
+<span class="fc" id="L37">        Payment payment = new Payment();</span>
+<span class="fc" id="L38">        payment.setUser(user);</span>
+<span class="fc" id="L39">        assertNotNull(payment.getUser());</span>
+<span class="fc" id="L40">        assertEquals(user, payment.getUser());</span>
+<span class="fc" id="L41">    }</span>
+    @Test
+    public void test_set_valid_name() {
+<span class="fc" id="L44">        Payment payment = new Payment();</span>
+<span class="fc" id="L45">        payment.setName(&quot;John Doe&quot;);</span>
+<span class="fc" id="L46">        assertEquals(&quot;John Doe&quot;, payment.getName());</span>
+<span class="fc" id="L47">    }</span>
+    @Test
+    public void test_setUserWithUserObject() {
+<span class="fc" id="L50">        User user = new User();</span>
+<span class="fc" id="L51">        Payment payment = new Payment();</span>
+<span class="fc" id="L52">        payment.setUser(user);</span>
+<span class="fc" id="L53">        assertNotNull(payment.getUser());</span>
+<span class="fc" id="L54">        assertEquals(user, payment.getUser());</span>
+<span class="fc" id="L55">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Bill.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in sharewrap_backend Coverage Results, java in sharewrap_backend Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.sharewrap.sharewrap_backend.models</a> &gt; <span class="el_source">Bill.java</span></div><h1>Bill.java</h1><pre class="source lang-java linenums">package com.sharewrap.sharewrap_backend.models;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import java.sql.Blob;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.util.*;
+
+@Entity
+@Table(name = &quot;bills&quot;)
+public class Bill {
+
+<span class="fc" id="L17">    @Getter</span>
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+
+<span class="fc" id="L23">    @Getter</span>
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private Boolean isPaid;
+
+<span class="fc" id="L30">    @Getter</span>
+    @Column
+    private Date createdDate;
+
+<span class="fc" id="L34">    @Getter</span>
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = &quot;owner_id&quot;)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private User user;
+
+<span class="fc" id="L40">    @Getter</span>
+    @Column
+    private char paymentType;
+
+<span class="nc" id="L44">    @Getter</span>
+    @OneToMany(mappedBy = &quot;bill&quot;, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List&lt;UserBill&gt; userBills;
+
+<span class="nc" id="L48">    @Getter</span>
+    @Lob
+    @Column(name = &quot;receipt&quot;, columnDefinition=&quot;LONGBLOB&quot;)
+    private byte[] receipt;
+
+<span class="nc" id="L53">    @Getter</span>
+    @Column
+    private Date uploadedDate;
+
+    @Column(name = &quot;receipt_type&quot;)
+    private String receiptType;
+
+<span class="fc" id="L60">    public Bill() {</span>
+<span class="fc" id="L61">        this.name = &quot;My Bill&quot;;</span>
+<span class="fc" id="L62">        this.isPaid = false;</span>
+<span class="fc" id="L63">        this.createdDate = new Date(System.currentTimeMillis());</span>
+<span class="fc" id="L64">    }</span>
+
+<span class="fc" id="L66">    public Bill(String name) {</span>
+<span class="fc" id="L67">        this.name = name;</span>
+<span class="fc" id="L68">        this.isPaid = false;</span>
+<span class="fc" id="L69">        this.createdDate = new Date(System.currentTimeMillis());</span>
+<span class="fc" id="L70">    }</span>
+
+    public void setUser(User user) {
+<span class="fc" id="L73">        this.user = user;</span>
+<span class="fc" id="L74">    }</span>
+
+    public void setName(String name) {
+<span class="fc" id="L77">        this.name = name;</span>
+<span class="fc" id="L78">    }</span>
+    public void setIsPaid(Boolean isPaid) {
+<span class="nc" id="L80">        this.isPaid = isPaid;</span>
+<span class="nc" id="L81">    }</span>
+    public Boolean getIsPaid(Boolean isPaid) {
+<span class="nc" id="L83">        return isPaid;</span>
+    }
+
+    public void setPaymentType(char paymentType) {
+<span class="fc" id="L87">        this.paymentType = paymentType;</span>
+<span class="fc" id="L88">    }</span>
+    public void setId(Long id) {
+<span class="nc" id="L90">        this.id = id;</span>
+<span class="nc" id="L91">    }</span>
+
+
+    public void setReceipt(byte[] receipt) {
+<span class="nc" id="L95">        this.receipt = receipt;</span>
+<span class="nc" id="L96">    }</span>
+
+    public void setUploadedDate(Date uploadedDate) {
+<span class="nc" id="L99">        this.uploadedDate = uploadedDate;</span>
+<span class="nc" id="L100">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > BillServiceTests</title>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > Payment</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -18,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.sharewrap.sharewrap_backend.services</a>
+    <a href="../index.html">com.sharewrap.sharewrap_backend.models</a>
 </div>
 
-<h1>Coverage Summary for Class: BillServiceTests (com.sharewrap.sharewrap_backend.services)</h1>
+<h1>Coverage Summary for Class: Payment (com.sharewrap.sharewrap_backend.models)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -40,7 +41,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">BillServiceTests</td>
+  <td class="name">Payment</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -62,7 +63,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     100%
   </span>
   <span class="absValue">
-    (96/96)
+    (14/14)
   </span>
 </td>
 </tr>
@@ -74,219 +75,55 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.sharewrap.sharewrap_backend.services;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.sharewrap.sharewrap_backend.models;
 &nbsp;
-&nbsp;import com.sharewrap.sharewrap_backend.dtos.BillDto;
-&nbsp;import com.sharewrap.sharewrap_backend.exceptions.AppException;
-&nbsp;import com.sharewrap.sharewrap_backend.mappers.BillMapper;
-&nbsp;import com.sharewrap.sharewrap_backend.mappers.ItemMapper;
-&nbsp;import com.sharewrap.sharewrap_backend.mappers.UserBillMapper;
-&nbsp;import com.sharewrap.sharewrap_backend.models.Bill;
-&nbsp;import com.sharewrap.sharewrap_backend.repositories.BillRepository;
-&nbsp;import com.sharewrap.sharewrap_backend.repositories.ItemRepository;
-&nbsp;import com.sharewrap.sharewrap_backend.repositories.UserBillRepository;
-&nbsp;import com.sharewrap.sharewrap_backend.repositories.UserRepository;
-&nbsp;import org.junit.Test;
-&nbsp;import org.mockito.Mockito;
+&nbsp;import jakarta.persistence.*;
+&nbsp;import lombok.Getter;
+&nbsp;import org.hibernate.annotations.OnDelete;
+&nbsp;import org.hibernate.annotations.OnDeleteAction;
 &nbsp;
-&nbsp;import java.sql.SQLException;
-&nbsp;import java.util.*;
+&nbsp;@Entity
+&nbsp;@Table(name = &quot;payments&quot;)
+&nbsp;@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 &nbsp;
-&nbsp;import static org.junit.jupiter.api.Assertions.*;
-&nbsp;import static org.mockito.Mockito.*;
+&nbsp;public class Payment {
 &nbsp;
-<b class="fc">&nbsp;public class BillServiceTests {</b>
-&nbsp;    @Test
-&nbsp;    public void test_returns_empty_list_no_bills() {
-<b class="fc">&nbsp;        BillRepository billRepository = mock(BillRepository.class);</b>
-<b class="fc">&nbsp;        BillMapper billMapper = mock(BillMapper.class);</b>
-<b class="fc">&nbsp;        UserRepository userRepository = mock(UserRepository.class);</b>
-<b class="fc">&nbsp;        UserBillMapper userBillMapper = mock(UserBillMapper.class);</b>
-<b class="fc">&nbsp;        ItemMapper itemMapper = mock(ItemMapper.class);</b>
-<b class="fc">&nbsp;        UserBillRepository userBillRepository = mock(UserBillRepository.class);</b>
-<b class="fc">&nbsp;        ItemRepository itemRepository = mock(ItemRepository.class);</b>
+&nbsp;    @Id
+&nbsp;    @GeneratedValue(strategy = GenerationType.AUTO)
+&nbsp;    private Long id;
 &nbsp;
-<b class="fc">&nbsp;        BillService billService = new BillService(billRepository, billMapper, userRepository, userBillMapper, itemMapper, userBillRepository, itemRepository);</b>
-&nbsp;        // Arrange
-<b class="fc">&nbsp;        List&lt;Bill&gt; bills = new ArrayList&lt;&gt;();</b>
-<b class="fc">&nbsp;        when(billRepository.findAll()).thenReturn(bills);</b>
+<b class="fc">&nbsp;    @Getter</b>
+&nbsp;    private String name;
 &nbsp;
-&nbsp;        // Act
-<b class="fc">&nbsp;        List&lt;BillDto&gt; result = billService.allBills();</b>
+<b class="fc">&nbsp;    @Getter</b>
+&nbsp;    @ManyToOne(fetch = FetchType.LAZY)
+&nbsp;    @JoinColumn(name = &quot;user_id&quot;)
+&nbsp;    @OnDelete(action = OnDeleteAction.CASCADE)
+&nbsp;    private User user;
 &nbsp;
-&nbsp;        // Assert
-<b class="fc">&nbsp;        assertTrue(result.isEmpty());</b>
+<b class="fc">&nbsp;    public Payment(String name) {</b>
+<b class="fc">&nbsp;        this.name = name;</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+<b class="fc">&nbsp;    public Payment() {</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;
+&nbsp;    public void setName(String name) {
+<b class="fc">&nbsp;        this.name = name;</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    public void setUser(User user) {
+<b class="fc">&nbsp;        this.user = user;</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    protected Long getId() {
+<b class="fc">&nbsp;        return id;</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    @Test
-&nbsp;    public void test_returns_empty_list_repository_null() {
-<b class="fc">&nbsp;        BillRepository billRepository = mock(BillRepository.class);</b>
-<b class="fc">&nbsp;        BillMapper billMapper = mock(BillMapper.class);</b>
-<b class="fc">&nbsp;        UserRepository userRepository = mock(UserRepository.class);</b>
-<b class="fc">&nbsp;        UserBillMapper userBillMapper = mock(UserBillMapper.class);</b>
-<b class="fc">&nbsp;        ItemMapper itemMapper = mock(ItemMapper.class);</b>
-<b class="fc">&nbsp;        UserBillRepository userBillRepository = mock(UserBillRepository.class);</b>
-<b class="fc">&nbsp;        ItemRepository itemRepository = mock(ItemRepository.class);</b>
-&nbsp;
-<b class="fc">&nbsp;        BillService billService = new BillService(billRepository, billMapper, userRepository, userBillMapper, itemMapper, userBillRepository, itemRepository);</b>
-&nbsp;
-&nbsp;        // Arrange
-<b class="fc">&nbsp;        when(billRepository.findAll()).thenReturn(null);</b>
-&nbsp;
-&nbsp;        // Act
-<b class="fc">&nbsp;        List&lt;BillDto&gt; result = billService.allBills();</b>
-&nbsp;
-&nbsp;        // Assert
-<b class="fc">&nbsp;        assertTrue(result.isEmpty());</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    @Test(expected = AppException.class)
-&nbsp;    public void test_throws_app_exception_if_user_id_not_found() throws SQLException {
-<b class="fc">&nbsp;        BillRepository billRepository = mock(BillRepository.class);</b>
-<b class="fc">&nbsp;        BillMapper billMapper = mock(BillMapper.class);</b>
-<b class="fc">&nbsp;        UserRepository userRepository = mock(UserRepository.class);</b>
-<b class="fc">&nbsp;        UserBillMapper userBillMapper = mock(UserBillMapper.class);</b>
-<b class="fc">&nbsp;        ItemMapper itemMapper = mock(ItemMapper.class);</b>
-<b class="fc">&nbsp;        UserBillRepository userBillRepository = mock(UserBillRepository.class);</b>
-<b class="fc">&nbsp;        ItemRepository itemRepository = mock(ItemRepository.class);</b>
-&nbsp;
-<b class="fc">&nbsp;        BillService billService = new BillService(billRepository, billMapper, userRepository, userBillMapper, itemMapper, userBillRepository, itemRepository);</b>
-<b class="fc">&nbsp;        String userId = &quot;unknownUser&quot;;</b>
-&nbsp;
-&nbsp;        // Act
-<b class="fc">&nbsp;        billService.allBillsUser(userId);</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    @Test(expected = AppException.class)
-&nbsp;    public void test_throws_app_exception_if_bill_not_found() throws SQLException {
-<b class="fc">&nbsp;        BillRepository billRepository = mock(BillRepository.class);</b>
-<b class="fc">&nbsp;        BillMapper billMapper = mock(BillMapper.class);</b>
-<b class="fc">&nbsp;        UserRepository userRepository = mock(UserRepository.class);</b>
-<b class="fc">&nbsp;        UserBillMapper userBillMapper = mock(UserBillMapper.class);</b>
-<b class="fc">&nbsp;        ItemMapper itemMapper = mock(ItemMapper.class);</b>
-<b class="fc">&nbsp;        UserBillRepository userBillRepository = mock(UserBillRepository.class);</b>
-<b class="fc">&nbsp;        ItemRepository itemRepository = mock(ItemRepository.class);</b>
-&nbsp;
-<b class="fc">&nbsp;        BillService billService = new BillService(billRepository, billMapper, userRepository, userBillMapper, itemMapper, userBillRepository, itemRepository);</b>
-<b class="fc">&nbsp;        String userId = &quot;user123&quot;;</b>
-&nbsp;
-&nbsp;        // Act
-<b class="fc">&nbsp;        billService.allBillsUser(userId);</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    @Test(expected = AppException.class)
-&nbsp;    public void test_update_bill_invalid_id() {
-&nbsp;        // Arrange
-<b class="fc">&nbsp;        Long id = 1L;</b>
-<b class="fc">&nbsp;        BillDto billDto = new BillDto();</b>
-<b class="fc">&nbsp;        BillRepository billRepository = mock(BillRepository.class);</b>
-<b class="fc">&nbsp;        BillMapper billMapper = mock(BillMapper.class);</b>
-<b class="fc">&nbsp;        UserRepository userRepository = mock(UserRepository.class);</b>
-<b class="fc">&nbsp;        UserBillMapper userBillMapper = mock(UserBillMapper.class);</b>
-<b class="fc">&nbsp;        ItemMapper itemMapper = mock(ItemMapper.class);</b>
-<b class="fc">&nbsp;        UserBillRepository userBillRepository = mock(UserBillRepository.class);</b>
-<b class="fc">&nbsp;        ItemRepository itemRepository = mock(ItemRepository.class);</b>
-&nbsp;
-<b class="fc">&nbsp;        BillService billService = new BillService(billRepository, billMapper, userRepository, userBillMapper, itemMapper, userBillRepository, itemRepository);</b>
-<b class="fc">&nbsp;        when(billRepository.findById(id)).thenReturn(Optional.empty());</b>
-&nbsp;
-&nbsp;        // Act
-<b class="fc">&nbsp;        billService.updateBill(id, billDto);</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    @Test
-&nbsp;    public void test_return_bill_dto_valid_id() {
-<b class="fc">&nbsp;        BillRepository billRepository = mock(BillRepository.class);</b>
-<b class="fc">&nbsp;        BillMapper billMapper = mock(BillMapper.class);</b>
-<b class="fc">&nbsp;        UserRepository userRepository = mock(UserRepository.class);</b>
-<b class="fc">&nbsp;        UserBillMapper userBillMapper = mock(UserBillMapper.class);</b>
-<b class="fc">&nbsp;        ItemMapper itemMapper = mock(ItemMapper.class);</b>
-<b class="fc">&nbsp;        UserBillRepository userBillRepository = mock(UserBillRepository.class);</b>
-<b class="fc">&nbsp;        ItemRepository itemRepository = mock(ItemRepository.class);</b>
-&nbsp;
-<b class="fc">&nbsp;        BillService billService = new BillService(billRepository, billMapper, userRepository, userBillMapper, itemMapper, userBillRepository, itemRepository);</b>
-&nbsp;        // Arrange
-<b class="fc">&nbsp;        Long id = 1L;</b>
-<b class="fc">&nbsp;        Bill bill = new Bill();</b>
-<b class="fc">&nbsp;        bill.setId(id);</b>
-<b class="fc">&nbsp;        BillDto expectedBillDto = new BillDto();</b>
-<b class="fc">&nbsp;        expectedBillDto.setId(id);</b>
-&nbsp;
-<b class="fc">&nbsp;        Mockito.when(billRepository.findById(id)).thenReturn(Optional.of(bill));</b>
-<b class="fc">&nbsp;        Mockito.when(billMapper.toBillDto(bill)).thenReturn(expectedBillDto);</b>
-&nbsp;
-&nbsp;        // Act
-<b class="fc">&nbsp;        BillDto actualBillDto = billService.getBill(id);</b>
-&nbsp;
-&nbsp;        // Assert
-<b class="fc">&nbsp;        assertEquals(expectedBillDto, actualBillDto);</b>
-<b class="fc">&nbsp;        Mockito.verify(billRepository, times(1)).findById(id);</b>
-<b class="fc">&nbsp;        Mockito.verify(billMapper, times(1)).toBillDto(bill);</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    @Test
-&nbsp;    public void test_return_correct_bill_dto_valid_id() {
-<b class="fc">&nbsp;        BillRepository billRepository = mock(BillRepository.class);</b>
-<b class="fc">&nbsp;        BillMapper billMapper = mock(BillMapper.class);</b>
-<b class="fc">&nbsp;        UserRepository userRepository = mock(UserRepository.class);</b>
-<b class="fc">&nbsp;        UserBillMapper userBillMapper = mock(UserBillMapper.class);</b>
-<b class="fc">&nbsp;        ItemMapper itemMapper = mock(ItemMapper.class);</b>
-<b class="fc">&nbsp;        UserBillRepository userBillRepository = mock(UserBillRepository.class);</b>
-<b class="fc">&nbsp;        ItemRepository itemRepository = mock(ItemRepository.class);</b>
-&nbsp;
-<b class="fc">&nbsp;        BillService billService = new BillService(billRepository, billMapper, userRepository, userBillMapper, itemMapper, userBillRepository, itemRepository);</b>
-&nbsp;        // Arrange
-<b class="fc">&nbsp;        Long id = 1L;</b>
-<b class="fc">&nbsp;        Bill bill = new Bill();</b>
-<b class="fc">&nbsp;        bill.setId(id);</b>
-<b class="fc">&nbsp;        bill.setName(&quot;Test Bill&quot;);</b>
-<b class="fc">&nbsp;        BillDto expectedBillDto = new BillDto();</b>
-<b class="fc">&nbsp;        expectedBillDto.setId(id);</b>
-<b class="fc">&nbsp;        expectedBillDto.setName(&quot;Test Bill&quot;);</b>
-&nbsp;
-<b class="fc">&nbsp;        Mockito.when(billRepository.findById(id)).thenReturn(Optional.of(bill));</b>
-<b class="fc">&nbsp;        Mockito.when(billMapper.toBillDto(bill)).thenReturn(expectedBillDto);</b>
-&nbsp;
-&nbsp;        // Act
-<b class="fc">&nbsp;        BillDto actualBillDto = billService.getBill(id);</b>
-&nbsp;
-&nbsp;        // Assert
-<b class="fc">&nbsp;        assertEquals(expectedBillDto, actualBillDto);</b>
-<b class="fc">&nbsp;        Mockito.verify(billRepository, times(1)).findById(id);</b>
-<b class="fc">&nbsp;        Mockito.verify(billMapper, times(1)).toBillDto(bill);</b>
-&nbsp;    }
-&nbsp;
-&nbsp;//    @Test
-&nbsp;//    public void test_handle_null_receipt_no_receipt() {
-&nbsp;//        BillRepository billRepository = mock(BillRepository.class);
-&nbsp;//        BillMapper billMapper = mock(BillMapper.class);
-&nbsp;//        UserRepository userRepository = mock(UserRepository.class);
-&nbsp;//        UserBillMapper userBillMapper = mock(UserBillMapper.class);
-&nbsp;//        ItemMapper itemMapper = mock(ItemMapper.class);
-&nbsp;//        UserBillRepository userBillRepository = mock(UserBillRepository.class);
-&nbsp;//        ItemRepository itemRepository = mock(ItemRepository.class);
-&nbsp;//
-&nbsp;//        BillService billService = new BillService(billRepository, billMapper, userRepository, userBillMapper, itemMapper, userBillRepository, itemRepository);
-&nbsp;//        // Arrange
-&nbsp;//        Long id = 1L;
-&nbsp;//        Bill bill = new Bill();
-&nbsp;//        bill.setId(id);
-&nbsp;//        bill.setReceipt(null);
-&nbsp;//        BillDto expectedBillDto = new BillDto();
-&nbsp;//        expectedBillDto.setId(id);
-&nbsp;//        expectedBillDto.setReceipt(null);
-&nbsp;//
-&nbsp;//        Mockito.when(billRepository.findById(id)).thenReturn(Optional.of(bill));
-&nbsp;//        Mockito.when(billMapper.toBillDto(bill)).thenReturn(expectedBillDto);
-&nbsp;//
-&nbsp;//        // Act
-&nbsp;//        BillDto actualBillDto = billService.getBill(id);
-&nbsp;//
-&nbsp;//        // Assert
-&nbsp;//        assertEquals(expectedBillDto, actualBillDto);
-&nbsp;//        Mockito.verify(billRepository, times(1)).findById(id);
-&nbsp;//        Mockito.verify(billMapper, times(1)).toBillDto(bill);
-&nbsp;//    }
+&nbsp;    protected void setId(Long id) {
+<b class="fc">&nbsp;        this.id = id;</b>
+<b class="fc">&nbsp;    }</b>
 &nbsp;}
 </code>
 </pre>
@@ -311,7 +148,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-28 00:26</div>
+    <div style="float:right;">generated on 2023-11-29 16:16</div>
 </div>
 </body>
 </html>

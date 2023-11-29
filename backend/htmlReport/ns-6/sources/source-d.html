@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > UserBillTests</title>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > PaymentMapper</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -18,53 +19,17 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.sharewrap.sharewrap_backend.models</a>
+    <a href="../index.html">com.sharewrap.sharewrap_backend.mappers</a>
 </div>
 
-<h1>Coverage Summary for Class: UserBillTests (com.sharewrap.sharewrap_backend.models)</h1>
+<h1>Coverage Summary for Class: PaymentMapper (com.sharewrap.sharewrap_backend.mappers)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
-<th class="coverageStat 
-">
-  Class, %
-</th>
-<th class="coverageStat 
-">
-  Method, %
-</th>
-<th class="coverageStat 
-">
-  Line, %
-</th>
 </tr>
 <tr>
-  <td class="name">UserBillTests</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/1)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (6/6)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (28/28)
-  </span>
-</td>
+  <td class="name">PaymentMapper</td>
 </tr>
 
 </table>
@@ -74,66 +39,17 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.sharewrap.sharewrap_backend.models;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.sharewrap.sharewrap_backend.mappers;
 &nbsp;
-&nbsp;import org.junit.Test;
+&nbsp;import com.sharewrap.sharewrap_backend.dtos.PaymentDto;
+&nbsp;import com.sharewrap.sharewrap_backend.models.Payment;
+&nbsp;import org.mapstruct.Mapper;
 &nbsp;
-&nbsp;import java.time.LocalDate;
-&nbsp;import java.util.Date;
-&nbsp;import java.time.LocalDate;
-&nbsp;import static org.junit.jupiter.api.Assertions.assertEquals;
-&nbsp;import static org.junit.jupiter.api.Assertions.assertFalse;
+&nbsp;@Mapper(componentModel = &quot;spring&quot;)
+&nbsp;public interface PaymentMapper {
 &nbsp;
-<b class="fc">&nbsp;public class UserBillTests {</b>
-&nbsp;    @Test
-&nbsp;    public void test_getter_for_bill_returns_expected_value() {
-<b class="fc">&nbsp;        UserBill userBill = new UserBill();</b>
-<b class="fc">&nbsp;        Bill bill = new Bill();</b>
-<b class="fc">&nbsp;        userBill.setBill(bill);</b>
-<b class="fc">&nbsp;        assertEquals(bill, userBill.getBill());</b>
-&nbsp;    }
-&nbsp;    @Test
-&nbsp;    public void test_setter_for_bill_sets_expected_value() {
-<b class="fc">&nbsp;        UserBill userBill = new UserBill();</b>
-<b class="fc">&nbsp;        Bill bill = new Bill();</b>
-<b class="fc">&nbsp;        userBill.setBill(bill);</b>
-<b class="fc">&nbsp;        assertEquals(bill, userBill.getBill());</b>
-&nbsp;    }
-&nbsp;    @Test
-&nbsp;    public void test_createUserBillWithValidParameters() {
-<b class="fc">&nbsp;        User user = new User(&quot;test@example.com&quot;, &quot;testUser&quot;);</b>
-<b class="fc">&nbsp;        Bill bill = new Bill(&quot;Test Bill&quot;);</b>
-<b class="fc">&nbsp;        Double shareTotal = 10.0;</b>
-&nbsp;
-<b class="fc">&nbsp;        UserBill userBill = new UserBill(user, bill, shareTotal);</b>
-&nbsp;
-<b class="fc">&nbsp;        assertEquals(user, userBill.getUser());</b>
-<b class="fc">&nbsp;        assertEquals(bill, userBill.getBill());</b>
-<b class="fc">&nbsp;        assertEquals(shareTotal, userBill.getShareTotal());</b>
-<b class="fc">&nbsp;        assertFalse(userBill.getIsPaid());</b>
-<b class="fc">&nbsp;        assertFalse(userBill.getIsApprove());</b>
-&nbsp;    }
-&nbsp;    @Test
-&nbsp;    public void test_setBillWithValidBillObject_setsBillFieldCorrectly() {
-<b class="fc">&nbsp;        User user = new User(&quot;test@example.com&quot;, &quot;testUser&quot;);</b>
-<b class="fc">&nbsp;        Bill bill1 = new Bill(&quot;Test Bill 1&quot;);</b>
-<b class="fc">&nbsp;        Bill bill2 = new Bill(&quot;Test Bill 2&quot;);</b>
-<b class="fc">&nbsp;        Double shareTotal = 10.0;</b>
-&nbsp;
-<b class="fc">&nbsp;        UserBill userBill = new UserBill(user, bill1, shareTotal);</b>
-<b class="fc">&nbsp;        userBill.setBill(bill2);</b>
-&nbsp;
-<b class="fc">&nbsp;        assertEquals(bill2, userBill.getBill());</b>
-&nbsp;    }
-&nbsp;    @Test(expected = Exception.class)
-&nbsp;    public void test_setUploadedDate_after2038() {
-&nbsp;        // Arrange
-<b class="fc">&nbsp;        UserBill userBill = new UserBill();</b>
-<b class="fc">&nbsp;        Date uploadedDate = new Date(2040, 1, 1);</b>
-&nbsp;
-&nbsp;        // Act
-<b class="fc">&nbsp;        userBill.setUploadedDate((java.sql.Date) uploadedDate);</b>
-&nbsp;    }
+&nbsp;    Payment toPayment(PaymentDto paymentDto);
+&nbsp;    PaymentDto toPaymentDto(Payment payment);
 &nbsp;}
 </code>
 </pre>
@@ -158,7 +74,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-28 00:26</div>
+    <div style="float:right;">generated on 2023-11-29 16:16</div>
 </div>
 </body>
 </html>
