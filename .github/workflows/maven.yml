@@ -38,7 +38,7 @@ jobs:
         coverage-badge-filename: jacoco.svg
         generate-branches-badge: true
         branches-badge-filename: branches.svg
-        jacoco-csv-file: target/site/jacoco/jacoco.csv
+        jacoco-csv-file: ./backend/target/site/jacoco/jacoco.csv
 
     - name: Check badge creation
       run: ls -l .github/badges
@@ -50,4 +50,4 @@ jobs:
           message: 'Updated JaCoCo badges'
           add: '.github/badges/*.svg'
     - name: Show test results
-      run: cat target/site/jacoco/jacoco.csv
+      run: cat ./backend/target/site/jacoco/jacoco.csv
