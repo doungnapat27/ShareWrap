@@ -41,7 +41,6 @@ jobs:
     - name: Run Robot Framework Tests
       run: |
         cd 'automated test cases'
-        robot test.robot
         robot Auto01_Sys01.robot
         robot Auto02_Sys02.robot
         robot Auto03_Sys03.robot
