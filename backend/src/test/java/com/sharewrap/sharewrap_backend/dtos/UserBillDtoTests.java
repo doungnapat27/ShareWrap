@@ -18,8 +18,8 @@ public class UserBillDtoTests {
         userBillDto.setUserId("user1");
         userBillDto.setBillId(2L);
         userBillDto.setShareTotal(100.0);
-        userBillDto.setPaid(true);
-        userBillDto.setApprove(true);
+        userBillDto.setIsPaid(true);
+        userBillDto.setIsApprove(true);
         userBillDto.setItems(new ArrayList<>());
         userBillDto.setPaymentType('P');
         userBillDto.setBillName("bill1");
