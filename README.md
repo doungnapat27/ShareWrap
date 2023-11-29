@@ -353,8 +353,9 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
 <details>
   <summary><h2> 💚 BONUS: CI Integration 💚 </h1></summary>
   We use Java CI with Maven because we write the unit test cases from the backend which use Java Maven (Springboot)
-  ![coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/doungnapat27/ShareWrap/main/.github/badges/jacoco.json&style=for-the-badge)
-  ![branches coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/doungnapat27/ShareWrap/main/.github/badges/branches.json&style=for-the-badge)
+  ![Build Status](https://github.com/doungnapat27/ShareWrap/actions/workflows/maven.yml/badge.svg) 
+  ![Coverage](.github/badges/jacoco.svg)
+  ![Branches](.github/badges/branches.svg)
 </details>
 
 </details>
