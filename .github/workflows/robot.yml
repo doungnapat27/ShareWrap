@@ -30,7 +30,7 @@ jobs:
     - name: Install ChromeDriver
       run: |
         CHROME_VERSION=$(google-chrome --version | sed 's/Google Chrome //')
-        CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION")
+        CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/index.html?path=114.0.5735.90")
         if [[ ! $CHROMEDRIVER_VERSION ]]; then
           echo "Failed to fetch ChromeDriver version for Chrome $CHROME_VERSION"
           exit 1
