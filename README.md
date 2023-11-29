@@ -46,11 +46,12 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
 <details>
 <summary><h2>📱 Unit testing 📱</h2></summary>
 <details>
-<summary><h3>Test case #1: <code> UserService - Test valid email and password for Log In </code> </h3></summary>
+<summary><h3>Test case #1: <code> UserService - Test Log In </code> </h3></summary>
    
 ### Name of the Test: test_login
 ### The goal of the test case: validate user input for a valid email and password, ensuring that the validation function works correctly.
 ### Tool using for testing: JUnit, Mockito
+### Technique using for testing: ISP
 ### The characteristics developed for this test case:
    - **Interface-based:**
    - **Functionality-based:**
@@ -158,6 +159,7 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
 ### Name of the Test: test_generateUniqueUserId
 ### The goal of the test case: Validate the generateUniqueUserId method in the UserService class produces unique user IDs.
 ### Tool using for testing: JUnit, Mockito
+### Technique using for testing: ISP
 ### The characteristics developed for this test case:
    - **Interface-based:**
    - **Functionality-based:**
@@ -243,6 +245,7 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
 ### Name of the Test: test_getUser
 ### The goal of the test case: Confirm and Validate retrieving and mapping a user when the user with the provided userId exists.
 ### Tool using for testing: JUnit, Mockito
+### Technique using for testing: ISP
 ### The characteristics developed for this test case:
    - **Interface-based:**
    - **Functionality-based:**
