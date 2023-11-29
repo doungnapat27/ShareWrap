@@ -4,7 +4,7 @@ Library           SeleniumLibrary
 
 *** Variables ***
 ${URL}            https://sharewrap-69b7da4e01ff.herokuapp.com/
-${BROWSER}        headlesschrome
+${BROWSER}        Chrome
 ${USERNAME}       Test17
 ${EMAIL}          test_17@gmail.com
 ${PASSWORD}       Test17
