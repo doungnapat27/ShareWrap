@@ -185,4 +185,15 @@ public class BillService {
         billRepository.save(bill);
         return "Receipt uploaded successfully";
     }
+
+    public List<BillDto> allBills() {
+        List<Bill> bills = billRepository.findAll();
+        return billMapper.toBillDtos(bills);
+    }
+
+    public BillDto getBill(Long id) {
+        Bill bill = billRepository.findById(id)
+                .orElseThrow(() -> new AppException("Bill not found", HttpStatus.NOT_FOUND));
+        return billMapper.toBillDto(bill);
+    }
 }
