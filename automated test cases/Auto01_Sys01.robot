@@ -15,9 +15,9 @@ Register And Login User
     Open Browser To Homepage
     Press Sign Up
     Fill Registration Form And Submit
-    Sleep    5s    # Waits for 5 seconds after registration
+    Sleep    10s    # Waits for 5 seconds after registration
     Fill Login Form with Invalid Password And Submit
-    Sleep    5s
+    Sleep    10s
     Fill Login Form And Submit
 
 *** Keywords ***
