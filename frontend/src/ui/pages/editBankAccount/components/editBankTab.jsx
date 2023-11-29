@@ -128,7 +128,6 @@ function EditBankTab() {
                 <Button
                   fullWidth
                   variant="contained"
-                  // onClick={handleChangeIsProptPay}
                   href="/edit-promptpay"
                   sx={{
                     backgroundColor: isPromptPay

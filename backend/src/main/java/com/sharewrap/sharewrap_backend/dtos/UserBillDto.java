@@ -57,4 +57,5 @@ public class UserBillDto {
     public void setIsPaid(Boolean isPaid) {
         this.isPaid = isPaid;
     }
+
 }

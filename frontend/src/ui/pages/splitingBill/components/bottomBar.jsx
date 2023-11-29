@@ -92,7 +92,7 @@ function BottomBar({ itemList, onSaveBill }) {
                 Add bank account details
               </Typography>
               {isLoading ? (
-                <CircularProgress size={24} style={{ color: "rgba(152, 30, 37, 0.80)" }} />
+                <CircularProgress size={24} style={{ color: "rgba(152, 30, 37)" }} />
               ) : (
                 <AddCircleIcon sx={{ color: "#545454" }} />
               )}
@@ -111,7 +111,7 @@ function BottomBar({ itemList, onSaveBill }) {
                 Add PromptPay details
               </Typography>
               {isLoading ? (
-                <CircularProgress size={22.85} style={{ color: "rgba(152, 30, 37, 0.80)" }} />
+                <CircularProgress size={22.85} style={{ color: "rgba(152, 30, 37)" }} />
               ) : (
                 <AddCircleIcon sx={{ color: "#545454" }} />
               )}
@@ -125,7 +125,7 @@ function BottomBar({ itemList, onSaveBill }) {
             disabled={isLoading}
           >
             {isLoading ? (
-              <CircularProgress size={24} style={{ color: "rgba(152, 30, 37, 0.80)" }} />
+              <CircularProgress size={24} style={{ color: "white" }} />
             ) : (
               "Next"
             )}

@@ -12,7 +12,7 @@ export const setUser = (user) => {
   window.localStorage.setItem('auth_user', user);
 };
 
-axios.defaults.baseURL = 'http://localhost:8080';
+axios.defaults.baseURL = 'https://sharewrap-backend-616c8f6eaf1d.herokuapp.com/';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 export const request = (method, url, data) => {

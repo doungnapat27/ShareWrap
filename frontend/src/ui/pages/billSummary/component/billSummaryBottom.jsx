@@ -29,10 +29,11 @@ function BillSummaryBottom() {
   const handleCreateBill = async (event) => {
     event.preventDefault();
     setIsLoading(true);
-    console.log("creating bill...");
+    
     try {
       const userBillsRaws = JSON.parse(localStorage.getItem("billsummary"));
-      const userBills = userBillsRaws.map((userBill) => {
+      const skippedBillOwner = userBillsRaws.slice(1);
+      const userBills = skippedBillOwner.map((userBill) => {
         return {
           userId: userBill.name,
           shareTotal: userBill.totalShare,

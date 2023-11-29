@@ -40,7 +40,7 @@ function AddFriendBottomBar({ selectedFriends, selectedFriendsId }) {
             disabled={isLoading} // Disable the button while loading
           >
             {isLoading ? (
-              <CircularProgress size={24} style={{ color: "rgba(152, 30, 37, 0.80)" }} />
+              <CircularProgress size={24} style={{ color: "white" }} />
             ) : (
               "Next"
             )}
