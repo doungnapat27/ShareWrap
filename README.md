@@ -323,7 +323,7 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
   <summary><h2> 👩🏻‍💻 System test (Manual test) 👨🏻‍💻 </h2></summary>
 
   ### Description
-  - ### Three of manual tests with traceability matrix is in folder 📁 ```manual test case``` ➡️ [URL TO FOLDER manual test case in GITHUB](www.google.com)
+  - ### Three of manual tests with traceability matrix is in folder 📁 ```manual test cases``` ➡️ [manual test cases](https://github.com/doungnapat27/ShareWrap/tree/QA_Project2/manual%20test%20cases)
   - **You must create at least 3 test cases for system testing.**
   - **Test case template and resources**
     - [DOC](https://www.softwaretestinghelp.com/wp-content/qa/uploads/2012/12/Test-case-example-doc.doc)
@@ -341,7 +341,7 @@ This practice is under the Faculty of ICT, Mahidol University, in ITCS473: Softw
   <summary><h2> 🤖 Automated UI Testing 🤖 </h2></summary>
   
   ### Description
-  - ### Three of automated UI tests with code using Selenium Web Driver is in folder 📁 ```automated test case``` ➡️ [URL TO FOLDER automated test case in GITHUB](www.google.com)
+  - ### Three of automated UI tests with code using Selenium Web Driver is in folder 📁 ```automated test cases``` ➡️ [automated test cases](https://github.com/doungnapat27/ShareWrap/tree/QA_Project2/automated%20test%20cases) 
   - create at least **3 automated UI test cases.** Based on the 3 manual system test cases that you created, convert them into automated UI test cases using **Selenium Web Driver or Robot framework.**
   - **[Automated UI Testing](https://studentmahidolac-my.sharepoint.com/:w:/g/personal/chaiyong_rag_mahidol_ac_th/EYxyoC1ZGkZPiKMl-9HXypsB9Xirs5iE6Bl3cCcb7plW1w?e=XdeDpo)**
 
