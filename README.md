@@ -2,6 +2,8 @@
   ![Coverage](.github/badges/jacoco.svg)
   ![Branches](.github/badges/branches.svg)
 
+## Hello World, Hello CI!😊
+
 ## Practical Software Engineering: What is ShareWrap?
 
   ### Description
